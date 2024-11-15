@@ -26,3 +26,6 @@ dist-ssr
 # yarn 관련 ignore 추가
 tsconfig.tsbuildinfo
 install-state.gz
+
+# storybook
+*storybook.log
