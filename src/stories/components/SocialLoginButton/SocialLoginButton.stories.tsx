@@ -19,6 +19,10 @@ const meta: Meta<typeof SocialLoginButton> = {
       options: ['kakao', 'google', 'naver'],
       description: '소셜 로그인 버튼의 타입을 지정합니다. 가능한 값은 "kakao", "google", "naver"입니다.',
     },
+    round: {
+      control: 'boolean',
+      description: '동그란 버튼을 사용할지 여부를 선택합니다.',
+    },
   },
 };
 
@@ -28,6 +32,7 @@ type Story = StoryObj<typeof meta>;
 export const KakaoLogin: Story = {
   args: {
     type: 'kakao',
+    round: false, // 기본적으로 가로 바 형태로 설정
   },
   parameters: {
     docs: {
@@ -38,9 +43,24 @@ export const KakaoLogin: Story = {
   },
 };
 
+export const KakaoLoginRound: Story = {
+  args: {
+    type: 'kakao',
+    round: true, // 동그란 버튼 형태
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '동그란 카카오 로그인 버튼입니다.',
+      },
+    },
+  },
+};
+
 export const GoogleLogin: Story = {
   args: {
     type: 'google',
+    round: false,
   },
   parameters: {
     docs: {
@@ -51,14 +71,43 @@ export const GoogleLogin: Story = {
   },
 };
 
+export const GoogleLoginRound: Story = {
+  args: {
+    type: 'google',
+    round: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '동그란 구글 로그인 버튼입니다.',
+      },
+    },
+  },
+};
+
 export const NaverLogin: Story = {
   args: {
     type: 'naver',
+    round: false,
   },
   parameters: {
     docs: {
       description: {
         story: '네이버 로그인 버튼입니다.',
+      },
+    },
+  },
+};
+
+export const NaverLoginRound: Story = {
+  args: {
+    type: 'naver',
+    round: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '동그란 네이버 로그인 버튼입니다.',
       },
     },
   },
