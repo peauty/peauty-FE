@@ -1,0 +1,26 @@
+name: TypeScript Check
+
+on:
+  push:
+    branches:
+      - develop
+      - feature/**
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code # 레포지토리 체크아웃
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js # Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22 # 프로젝트에 맞는 Node.js 버전을 설정
+
+      - name: Install dependencies # 의존성 설치
+        run: yarn install
+
+      - name: Run TypeScript check # 타입스크립트 체크
+        run: yarn tsc --noEmit
