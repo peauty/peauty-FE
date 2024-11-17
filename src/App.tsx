@@ -1,6 +1,5 @@
-import "./App.css";
-
 function App() {
+    console.log("콘솔");
     return <></>;
 }
 
