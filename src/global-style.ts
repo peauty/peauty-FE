@@ -1,7 +1,8 @@
 import { createGlobalStyle } from "styled-components";
+import { normalize } from "styled-normalize";
 
 const GlobalStyle = createGlobalStyle`
-
+  ${normalize}
  html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -45,6 +46,7 @@ body {
       justify-content: center;
       align-items: center;
       width: 100%;
+      background-color: white;
       max-width: 480px;
       min-width: 375px;
       height: 100%;

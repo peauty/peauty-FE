@@ -1,7 +1,7 @@
 function App() {
   console.log("콘솔");
 
-  return <></>;
+  return <>ㅇㅇㅇ</>;
 }
 
 export default App;
