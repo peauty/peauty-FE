@@ -24,3 +24,6 @@ jobs:
 
       - name: Run TypeScript check # 타입스크립트 체크
         run: yarn tsc --noEmit
+
+      - name: Build the project # 프로젝트 빌드
+        run: yarn build
