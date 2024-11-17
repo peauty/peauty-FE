@@ -115,6 +115,9 @@ export const FullWidthContainer: Story = {
 
 // 버튼 그룹 예시
 export const ButtonGroup: Story = {
+  args: {
+    children: '버튼', // 기본 children 값 추가
+  },
   render: () => (
     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
       <CustomButton variant="primary" size="medium">확인</CustomButton>
@@ -126,6 +129,9 @@ export const ButtonGroup: Story = {
 
 // 다양한 너비의 버튼 예시
 export const VariousWidths: Story = {
+  args: {
+    children: '버튼', // 기본 children 값 추가
+  },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '600px' }}>
       <CustomButton variant="primary">기본 버튼</CustomButton>

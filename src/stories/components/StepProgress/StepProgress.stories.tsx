@@ -19,7 +19,7 @@ const meta: Meta<typeof StepProgress> = {
       description: '현재 진행 단계',
     },
     steps: {
-      control: 'array',
+      control: [],
       description: '각 단계별 텍스트',
     },
     activeColor: {

@@ -69,25 +69,25 @@ const StyledInput = styled.input<{
     cursor: not-allowed;
   }
 
-  ${props => props.$variant === 'outlined' ? css`
+  ${({ $variant, $error }) => $variant === 'outlined' ? css`
     border-radius: 20px;
-    border: 2px solid ${props => props.$error ? '#EF4444' : '#E5E7EB'};
+    border: 2px solid ${$error ? '#EF4444' : '#E5E7EB'};
     padding: 8px 16px;
     height: 32px;
 
     &:focus {
-      border-color: ${props => props.$error ? '#EF4444' : '#4F46E5'};
-      box-shadow: 0 0 0 3px ${props => props.$error ? 'rgba(239, 68, 68, 0.1)' : 'rgba(79, 70, 229, 0.1)'};
+      border-color: ${$error ? '#EF4444' : '#4F46E5'};
+      box-shadow: 0 0 0 3px ${$error ? 'rgba(239, 68, 68, 0.1)' : 'rgba(79, 70, 229, 0.1)'};
     }
   ` : css`
     border: none;
-    border-bottom: 2px solid ${props => props.$error ? '#EF4444' : '#E5E7EB'};
+    border-bottom: 2px solid ${$error ? '#EF4444' : '#E5E7EB'};
     border-radius: 0;
     padding: 4px 0;
     height: 24px;
 
     &:focus {
-      border-bottom-color: ${props => props.$error ? '#EF4444' : '#4F46E5'};
+      border-bottom-color: ${$error ? '#EF4444' : '#4F46E5'};
     }
   `}
 `;
