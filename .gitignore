@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# yarn 관련 ignore 추가
+tsconfig.tsbuildinfo
+install-state.gz
+.yarn/*
+
+# storybook
+*storybook.log
