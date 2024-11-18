@@ -4836,6 +4836,7 @@ __metadata:
     "@chromatic-com/storybook": "npm:^3.2.2"
     "@eslint/compat": "npm:^1.2.3"
     "@eslint/js": "npm:^9.13.0"
+    "@eslint/plugin-kit": "npm:^0.2.3"
     "@storybook/addon-essentials": "npm:^8.4.4"
     "@storybook/addon-interactions": "npm:^8.4.4"
     "@storybook/addon-onboarding": "npm:^8.4.4"
