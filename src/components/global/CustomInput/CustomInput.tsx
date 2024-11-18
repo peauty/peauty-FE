@@ -1,6 +1,7 @@
 // CustomInput.tsx
 import React, { InputHTMLAttributes } from 'react';
 import styled, { css, keyframes } from 'styled-components';
+import { colors } from '../../../style/color';
 
 interface CustomInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /**
@@ -44,7 +45,7 @@ const Container = styled.div<{ $fullWidth: boolean }>`
 
 const Label = styled.label`
   font-weight: 500;
-  color: #374151;
+  color: ${colors.gray300};
   margin-bottom: 4px;
 `;
 
@@ -57,37 +58,37 @@ const StyledInput = styled.input<{
   width: ${props => props.$fullWidth ? '100%' : 'auto'};
   transition: all 0.2s ease-in-out;
   outline: none;
-  background-color: white;
+  background-color: ${colors.white};
   font-size: 14px;
 
   &::placeholder {
-    color: #9CA3AF;
+    color: ${colors.gray200};
   }
 
   &:disabled {
-    background-color: #F3F4F6;
+    background-color: ${colors.gray100};
     cursor: not-allowed;
   }
 
   ${({ $variant, $error }) => $variant === 'outlined' ? css`
     border-radius: 20px;
-    border: 2px solid ${$error ? '#EF4444' : '#E5E7EB'};
+    border: 2px solid ${$error ? colors.red300 : colors.gray200};
     padding: 8px 16px;
     height: 32px;
 
     &:focus {
-      border-color: ${$error ? '#EF4444' : '#4F46E5'};
+      border-color: ${$error ? colors.red300 : colors.blue200};
       box-shadow: 0 0 0 3px ${$error ? 'rgba(239, 68, 68, 0.1)' : 'rgba(79, 70, 229, 0.1)'};
     }
   ` : css`
     border: none;
-    border-bottom: 2px solid ${$error ? '#EF4444' : '#E5E7EB'};
+    border-bottom: 2px solid ${$error ? colors.red300 : colors.gray200};
     border-radius: 0;
     padding: 4px 0;
     height: 24px;
 
     &:focus {
-      border-bottom-color: ${$error ? '#EF4444' : '#4F46E5'};
+      border-bottom-color: ${$error ? colors.red300 : colors.blue200};
     }
   `}
 `;
@@ -95,7 +96,7 @@ const StyledInput = styled.input<{
 const Message = styled.p<{ $error?: boolean }>`
   font-size: 14px;
   margin-top: 4px;
-  color: ${props => props.$error ? '#EF4444' : '#6B7280'};
+  color: ${props => props.$error ? colors.red300 : colors.gray200};
   animation: ${fadeIn} 0.2s ease-in-out;
 `;
 
