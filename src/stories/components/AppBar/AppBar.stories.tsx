@@ -10,13 +10,20 @@ const meta: Meta<typeof AppBar> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+function handleBackClick() {
+  if (window.history.length > 1) {
+    window.history.back(); // 이전 페이지로 이동
+  }
+}
+
+
 export const Default: Story = {
   args: {},
 };
 
 export const Back: Story = {
   args: {
-    prefix: <AppBarBack height="20px" cursor="pointer" />,
+    prefix: <AppBarBack height="20px" cursor="pointer" onClick={handleBackClick}/>,
   },
 };
 
