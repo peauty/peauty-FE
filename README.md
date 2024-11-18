@@ -1,4 +1,4 @@
-# pawfit-FE
+# peauty-FE
 
 Node `20.17.0`,
 Typescript, React, Vite, Recoil, yarn

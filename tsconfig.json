@@ -1,7 +1,11 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src", "custom.d.ts"],
+
+  "compilerOptions": {
+    "jsx": "react-jsx", // React 17 이상의 JSX 변환을 사용할 경우
+    "strict": true, // 선택적, 더 엄격한 타입 검사를 활성화
+    "esModuleInterop": true, // ES 모듈과의 호환성
+    "skipLibCheck": true, // 라이브러리 타입 체크 건너뛰기
+    "noEmit": true // .js 파일 생성 방지
+  }
 }
