@@ -1,5 +1,10 @@
 # pawfit-FE
 
-Node 20.11.0
+Node `20.17.0`,
+Typescript, React, Vite, Recoil, yarn
 
-Typescript, React, Vite, Recoil
+프로젝트 개발 모드
+```
+yarn install
+yarn dev
+```
