@@ -49,6 +49,7 @@ body {
       background-color: white;
       max-width: 480px;
       min-width: 375px;
+      padding: 0 25px;
       height: 100%;
   }
 ol, ul {
