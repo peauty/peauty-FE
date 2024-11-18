@@ -3,11 +3,12 @@ import { Logo } from '../../../assets/svg';
 import styled from 'styled-components';
 
 interface Props {
-  prefix?: ReactNode;
-  suffix?: ReactNode;
+  prefix?: ReactNode; // 왼쪽 영역 (예: 뒤로가기 버튼)
+  title?: string; // 중앙 제목
+  titleSize?: string; // 제목 크기 (예: '16px', '1.5rem')
+  suffix?: ReactNode; // 오른쪽 영역
 }
 
-// Styled Component 정의
 const StyledHeader = styled.header`
   position: fixed;
   top: 0;
@@ -20,14 +21,24 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 18px;
-  gap: 16px;
+  padding: 0 18px;
 `;
 
-export function AppBar({ prefix, suffix }: Props) {
+const Title = styled.h1<{ size: string }>`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: ${(props) => props.size};
+  font-weight: bold;
+  color: black;
+  white-space: nowrap;
+`;
+
+export function AppBar({ prefix, title, titleSize = '18px', suffix }: Props) {
   return (
     <StyledHeader>
       {prefix ? prefix : <Logo width="94px" height="24px" />}
+      {title && <Title size={titleSize}>{title}</Title>}
       {suffix && suffix}
     </StyledHeader>
   );

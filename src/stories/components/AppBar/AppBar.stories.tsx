@@ -12,10 +12,11 @@ type Story = StoryObj<typeof meta>;
 
 function handleBackClick() {
   if (window.history.length > 1) {
-    window.history.back(); // 이전 페이지로 이동
+    window.history.back();
+  } else {
+    alert('이전 페이지가 없습니다.');
   }
 }
-
 
 export const Default: Story = {
   args: {},
@@ -23,20 +24,14 @@ export const Default: Story = {
 
 export const Back: Story = {
   args: {
-    prefix: <AppBarBack height="20px" cursor="pointer" onClick={handleBackClick}/>,
+    prefix: (
+      <AppBarBack
+        height="20px"
+        cursor="pointer"
+        onClick={handleBackClick}
+      />
+    ),
+    title: '제목을 입력하세요', // 제목 추가
+    titleSize: '16px', // 제목 크기 설정
   },
 };
-
-// export const SearchInput: Story = {
-//   args: {
-//     prefix: <AppBarBack height="24px" cursor="pointer" />,
-//     suffix: <SearchBar autoFocus />,
-//   },
-// };
-
-// export const Search: Story = {
-//   args: {
-//     prefix: <Logo width="94px" height="24px" />,
-//     suffix: <SearchIcon width="20px" height="20px" cursor="pointer" />,
-//   },
-// };
