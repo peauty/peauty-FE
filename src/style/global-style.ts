@@ -1,17 +1,15 @@
-import { createGlobalStyle } from 'styled-components';
-import theme from './theme';
-import './normalize.css';
-import './fonts.css';
+import { createGlobalStyle } from "styled-components";
+import theme from "./theme";
+import "./normalize.css";
+import "./fonts.css";
 
 const GlobalStyle = createGlobalStyle`
   :root {
     font-family: 'Pretendard Variable', 'Pretendard', '-apple-system', 'BlinkMacSystemFont',
       'system-ui', 'Roboto', 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
       'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'sans-serif';
-    width: 100%;
-    height: 100%;
     color: ${theme.colors.black100};
-    background-color: ${theme.colors.white};
+    background-color: ${theme.colors.gray100};   
   }
 
   * {
@@ -19,7 +17,6 @@ const GlobalStyle = createGlobalStyle`
     scrollbar-width: none;
     -ms-overflow-style: none;
     font-family: inherit;
-
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -31,11 +28,24 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box !important;
   }
 
-  html,
-  body {
+  html{
     margin: 0;
-    padding: 0;
+	  padding: 0;
+	  border: 0;
+    display: flex;
+    justify-content: center;
+}
+  body {
+    width: 100%;
+    height: 100%;
+    padding: 0 25px;
     overscroll-behavior: none;
+    background-color: ${theme.colors.white};
+    max-width: ${theme.size.maxWidth};
+    min-width: ${theme.size.minWidth};
+    margin: 0;
+    display: flex;
+    justify-content: center;
   }
 
   a {
