@@ -44,8 +44,6 @@ const GlobalStyle = createGlobalStyle`
     max-width: ${theme.size.maxWidth};
     min-width: ${theme.size.minWidth};
     margin: 0;
-    display: flex;
-    justify-content: center;
   }
 
   a {
