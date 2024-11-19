@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Tag } from "./Tag";
+import { colors } from "../../../style/color";
 
 // Storybook 메타데이터 설정
 const meta: Meta<typeof Tag> = {
@@ -17,20 +18,25 @@ type Story = StoryObj<typeof Tag>;
 // 기본 태그
 export const Default: Story = {
   args: {
-    tagName: "기본 태그",
+    children: "기본 태그", // children으로 전달
   },
 };
 
-// 커스텀 태그
-export const CustomTag: Story = {
+// 커스텀 색상 태그
+export const CustomColorTag: Story = {
   args: {
-    tagName: "커스텀 태그",
+    children: "커스텀 색상 태그", // children으로 전달
+    color: {
+      backgroundColor: colors.white,  // 황금색 배경
+      borderColor: colors.gray300,      // 주황색 테두리
+      fontColor: colors.gray300,        // 흰색 폰트
+    },
   },
 };
 
 // 길이가 긴 태그
 export const LongTag: Story = {
   args: {
-    tagName:"문자가 기이이이인 태그",
+    children: "문자가 기이이이인 태그", // children으로 전달
   },
 };
