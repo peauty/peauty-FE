@@ -115,6 +115,7 @@ export const Playground: Story = {
   },
 };
 
+
 export const WithSuffix: Story = {
   args: {
     label: '제목',
