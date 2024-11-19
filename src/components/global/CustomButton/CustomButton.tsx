@@ -147,7 +147,7 @@ export function CustomButton({
   variant = 'primary',
   disabled = false,
   onClick,
-  fullWidth = false,
+  fullWidth = true,
 }: CustomButtonProps) {
   return (
     <Button

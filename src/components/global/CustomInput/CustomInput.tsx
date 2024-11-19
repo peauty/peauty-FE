@@ -152,9 +152,9 @@ export function CustomInput({
   label,
   error,
   hint,
-  fullWidth = false,
+  fullWidth = true,
   disabled = false,
-  variant = 'outlined',
+  variant = 'underlined',
   suffix,
   hasButton = false,
   ...props

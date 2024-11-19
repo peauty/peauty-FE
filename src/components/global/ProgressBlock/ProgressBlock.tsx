@@ -1,5 +1,6 @@
 // ProgressBlock.tsx
 import styled from 'styled-components';
+import { colors } from '../../../style/color';
 
 interface ProgressBlockProps {
   /**
@@ -59,9 +60,9 @@ export function ProgressBlock({
   current,
   gap = 4,
   blockWidth = '64px',
-  blockHeight = '8px',
-  activeColor = '#2563EB',
-  inactiveColor = '#F1F3F5',
+  blockHeight = '7px',
+  activeColor = `${colors.blue200}`,
+  inactiveColor = `${colors.blue100}`,
 }: ProgressBlockProps) {
   const normalizedCurrent = Math.min(total, Math.max(0, current));
 
