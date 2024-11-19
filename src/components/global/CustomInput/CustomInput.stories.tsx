@@ -1,7 +1,7 @@
 // CustomInput.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 import { CustomInput } from './CustomInput';
-
+import { CustomButton } from '../CustomButton/CustomButton';
 const meta = {
   title: 'Components/CustomInput',
   component: CustomInput,
@@ -112,5 +112,19 @@ export const Playground: Story = {
     disabled: false,
     error: '',
     hint: '',
+  },
+};
+
+
+export const WithSuffix: Story = {
+  args: {
+    label: '제목',
+    placeholder: '값을 입력해주세요',
+    variant: 'underlined',
+    suffix: (
+      <CustomButton  size="small">
+        확인
+      </CustomButton>
+    ),
   },
 };

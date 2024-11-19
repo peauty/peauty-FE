@@ -2,7 +2,6 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { colors } from '../../../style/color';
-
 interface CustomButtonProps {
   /**
    * 버튼 내부 텍스트
@@ -55,6 +54,7 @@ const Button = styled.button<{
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   width: ${props => props.$fullWidth ? '100%' : 'auto'};
+  color: ${colors.white};
 
   // 크기 설정
   ${props => {
@@ -62,19 +62,19 @@ const Button = styled.button<{
       case 'small':
         return css`
           padding: 8px 16px;
-          font-size: 14px;
+          font-size: 10px;
           height: 32px;
         `;
       case 'large':
         return css`
           padding: 16px 32px;
-          font-size: 18px;
+          font-size: 12px;
           height: 48px;
         `;
       default: // medium
         return css`
           padding: 12px 24px;
-          font-size: 16px;
+          font-size: 12px;
           height: 40px;
         `;
     }
@@ -114,14 +114,13 @@ const Button = styled.button<{
       default: // primary
         return css`
           background-color: ${colors.blue200};
-          color: white;
           border: none;
-          box-shadow: 0 2px 4px rgba(79, 70, 229, 0.1);
+          box-shadow: 0 2px 4px ${colors.blue100};
           
           &:hover:not(:disabled) {
-            background-color:blue;
+            background-color: ${colors.blue200};
             transform: translateY(-1px);
-            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+            box-shadow: 0 4px 6px ${colors.blue100};
           }
           
           &:active:not(:disabled) {
@@ -138,7 +137,7 @@ const Button = styled.button<{
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+    box-shadow: 0 0 0 3px ${colors.blue100};
   }
 `;
 
