@@ -3,7 +3,7 @@ import { Arrow } from '../../../assets/svg';
 import { useNavigate } from 'react-router-dom'; 
 import styled from 'styled-components';
 import theme from '../../../style/theme'; 
-interface SubMenuProps {
+ export interface SubMenuProps {
   text: string; // 공지사항 텍스트
   to: string; // 이동할 페이지 URL 
 }
