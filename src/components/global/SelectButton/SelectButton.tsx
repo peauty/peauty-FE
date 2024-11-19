@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors } from "../../../style/color";
 import theme from "../../../style/theme";
 
-interface SelectButtonProps {
+export interface SelectButtonProps {
   text: string;
   onClick?: () => void;
 }
