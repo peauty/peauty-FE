@@ -107,6 +107,27 @@ const StyledInput = styled.input<{ $error: boolean }>`
 
 const SuffixContainer = styled.div`
   margin-left: 8px; /* 입력 필드와 suffix 간 간격 */
+  ${({ $variant, $error }) => $variant === 'outlined' ? css`
+    border-radius: 20px;
+    border: 2px solid ${$error ? colors.red300 : colors.gray200};
+    padding: 8px 16px;
+    height: 32px;
+
+    &:focus {
+      border-color: ${$error ? colors.red300 : colors.blue200};
+      box-shadow: 0 0 0 3px ${$error ? 'rgba(239, 68, 68, 0.1)' : 'rgba(79, 70, 229, 0.1)'};
+    }
+  ` : css`
+    border: none;
+    border-bottom: 2px solid ${$error ? colors.red300 : colors.gray200};
+    border-radius: 0;
+    padding: 4px 0;
+    height: 24px;
+
+    &:focus {
+      border-bottom-color: ${$error ? colors.red300 : colors.blue200};
+    }
+  `}
 `;
 
 const Message = styled.p<{ $error?: boolean }>`
