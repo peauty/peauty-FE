@@ -16,12 +16,11 @@ const StyledHeader = styled.header`
   z-index: 2;
   width: 100%;
   height: 70px;
-  max-width: 480px;
+  max-width: 430px;
   background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 18px;
 `;
 
 const Title = styled.h1<{ size: string }>`

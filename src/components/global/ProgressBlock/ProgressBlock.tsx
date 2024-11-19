@@ -1,5 +1,4 @@
 // ProgressBlock.tsx
-import React from 'react';
 import styled from 'styled-components';
 
 interface ProgressBlockProps {
@@ -36,6 +35,8 @@ interface ProgressBlockProps {
 const Container = styled.div<{ gap: number }>`
   display: flex;
   gap: ${props => `${props.gap}px`};
+  justify-content: center; // 가운데 정렬 추가
+  width: 100%; // 전체 너비를 사용하도록 설정
 `;
 
 const Block = styled.div<{

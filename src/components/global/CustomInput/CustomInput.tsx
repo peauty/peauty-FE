@@ -50,7 +50,7 @@ const fadeIn = keyframes`
 const Container = styled.div<{ $fullWidth: boolean; $hasButton: boolean }>`
   display: flex;
   flex-direction: column;
-  width: ${({ $fullWidth }) => ($fullWidth ? '100%' : theme.size.maxWidth || 'auto')};
+  width: ${({ $fullWidth }) => ($fullWidth ? '100%' :'auto')};
   ${({ $hasButton }) => $hasButton && css`
     margin-bottom: 10px; /* 버튼이 있을 때 margin-bottom을 10px 추가 */
   `}
