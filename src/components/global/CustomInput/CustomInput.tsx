@@ -1,3 +1,4 @@
+
 import React, { InputHTMLAttributes, ReactNode } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { typography } from '../../../style/typography';
@@ -147,7 +148,7 @@ const Message = styled.p<{ $error?: boolean }>`
   animation: ${fadeIn} 0.3s ease-in-out; /* 애니메이션 시간 증가 */
 `;
 
-export const CustomInput: React.FC<CustomInputProps> = ({
+export function CustomInput({
   label,
   error,
   hint,
@@ -157,7 +158,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
   suffix,
   hasButton = false,
   ...props
-}) => {
+}: CustomInputProps) {
   return (
     <Container $fullWidth={fullWidth} $hasButton={hasButton}>
       {label && <Label>{label}</Label>}
@@ -169,3 +170,4 @@ export const CustomInput: React.FC<CustomInputProps> = ({
     </Container>
   );
 };
+
