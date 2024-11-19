@@ -60,7 +60,7 @@ const Progress = styled.div<{ progress: number; progressColor: string }>`
   transition: width 0.3s ease-in-out;
 `;
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({
+export function ProgressBar({
   progress,
   width = '300px',
   height = '8px',
@@ -68,8 +68,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   progressColor = '#2563EB',
   textColor = '#111827',
   fontSize = '14px'
-}) => {
-  // 진행률을 0-100 사이의 값으로 제한
+}: ProgressBarProps) {
   const normalizedProgress = Math.min(100, Math.max(0, progress));
 
   return (
@@ -92,4 +91,4 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       </ProgressBarContainer>
     </Container>
   );
-};
+}

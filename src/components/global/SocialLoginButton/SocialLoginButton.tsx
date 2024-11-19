@@ -43,7 +43,10 @@ type SocialLoginButtonProps = {
       `}
   `;
   
-  const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({ type, round = false }) => {
+  function SocialLoginButton({ 
+    type, 
+    round = false 
+  }: SocialLoginButtonProps) {
     const getButtonText = () => {
       switch (type) {
         case 'kakao':
@@ -76,6 +79,6 @@ type SocialLoginButtonProps = {
         {!round && getButtonText()}
       </ButtonWrapper>
     );
-  };
+  }  
   
   export default SocialLoginButton;

@@ -52,7 +52,8 @@ const Block = styled.div<{
   transition: background-color 0.3s ease-in-out;
 `;
 
-export const ProgressBlock: React.FC<ProgressBlockProps> = ({
+
+export function ProgressBlock({
   total,
   current,
   gap = 4,
@@ -60,8 +61,7 @@ export const ProgressBlock: React.FC<ProgressBlockProps> = ({
   blockHeight = '8px',
   activeColor = '#2563EB',
   inactiveColor = '#F1F3F5',
-}) => {
-  // 현재 진행값을 0과 total 사이로 제한
+}: ProgressBlockProps) {
   const normalizedCurrent = Math.min(total, Math.max(0, current));
 
   return (
@@ -78,4 +78,4 @@ export const ProgressBlock: React.FC<ProgressBlockProps> = ({
       ))}
     </Container>
   );
-};
+}

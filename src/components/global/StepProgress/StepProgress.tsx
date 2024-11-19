@@ -111,14 +111,14 @@ const StepText = styled.span<{ active: boolean; textColor: string }>`
   -webkit-box-orient: vertical;
 `;
 
-export const StepProgress: React.FC<StepProgressProps> = ({
+export function StepProgress({
   total,
   current,
   steps,
   activeColor = '#2563EB',
   inactiveColor = '#E2E8F0',
   textColor = '#1F2937'
-}) => {
+}: StepProgressProps) {
   const normalizedCurrent = Math.min(Math.max(1, current), total);
 
   return (
@@ -146,4 +146,4 @@ export const StepProgress: React.FC<StepProgressProps> = ({
       ))}
     </Container>
   );
-};
+}

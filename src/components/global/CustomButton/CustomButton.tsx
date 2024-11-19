@@ -142,14 +142,14 @@ const Button = styled.button<{
   }
 `;
 
-export const CustomButton: React.FC<CustomButtonProps> = ({
+export function CustomButton({
   children,
   size = 'medium',
   variant = 'primary',
   disabled = false,
   onClick,
   fullWidth = false,
-}) => {
+}: CustomButtonProps) {
   return (
     <Button
       size={size}
@@ -161,4 +161,4 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
       {children}
     </Button>
   );
-};
+}

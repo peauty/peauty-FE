@@ -1,5 +1,5 @@
 // CustomInput.tsx
-import React, { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { colors } from '../../../style/color';
 
@@ -100,7 +100,7 @@ const Message = styled.p<{ $error?: boolean }>`
   animation: ${fadeIn} 0.2s ease-in-out;
 `;
 
-export const CustomInput: React.FC<CustomInputProps> = ({
+export function CustomInput({
   label,
   error,
   hint,
@@ -108,7 +108,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
   disabled = false,
   variant = 'outlined',
   ...props
-}) => {
+}: CustomInputProps) {
   return (
     <Container $fullWidth={fullWidth}>
       {label && <Label>{label}</Label>}
@@ -126,4 +126,4 @@ export const CustomInput: React.FC<CustomInputProps> = ({
       )}
     </Container>
   );
-};
+}
