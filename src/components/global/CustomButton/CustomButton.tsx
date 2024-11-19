@@ -1,6 +1,7 @@
 // CustomButton.tsx
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
+import { colors } from '../../../style/color';
 
 interface CustomButtonProps {
   /**
@@ -49,7 +50,7 @@ const Button = styled.button<{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: 5px;
   font-weight: 500;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -85,7 +86,7 @@ const Button = styled.button<{
       case 'secondary':
         return css`
           background-color: #EEF2FF;
-          color: #4F46E5;
+          color: ${colors.blue200};
           border: none;
           
           &:hover:not(:disabled) {
@@ -99,8 +100,8 @@ const Button = styled.button<{
       case 'outline':
         return css`
           background-color: transparent;
-          color: #4F46E5;
-          border: 2px solid #4F46E5;
+          color: ${colors.blue200};
+          border: 2px solid ${colors.blue200};
           
           &:hover:not(:disabled) {
             background-color: #EEF2FF;
@@ -112,13 +113,13 @@ const Button = styled.button<{
         `;
       default: // primary
         return css`
-          background-color: #4F46E5;
+          background-color: ${colors.blue200};
           color: white;
           border: none;
           box-shadow: 0 2px 4px rgba(79, 70, 229, 0.1);
           
           &:hover:not(:disabled) {
-            background-color: #4338CA;
+            background-color:blue;
             transform: translateY(-1px);
             box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
           }
