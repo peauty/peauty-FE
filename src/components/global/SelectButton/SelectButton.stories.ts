@@ -1,6 +1,6 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { SelectButton, SelectButtonProps, ButtonContainer } from "./SelectButton";
+import { SelectButton } from "./index";
+import { SelectButtonProps } from "./SelectButton";
 
 // Storybook 메타데이터 설정
 const meta: Meta<typeof SelectButton> = {

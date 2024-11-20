@@ -1,6 +1,6 @@
 // ProgressBlock.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProgressBlock } from './ProgressBlock';
+import { ProgressBlock } from './index';
 
 const meta: Meta<typeof ProgressBlock> = {
   title: 'Components/ProgressBlock',
