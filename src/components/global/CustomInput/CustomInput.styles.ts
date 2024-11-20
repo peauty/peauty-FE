@@ -81,7 +81,8 @@ export const StyledInput = styled.input<{ $error: boolean }>`
 
 export const SuffixContainer = styled.div<{ $variant: string; $error: boolean }>`
   margin-left: 8px;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center; // 버튼을 수직 중앙 정렬
   ${({ $variant, $error }) => $variant === 'outlined'
     ? css`
         border-radius: 20px;
