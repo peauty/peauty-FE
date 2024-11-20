@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import SignUp from "./page/sign-up";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      // 사용 예시
-      //   {
-      //     path: "login",
-      //     element: <Login />,
-      //   },
+        {
+          path: "signup",
+          element: <SignUp />,
+        },
     ],
   },
 ]);
