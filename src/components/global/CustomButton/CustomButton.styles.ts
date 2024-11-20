@@ -24,6 +24,7 @@ export const Button = styled.button<{
   justify-content: center;
   border-radius: 5px;
   font-weight: 500;
+  margin: 10px 10px;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   width: ${props => props.$fullWidth ? '100%' : 'auto'};
@@ -42,7 +43,9 @@ export const Button = styled.button<{
         return css`
           padding: 16px 32px;
           font-size: 12px;
-          height: 48px;
+          height: 250px;
+          width: 180px;
+          border-radius: 10px;
         `;
       default: // medium
         return css`
@@ -60,7 +63,7 @@ export const Button = styled.button<{
         return css`
           background-color: #EEF2FF;
           color: ${colors.blue200};
-          border: none;
+          border: 2px solid ${colors.blue200};
           
           &:hover:not(:disabled) {
             background-color: #E0E7FF;
@@ -73,8 +76,8 @@ export const Button = styled.button<{
       case 'outline':
         return css`
           background-color: transparent;
-          color: ${colors.blue200};
-          border: 2px solid ${colors.blue200};
+          color: ${colors.grayOpacity200};
+          border: 2px solid ${colors.grayOpacity100};
           
           &:hover:not(:disabled) {
             background-color: #EEF2FF;
