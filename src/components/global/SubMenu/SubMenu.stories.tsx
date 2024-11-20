@@ -1,6 +1,5 @@
-import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import { SubMenu, SubMenuProps} from './SubMenu';
+import SubMenu, { SubMenuProps} from './SubMenu';
 import { BrowserRouter } from 'react-router-dom';
 
 export default {

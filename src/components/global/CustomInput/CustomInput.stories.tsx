@@ -1,7 +1,7 @@
 // CustomInput.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
-import { CustomInput } from './CustomInput';
-import { CustomButton } from '../CustomButton/CustomButton';
+import { CustomInput } from './index';
+import { CustomButton } from '../CustomButton/index';
 const meta = {
   title: 'Components/CustomInput',
   component: CustomInput,

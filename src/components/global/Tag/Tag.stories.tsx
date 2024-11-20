@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Tag } from "./Tag";
+import { Tag } from "./index";
 import { colors } from "../../../style/color";
 
 // Storybook 메타데이터 설정

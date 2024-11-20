@@ -1,6 +1,6 @@
 // StepProgress.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
-import { StepProgress } from './StepProgress'
+import { StepProgress } from './index'
 
 const meta: Meta<typeof StepProgress> = {
   title: 'Components/StepProgress',
