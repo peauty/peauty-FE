@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { ButtonGrid, ButtonGridProps } from "./ButtonGrid";
+import ButtonGrid, { ButtonGridProps } from "./ButtonGrid";
 
 const meta: Meta<typeof ButtonGrid> = {
   title: "Components/ButtonGrid",
