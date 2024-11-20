@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { GNB } from "./GNB";
+import GNB from "./GNB";
 import { MemoryRouter } from "react-router-dom";
 
 // Storybook 메타데이터 설정
