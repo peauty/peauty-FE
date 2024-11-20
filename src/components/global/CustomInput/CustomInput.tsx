@@ -1,5 +1,5 @@
-import React, { InputHTMLAttributes, ReactNode } from 'react';
-import { Container, Label, InputWrapper, StyledInput, SuffixContainer, Message } from './CustomButton.styles';
+import { InputHTMLAttributes, ReactNode } from 'react';
+import { Container, Label, InputWrapper, StyledInput, SuffixContainer, Message } from './CustomInput.styles';
 
 interface CustomInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
