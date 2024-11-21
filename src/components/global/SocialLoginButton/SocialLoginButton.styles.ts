@@ -1,30 +1,33 @@
-// SocialLoginButton.styles.ts
 import styled from "styled-components";
 
-export const ButtonWrapper = styled.button<{ type: string; round: boolean }>`
+export const ButtonWrapper = styled.button<{
+  type: string;
+  round: boolean;
+  fullWidth?: boolean; // fullWidth 속성 추가
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ round }) => (round ? '50px' : '240px')}; // 동그란 버튼은 크기를 작게 설정
-  height: ${({ round }) => (round ? '50px' : '50px')};
-  border-radius: ${({ round }) => (round ? '50%' : '8px')}; // round가 true이면 50%로 동그란 버튼
+  width: ${({ fullWidth, round }) =>
+    fullWidth ? "100%" : round ? "50px" : "240px"}; // fullWidth이면 부모의 크기에 맞춤
+  height: ${({ round }) => (round ? "50px" : "50px")};
+  border-radius: ${({ round }) => (round ? "50%" : "8px")};
   font-size: 16px;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  border: none;
+  border: ${({ type }) => (type === "google" ? "1px solid gray" : "none")}; // 구글 버튼에 얇은 검정 테두리 추가
   margin: 8px 0;
   background-color: ${({ type }) =>
-    type === 'kakao' ? '#FEE500' : type === 'google' ? '#4285F4' : '#03C75A'};
+    type === "kakao" ? "#FEE500" : type === "google" ? "white" : "#03C75A"};
 
-  color: ${({ type }) => (type === 'kakao' ? '#3C1E1E' : '#fff')};
+  color: ${({ type }) => (type === "kakao" ? "#3C1E1E" : type === "google" ? "black" :"#fff")};
 
   svg {
-    margin-right: ${({ round }) => (round ? '0' : '8px')}; // round 버튼은 아이콘과 텍스트 간격을 좁힘
-    font-size: ${({ round }) => (round ? '24px' : '20px')}; // 동그란 버튼은 아이콘을 크게 설정
+    margin-right: ${({ round }) => (round ? "0" : "8px")};
+    font-size: ${({ round }) => (round ? "24px" : "20px")};
   }
 
-  /* 텍스트가 오른쪽에 위치하도록 가로형 버튼 스타일을 설정 */
   ${({ round }) =>
     !round &&
     `
