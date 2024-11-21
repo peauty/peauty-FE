@@ -17,17 +17,17 @@ export const pressAnimation = keyframes`
 export const Button = styled.button<{
   size: string;
   variant: string;
-  $fullWidth: boolean;
+  fullwidth?: boolean;
 }>`
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  
   border-radius: 5px;
   font-weight: 500;
   margin: 10px 10px;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  width: ${props => props.$fullWidth ? '100%' : 'auto'};
+  width: ${props => props.fullwidth ? '100%' : 'auto'};
   color: ${colors.white};
 
   // 크기 설정

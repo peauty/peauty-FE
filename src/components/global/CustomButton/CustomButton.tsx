@@ -26,7 +26,7 @@ interface CustomButtonProps {
   /**
    * 너비를 100%로 설정
    */
-  fullWidth?: boolean;
+  fullwidth?: boolean;
 }
 
 export default function CustomButton({
@@ -35,7 +35,7 @@ export default function CustomButton({
   variant = 'primary',
   disabled = false,
   onClick,
-  fullWidth = true,
+  fullwidth = true,
 }: CustomButtonProps) {
   return (
     <Button
@@ -43,7 +43,7 @@ export default function CustomButton({
       variant={variant}
       disabled={disabled}
       onClick={onClick}
-      $fullWidth={fullWidth}
+      fullwidth={fullwidth}
     >
       {children}
     </Button>

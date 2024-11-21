@@ -13,10 +13,10 @@ const fadeIn = keyframes`
   }
 `;
 
-export const Container = styled.div<{ $fullWidth: boolean; $hasButton: boolean }>`
+export const Container = styled.div<{ $fullwidth: boolean; $hasButton: boolean }>`
   display: flex;
   flex-direction: column;
-  width: ${({ $fullWidth }) => ($fullWidth ? '100%' :'auto')};
+  width: ${({ $fullwidth }) => ($fullwidth ? '100%' :'auto')};
   ${({ $hasButton }) => $hasButton && css`
     margin-bottom: 10px;
   `}

@@ -91,12 +91,12 @@ export const FullWidth: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <CustomInput 
         label="전체 너비 (Outlined)" 
-        fullWidth 
+        fullwidth={true}
       />
       <CustomInput 
         label="전체 너비 (Underlined)" 
         variant="underlined"
-        fullWidth 
+        fullwidth={true}
       />
     </div>
   ),
@@ -108,7 +108,7 @@ export const Playground: Story = {
     label: 'playground',
     placeholder: '자유롭게 설정을 변경해보세요',
     variant: 'outlined',
-    fullWidth: false,
+    fullwidth: false,
     disabled: false,
     error: '',
     hint: '',

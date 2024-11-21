@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const ButtonWrapper = styled.button<{
   type: string;
   round: boolean;
-  fullWidth?: boolean; // fullWidth 속성 추가
+  fullwidth?: boolean; // fullwidth 속성 추가
 }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ fullWidth, round }) =>
-    fullWidth ? "100%" : round ? "50px" : "240px"}; // fullWidth이면 부모의 크기에 맞춤
+  width: ${({ fullwidth, round }) =>
+    fullwidth ? "100%" : round ? "50px" : "240px"}; // fullwidth이면 부모의 크기에 맞춤
   height: ${({ round }) => (round ? "50px" : "50px")};
   border-radius: ${({ round }) => (round ? "50%" : "8px")};
   font-size: 16px;
