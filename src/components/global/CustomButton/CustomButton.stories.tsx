@@ -15,7 +15,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium', 'large', 'big'],
       description: '버튼 크기',
     },
     variant: {
@@ -77,6 +77,15 @@ export const Large: Story = {
     variant: 'primary',
   },
 };
+
+export const Big: Story = {
+  args: {
+    children: '미용사 선택',
+    size: 'big',
+    variant: 'primary',
+  },
+};
+
 
 export const Disabled: Story = {
   args: {

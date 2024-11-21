@@ -43,6 +43,13 @@ export const Button = styled.button<{
         return css`
           padding: 16px 32px;
           font-size: 12px;
+          height: 80px;
+          border-radius: 10px;
+        `;
+      case 'big':
+        return css`
+          padding: 16px 32px;
+          font-size: 12px;
           height: 250px;
           width: 180px;
           border-radius: 10px;

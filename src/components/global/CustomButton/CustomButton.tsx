@@ -10,7 +10,7 @@ interface CustomButtonProps {
   /**
    * 버튼 크기 variant
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'big';
   /**
    * 버튼 스타일 variant
    */
