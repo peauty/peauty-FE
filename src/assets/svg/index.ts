@@ -1,4 +1,9 @@
 export { default as AppBarBack } from "./AppBarBack";
+export { default as Bookmark } from "./Bookmark";
+export { default as Calendar } from "./Calendar";
 export { default as Favicon } from "./Favicon";
+export { default as Home } from "./Home";
 export { default as Logo } from "./Logo";
 export { default as Arrow } from "./Arrow";
+export { default as Search } from "./Search";
+export { default as Smile } from "./Smile";
