@@ -7,13 +7,13 @@ import { ButtonWrapper } from "./SocialLoginButton.styles";
 type SocialLoginButtonProps = {
   type: 'kakao' | 'google' | 'naver';
   round?: boolean; // 동그란 버튼 여부
-  fullWidth?: boolean;
+  fullwidth?: boolean;
 };
 
 function SocialLoginButton({ 
   type, 
   round = false,
-  fullWidth = true
+  fullwidth = true
 }: SocialLoginButtonProps) {
   const getButtonText = () => {
     switch (type) {
@@ -42,7 +42,7 @@ function SocialLoginButton({
   };
 
   return (
-    <ButtonWrapper type={type} round={round} fullWidth={fullWidth}>
+    <ButtonWrapper type={type} round={round} fullwidth={fullwidth}>
       {getButtonIcon()}
       {!round && getButtonText()}
     </ButtonWrapper>

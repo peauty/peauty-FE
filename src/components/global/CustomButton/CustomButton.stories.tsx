@@ -27,7 +27,7 @@ const meta = {
       control: 'boolean',
       description: '비활성화 여부',
     },
-    fullWidth: {
+    fullwidth: {
       control: 'boolean',
       description: '너비 100% 설정',
       defaultValue: false,
@@ -98,7 +98,7 @@ export const Disabled: Story = {
 export const FullWidth: Story = {
   args: {
     children: '전체 너비 버튼',
-    fullWidth: true,
+    fullwidth: true,
     variant: 'primary',
   },
   parameters: {
@@ -117,7 +117,7 @@ export const FullWidthContainer: Story = {
   ],
   args: {
     children: '컨테이너 안의 전체 너비 버튼',
-    fullWidth: true,
+    fullwidth: true,
     variant: 'primary',
   },
 };
@@ -144,9 +144,9 @@ export const VariousWidths: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '600px' }}>
       <CustomButton variant="primary">기본 버튼</CustomButton>
-      <CustomButton variant="primary" fullWidth>전체 너비 버튼</CustomButton>
+      <CustomButton variant="primary" fullwidth>전체 너비 버튼</CustomButton>
       <div style={{ width: '50%' }}>
-        <CustomButton variant="primary" fullWidth>50% 너비 버튼</CustomButton>
+        <CustomButton variant="primary" fullwidth>50% 너비 버튼</CustomButton>
       </div>
     </div>
   ),

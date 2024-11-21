@@ -5,7 +5,7 @@ interface CustomInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
   label?: string;
   error?: string;
   hint?: string;
-  fullWidth?: boolean;
+  fullwidth?: boolean;
   variant?: 'outlined' | 'underlined';
   suffix?: ReactNode;
   hasButton?: boolean;
@@ -15,7 +15,7 @@ export default function CustomInput({
   label,
   error,
   hint,
-  fullWidth = true,
+  fullwidth = true,
   disabled = false,
   variant = 'underlined',
   suffix,
@@ -23,7 +23,7 @@ export default function CustomInput({
   ...props
 }: CustomInputProps) {
   return (
-    <Container $fullWidth={fullWidth} $hasButton={hasButton}>
+    <Container $fullwidth={fullwidth} $hasButton={hasButton}>
       {label && <Label>{label}</Label>}
       <InputWrapper $variant={variant} $error={!!error} $disabled={disabled}>
         <StyledInput $error={!!error} disabled={disabled} {...props} />
