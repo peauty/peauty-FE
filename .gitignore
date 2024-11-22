@@ -30,3 +30,6 @@ install-state.gz
 
 # storybook
 *storybook.log
+
+# env files 
+.env*
