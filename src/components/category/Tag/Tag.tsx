@@ -13,6 +13,9 @@ interface TagProps {
   };
 }
 
-export default function Tag({ children, color }: React.PropsWithChildren<TagProps>) {
+export default function Tag({
+  children,
+  color,
+}: React.PropsWithChildren<TagProps>) {
   return <TagWrapper color={color}>{children}</TagWrapper>;
 }

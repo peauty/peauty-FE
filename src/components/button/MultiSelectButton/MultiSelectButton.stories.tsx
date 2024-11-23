@@ -1,22 +1,30 @@
 import { StoryObj, Meta } from "@storybook/react";
-import ButtonGrid, { ButtonGridProps } from "./ButtonGrid";
+import MultiSelectButton, { MultiSelectButtonProps } from "./MultiSelectButton";
 
-const meta: Meta<typeof ButtonGrid> = {
+const meta: Meta<typeof MultiSelectButton> = {
   title: "Components/ButtonGrid",
-  component: ButtonGrid,
+  component: MultiSelectButton,
   argTypes: {
     onSelect: { action: "selected" }, // Storybook에서 이벤트 확인용
   },
 };
 
 export default meta;
-type Story = StoryObj<ButtonGridProps>;
+type Story = StoryObj<MultiSelectButtonProps>;
 
 export const Default: Story = {
   args: {
     row: 3,
     col: 3,
-    buttonNames: ["없음", "피부염", "슬개골", "외이염", "관절염", "결막염","기타"],
+    buttonNames: [
+      "없음",
+      "피부염",
+      "슬개골",
+      "외이염",
+      "관절염",
+      "결막염",
+      "기타",
+    ],
     selectedIndexes: [],
     onSelect: (indexes) => console.log("선택된 버튼 인덱스:", indexes),
   },
