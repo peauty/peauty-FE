@@ -1,7 +1,7 @@
 // Tag.styles.ts
 import styled from "styled-components";
-import { colors } from "../../../style/color";
-import { typography } from "../../../style/typography";
+import { typography } from "../../../../style/typography";
+import { colors } from "../../../../style/color";
 
 interface TagStyleProps {
   color?: {

@@ -1,7 +1,7 @@
 // ProgressBlock.tsx
-import React from 'react';
-import { Container, Block } from './ProgressBlock.styles';
-import { colors } from '../../../style/color';
+import React from "react";
+import { Container, Block } from "./ProgressBlock.styles";
+import { colors } from "../../../../style/color";
 
 interface ProgressBlockProps {
   /**
@@ -38,8 +38,8 @@ export default function ProgressBlock({
   total,
   current,
   gap = 4,
-  blockWidth = '64px',
-  blockHeight = '7px',
+  blockWidth = "64px",
+  blockHeight = "7px",
   activeColor = `${colors.blue200}`,
   inactiveColor = `${colors.blue100}`,
 }: ProgressBlockProps) {
