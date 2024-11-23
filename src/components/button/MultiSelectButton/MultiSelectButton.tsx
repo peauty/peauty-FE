@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { GridWrapper, ButtonStyle } from "./ButtonGrid.styles";
+import { GridWrapper, ButtonStyle } from "./MultiSelectButton.styles";
 
-export interface ButtonGridProps {
+export interface MultiSelectButtonProps {
   row: number;
   col: number;
   buttonNames: string[]; // 버튼 이름 배열
@@ -9,13 +9,13 @@ export interface ButtonGridProps {
   onSelect?: (indexes: number[]) => void; // 선택 이벤트
 }
 
-export default function ButtonGrid({
+export default function MultiSelectButton({
   row,
   col,
   buttonNames,
   selectedIndexes,
   onSelect,
-}: ButtonGridProps) {
+}: MultiSelectButtonProps) {
   const [selected, setSelected] = useState<number[]>(selectedIndexes);
 
   const handleSelect = (index: number) => {

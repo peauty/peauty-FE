@@ -2,9 +2,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Arrow } from "../../../assets/svg";
-import { StyledSubMenu, Text } from "./SubMenu.styles";
+import { StyledSubMenuButton, Text } from "./SubMenuButton.styles";
 
-export interface SubMenuProps {
+export interface SubMenuButtonProps {
   /**
    * 공지사항 텍스트
    */
@@ -15,7 +15,7 @@ export interface SubMenuProps {
   to: string;
 }
 
-export default function SubMenu({ text, to }: SubMenuProps) {
+export default function SubMenuButton({ text, to }: SubMenuButtonProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -23,9 +23,9 @@ export default function SubMenu({ text, to }: SubMenuProps) {
   };
 
   return (
-    <StyledSubMenu onClick={handleClick}>
+    <StyledSubMenuButton onClick={handleClick}>
       <Text>{text}</Text>
       <Arrow width="15px" height="27px" />
-    </StyledSubMenu>
+    </StyledSubMenuButton>
   );
 }
