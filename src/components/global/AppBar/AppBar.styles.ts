@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { AppBarBack } from '../../../assets/svg';
 
 export const StyledHeader = styled.header`
   position: fixed;
@@ -22,4 +23,9 @@ export const Title = styled.h1<{ size: string }>`
   font-weight: bold;
   color: black;
   white-space: nowrap;
+`;
+
+export const StyledAppBarBack = styled(AppBarBack)`
+    height: 20px;
+    cursor: pointer;
 `;

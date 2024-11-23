@@ -1,37 +1,45 @@
-import { StoryObj, type Meta } from '@storybook/react';
-import { AppBarBack } from '../../../assets/svg';
-import { AppBar } from "./index"
+import { StoryObj, Meta } from "@storybook/react";
+import AppBar from "./AppBar";
+import { StyledAppBarBack } from "./AppBar.styles";
 
 const meta: Meta<typeof AppBar> = {
-  title: 'Components/AppBar',
+  title: "Components/AppBar",
   component: AppBar,
+  tags: ["autodocs"], // Storybook autodocs 태그
+  args: {
+    titleSize: "18px", // 기본 props 설정
+  },
+  argTypes: {
+    title: { control: "text" },
+    titleSize: { control: "text" },
+    prefix: { control: false },
+    suffix: { control: false },
+  },
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-function handleBackClick() {
-  if (window.history.length > 1) {
-    window.history.back();
-  } else {
-    alert('이전 페이지가 없습니다.');
-  }
-}
+type Story = StoryObj<typeof AppBar>;
 
+// 기본 AppBar
 export const Default: Story = {
-  args: {},
+  args: {
+    
+  },
 };
 
-export const Back: Story = {
+// 뒤로가기 버튼 포함
+export const BackButton: Story = {
   args: {
-    prefix: (
-      <AppBarBack
-        height="20px"
-        cursor="pointer"
-        onClick={handleBackClick}
-      />
-    ),
-    title: '제목을 입력하세요', // 제목 추가
-    titleSize: '16px', // 제목 크기 설정
+    prefix: <StyledAppBarBack />,
+  },
+};
+
+// 제목 크기 변경
+export const LargeTitle: Story = {
+  args: {
+    prefix: <StyledAppBarBack />,
+    title: "공지사항",
+    titleSize: "24px",
   },
 };
