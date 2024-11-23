@@ -1,6 +1,6 @@
 // styles.tsx
-import styled, { css, keyframes } from 'styled-components';
-import { colors } from '../../../style/color';
+import styled, { css, keyframes } from "styled-components";
+import { colors } from "../../../../style/color";
 
 export const pressAnimation = keyframes`
   0% {
@@ -21,32 +21,32 @@ export const Button = styled.button<{
 }>`
   display: inline-flex;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
   border-radius: 5px;
   font-weight: 500;
   margin: 10px 10px;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  width: ${props => props.fullwidth ? '100%' : 'auto'};
+  width: ${(props) => (props.fullwidth ? "100%" : "auto")};
   color: ${colors.white};
 
   // 크기 설정
-  ${props => {
+  ${(props) => {
     switch (props.size) {
-      case 'small':
+      case "small":
         return css`
           padding: 8px 16px;
           font-size: 10px;
           height: 32px;
         `;
-      case 'large':
+      case "large":
         return css`
           padding: 16px 32px;
           font-size: 12px;
           height: 80px;
           border-radius: 10px;
         `;
-      case 'big':
+      case "big":
         return css`
           padding: 16px 32px;
           font-size: 12px;
@@ -64,32 +64,32 @@ export const Button = styled.button<{
   }}
 
   // 스타일 variant 설정
-  ${props => {
+  ${(props) => {
     switch (props.variant) {
-      case 'secondary':
+      case "secondary":
         return css`
-          background-color: #EEF2FF;
+          background-color: #eef2ff;
           color: ${colors.blue200};
           border: 2px solid ${colors.blue200};
-          
+
           &:hover:not(:disabled) {
-            background-color: #E0E7FF;
+            background-color: #e0e7ff;
           }
-          
+
           &:active:not(:disabled) {
             animation: ${pressAnimation} 0.2s ease-in-out;
           }
         `;
-      case 'outline':
+      case "outline":
         return css`
           background-color: transparent;
           color: ${colors.grayOpacity200};
           border: 2px solid ${colors.grayOpacity100};
-          
+
           &:hover:not(:disabled) {
-            background-color: #EEF2FF;
+            background-color: #eef2ff;
           }
-          
+
           &:active:not(:disabled) {
             animation: ${pressAnimation} 0.2s ease-in-out;
           }
@@ -99,13 +99,13 @@ export const Button = styled.button<{
           background-color: ${colors.blue200};
           border: none;
           box-shadow: 0 2px 4px ${colors.blue100};
-          
+
           &:hover:not(:disabled) {
             background-color: ${colors.blue200};
             transform: translateY(-1px);
             box-shadow: 0 4px 6px ${colors.blue100};
           }
-          
+
           &:active:not(:disabled) {
             animation: ${pressAnimation} 0.2s ease-in-out;
           }
