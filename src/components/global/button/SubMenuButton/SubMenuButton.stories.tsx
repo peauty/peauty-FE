@@ -1,10 +1,23 @@
-import { Meta, StoryFn } from "@storybook/react";
-import SubMenuButton, { SubMenuButtonProps } from "./SubMenuButton";
+import { StoryObj, Meta } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
+import SubMenuButton from "./SubMenuButton";
 
 export default {
-  title: "Components/SubMenu",
+  title: "Components/SubMenuButton",
   component: SubMenuButton,
+  args: {
+    text: "공지사항",
+    to: "/notice",
+    iconType: "arrow",
+  },
+  argTypes: {
+    iconType: {
+      control: {
+        type: "select",
+        options: ["arrow", "plus"],
+      },
+    },
+  },
   decorators: [
     (Story) => (
       <BrowserRouter>
@@ -12,24 +25,22 @@ export default {
       </BrowserRouter>
     ),
   ],
-  argTypes: {
-    text: { control: "text", description: "공지사항 텍스트" },
-    to: { control: "text", description: "이동할 페이지 URL" },
+} as Meta<typeof SubMenuButton>;
+
+type Story = StoryObj<typeof SubMenuButton>;
+
+export const ArrowIcon: Story = {
+  args: {
+    text: "공지사항",
+    to: "/notice",
+    iconType: "arrow",
   },
-} as Meta;
-
-const Template: StoryFn<SubMenuButtonProps> = (args) => (
-  <SubMenuButton {...args} />
-);
-
-export const Default = Template.bind({});
-Default.args = {
-  text: "공지사항 보기",
-  to: "/notice",
 };
 
-export const CustomText = Template.bind({});
-CustomText.args = {
-  text: "설정 페이지로 이동",
-  to: "/settings",
+export const PlusIcon: Story = {
+  args: {
+    text: "추가하기",
+    to: "/add",
+    iconType: "plus",
+  },
 };
