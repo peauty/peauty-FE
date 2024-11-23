@@ -1,4 +1,4 @@
-import { Camera } from "../../../../assets/svg";
+import { Camera } from "../../../assets/svg";
 import { StyleProfileImg } from "./ProfileImg.styles";
 
 interface Props {
