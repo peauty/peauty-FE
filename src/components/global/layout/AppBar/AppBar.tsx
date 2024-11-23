@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { Logo } from '../../../assets/svg';
-import { StyledHeader, Title } from './AppBar.styles';
+import { ReactNode } from "react";
+import { Logo } from "../../../../assets/svg";
+import { StyledHeader, Title } from "./AppBar.styles";
 
 interface Props {
   prefix?: ReactNode; // 왼쪽 영역 (예: 뒤로가기 버튼)
@@ -9,7 +9,12 @@ interface Props {
   suffix?: ReactNode; // 오른쪽 영역
 }
 
-export default function AppBar({ prefix, title, titleSize = '18px', suffix }: Props) {
+export default function AppBar({
+  prefix,
+  title,
+  titleSize = "18px",
+  suffix,
+}: Props) {
   return (
     <StyledHeader>
       {prefix ? prefix : <Logo width="94px" height="24px" />}

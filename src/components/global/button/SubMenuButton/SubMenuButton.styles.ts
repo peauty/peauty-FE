@@ -1,6 +1,6 @@
 // SubMenu.styles.ts
 import styled from "styled-components";
-import theme from "../../../style/theme";
+import theme from "../../../../style/theme";
 
 export const StyledSubMenuButton = styled.div`
   display: flex;

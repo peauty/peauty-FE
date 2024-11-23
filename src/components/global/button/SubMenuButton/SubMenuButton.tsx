@@ -1,7 +1,7 @@
 // SubMenu.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Arrow } from "../../../assets/svg";
+import { Arrow } from "../../../../assets/svg";
 import { StyledSubMenuButton, Text } from "./SubMenuButton.styles";
 
 export interface SubMenuButtonProps {

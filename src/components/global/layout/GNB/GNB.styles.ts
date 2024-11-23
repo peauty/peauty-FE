@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../../style/theme";
+import theme from "../../../../style/theme";
 import { MenuItemProps } from "./GNB";
 
 export const Nav = styled.nav`

@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Smile, Home, Bookmark, Calendar, Search } from "../../../assets/svg";
-import { Nav,MenuItem } from "./GNB.styles";
+import {
+  Smile,
+  Home,
+  Bookmark,
+  Calendar,
+  Search,
+} from "../../../../assets/svg";
+import { Nav, MenuItem } from "./GNB.styles";
 export interface MenuItemProps {
   isActive: boolean;
 }
@@ -32,7 +38,6 @@ const MENUS = [
     icon: <Smile width="20px" height="20px" />,
   },
 ];
-
 
 export default function GNB() {
   const navigate = useNavigate();
