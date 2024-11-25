@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { Container, Label, InputWrapper, StyledInput, SuffixContainer, Message } from './CustomInput.styles';
-
+import { Text } from '../../texts/text/Text';
 interface CustomInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   error?: string;
@@ -24,12 +24,20 @@ export default function CustomInput({
 }: CustomInputProps) {
   return (
     <Container $fullwidth={fullwidth} $hasButton={hasButton}>
-      {label && <Label>{label}</Label>}
+      {label && <Label>
+       <Text typo="subtitle300">
+        {label} 
+       </Text>  
+        </Label>}
       <InputWrapper $variant={variant} $error={!!error} $disabled={disabled}>
         <StyledInput $error={!!error} disabled={disabled} {...props} />
         {suffix && <SuffixContainer $variant={variant} $error={!!error}>{suffix}</SuffixContainer>}
       </InputWrapper>
-      {(error || hint) && <Message $error={!!error}>{error || hint}</Message>}
+      {(error || hint) && <Message $error={!!error}>
+        <Text typo='body500'> 
+        {error || hint}
+        </Text>
+        </Message>}
     </Container>
-  );
+  ); 
 };
