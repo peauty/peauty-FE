@@ -6,5 +6,6 @@ export { default as Camera } from "./Camera";
 export { default as Favicon } from "./Favicon";
 export { default as Home } from "./Home";
 export { default as Logo } from "./Logo";
+export { default as Warning } from "./Warning";
 export { default as Search } from "./Search";
 export { default as Smile } from "./Smile";
