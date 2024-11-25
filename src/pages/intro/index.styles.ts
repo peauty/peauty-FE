@@ -25,16 +25,6 @@ export const TitleWrapper = styled.div`
   margin-bottom: 16px;  
 `
 
-export const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-`;
-
-export const HighlightedText = styled.span`
-  color: #007bff; /* 강조 색상 */
-`;
-
 export const Logo = styled.img`
   width: 120px;
   height: auto;
