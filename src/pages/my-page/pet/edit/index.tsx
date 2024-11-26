@@ -83,9 +83,11 @@ export default function Edit() {
             placeholder="미용 시 참고해야 할 내용이 있다면 알려주세요"
             variant="outlined"
           />
-          <CustomButton fullwidth variant="primary">
-            확인
-          </CustomButton>
+          <Style.ConfirmButtonWrapper>
+            <CustomButton fullwidth variant="primary">
+              확인
+            </CustomButton>
+          </Style.ConfirmButtonWrapper>
         </Style.EditPageWrapper>
       </Layout>
     </>

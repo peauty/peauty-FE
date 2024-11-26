@@ -6,7 +6,6 @@ export const Style = {
     flex-direction: column;
     gap: 20px;
   `,
-
   Wrapper: styled.div`
     display: flex;
     justify-content: space-between;
@@ -15,7 +14,11 @@ export const Style = {
     display: flex;
     align-items: flex-end;
     width: 210px;
-    /* border: 1px solid red; */
     gap: 5px;
+  `,
+  ConfirmButtonWrapper: styled.div`
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
   `,
 };
