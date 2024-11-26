@@ -1,7 +1,7 @@
 // Tag.tsx
 import React from "react";
 import { TagWrapper } from "./Tag.styles";
-import Text from "../../texts/Text/Text";
+import { Text } from "../../texts/Text";
 
 interface TagProps {
   /**

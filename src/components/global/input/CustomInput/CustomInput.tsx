@@ -27,7 +27,7 @@ export default function CustomInput({
   hint,
   fullwidth = true,
   disabled = false,
-  variant = "underlined",
+  variant = "outlined",
   suffix,
   hasButton = false,
   ...props

@@ -79,6 +79,7 @@ export const StyledInput = styled.input<{ error: boolean }>`
   outline: none;
   background-color: transparent;
   font-size: 14px;
+  padding-left: 10px;
 
   &::placeholder {
     color: #9ca3af;
@@ -86,7 +87,7 @@ export const StyledInput = styled.input<{ error: boolean }>`
   }
 
   &:disabled {
-    color: ${colors.gray300};
+    color: ${colors.black};
     cursor: not-allowed;
     font-size: 12px;
   }
@@ -119,7 +120,6 @@ export const SuffixContainer = styled.div<{
           border-radius: 0;
           padding: 4px 0;
           height: 24px;
-
           &:focus {
             border-bottom-color: ${error ? colors.red300 : colors.blue200};
           }
