@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import theme from "../../../../style/theme";
 
+
 export const Wrapper = styled.div`
   width: 100%;
   min-width: ${theme.size.minWidth};
@@ -9,6 +10,7 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   overscroll-behavior-y: contain;
   box-sizing: border-box; 
+  position: relative;
 `;
 
 export const Main = styled.div`
