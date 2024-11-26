@@ -1,4 +1,3 @@
-// DropButton.stories.tsx
 import { Meta, StoryObj } from "@storybook/react";
 import DropButton, { DropButtonProps } from "./DropButton";
 
@@ -8,7 +7,6 @@ const meta: Meta<typeof DropButton> = {
   argTypes: {
     onSelect: { action: "item selected" }, 
     isActive: { control: "boolean" },
-    selectedValue: { control: "text" },
     placeholder: { control: "text" },
   },
 };
@@ -20,19 +18,15 @@ export const Default: Story = {
   args: {
     isActive: false,
     placeholder: "옵션을 선택하세요",
-    selectedValue: "",
     options: ["옵션1", "옵션2", "옵션3", "옵션4"], // 드롭다운 항목
     onSelect: (value) => console.log("선택된 값:", value),
   },
 };
 
-
-
 export const ItemSelected: Story = {
   args: {
     isActive: false,
     placeholder: "옵션을 선택하세요",
-    selectedValue: "옵션2",
     options: ["옵션1", "옵션2", "옵션3", "옵션4"],
     onSelect: (value) => console.log("선택된 값:", value),
   },
