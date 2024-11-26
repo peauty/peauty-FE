@@ -6,7 +6,8 @@ import {
 } from "../../../../components";
 import { MultiSelectButtonProps } from "../../../../components/global/button/MultiSelectButton/MultiSelectButton";
 import { LargeGrid } from "../../../../components/global/button/MultiSelectButton/MultiSelectButton.stories";
-import { Text } from "../../../../components/global/texts/Text/Text";
+import { Text } from "../../../../components/global/texts/Text";
+
 import { Style } from "./index.styles";
 
 export default function Edit() {
