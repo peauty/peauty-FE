@@ -29,7 +29,7 @@ const GNB: React.FC<GNBProps> = ({ type }) => {
   const stylistMenuItems = [
     { icon: <Home />, label: "홈" },
     { icon: <Calendar />, label: "스케줄" },
-    { icon: <Check />, label: "미용 관리" },
+    { icon: <Check />, label: "견적 현황" },
     { icon: <Smile />, label: "마이페이지" },
   ];
 
