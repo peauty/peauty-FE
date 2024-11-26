@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { GridWrapper, ButtonStyle } from "./MultiSelectButton.styles";
+import { Text } from "../../texts/Text";
+import { colors } from "../../../../style/color";
 
 export interface MultiSelectButtonProps {
-  row: number;
-  col: number;
-  buttonNames: string[]; // 버튼 이름 배열
+  row?: number;
+  col?: number;
+  buttonNames?: string[]; // 버튼 이름 배열
   selectedIndexes: number[]; // 선택된 버튼 인덱스 배열
   onSelect?: (indexes: number[]) => void; // 선택 이벤트
 }
 
 export default function MultiSelectButton({
-  row,
-  col,
-  buttonNames,
+  col = 4,
+  buttonNames = [],
   selectedIndexes,
   onSelect,
 }: MultiSelectButtonProps) {
@@ -40,13 +41,18 @@ export default function MultiSelectButton({
 
   return (
     <GridWrapper style={{ gridTemplateColumns: `repeat(${col}, 1fr)` }}>
-      {buttonNames.map((name, index) => (
+      {buttonNames?.map((name, index) => (
         <ButtonStyle
           key={index}
           selected={selected.includes(index)}
           onClick={() => handleSelect(index)}
         >
-          {name}
+          <Text
+            color={selected.includes(index) ? "blue100" : "gray200"}
+            typo="body100"
+          >
+            {name}
+          </Text>
         </ButtonStyle>
       ))}
     </GridWrapper>

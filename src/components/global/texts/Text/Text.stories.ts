@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Text from "./Text";
 import { typography } from "../../../../style/typography"; // typography import
+import Text from "./Text";
+
 
 // Storybook 메타 설정
 const meta = {
