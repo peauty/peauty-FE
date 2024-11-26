@@ -3,6 +3,7 @@ export { default as Arrow } from "./Arrow";
 export { default as Bookmark } from "./Bookmark";
 export { default as Calendar } from "./Calendar";
 export { default as Camera } from "./Camera";
+export { default as Check } from "./Check";
 export { default as Favicon } from "./Favicon";
 export { default as Home } from "./Home";
 export { default as Logo } from "./Logo";

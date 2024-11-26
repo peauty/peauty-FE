@@ -1,6 +1,6 @@
 // CustomButton.tsx
-import React from 'react';
-import { Button } from './CustomButton.styles'
+import React from "react";
+import { Button } from "./CustomButton.styles";
 
 interface CustomButtonProps {
   /**
@@ -10,11 +10,11 @@ interface CustomButtonProps {
   /**
    * 버튼 크기 variant
    */
-  size?: 'small' | 'medium' | 'large' | 'big';
+  size?: "small" | "medium" | "large" | "big";
   /**
    * 버튼 스타일 variant
    */
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: "primary" | "secondary" | "outline";
   /**
    * 비활성화 여부
    */
@@ -31,8 +31,8 @@ interface CustomButtonProps {
 
 export default function CustomButton({
   children,
-  size = 'medium',
-  variant = 'primary',
+  size = "medium",
+  variant = "primary",
   disabled = false,
   onClick,
   fullwidth = true,
