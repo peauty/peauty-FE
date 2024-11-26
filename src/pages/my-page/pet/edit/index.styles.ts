@@ -2,8 +2,14 @@ import styled from "styled-components";
 
 export const Style = {
   Wrapper: styled.div`
-    width: 100%;
-    height: 100vh;
-    border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
+  `,
+  HalfWrapper: styled.div`
+    display: flex;
+    align-items: flex-end;
+    width: 210px;
+    /* border: 1px solid red; */
+    gap: 5px;
   `,
 };
