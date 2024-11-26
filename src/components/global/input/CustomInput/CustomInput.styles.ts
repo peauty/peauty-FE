@@ -31,7 +31,6 @@ export const Label = styled.label`
   font-weight: 500;
   color: #374151;
   margin-bottom: 5px;
-  font-size: ${typography.body2};
 `;
 
 export const InputWrapper = styled.div<{
@@ -81,7 +80,7 @@ export const StyledInput = styled.input<{ $error: boolean }>`
 
   &::placeholder {
     color: #9ca3af;
-    font-size: ${typography.body6};
+    font-size: ${typography.body100};
   }
 
   &:disabled {
@@ -126,7 +125,6 @@ export const SuffixContainer = styled.div<{
 `;
 
 export const Message = styled.p<{ $error?: boolean }>`
-  font-size: ${typography.body6};
   margin-top: 4px;
   color: ${(props) => (props.$error ? colors.red300 : "#6b7280")};
   animation: ${fadeIn} 0.3s ease-in-out;

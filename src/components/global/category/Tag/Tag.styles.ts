@@ -17,7 +17,6 @@ export const TagWrapper = styled.div<TagStyleProps>`
   border-radius: 5px;
   background-color: ${({ color }) =>
     color?.backgroundColor || colors.blue100}; /* 배경 색상 */
-  font-size: ${typography.body6};
   padding: 3px 10px;
   font-weight: 500;
 `;
