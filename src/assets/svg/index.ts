@@ -8,3 +8,4 @@ export { default as Home } from "./Home";
 export { default as Logo } from "./Logo";
 export { default as Search } from "./Search";
 export { default as Smile } from "./Smile";
+export { default as DropDown } from "./DropDown";
