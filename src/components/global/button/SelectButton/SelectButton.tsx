@@ -1,7 +1,7 @@
 // SelectButton.tsx
 import { useState } from "react";
 import { Button } from "./SelectButton.styles";
-import { Text } from "../../texts/text/Text";
+import { Text } from "../../texts/Text/Text";
 export interface SelectButtonProps {
   text: string;
   onClick?: () => void;
