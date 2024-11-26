@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../../../../style/color";
-import typography from "../../../../style/theme";
+import { typography } from "../../../../style/typography";
 import theme from "../../../../style/theme"
 
 export const Wrapper = styled.div`

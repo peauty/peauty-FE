@@ -16,6 +16,7 @@ export interface DropButtonProps {
   placeholder: string;
   options: string[]; // 옵션 리스트 말티즈,푸들,말티푸 이런거
   onSelect: (value: string) => void; // 선택 시 실행할 함수
+  isActive?: boolean;
 }
 
 export default function DropButton({
