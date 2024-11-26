@@ -1,26 +1,29 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import GNB from "./GNB";
-import { MemoryRouter } from "react-router-dom";
 
-// Storybook 메타데이터 설정
 const meta: Meta<typeof GNB> = {
-  title: "Components/GNB", // Storybook에서의 위치
+  title: "Components/GNB",
   component: GNB,
-  decorators: [
-    (Story) => (
-      <MemoryRouter initialEntries={["/"]}>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
-  parameters: {
-    layout: "fullscreen", // 전체 화면 레이아웃
+  argTypes: {
+    type: {
+      control: false, // Storybook에서는 동적 조작 필요 없음
+    },
   },
 };
 
 export default meta;
+
 type Story = StoryObj<typeof GNB>;
 
-// 기본 GNB 스토리
-export const Default: Story = {};
+export const UserGNB: Story = {
+  args: {
+    type: "user", // 회원용 GNB
+  },
+};
+
+export const StylistGNB: Story = {
+  args: {
+    type: "stylist", // 미용사용 GNB
+  },
+};
