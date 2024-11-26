@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
-import { StyledText } from "./Text.styles"; // StyledText import
 import { typography } from "../../../../style/typography"; // typography import
 import { colors } from "../../../../style/color";
+import { StyledText } from "./Text.styles";
 
 // Typography 타입 정의
 type Typo = keyof typeof typography;
@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<HTMLSpanElement> {
 }
 
 // Text 컴포넌트
-export function Text({ color, typo, children, ...props }: Props) {
+export default function Text({ color, typo, children, ...props }: Props) {
   return (
     <StyledText color={color} typo={typo} {...props}>
       {children}

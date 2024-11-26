@@ -7,7 +7,8 @@ import {
   SuffixContainer,
   Message,
 } from "./CustomInput.styles";
-import { Text } from "../../texts/Text/Text";
+import Text from "../../texts/Text/Text";
+
 interface CustomInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   width?: string;
