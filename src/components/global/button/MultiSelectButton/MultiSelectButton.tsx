@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { GridWrapper, ButtonStyle } from "./MultiSelectButton.styles";
+import { Text } from "../../texts/Text";
+import { colors } from "../../../../style/color";
 
 export interface MultiSelectButtonProps {
   row?: number;
@@ -45,7 +47,12 @@ export default function MultiSelectButton({
           selected={selected.includes(index)}
           onClick={() => handleSelect(index)}
         >
-          {name}
+          <Text
+            color={selected.includes(index) ? "blue100" : "gray200"}
+            typo="body100"
+          >
+            {name}
+          </Text>
         </ButtonStyle>
       ))}
     </GridWrapper>
