@@ -1,58 +1,27 @@
-import { useNavigate } from "react-router-dom";
-import {
-  Smile,
-  Home,
-  Bookmark,
-  Calendar,
-  Search,
-} from "../../../../assets/svg";
+import React, { useState } from "react";
 import { Nav, MenuItem } from "./GNB.styles";
-export interface MenuItemProps {
-  isActive: boolean;
-}
-
-const MENUS = [
-  {
-    name: "스케줄",
-    path: "/schedule",
-    icon: <Calendar width="20px" height="20px" />,
-  },
-  {
-    name: "검색",
-    path: "/search",
-    icon: <Search width="20px" height="20px" />,
-  },
-  {
-    name: "홈",
-    path: "/home",
-    icon: <Home width="20px" height="20px" />,
-  },
-  {
-    name: "요청 현황",
-    path: "/requests",
-    icon: <Bookmark width="20px" height="20px" />,
-  },
-  {
-    name: "마이페이지",
-    path: "/mypage",
-    icon: <Smile width="20px" height="20px" />,
-  },
-];
-
+import { Home, Search, Smile, Bookmark } from "../../../../assets/svg";
+import { Text } from "../../texts/Text";
 export default function GNB() {
-  const navigate = useNavigate();
-  const pathname = window.location.pathname;
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const menuItems = [
+    { icon: <Home />, label: "홈" },
+    { icon: <Search />, label: "내 주변" },
+    { icon: <Bookmark />, label: "요청 현황" },
+    { icon: <Smile />, label: "마이페이지" },
+  ];
 
   return (
     <Nav>
-      {MENUS.map((menu) => (
+      {menuItems.map((item, index) => (
         <MenuItem
-          key={menu.name}
-          isActive={pathname === menu.path}
-          onClick={() => navigate(menu.path)}
+          key={index}
+          isActive={activeIndex === index}
+          onClick={() => setActiveIndex(index)}
         >
-          {menu.icon}
-          <div>{menu.name}</div>
+          {item.icon}
+          <Text typo="body200">{item.label}</Text>
         </MenuItem>
       ))}
     </Nav>
