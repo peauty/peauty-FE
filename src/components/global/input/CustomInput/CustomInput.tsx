@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { Container, Label, InputWrapper, StyledInput, SuffixContainer, Message } from './CustomInput.styles';
-import { Text } from '../../texts/text/Text';
+import { Text } from '../../texts/Text/Text';
 interface CustomInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   error?: string;
