@@ -1,16 +1,7 @@
-import { InputHTMLAttributes, ReactNode } from "react";
-import {
-  Container,
-  Label,
-  InputWrapper,
-  StyledInput,
-  SuffixContainer,
-  Message,
-} from "./CustomInput.styles";
-import { Text } from "../../texts/Text/Text";
-interface CustomInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
-  width?: string;
+import { InputHTMLAttributes, ReactNode } from 'react';
+import { Container, Label, InputWrapper, StyledInput, SuffixContainer, Message } from './CustomInput.styles';
+import { Text } from '../../texts/Text';
+interface CustomInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   error?: string;
   hint?: string;
@@ -26,7 +17,7 @@ export default function CustomInput({
   hint,
   fullwidth = true,
   disabled = false,
-  variant = "underlined",
+  variant = "outlined",
   suffix,
   hasButton = false,
   ...props

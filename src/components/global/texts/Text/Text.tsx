@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<HTMLSpanElement> {
 }
 
 // Text 컴포넌트
-export function Text({ color, typo, children, ...props }: Props) {
+export default function Text({ color, typo, children, ...props }: Props) {
   return (
     <StyledText color={color} typo={typo} {...props}>
       {children}

@@ -57,7 +57,7 @@ export const Button = styled.button<{
         return css`
           padding: 12px 24px;
           font-size: 12px;
-          height: 40px;
+          height: 60px;
         `;
     }
   }}
@@ -67,9 +67,9 @@ export const Button = styled.button<{
     switch (props.variant) {
       case "secondary":
         return css`
-          background-color: #eef2ff;
-          color: ${colors.blue200};
-          border: 2px solid ${colors.blue200};
+          background-color: ${colors.blue300};
+          color: ${colors.blue100};
+          border: 1px solid ${colors.blue100};
 
           &:hover:not(:disabled) {
             background-color: #e0e7ff;
@@ -83,7 +83,7 @@ export const Button = styled.button<{
         return css`
           background-color: transparent;
           color: ${colors.grayOpacity200};
-          border: 2px solid ${colors.grayOpacity100};
+          border: 1px ${colors.grayOpacity100};
 
           &:hover:not(:disabled) {
             background-color: #eef2ff;
@@ -95,14 +95,13 @@ export const Button = styled.button<{
         `;
       default: // primary
         return css`
-          background-color: ${colors.blue200};
+          background-color: ${colors.blue100};
           border: none;
-          box-shadow: 0 2px 4px ${colors.blue100};
+          box-shadow: none;
 
           &:hover:not(:disabled) {
             background-color: ${colors.blue200};
             transform: translateY(-1px);
-            box-shadow: 0 4px 6px ${colors.blue100};
           }
 
           &:active:not(:disabled) {
@@ -119,6 +118,6 @@ export const Button = styled.button<{
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px ${colors.blue100};
+    box-shadow: 0 0 0 1px ${colors.blue100};
   }
 `;

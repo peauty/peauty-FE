@@ -40,8 +40,8 @@ export default function ProgressBlock({
   gap = 4,
   blockWidth = "64px",
   blockHeight = "7px",
-  activeColor = `${colors.blue200}`,
-  inactiveColor = `${colors.blue100}`,
+  activeColor = `${colors.blue100}`,
+  inactiveColor = `${colors.gray300}`,
 }: ProgressBlockProps) {
   const normalizedCurrent = Math.min(total, Math.max(0, current));
 
