@@ -1,13 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-function App() {
-  console.log("콘솔");
+import QueryProvider from './provider/query-provider';
+import GlobalStyle from './style/global-style';
 
+export default function App() {
   return (
-    <>
-      <Outlet />
-    </>
+    <QueryProvider>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" element={<Main />} /> 이런식으로 작성*/}
+        </Routes>
+      </BrowserRouter>
+    </QueryProvider>
   );
 }
-
-export default App;
