@@ -1,7 +1,7 @@
 import React from "react";
 import { ToastWrapper, CheckIcon } from "./Toast.styles";
 import { Check } from "../../../assets/svg";
-import { Text } from "../texts/Text/Text";
+import { Text } from "../texts/Text";
 
 interface ToastProps {
   children: React.ReactNode; // children 타입 명시
