@@ -38,7 +38,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     height: 100%;
-    padding: 0 25px;
     overscroll-behavior: none;
     background-color: ${theme.colors.white};
     max-width: ${theme.size.maxWidth};

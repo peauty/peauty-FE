@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { typography } from "../../../../style/typography"; // typography import
 import Text from "./Text";
 
+
 // Storybook 메타 설정
 const meta = {
   title: "Components/Text", // 스토리북에서 이 컴포넌트를 어떻게 보여줄지 정의

@@ -3,6 +3,7 @@ import App from "./App";
 
 import NotFound from "./pages/not-found";
 import Edit from "./pages/my-page/pet/edit";
+import Main from "./pages/main";
 
 export const router = createBrowserRouter(
   [
@@ -13,6 +14,10 @@ export const router = createBrowserRouter(
         {
           path: "/pet/edit",
           element: <Edit />,
+        },
+        {
+          path: "/",
+          element: <Main />,
         },
       ],
       errorElement: <NotFound />,
