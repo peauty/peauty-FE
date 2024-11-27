@@ -14,7 +14,7 @@ interface CustomButtonProps {
   /**
    * 버튼 스타일 variant
    */
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "emergency";
   /**
    * 비활성화 여부
    */
