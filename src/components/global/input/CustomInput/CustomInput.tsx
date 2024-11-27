@@ -49,7 +49,9 @@ export default function CustomInput({
       </InputWrapper>
       {(error || hint) && (
         <Message error={!!error}>
-          <Text typo="body500">{error || hint}</Text>
+          <Text color={error ? "red100" : undefined} typo="body500">
+            {error || hint}
+          </Text>
         </Message>
       )}
     </Container>

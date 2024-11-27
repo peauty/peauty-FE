@@ -43,21 +43,20 @@ export const InputWrapper = styled.div<{
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: ${(props) =>
-    props.disabled ? colors.gray100 : "transparent"};
+  background-color: "transparent";
   ${({ variant, error, disabled }) =>
     variant === "outlined"
       ? css`
           border-radius: 5px;
           border: ${disabled
-            ? "none"
+            ? `1px solid ${colors.blue100}`
             : `1px solid ${error ? colors.red200 : colors.gray300}`};
           padding: 0px 10px;
           height: 40px;
 
           &:focus-within {
             border-color: ${error ? colors.red200 : colors.blue200};
-            box-shadow: 0 0 0 3px ${error ? colors.red100 : colors.blue100};
+            box-shadow: 0 0 0 1px ${error ? colors.red100 : colors.blue100};
           }
         `
       : css`
@@ -75,7 +74,6 @@ export const InputWrapper = styled.div<{
 
 export const StyledInput = styled.input<{ error: boolean }>`
   flex: 1;
-  border: none;
   outline: none;
   background-color: transparent;
   font-size: 14px;
@@ -103,14 +101,11 @@ export const SuffixContainer = styled.div<{
   ${({ variant, error }) =>
     variant === "outlined"
       ? css`
-          border-radius: 20px;
-          border: 2px solid ${error ? colors.red300 : colors.gray200};
-          padding: 8px 16px;
           height: 32px;
 
           &:focus {
             border-color: ${error ? colors.red300 : colors.blue200};
-            box-shadow: 0 0 0 3px
+            box-shadow: 0 0 0 1px
               ${error ? "rgba(239, 68, 68, 0.1)" : "rgba(79, 70, 229, 0.1)"};
           }
         `
