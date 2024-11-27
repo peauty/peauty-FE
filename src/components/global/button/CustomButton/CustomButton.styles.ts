@@ -94,6 +94,21 @@ export const Button = styled.button<{
             animation: ${pressAnimation} 0.2s ease-in-out;
           }
         `;
+      case "emergency":
+        return css`
+          background-color: ${colors.red300};
+          color: ${colors.red100};
+          border: 1px solid ${colors.red100};
+
+          &:hover:not(:disabled) {
+            background-color: ${colors.red200};
+            transform: translateY(-1px);
+          }
+
+          &:active:not(:disabled) {
+            animation: ${pressAnimation} 0.2s ease-in-out;
+          }
+        `;
       default: // primary
         return css`
           background-color: ${colors.blue100};
