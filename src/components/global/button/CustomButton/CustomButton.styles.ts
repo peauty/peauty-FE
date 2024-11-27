@@ -1,6 +1,7 @@
 // styles.tsx
 import styled, { css, keyframes } from "styled-components";
 import { colors } from "../../../../style/color";
+import { typography } from "../../../../style/typography";
 
 export const pressAnimation = keyframes`
   0% {
@@ -22,7 +23,7 @@ export const Button = styled.button<{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
+  border-radius: 10px;
   font-weight: 500;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -41,7 +42,7 @@ export const Button = styled.button<{
       case "large":
         return css`
           padding: 16px 32px;
-          font-size: 12px;
+          ${typography.subtitle300}
           height: 80px;
           border-radius: 10px;
         `;
@@ -56,7 +57,7 @@ export const Button = styled.button<{
       default: // medium
         return css`
           padding: 12px 24px;
-          font-size: 12px;
+          ${typography.subtitle200}
           height: 60px;
         `;
     }
@@ -83,7 +84,7 @@ export const Button = styled.button<{
         return css`
           background-color: transparent;
           color: ${colors.grayOpacity200};
-          border: 1px ${colors.grayOpacity100};
+          border: 1px solid ${colors.gray200};
 
           &:hover:not(:disabled) {
             background-color: #eef2ff;
