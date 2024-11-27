@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../../../style/color";
 
 export const GridWrapper = styled.div`
   display: grid;
@@ -6,20 +7,18 @@ export const GridWrapper = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   gap: 8px;
   margin: 0 auto;
-  width: fit-content;
+  width: 100%;
 `;
 
 export const ButtonStyle = styled.button<{ selected: boolean }>`
-  font-size: 12px;
   padding: 8px 16px;
-  border: 1px solid ${({ selected }) => (selected ? "#007bff" : "#ccc")};
-  background-color: ${({ selected }) => (selected ? "#e6f0ff" : "#fff")};
-  color: ${({ selected }) => (selected ? "#007bff" : "#000")};
-  border-radius: 4px;
+  border: 1px solid
+    ${({ selected }) => (selected ? `${colors.blue100}` : `${colors.gray200}`)};
+  background-color: ${({ selected }) =>
+    selected ? `${colors.blue300}` : `${colors.white}`};
+  color: ${({ selected }) =>
+    selected ? `${colors.blue100}` : `${colors.gray200}`};
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;
-
-  &:hover {
-    background-color: ${({ selected }) => (selected ? "#cce4ff" : "#f5f5f5")};
-  }
 `;

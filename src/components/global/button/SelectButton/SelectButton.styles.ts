@@ -16,7 +16,6 @@ export const Button = styled.button<{ $isSelected: boolean }>`
   height: 250px;
   border: none;
   border-radius: 10px;
-  font-family: ${theme.typo.body6};
   font-size: 14px;
   font-weight: 600;
   color: ${colors.white};

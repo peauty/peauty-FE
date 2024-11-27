@@ -22,23 +22,23 @@ export default meta;
 type Story = StoryObj<typeof AppBar>;
 
 // 기본 AppBar
-export const Default: Story = {
+export const Logo: Story = {
   args: {
-    
+    prefix: "logo",
   },
 };
 
 // 뒤로가기 버튼 포함
 export const BackButton: Story = {
   args: {
-    prefix: <StyledAppBarBack />,
+    prefix: "backButton",
   },
 };
 
 // 제목 크기 변경
 export const LargeTitle: Story = {
   args: {
-    prefix: <StyledAppBarBack />,
+    prefix: "backButton",
     title: "공지사항",
     titleSize: "24px",
   },

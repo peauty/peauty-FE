@@ -1,6 +1,7 @@
 // Tag.tsx
 import React from "react";
 import { TagWrapper } from "./Tag.styles";
+import { Text } from "../../texts/Text";
 
 interface TagProps {
   /**
@@ -17,5 +18,9 @@ export default function Tag({
   children,
   color,
 }: React.PropsWithChildren<TagProps>) {
-  return <TagWrapper color={color}>{children}</TagWrapper>;
+  return (
+    <TagWrapper color={color}>
+      <Text typo="body300">{children}</Text>
+    </TagWrapper>
+  );
 }

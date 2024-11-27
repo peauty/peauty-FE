@@ -1,6 +1,7 @@
 // SelectButton.tsx
 import { useState } from "react";
 import { Button } from "./SelectButton.styles";
+import { Text } from "../../texts/Text";
 
 export interface SelectButtonProps {
   text: string;
@@ -17,7 +18,7 @@ export default function SelectButton({ text, onClick }: SelectButtonProps) {
 
   return (
     <Button $isSelected={isSelected} onClick={handleClick}>
-      {text}
+      <Text typo="subtitle200">{text}</Text>
     </Button>
   );
 }
