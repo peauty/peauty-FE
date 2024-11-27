@@ -1,12 +1,13 @@
 import { ReactNode } from "react";
 import { Logo } from "../../../../assets/svg";
-import { StyledHeader, Title } from "./AppBar.styles";
+import { StyledAppBarBack, StyledHeader, Title } from "./AppBar.styles";
 
 interface Props {
-  prefix?: ReactNode; // 왼쪽 영역 (예: 뒤로가기 버튼)
+  prefix?: "backButton" | "logo";
   title?: string; // 중앙 제목
   titleSize?: string; // 제목 크기 (예: '16px', '1.5rem')
   suffix?: ReactNode; // 오른쪽 영역
+  onclick?: () => void; // 뒤로가기 버튼 클릭 시 실행할 함수
 }
 
 export default function AppBar({
@@ -14,10 +15,11 @@ export default function AppBar({
   title,
   titleSize = "18px",
   suffix,
+  onclick,
 }: Props) {
   return (
     <StyledHeader>
-      {prefix ? prefix : <Logo width="94px" height="24px" />}
+      {prefix ? prefix === "backButton" ? <StyledAppBarBack onClick={onclick} /> : <Logo width="94px" height="24px" onClick={onclick}/> : null}
       {title && <Title size={titleSize}>{title}</Title>}
       {suffix && suffix}
     </StyledHeader>
