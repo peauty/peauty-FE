@@ -17,7 +17,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-    padding: 24px;
+    padding-bottom: 24px;
     background: white;
 `;
 

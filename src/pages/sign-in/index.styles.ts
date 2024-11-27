@@ -19,4 +19,7 @@ export const ContentWrapper = styled.div`
 export const ButtonWrapper = styled.div`
   padding: 24px;
   background: white;
+  display: flex; /* 플렉스 컨테이너로 설정 */
+  flex-direction: column; /* 버튼들이 세로로 나열되도록 설정 */
+  gap: 10px; /* 버튼들 간의 간격 설정 */
 `;

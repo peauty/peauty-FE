@@ -14,5 +14,7 @@ export * from './global/modal/CustomModal'
 export * from './global/progress/ProgressBar'
 export * from './global/progress/ProgressBlock'
 export * from './global/progress/StepProgress'
+export * from './global/texts/Text'
+
 export * from './page/sign-in/SocialLoginButton'
 

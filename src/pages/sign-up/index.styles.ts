@@ -26,8 +26,8 @@ export const Title = styled.div`
 `;
 
 export const SubTitle = styled.div`
-    ${typography.body2}
-    color: ${colors.gray300};
+    ${typography.body300}
+    color: ${colors.gray200};
     margin-bottom: 24px;
 
     svg {

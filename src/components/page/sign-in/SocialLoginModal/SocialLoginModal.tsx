@@ -9,15 +9,8 @@ interface SocialLoginModalProps {
 }
 
 export default function SocialLoginModal({ onClose }: SocialLoginModalProps) {
-
   const handleKakaoLogin = () => {
-    const socialPlatform = 'kakao'
-    const socialId = "xx"; // Kakao ID 값 (서버에서 가져오거나 지정된 값)
-    const username = "aa"; // 사용자 이름 (예제 값)
-    const profileUrl = "bb"; // 프로필 URL (예제 값)
-    
-    // URL 리다이렉트
-    window.location.href = `/signup?social_platform=${socialPlatform}&social_id=${socialId}&username=${username}&profile_url=${profileUrl}`;
+    window.location.href = import.meta.env.VITE_KAKAO_SOCIAL_LOGIN_URL;
   };
 
   return (

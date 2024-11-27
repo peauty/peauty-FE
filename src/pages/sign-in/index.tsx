@@ -1,9 +1,8 @@
 import SocialLoginModal from "../../components/page/sign-in/SocialLoginModal/SocialLoginModal";
 import { useState } from "react";
 import { ButtonWrapper, ContentWrapper, PageWrapper } from "./index.styles";
-import { Title } from "../../components/global/texts/Title/Title.styles";
-import { HighlightedText } from "../../components/global/texts/HighlightedText/HighlightedText.styles";
 import { CustomButton } from "../../components/global/button/CustomButton";
+import { Text } from '../../components';
 
 export default function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -19,13 +18,13 @@ export default function SignIn() {
   return (
     <PageWrapper>
       <ContentWrapper>
-        <Title>
-          <HighlightedText>퓨티</HighlightedText>
+        <Text color={'black'} typo={"title100"}>
+          <Text color={'blue100'} typo={"title100"}>퓨티</Text>
           에 오신 것을 환영해요
-        </Title>
-        <div>
-          퓨티는 반려견에게 <HighlightedText>딱!</HighlightedText> 맞는 관리를 위한 서비스예요
-        </div>
+        </Text>
+        <Text color={'gray100'} typo={"subtitle300"}>
+          퓨티는 반려견에게 <Text color={'blue100'} typo={"subtitle300"}>딱!</Text> 맞는 관리를 위한 서비스예요
+        </Text>
       </ContentWrapper>
       <ButtonWrapper>
         <CustomButton size="large" variant="secondary" fullwidth={true} onClick={handleGeneralSignUp}>

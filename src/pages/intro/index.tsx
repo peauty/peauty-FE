@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom'; // For programmatic navigation
 import symbol from '../../assets/images/symbol.png';
 import { ButtonWrapper, ContentWrapper, Logo, PageWrapper } from './index.styles';
-import { Title } from '../../components/global/texts/Title/Title.styles';
-import { HighlightedText } from '../../components/global/texts/HighlightedText/HighlightedText.styles';
 import { CustomButton } from '../../components/global/button/CustomButton';
+import { Text } from '../../components';
 
 const Intro = () => {
   const navigate = useNavigate();
@@ -15,14 +14,14 @@ const Intro = () => {
   return (
     <PageWrapper>
       <ContentWrapper>
-        <Title>
+        <Text color={'black'} typo={'subtitle200'}>
           당신의 
-          <HighlightedText> 반려견</HighlightedText>
+          <Text color={'blue100'} typo={'subtitle200'}> 반려견</Text>
           의 모든 날들이
-        </Title>
-        <Title>
-          <HighlightedText>아름답도록</HighlightedText>
-        </Title>
+        </Text>
+        <Text color={'blue100'} typo={'subtitle200'}>
+          아름답도록
+        </Text>
         <Logo src={symbol} alt="Logo" />
       </ContentWrapper>
       <ButtonWrapper>

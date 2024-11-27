@@ -4,6 +4,7 @@ import { kakaoMapAPI } from "../apis/resources/external/kakaoMapAPI";
 export function useLocation() {
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
+  const [locationLoading, setLocationLoading] = useState(false);
 
   const fetchLocation = () => {
     if (!navigator.geolocation) {
@@ -11,6 +12,7 @@ export function useLocation() {
       return;
     }
 
+    setLocationLoading(true); // 로딩 시작
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         try {
@@ -21,13 +23,16 @@ export function useLocation() {
           }
         } catch (err) {
           setError("주소 변환 중 오류가 발생했습니다.");
+        } finally {
+          setLocationLoading(false); // 로딩 종료
         }
       },
       () => {
         setError("위치 정보를 가져올 수 없습니다.");
+        setLocationLoading(false); // 로딩 종료
       }
     );
   };
 
-  return { location, error, fetchLocation };
+  return { location, error, locationLoading, fetchLocation };
 }

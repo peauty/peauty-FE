@@ -16,47 +16,9 @@ import { AppBar } from "../../components/global/layout/AppBar";
 import { ProgressBlock } from "../../components/global/progress/ProgressBlock";
 import { CustomInput } from "../../components/global/input/CustomInput";
 import { CustomButton } from "../../components/global/button/CustomButton";
+import { StepWords } from "./StepWords";
 
 ReactModal.setAppElement("#root");
-
-const StepWords = [
-  {
-    title: "이름을 입력해주세요",
-    subTitle: "이름은 한 번 설정하면 변경 안돼요",
-    label: "이름",
-    placeholder: "이름을 입력해주세요",
-    regex: /^[a-zA-Z가-힣\s]{2,}$/,
-    errorMessage: "올바른 이름을 입력해주세요",
-    key: "name", // 추가됨
-  },
-  {
-    title: "휴대폰 번호를 입력해주세요",
-    subTitle: "입력하신 번호로 중요한 알림을 보내드려요",
-    label: "휴대폰 번호",
-    placeholder: "휴대폰 번호를 입력해주세요",
-    regex: /^01[0-9]-\d{3,4}-\d{4}$/,
-    errorMessage: "올바른 휴대폰 번호를 입력해주세요",
-    key: "phone", // 추가됨
-  },
-  {
-    title: "지역을 설정해주세요",
-    subTitle: "",
-    label: "지역",
-    placeholder: "지역을 입력해주세요",
-    suffixButton: "현재 위치 가져오기",
-    key: "location", // 추가됨
-  },
-  {
-    title: "닉네임을 설정해주세요",
-    subTitle: "",
-    label: "닉네임",
-    placeholder: "닉네임을 설정해주세요",
-    regex: /^[a-zA-Z가-힣0-9]{2,10}$/,
-    errorMessage: "올바른 닉네임을 입력해주세요 (2~10자)",
-    suffixButton: "중복 확인",
-    key: "nickname", // 추가됨
-  },
-];
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -73,8 +35,9 @@ export default function SignUp() {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const { location, error: locationError, fetchLocation } = useLocation();
-  const { loading, data, error: checkNicknameError, check } = useCheckNickname();
+  const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
+  const { location, error: locationError, locationLoading, fetchLocation } = useLocation();
+  const { checkNicknameLoading, checkData, error: checkNicknameError, check } = useCheckNickname();
 
   // 각 Step별 데이터를 저장할 상태 추가
   const [formData, setFormData] = useState<Record<string, string>>({});
@@ -103,12 +66,26 @@ export default function SignUp() {
   useEffect(() => {
     // 현재 위치가 업데이트되면 formData에 반영
     if (location) {
+      setInputValue(location)
       setFormData((prev) => ({
         ...prev,
         location,
       }));
     }
   }, [location]);
+
+  useEffect(() => {
+    if (checkData?.message === "사용할 수 있는 닉네임입니다.") {
+      setIsNicknameAvailable(true);
+      setError(""); // 에러 메시지 초기화
+    } else if (checkNicknameError) {
+      setIsNicknameAvailable(false);
+      setError("닉네임 중복 검사 중 문제가 발생했습니다.");
+    } else {
+      setIsNicknameAvailable(false);
+    }
+  }, [checkData, checkNicknameError]);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -122,7 +99,6 @@ export default function SignUp() {
 
   const handleGetLocation = () => {
     fetchLocation();
-    setInputValue(location)
     if (locationError) {
       setError(locationError);
     }
@@ -182,10 +158,6 @@ export default function SignUp() {
     }
   };
 
-  const handleModalToggle = () => {
-    setIsOpen((prev) => !prev);
-  };
-
   return (
     <>
       <AppBar prefix={<StyledAppBarBack onClick={handleBack} />} title="회원가입" />
@@ -209,12 +181,12 @@ export default function SignUp() {
               height="40px"
               suffix={
                 currentStep === 2 ? (
-                  <CustomButton size="small" onClick={handleGetLocation}>
+                  <CustomButton size="small" variant={error === "" ? "secondary" : "emergency"} onClick={handleGetLocation}>
                     현재 위치 가져오기
                   </CustomButton>
                 ) : currentStep === 3 ? (
-                  <CustomButton size="small" onClick={handleNicknameCheck}>
-                    중복 확인
+                  <CustomButton size="small" variant={error === "" ? "secondary" : "emergency"} onClick={handleNicknameCheck} disabled={inputValue==="" || error != ""}>
+                    중복 검사
                   </CustomButton>
                 ) : undefined
               }
@@ -223,7 +195,7 @@ export default function SignUp() {
           </InputSection>
         </ContentWrapper>
         <ButtonWrapper>
-          <CustomButton onClick={handleNext}>
+          <CustomButton onClick={handleNext} disabled={inputValue === "" || error != "" }> 
             {currentStep === totalSteps - 1 ? "완료" : "다음"}
           </CustomButton>
         </ButtonWrapper>
