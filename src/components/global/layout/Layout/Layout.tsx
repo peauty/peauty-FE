@@ -9,8 +9,7 @@ interface LayoutProps {
 export default function Layout({ style, children }: LayoutProps) {
   return (
     <Wrapper>
-      {children}
-      <Main style={style} />
+      <Main style={style}>{children}</Main>
     </Wrapper>
   );
 }
