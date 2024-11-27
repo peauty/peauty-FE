@@ -160,7 +160,7 @@ export default function SignUp() {
 
   return (
     <>
-      <AppBar prefix={<StyledAppBarBack onClick={handleBack} />} title="회원가입" />
+      <AppBar prefix={"backButton"} onclick={handleBack} title="회원가입" />
       <PageWrapper>
         <ContentWrapper>
           <ProgressBlock current={currentStep + 1} gap={10} total={totalSteps} />
