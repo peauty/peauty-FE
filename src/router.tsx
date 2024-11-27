@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-
 import NotFound from "./pages/not-found";
 import Edit from "./pages/my-page/pet/edit";
 import Main from "./pages/main";
-
 export const router = createBrowserRouter(
   [
     {
