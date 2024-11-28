@@ -17,6 +17,7 @@ import {
   Gender,
 } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton.stories";
 import { RadioSelectButtonProps } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton";
+import ProfileImg from "../../../../components/global/ProfileImg";
 
 export default function Edit() {
   const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)
@@ -39,9 +40,21 @@ export default function Edit() {
     console.log("Selected Gender:", selectedGenderIndex);
   };
 
+  const handleEditProfile = () => {
+    console.log("이미지 변경");
+  };
+
   return (
     <>
       <Layout>
+        <ProfileImg
+          width="120px"
+          height="120px"
+          src="/svg/logo.svg"
+          alt="프로필"
+          onClick={handleEditProfile}
+        />
+
         <Style.EditPageWrapper>
           <Style.Wrapper>
             <CustomInput
