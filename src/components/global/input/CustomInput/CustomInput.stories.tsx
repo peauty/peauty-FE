@@ -50,6 +50,23 @@ export const WithError: Story = {
   ),
 };
 
+// 성공 상태
+export const WithSuccess: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+      <CustomInput
+        label="성공 상태 (Outlined)"
+        success="성공적으로 입력되었습니다"
+      />
+      <CustomInput
+        label="성공 상태 (Underlined)"
+        variant="underlined"
+        success="성공적으로 입력되었습니다"
+      />
+    </div>
+  ),
+};
+
 // 도움말 텍스트
 export const WithHint: Story = {
   render: () => (
