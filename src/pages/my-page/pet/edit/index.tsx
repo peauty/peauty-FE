@@ -1,6 +1,8 @@
+import { useState } from "react";
 import {
   CustomButton,
   CustomInput,
+  DropButton,
   Layout,
   MultiSelectButton,
 } from "../../../../components";
@@ -11,8 +13,17 @@ import { Text } from "../../../../components/global/texts/Text";
 import { Style } from "./index.styles";
 
 export default function Edit() {
-  const handleSelect = (selectedIndexes: number[]) => {
-    console.log("Selected buttons:", selectedIndexes);
+  const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)
+
+  const [selectedBreed, setSelectedBreed] = useState<string>("");
+
+  const handleBreedSelect = (value: string) => {
+    setSelectedBreed(value);
+    console.log("Selected Breeds:", selectedBreed);
+  };
+
+  const handleDiseaseSelect = (selectedDiseaseIndexes: number[]) => {
+    console.log("Selected Diseases:", selectedDiseaseIndexes);
   };
   return (
     <>
@@ -28,7 +39,12 @@ export default function Edit() {
             />
           </Style.Wrapper>
 
-          <Text typo="subtitle300">견종</Text>
+          <DropButton
+            label="견종"
+            placeholder="견종을 선택해주세요"
+            options={dogBreeds}
+            onSelect={handleBreedSelect}
+          />
           <Text typo="subtitle300">성별</Text>
 
           <Style.Wrapper>
@@ -64,7 +80,7 @@ export default function Edit() {
             <MultiSelectButton
               {...(LargeGrid.args as MultiSelectButtonProps)} // 스토리북의 LargeGrid args 사용
               selectedIndexes={[0]}
-              onSelect={handleSelect} // 커스텀 이벤트 핸들러
+              onSelect={handleDiseaseSelect} // 커스텀 이벤트 핸들러
             />
           </Text>
 

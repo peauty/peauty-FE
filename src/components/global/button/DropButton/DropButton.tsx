@@ -20,9 +20,9 @@ export interface DropButtonProps {
 }
 
 export default function DropButton({
-  label = "견종",
-  placeholder = "견종을 선택해주세요",
-  options = [],
+  label,
+  placeholder,
+  options,
   onSelect,
 }: DropButtonProps) {
   const [isActive, setIsActive] = useState(false);
@@ -53,10 +53,7 @@ export default function DropButton({
       {isActive && (
         <DropdownList>
           {options.map((option, index) => (
-            <DropdownListItem
-              key={index}
-              onClick={() => handleSelect(option)}
-            >
+            <DropdownListItem key={index} onClick={() => handleSelect(option)}>
               {option}
             </DropdownListItem>
           ))}
