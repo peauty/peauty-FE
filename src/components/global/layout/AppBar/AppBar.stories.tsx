@@ -6,14 +6,10 @@ const meta: Meta<typeof AppBar> = {
   title: "Components/AppBar",
   component: AppBar,
   tags: ["autodocs"], // Storybook autodocs 태그
-  args: {
-    titleSize: "18px", // 기본 props 설정
-  },
+  args: {},
   argTypes: {
     title: { control: "text" },
-    titleSize: { control: "text" },
     prefix: { control: false },
-    suffix: { control: false },
   },
 };
 
@@ -40,6 +36,5 @@ export const LargeTitle: Story = {
   args: {
     prefix: "backButton",
     title: "공지사항",
-    titleSize: "24px",
   },
 };

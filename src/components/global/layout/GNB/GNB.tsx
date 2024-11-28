@@ -1,60 +1,57 @@
-import { useNavigate } from "react-router-dom";
-import {
-  Smile,
-  Home,
-  Bookmark,
-  Calendar,
-  Search,
-} from "../../../../assets/svg";
+import React from "react";
 import { Nav, MenuItem } from "./GNB.styles";
-export interface MenuItemProps {
-  isActive: boolean;
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  Home,
+  Search,
+  Smile,
+  Bookmark,
+  Check,
+  Calendar,
+} from "../../../../assets/svg";
+import { Text } from "../../texts/Text";
+
+interface GNBProps {
+  type: "user" | "stylist"; // GNB 타입 (회원/미용사)
 }
 
-const MENUS = [
-  {
-    name: "스케줄",
-    path: "/schedule",
-    icon: <Calendar width="20px" height="20px" />,
-  },
-  {
-    name: "검색",
-    path: "/search",
-    icon: <Search width="20px" height="20px" />,
-  },
-  {
-    name: "홈",
-    path: "/home",
-    icon: <Home width="20px" height="20px" />,
-  },
-  {
-    name: "요청 현황",
-    path: "/requests",
-    icon: <Bookmark width="20px" height="20px" />,
-  },
-  {
-    name: "마이페이지",
-    path: "/mypage",
-    icon: <Smile width="20px" height="20px" />,
-  },
-];
-
-export default function GNB() {
+const GNB: React.FC<GNBProps> = ({ type }) => {
   const navigate = useNavigate();
-  const pathname = window.location.pathname;
+  const location = useLocation(); // 현재 경로 정보를 가져옵니다.
+
+  // 회원(GNB) 메뉴 구성
+  const userMenuItems = [
+    { icon: <Home />, label: "홈", path: "/" },
+    { icon: <Search />, label: "내 주변", path: "/around" },
+    { icon: <Bookmark />, label: "요청 현황", path: "/requests" },
+    { icon: <Smile />, label: "마이페이지", path: "/mypage" },
+  ];
+
+  // 미용사(GNB) 메뉴 구성
+  const stylistMenuItems = [
+    { icon: <Home />, label: "홈", path: "/" },
+    { icon: <Calendar />, label: "스케줄", path: "/schedule" },
+    { icon: <Check />, label: "견적 현황", path: "/propose" },
+    { icon: <Smile />, label: "마이페이지", path: "/mypage" },
+  ];
+
+  // 현재 메뉴 항목 결정
+  const menuItems = type === "user" ? userMenuItems : stylistMenuItems;
 
   return (
     <Nav>
-      {MENUS.map((menu) => (
+      {menuItems.map((item) => (
         <MenuItem
-          key={menu.name}
-          isActive={pathname === menu.path}
-          onClick={() => navigate(menu.path)}
+          key={item.path}
+          isActive={location.pathname === item.path} // 현재 경로와 비교하여 활성화 상태 설정
+          onClick={() => navigate(item.path)} // 경로 이동
         >
-          {menu.icon}
-          <div>{menu.name}</div>
+          {item.icon}
+          <Text typo="body200">{item.label}</Text>
         </MenuItem>
       ))}
     </Nav>
   );
-}
+};
+
+export default GNB;

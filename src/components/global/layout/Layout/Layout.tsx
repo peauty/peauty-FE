@@ -1,5 +1,6 @@
-import { CSSProperties, ReactNode } from 'react';
-import { Wrapper, Main } from './Layout.styles';
+import { CSSProperties, ReactNode } from "react";
+import { Wrapper, Main } from "./Layout.styles";
+
 interface LayoutProps {
   style?: CSSProperties;
   children: ReactNode;
@@ -8,9 +9,7 @@ interface LayoutProps {
 export default function Layout({ style, children }: LayoutProps) {
   return (
     <Wrapper>
-      <Main style={style}>
-        {children}
-      </Main>
+      <Main style={style}>{children}</Main>
     </Wrapper>
   );
 }
