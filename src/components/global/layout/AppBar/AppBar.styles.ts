@@ -8,6 +8,7 @@ export const StyledHeader = styled.header`
   z-index: 2;
   width: 100%; /* 전체 너비를 차지 */
   height: 70px;
+  padding: 24px;
   background: white;
   display: flex;
   align-items: center;
@@ -22,7 +23,6 @@ export const StyledHeader = styled.header`
 
 export const Title = styled.div`
   position: absolute;
-  width: 100%;
   left: 50%;
   transform: translateX(-50%);
   font-weight: bold;
