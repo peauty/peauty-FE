@@ -9,23 +9,21 @@ interface HookState {
 }
 
 export const useCheckNickname = () => {
-  const [state, setState] = useState<HookState>({
-    checkNicknameLoading: false,
-    checkData: null,
-    error: null,
-  });
+  const [isNickNameAvailable, setisNickNameAvailable] = useState<boolean>(false);
 
   const check = async (nickname: string) => {
-    setState({ checkNicknameLoading: true, checkData: null, error: null });
     try {
       const result = await checkNicknameAPI(nickname);
-      setState({ checkNicknameLoading: false, checkData: result.data, error: null });
+      if (result.data["responseCode"] === "0000") {
+        setisNickNameAvailable(true);
+      } else {
+        setisNickNameAvailable(false);
+      }
     } catch (error: any) {
-      setState({ checkNicknameLoading: false, checkData: null, error: error.message });
+      setisNickNameAvailable(false);
     }
   };
-
-  return { ...state, check };
+  return { isNickNameAvailable, setisNickNameAvailable, check };
 };
 
 interface SignupHookState {

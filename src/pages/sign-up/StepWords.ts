@@ -6,7 +6,7 @@ export const StepWords = [
       placeholder: "이름을 입력해주세요",
       regex: /^[a-zA-Z가-힣\s]{2,}$/,
       errorMessage: "올바른 이름을 입력해주세요",
-      key: "name", // 추가됨
+      key: "name",
     },
     {
       title: "휴대폰 번호를 입력해주세요",
@@ -15,7 +15,7 @@ export const StepWords = [
       placeholder: "휴대폰 번호를 입력해주세요",
       regex: /^01[0-9]-\d{3,4}-\d{4}$/,
       errorMessage: "올바른 휴대폰 번호를 입력해주세요",
-      key: "phone", // 추가됨
+      key: "phone",
     },
     {
       title: "지역을 설정해주세요",
@@ -23,7 +23,7 @@ export const StepWords = [
       label: "지역",
       placeholder: "지역을 설정해주세요",
       suffixButton: "현재 위치 불러오기",
-      key: "location", // 추가됨
+      key: "location",
     },
     {
       title: "닉네임을 설정해주세요",
@@ -33,6 +33,6 @@ export const StepWords = [
       regex: /^[a-zA-Z가-힣0-9]{2,10}$/,
       errorMessage: "올바른 닉네임을 입력해주세요 (2~10자)",
       suffixButton: "중복 검사",
-      key: "nickname", // 추가됨
+      key: "nickname",
     },
   ];

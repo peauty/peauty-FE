@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import ReactModal from "react-modal";
 import SvgWarning from "../../assets/svg/Warning";
 import {
   ButtonWrapper,
@@ -19,15 +18,13 @@ import { StepWords } from "./StepWords";
 import { useNavigate } from "react-router-dom";
 import { UserSignupInput } from "../../apis/resources/userAPI";
 
-ReactModal.setAppElement("#root");
-
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
   return {
-    username: params.get("username") || "",
-    profileUrl: params.get("profile_url") || "",
-    socialPlatform: params.get("social_platform") || "",
-    socialId: params.get("social_id") || "",
+    name: params.get("nickname") || "",
+    profileImageUrl: params.get("profileImageUrl") || "",
+    socialPlatform: params.get("socialPlatform") || "",
+    socialId: params.get("socialId") || "",
   };
 }
 
@@ -35,9 +32,10 @@ export default function SignUp() {
   const [currentStep, setCurrentStep] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
-  const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [checkedNickname, setCheckedNickname] = useState("");
   const { location, error: locationError, locationLoading, fetchLocation } = useLocation();
-  const { checkNicknameLoading, checkData, error: checkNicknameError, check } = useCheckNickname();
+  const { isNickNameAvailable, setisNickNameAvailable, check } = useCheckNickname();
   const { signupLoading, signupData, signupError, signup } = useSignup();
   const navigate = useNavigate();
 
@@ -52,16 +50,16 @@ export default function SignUp() {
     // 첫 번째 Step이 name일 경우 초기값 설정
     if (currentStep === 0) {
       // 쿼리 파라미터에서 데이터 추출 및 초기 상태 설정
-      const { username, profileUrl, socialPlatform, socialId } = parseQueryParams();
+      const { name, profileImageUrl, socialPlatform, socialId } = parseQueryParams();
 
       // username을 name에, profile_url을 profileImageUrl에 저장
       setFormData({
-        name: username,
-        profileImageUrl: profileUrl,
+        name: name,
+        profileImageUrl: profileImageUrl,
         socialPlatform,
         socialId,
       });
-      setInputValue(username);
+      setInputValue(name);
     }
   }, [currentStep]);
 
@@ -77,16 +75,20 @@ export default function SignUp() {
   }, [location]);
 
   useEffect(() => {
-    if (checkData?.message === "사용할 수 있는 닉네임입니다.") {
-      setIsNicknameAvailable(true);
-      setError(""); // 에러 메시지 초기화
-    } else if (checkNicknameError) {
-      setIsNicknameAvailable(false);
-      setError("닉네임 중복 검사 중 문제가 발생했습니다.");
-    } else {
-      setIsNicknameAvailable(false);
+    if (checkedNickname === "") {
+      return;
     }
-  }, [checkData, checkNicknameError]);
+    if (isNickNameAvailable === null) {
+      setError("");
+      setSuccess("");
+    } else if (isNickNameAvailable) {
+      setSuccess("사용 가능한 닉네임입니다.");
+      setError("");
+    } else {
+      setSuccess("");
+      setError("이미 사용 중인 닉네임입니다.");
+    }
+  }, [isNickNameAvailable]);
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +98,9 @@ export default function SignUp() {
       setError("");
     } else if (regex) {
       setError(errorMessage);
+    }
+    if (currentStep === 3 && isNickNameAvailable && checkedNickname != value) {
+      setisNickNameAvailable(false);
     }
   };
 
@@ -111,7 +116,8 @@ export default function SignUp() {
       setError("올바른 닉네임을 입력해주세요 (2~10자)");
       return;
     }
-    check(inputValue);
+    setCheckedNickname(inputValue);
+    await check(inputValue);
   };
 
   const handleNext = async () => {
@@ -138,8 +144,8 @@ export default function SignUp() {
         socialId: formData.socialId || "",
         socialPlatform: formData.socialPlatform || "",
         name: formData.name || "",
-        phoneNum: formData.phoneNum || "",
-        address: formData.location || "", // location이 address로 매핑됨
+        phoneNum: formData.phone || "",
+        address: formData.location || "",
         nickname: formData.nickname || "",
         profileImageUrl: formData.profileImageUrl || "",
       };
@@ -182,6 +188,7 @@ export default function SignUp() {
               value={inputValue}
               onChange={handleInputChange}
               error={error}
+              success={checkedNickname === inputValue ? success : ""}
               height="40px"
               suffix={
                 currentStep === 2 ? (
@@ -199,7 +206,9 @@ export default function SignUp() {
           </InputSection>
         </ContentWrapper>
         <ButtonWrapper>
-          <CustomButton onClick={handleNext} disabled={inputValue === "" || error != "" }> 
+          <CustomButton onClick={handleNext} disabled={
+            currentStep === 3 ? (inputValue === "" || error !== "" || !isNickNameAvailable) :
+            inputValue === "" || error != "" }> 
             {currentStep === totalSteps - 1 ? "완료" : "다음"}
           </CustomButton>
         </ButtonWrapper>
