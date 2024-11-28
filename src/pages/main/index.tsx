@@ -4,7 +4,7 @@ const userType = "user";
 export default function Main() {
   return (
     <Layout>
-      <AppBar />
+      <AppBar prefix="logo" />
       <Wrapper>
         <EstimateStauts />
       </Wrapper>
