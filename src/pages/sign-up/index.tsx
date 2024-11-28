@@ -6,17 +6,18 @@ import {
   ContentWrapper,
   InputSection,
   PageWrapper,
-  StyledAppBarBack,
   SubTitle,
   Title,
 } from "./index.styles";
 import { useLocation } from "../../hooks/useLocation";
-import { useCheckNickname } from "../../hooks/useCheckNickname";
+import { useCheckNickname, useSignup } from "../../hooks/useUser";
 import { AppBar } from "../../components/global/layout/AppBar";
 import { ProgressBlock } from "../../components/global/progress/ProgressBlock";
 import { CustomInput } from "../../components/global/input/CustomInput";
 import { CustomButton } from "../../components/global/button/CustomButton";
 import { StepWords } from "./StepWords";
+import { useNavigate } from "react-router-dom";
+import { UserSignupInput } from "../../apis/resources/userAPI";
 
 ReactModal.setAppElement("#root");
 
@@ -34,10 +35,11 @@ export default function SignUp() {
   const [currentStep, setCurrentStep] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const { location, error: locationError, locationLoading, fetchLocation } = useLocation();
   const { checkNicknameLoading, checkData, error: checkNicknameError, check } = useCheckNickname();
+  const { signupLoading, signupData, signupError, signup } = useSignup();
+  const navigate = useNavigate();
 
   // 각 Step별 데이터를 저장할 상태 추가
   const [formData, setFormData] = useState<Record<string, string>>({});
@@ -117,34 +119,34 @@ export default function SignUp() {
       setError(errorMessage);
       return;
     }
-
+  
+    // 현재 Step의 데이터를 formData에 저장
     setFormData((prev) => ({
       ...prev,
       [key]: inputValue,
     }));
-
+  
     setError("");
     setInputValue("");
-
+  
+    // 마지막 Step에서 회원가입 로직 실행
     if (currentStep < totalSteps - 1) {
       setCurrentStep((prevStep) => prevStep + 1);
     } else {
+      // formData를 UserSignupInput 형태로 매핑
+      const signupData: UserSignupInput = {
+        socialId: formData.socialId || "",
+        socialPlatform: formData.socialPlatform || "",
+        name: formData.name || "",
+        phoneNum: formData.phoneNum || "",
+        address: formData.location || "", // location이 address로 매핑됨
+        nickname: formData.nickname || "",
+        profileImageUrl: formData.profileImageUrl || "",
+      };
+  
       try {
-        const response = await fetch("/api/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (!response.ok) {
-          throw new Error("회원가입 요청 실패");
-        }
-
-        alert("회원가입이 완료되었습니다!");
+        await signup(signupData); // signup 함수에 데이터 전달
       } catch (error) {
-        console.error("회원가입 오류:", error);
         setError("회원가입 중 문제가 발생했습니다.");
       }
     }
@@ -155,6 +157,8 @@ export default function SignUp() {
       setCurrentStep((prevStep) => prevStep - 1);
       setError("");
       setInputValue(formData[StepWords[currentStep - 1].key] || "");
+    } else {
+      navigate("/signin");
     }
   };
 

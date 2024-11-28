@@ -1,6 +1,5 @@
 import { axiosCustomerInstance } from "../instance";
 
-
 interface DefaultResponse {
   responseCode: string;
   errorMessage: string;
@@ -8,13 +7,13 @@ interface DefaultResponse {
   data: Record<string, unknown>;
 }
 
-export const checkNickname = async (nickname: string): Promise<DefaultResponse> => {
+export const checkNicknameAPI = async (nickname: string): Promise<DefaultResponse> => {
   return axiosCustomerInstance.get('/users/check', {
     params: { nickname },
   });
 };
 
-interface UserSignupInput {
+export interface UserSignupInput {
   socialId: string;
   socialPlatform: string;
   name: string;
@@ -24,6 +23,6 @@ interface UserSignupInput {
   profileImageUrl: string;
 }
 
-export const signup = async (userData: UserSignupInput): Promise<DefaultResponse> => {
+export const signupAPI = async (userData: UserSignupInput): Promise<DefaultResponse> => {
   return axiosCustomerInstance.post('/auth/sign-up', userData);
 };
