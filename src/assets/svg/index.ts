@@ -11,3 +11,4 @@ export { default as Logo } from "./Logo";
 export { default as Maker } from "./Maker";
 export { default as Search } from "./Search";
 export { default as Smile } from "./Smile";
+export { default as Star } from "./Star";

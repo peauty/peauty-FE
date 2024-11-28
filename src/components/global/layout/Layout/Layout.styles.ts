@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   min-width: ${theme.size.minWidth};
   max-width: ${theme.size.maxWidth};
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0 auto;
   overscroll-behavior-y: contain;
   box-sizing: border-box;
@@ -19,5 +19,4 @@ export const Main = styled.div`
   flex-direction: column;
   flex: 1;
   box-sizing: border-box; /* 패딩을 포함하여 너비를 계산 */
-  overflow-y: auto;
 `;
