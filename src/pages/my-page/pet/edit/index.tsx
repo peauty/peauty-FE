@@ -11,19 +11,25 @@ import { LargeGrid } from "../../../../components/global/button/MultiSelectButto
 import { Text } from "../../../../components/global/texts/Text";
 
 import { Style } from "./index.styles";
+import { RadioSelectButton } from "../../../../components/global/button/RadioSelectButton";
+import { Default } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton.stories";
+import { RadioSelectButtonProps } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton";
 
 export default function Edit() {
   const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)
-
   const [selectedBreed, setSelectedBreed] = useState<string>("");
 
   const handleBreedSelect = (value: string) => {
     setSelectedBreed(value);
-    console.log("Selected Breeds:", selectedBreed);
+    console.log("Selected Breed:", selectedBreed);
   };
 
   const handleDiseaseSelect = (selectedDiseaseIndexes: number[]) => {
     console.log("Selected Diseases:", selectedDiseaseIndexes);
+  };
+
+  const handleSizeSelect = (selectedSizeIndexes: number) => {
+    console.log("Selected Size:", selectedSizeIndexes);
   };
   return (
     <>
@@ -46,6 +52,15 @@ export default function Edit() {
             onSelect={handleBreedSelect}
           />
           <Text typo="subtitle300">성별</Text>
+
+          <Text typo="subtitle300">
+            분류
+            <RadioSelectButton
+              {...(Default.args as RadioSelectButtonProps)}
+              selectedIndex={0}
+              onSelect={handleSizeSelect}
+            />
+          </Text>
 
           <Style.Wrapper>
             <Style.HalfWrapper>
@@ -78,9 +93,9 @@ export default function Edit() {
           <Text typo="subtitle300">
             질병 이력 <Text typo="body400">(중복 선택도 가능해요)</Text>
             <MultiSelectButton
-              {...(LargeGrid.args as MultiSelectButtonProps)} // 스토리북의 LargeGrid args 사용
+              {...(LargeGrid.args as MultiSelectButtonProps)}
               selectedIndexes={[0]}
-              onSelect={handleDiseaseSelect} // 커스텀 이벤트 핸들러
+              onSelect={handleDiseaseSelect}
             />
           </Text>
 
