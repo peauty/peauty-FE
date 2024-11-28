@@ -20,12 +20,11 @@ export const StyledHeader = styled.header`
   transform: translateX(-50%);
 `;
 
-export const Title = styled.h1<{ size: string }>`
+export const Title = styled.div`
   position: absolute;
   width: 100%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: ${(props) => props.size};
   font-weight: bold;
   color: black;
   white-space: nowrap;
