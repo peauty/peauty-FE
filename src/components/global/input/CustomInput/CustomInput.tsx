@@ -14,6 +14,7 @@ interface CustomInputProps
   width?: string;
   label?: string;
   error?: string;
+  success?: string;
   hint?: string;
   fullwidth?: boolean;
   variant?: "outlined" | "underlined";
@@ -24,6 +25,7 @@ interface CustomInputProps
 export default function CustomInput({
   label,
   error,
+  success,
   hint,
   fullwidth = true,
   disabled = false,
@@ -47,10 +49,10 @@ export default function CustomInput({
           </SuffixContainer>
         )}
       </InputWrapper>
-      {(error || hint) && (
+      {(error || hint || success) && (
         <Message error={!!error}>
-          <Text color={error ? "red100" : undefined} typo="body500">
-            {error || hint}
+          <Text color={error ? "red100" : (success ? "blue100" : undefined)} typo="body500">
+            {error || hint || success}
           </Text>
         </Message>
       )}
