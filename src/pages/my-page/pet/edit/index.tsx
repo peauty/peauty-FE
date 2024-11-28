@@ -12,7 +12,10 @@ import { Text } from "../../../../components/global/texts/Text";
 
 import { Style } from "./index.styles";
 import { RadioSelectButton } from "../../../../components/global/button/RadioSelectButton";
-import { Default } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton.stories";
+import {
+  Default,
+  Gender,
+} from "../../../../components/global/button/RadioSelectButton/RadioSelectButton.stories";
 import { RadioSelectButtonProps } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton";
 
 export default function Edit() {
@@ -28,9 +31,14 @@ export default function Edit() {
     console.log("Selected Diseases:", selectedDiseaseIndexes);
   };
 
-  const handleSizeSelect = (selectedSizeIndexes: number) => {
-    console.log("Selected Size:", selectedSizeIndexes);
+  const handleSizeSelect = (selectedSizeIndex: number) => {
+    console.log("Selected Size:", selectedSizeIndex);
   };
+
+  const handleGenderSelect = (selectedGenderIndex: number) => {
+    console.log("Selected Gender:", selectedGenderIndex);
+  };
+
   return (
     <>
       <Layout>
@@ -51,7 +59,14 @@ export default function Edit() {
             options={dogBreeds}
             onSelect={handleBreedSelect}
           />
-          <Text typo="subtitle300">성별</Text>
+          <Text typo="subtitle300">
+            성별
+            <RadioSelectButton
+              {...(Gender.args as RadioSelectButtonProps)}
+              selectedIndex={0}
+              onSelect={handleGenderSelect}
+            />
+          </Text>
 
           <Text typo="subtitle300">
             분류

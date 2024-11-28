@@ -21,3 +21,12 @@ export const Default: Story = {
     onSelect: (index) => console.log("선택된 버튼 인덱스:", index),
   },
 };
+
+export const Gender: Story = {
+  args: {
+    buttonNames: ["여아", "남아"],
+    selectedIndex: 1,
+    col: 2,
+    onSelect: (index) => console.log("선택된 버튼 인덱스:", index),
+  },
+};
