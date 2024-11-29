@@ -9,6 +9,7 @@ export const Style = {
   Wrapper: styled.div`
     display: flex;
     justify-content: space-between;
+    gap: 2%;
   `,
   HalfWrapper: styled.div`
     display: flex;
