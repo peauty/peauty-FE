@@ -7,7 +7,6 @@ export { default as Calendar } from "./Calendar";
 export { default as Camera } from "./Camera";
 export { default as Check } from "./Check";
 export { default as DefaultProfile } from "./DefaultProfile";
-export { default as DropdownNone } from "./DropdownNone";
 export { default as Favicon } from "./Favicon";
 export { default as Home } from "./Home";
 export { default as Logo } from "./Logo";

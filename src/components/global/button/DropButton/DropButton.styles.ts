@@ -74,7 +74,7 @@ export const DropdownList = styled.ul`
 export const DropdownListItem = styled.li`
   padding: 10px 15px;
   ${typography.body100};
-  color: ${colors.black};
+  color: ${colors.gray100};
   cursor: pointer;
 
   text-decoration: none;

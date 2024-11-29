@@ -9,7 +9,7 @@ import {
   DropdownList,
   DropdownListItem,
 } from "./DropButton.styles";
-import { DropDown, DropdownNone } from "../../../../assets/svg";
+import { DropDown } from "../../../../assets/svg";
 import { colors } from "../../../../style/color";
 
 export interface DropButtonProps {
