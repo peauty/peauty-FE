@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode } from "react";
+import { InputHTMLAttributes, ReactNode, useState } from "react";
 import {
   Container,
   Label,
@@ -32,16 +32,19 @@ export default function CustomInput({
   hasButton = false,
   ...props
 }: CustomInputProps) {
+  // focused 상태 관리
+  const [focused, setFocused] = useState(false);
+
   return (
     <Container fullwidth={fullwidth} hasButton={hasButton}>
-      {label && (
-        <Label>
-          <Text typo="subtitle300" color="gray100">
-            {label}
-          </Text>
-        </Label>
-      )}
-      <InputWrapper variant={variant} error={!!error} disabled={disabled}>
+      {label && <Label focused={focused}>{label}</Label>}
+      <InputWrapper
+        variant={variant}
+        error={!!error}
+        disabled={disabled}
+        onFocus={() => setFocused(true)} // 포커스 상태 설정
+        onBlur={() => setFocused(false)} // 포커스 해제 시 상태 변경
+      >
         <StyledInput error={!!error} disabled={disabled} {...props} />
         {suffix && (
           <SuffixContainer variant={variant} error={!!error}>

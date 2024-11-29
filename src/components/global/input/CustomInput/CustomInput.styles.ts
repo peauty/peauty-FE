@@ -29,10 +29,11 @@ export const Container = styled.div<{
     `}
 `;
 
-export const Label = styled.label`
-  font-weight: 500;
-  color: #374151;
+export const Label = styled.label<{ focused: boolean }>`
+  ${typography.subtitle300}
+  color: ${({ focused }) => (focused ? colors.blue100 : colors.gray100)};
   margin-bottom: 5px;
+  transition: color 0.2s ease;
 `;
 
 export const InputWrapper = styled.div<{
