@@ -9,10 +9,12 @@ type StyleImg = {
 
 export const StyleProfileImg = {
   Wrapper: styled.div`
-    position: relative;
-    display: inline-block;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   `,
   RoundImg: styled.img<StyleImg>`
+    position: relative;
     width: ${(props) => (props.width ? props.width : "100%")};
     height: ${(props) => (props.height ? props.height : "auto")};
     border: ${(props) => (props.border ? props.border : 0)};
@@ -21,11 +23,9 @@ export const StyleProfileImg = {
   `,
   EditButton: styled.button`
     position: absolute;
-    display: flex;
-    bottom: -10px;
-    right: -10px;
-    border-radius: 100%;
     padding: 5px;
     cursor: pointer;
+    top: 150px;
+    left: 260px;
   `,
 };
