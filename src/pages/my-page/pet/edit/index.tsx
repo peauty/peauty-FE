@@ -90,7 +90,7 @@ export default function Edit() {
         <ProfileImg
           width="120px"
           height="120px"
-          src="/svg/logo.svg"
+          src="/svg/default-profile.svg"
           alt="프로필"
           onClick={handleEditProfile}
         />
