@@ -1,8 +1,9 @@
-import * as React from "react";
 import type { SVGProps } from "react";
 
+type ScissorsVariant = "gold" | "silver" | "bronze";
+
 interface ScissorsIconProps extends SVGProps<SVGSVGElement> {
-  primaryColor?: string; // 첫 번째 색상
+  primaryColor?: ScissorsVariant; // 첫 번째 색상
 }
 
 const SvgScissorsIcon = ({

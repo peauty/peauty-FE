@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Badge from "./Badge";
-import { ScissorsIcon, Auth } from "../../../../assets/svg";
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
@@ -16,7 +15,6 @@ export const GeneralBlue: Story = {
     type: "general",
     variant: "blue",
     text: "일반 파란색",
-    icon: <Auth />,
   },
 };
 
@@ -26,16 +24,16 @@ export const GeneralGreen: Story = {
     type: "general",
     variant: "green",
     text: "일반 초록색",
-    icon: <Auth />,
   },
 };
 
 // 질병 뱃지
 export const GeneralDisease: Story = {
   args: {
-    type: "general",
+    type: "normal",
     variant: "disease",
     text: "질병 태그",
+    typo: "body300",
   },
 };
 
@@ -45,7 +43,6 @@ export const ScissorsGold: Story = {
     type: "scissors",
     variant: "gold",
     text: "골드 가위",
-    icon: <ScissorsIcon />,
   },
 };
 
@@ -55,7 +52,6 @@ export const ScissorsSilver: Story = {
     type: "scissors",
     variant: "silver",
     text: "실버 가위",
-    icon: <ScissorsIcon />,
   },
 };
 
@@ -65,6 +61,5 @@ export const ScissorsBronze: Story = {
     type: "scissors",
     variant: "bronze",
     text: "브론즈 가위",
-    icon: <ScissorsIcon />,
   },
 };

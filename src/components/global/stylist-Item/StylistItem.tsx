@@ -2,12 +2,39 @@ import { ItemWrapper } from "./StylistItem.styles";
 import { Text } from "../texts/Text";
 import { colors } from "../../../style/color";
 import { Star } from "../../../assets/svg";
-import { Tag } from "../category/Tag";
 import Badge from "../category/Badge/Badge";
-import { ScissorsIcon, Auth } from "../../../assets/svg";
 import { BadgeContainer } from "../category/Badge/Badge.styles";
+import { typography } from "../../../style/typography";
 
-export default function StylistItem() {
+type GeneralVariant = "blue" | "green" | "disease";
+type ScissorsVariant = "gold" | "silver" | "bronze";
+
+interface StyledBadgeProps {
+  type: "general" | "scissors" | "normal";
+  variant: GeneralVariant | ScissorsVariant;
+  text: string;
+  typo?: keyof typeof typography;
+}
+
+interface StyledItemProps {
+  name: string;
+  imageUrl: string;
+  location: string;
+  star: number;
+  starCount: number;
+  career: number;
+  badges: StyledBadgeProps[];
+}
+
+export default function StylistItem({
+  name,
+  imageUrl,
+  location,
+  star,
+  starCount,
+  career,
+  badges,
+}: StyledItemProps) {
   return (
     <ItemWrapper>
       <div
@@ -19,42 +46,26 @@ export default function StylistItem() {
         }}
       ></div>
       <div>
-        <Text typo="subtitle200">수석실장 시언</Text>
+        <Text typo="subtitle200">{name}</Text>
         <div>
           <Text typo="body500" color="gray100">
-            몽끄의 아틀리에 위례점
+            {location}
           </Text>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <Star width={14} />{" "}
+          <Star width={14}/>{" "}
           <Text typo="body600" color="gray100">
             <div style={{ display: "flex", gap: "5px" }}>
-              <span>5.0(12)</span>
+              <span>{star}({starCount})</span>
               <span>|</span>
-              <span>경력 5년</span>
+              <span>경력 {career}년</span>
             </div>
           </Text>
         </div>
         <BadgeContainer>
-          <Badge
-            type="general"
-            variant="green"
-            text="일반 초록색"
-            icon={<Auth height="10px" color={`${colors.green100}`} />}
-          />
-          <Badge
-            type="scissors"
-            variant="gold"
-            text="2023 골드 가위"
-            icon={<ScissorsIcon height={10} />}
-          />
-          <Badge
-            type="scissors"
-            variant="silver"
-            text="2023 골드 가위"
-            icon={<ScissorsIcon height={10} color={`${colors.silver200}`} />}
-          />
-          <Badge type="general" variant="disease" text="외이염" />
+          {badges.map((badge, index) => (
+            <Badge key={index} type={badge.type} variant={badge.variant} text={badge.text} typo={badge.typo}/>
+          ))}
         </BadgeContainer>
       </div>
     </ItemWrapper>
