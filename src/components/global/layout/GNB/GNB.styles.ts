@@ -18,7 +18,7 @@ export const Nav = styled.nav`
   padding: 19px 40px 0px;
 `;
 
-export const MenuItem = styled.div<{ isActive: boolean }>`
+export const MenuItem = styled.div<{ isActive?: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
