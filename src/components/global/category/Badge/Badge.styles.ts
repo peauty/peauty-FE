@@ -5,7 +5,7 @@ export const BadgeWrapper = styled.div<{
   borderRadius: string;
   padding: string;
 }>`
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   background-color: ${({ backgroundColor }) => backgroundColor};
@@ -18,5 +18,15 @@ export const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+
+  svg {
+    display: block;
+  }
+`;
+
+export const BadgeContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap; /* 화면을 초과하면 아래로 이동 */
+  gap: 5px;
+  margin-top: 5px;
 `;
