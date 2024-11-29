@@ -9,7 +9,8 @@ import {
   DropdownList,
   DropdownListItem,
 } from "./DropButton.styles";
-import { DropDown } from "../../../../assets/svg";
+import { DropDown, DropdownNone } from "../../../../assets/svg";
+import { colors } from "../../../../style/color";
 
 export interface DropButtonProps {
   label?: string;
@@ -46,8 +47,13 @@ export default function DropButton({
         ) : (
           <Placeholder>{placeholder}</Placeholder>
         )}
+
         <DropdownIcon>
-          <DropDown />
+          {isActive ? (
+            <DropDown color={colors.blue100} />
+          ) : (
+            <DropDown color={colors.gray200} />
+          )}
         </DropdownIcon>
       </DropdownContainer>
       {isActive && (
