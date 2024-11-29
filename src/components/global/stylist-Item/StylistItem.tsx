@@ -35,7 +35,6 @@ export default function StylistItem() {
             </div>
           </Text>
         </div>
-        {/* BadgeContainer 적용 */}
         <BadgeContainer>
           <Badge
             type="general"

@@ -7,5 +7,5 @@ export const ItemWrapper = styled.div`
   border-radius: 13px 20px;
   display: flex;
   gap: 15px;
+  display: flex;
 `;
-
