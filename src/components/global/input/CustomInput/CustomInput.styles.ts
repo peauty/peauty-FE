@@ -53,7 +53,8 @@ export const InputWrapper = styled.div<{
             ? `1px solid ${colors.blue100}`
             : `1px solid ${error ? colors.red200 : colors.gray300}`};
           padding: 0px 10px;
-          height: 40px;
+          height: 50px;
+          border-radius: 10px;
 
           &:focus-within {
             border-color: ${error ? colors.red200 : colors.blue200};
@@ -65,7 +66,8 @@ export const InputWrapper = styled.div<{
           border-bottom: 1px solid ${error ? colors.red200 : colors.gray300};
           border-radius: 0;
           padding: 5px 10px;
-          height: 32px;
+          height: 50px;
+          border-radius: 10px;
 
           &:focus-within {
             border-bottom-color: ${error ? colors.red200 : colors.blue200};
