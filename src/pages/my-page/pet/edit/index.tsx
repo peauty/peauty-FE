@@ -199,9 +199,7 @@ export default function Edit() {
           </Style.EditPageWrapper>
         </Wrapper>
         <Style.ConfirmButtonWrapper>
-          <CustomButton fullwidth variant="primary">
-            확인
-          </CustomButton>
+          <CustomButton variant="primary">확인</CustomButton>
         </Style.ConfirmButtonWrapper>
       </Layout>
     </>
