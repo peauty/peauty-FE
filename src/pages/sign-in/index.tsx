@@ -1,12 +1,31 @@
 import SocialLoginModal from "../../components/page/sign-in/SocialLoginModal/SocialLoginModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonWrapper, ContentWrapper, PageWrapper } from "./index.styles";
 import { CustomButton } from "../../components/global/button/CustomButton";
 import { Text } from '../../components';
 
+function parseQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    accessToken: params.get("accessToken") || "",
+    refreshToken: params.get("refreshToken") || "",
+  };
+}
+
 export default function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  useEffect(() => {
+    const { accessToken, refreshToken } = parseQueryParams();
+    if (accessToken && refreshToken) {
+      // 토큰 저장
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      // 메인 페이지로 이동
+      window.location.href = "/";
+    }
+  })
+  
   const handleGeneralSignUp = () => {
     setIsModalVisible(true);
   };

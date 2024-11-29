@@ -1,20 +1,14 @@
 import { useState } from 'react';
-import { checkNicknameAPI, signupAPI } from '../apis/resources/userAPI';
-import {UserSignupInput} from '../apis/resources/userAPI';
-
-interface HookState {
-  checkNicknameLoading: boolean;
-  checkData: null | Record<string, any> ;
-  error: null | string;
-}
+import { getCheckNickname, postSignup } from '../apis/resources/user';
+import { UserSignupInput } from '../types/user';
 
 export const useCheckNickname = () => {
   const [isNickNameAvailable, setisNickNameAvailable] = useState<boolean>(false);
 
   const check = async (nickname: string) => {
     try {
-      const result = await checkNicknameAPI(nickname);
-      if (result.data["responseCode"] === "0000") {
+      const result = await getCheckNickname(nickname);
+      if (result.message === "사용해도 좋은 닉네임입니다.") {
         setisNickNameAvailable(true);
       } else {
         setisNickNameAvailable(false);
@@ -26,28 +20,16 @@ export const useCheckNickname = () => {
   return { isNickNameAvailable, setisNickNameAvailable, check };
 };
 
-interface SignupHookState {
-  signupData: null | Record<string, any>;
-  signupLoading: boolean;
-  signupError: string;
-}
-
 export const useSignup = () => {
-  const [state, setState] = useState<SignupHookState>({
-    signupData: null,
-    signupLoading: false,
-    signupError: "",
-  });
-
   const signup = async (userData: UserSignupInput) => {
-    setState({ signupData: null, signupLoading: true, signupError: "" });
-    try {
-      const result = await signupAPI(userData);
-      setState({ signupData: result.data, signupLoading: false, signupError: "" });
-    } catch (error: any) {
-      setState({ signupData: null, signupLoading: false, signupError: error.message });
-    }
+      try {
+        const result = await postSignup(userData);
+        localStorage.setItem("accessToken", result.accessToken);
+        localStorage.setItem("refreshToken",result.refreshToken);
+      } catch (error: any) {
+        console.error(error);
+      }
   };
 
-  return { ...state, signup };
+  return { signup };
 };

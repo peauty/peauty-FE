@@ -16,7 +16,7 @@ import { CustomInput } from "../../components/global/input/CustomInput";
 import { CustomButton } from "../../components/global/button/CustomButton";
 import { StepWords } from "./StepWords";
 import { useNavigate } from "react-router-dom";
-import { UserSignupInput } from "../../apis/resources/userAPI";
+import { UserSignupInput } from "../../types/user";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -36,7 +36,7 @@ export default function SignUp() {
   const [checkedNickname, setCheckedNickname] = useState("");
   const { location, error: locationError, locationLoading, fetchLocation } = useLocation();
   const { isNickNameAvailable, setisNickNameAvailable, check } = useCheckNickname();
-  const { signupLoading, signupData, signupError, signup } = useSignup();
+  const { signup } = useSignup();
   const navigate = useNavigate();
 
   // 각 Step별 데이터를 저장할 상태 추가
@@ -60,7 +60,7 @@ export default function SignUp() {
         socialId,
       });
       setInputValue(name);
-    }
+    } 
   }, [currentStep]);
 
   useEffect(() => {
@@ -146,12 +146,13 @@ export default function SignUp() {
         name: formData.name || "",
         phoneNum: formData.phone || "",
         address: formData.location || "",
-        nickname: formData.nickname || "",
+        nickname: inputValue || "",
         profileImageUrl: formData.profileImageUrl || "",
       };
   
       try {
-        await signup(signupData); // signup 함수에 데이터 전달
+        await signup(signupData);
+        navigate("/signup-complete");
       } catch (error) {
         setError("회원가입 중 문제가 발생했습니다.");
       }

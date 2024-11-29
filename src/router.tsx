@@ -7,6 +7,7 @@ import SignUp from "./pages/sign-up";
 import NotFound from "./pages/not-found";
 import Edit from "./pages/my-page/pet/edit";
 import Main from "./pages/main";
+import SignUpComplete from "./pages/sign-up-complete";
 export const router = createBrowserRouter(
   [
     {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter(
         {
           path: "signup",
           element: <SignUp />,
+        },
+        {
+          path: "signup-complete",
+          element: <SignUpComplete/>
         },
         {
           path: "intro",
