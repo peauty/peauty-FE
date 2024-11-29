@@ -114,24 +114,24 @@ export default function Edit() {
               options={dogBreeds}
               onSelect={handleBreedSelect}
             />
-            <Text typo="subtitle300">
-              성별
+
+            <Style.SelectWrapper>
+              <Text typo="subtitle300">성별</Text>
+
               <RadioSelectButton
                 {...(Gender.args as RadioSelectButtonProps)}
                 selectedIndex={0}
                 onSelect={handleGenderSelect}
               />
-            </Text>
-
-            <Text typo="subtitle300">
-              분류
+            </Style.SelectWrapper>
+            <Style.SelectWrapper>
+              <Text typo="subtitle300">분류</Text>{" "}
               <RadioSelectButton
                 {...(Default.args as RadioSelectButtonProps)}
                 selectedIndex={0}
                 onSelect={handleSizeSelect}
               />
-            </Text>
-
+            </Style.SelectWrapper>
             <Style.Wrapper>
               <Style.HalfWrapper>
                 <CustomInput
@@ -172,14 +172,16 @@ export default function Edit() {
               onDaySelect={handleDaySelect}
             />
 
-            <Text typo="subtitle300">
-              질병 이력 <Text typo="body400">(중복 선택도 가능해요)</Text>
+            <Style.SelectWrapper>
+              <Text typo="subtitle300">
+                질병 이력 <Text typo="body400">(중복 선택도 가능해요)</Text>
+              </Text>
               <MultiSelectButton
                 {...(LargeGrid.args as MultiSelectButtonProps)}
                 selectedIndexes={[0]}
                 onSelect={handleDiseaseSelect}
               />
-            </Text>
+            </Style.SelectWrapper>
 
             <CustomInput
               error=""

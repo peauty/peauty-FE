@@ -20,6 +20,7 @@ export const Container = styled.div<{
 }>`
   display: flex;
   flex-direction: column;
+  gap: 8px;
   width: ${({ fullwidth, width }) =>
     width ? width : fullwidth ? "100%" : "auto"};
   ${({ hasButton }) =>

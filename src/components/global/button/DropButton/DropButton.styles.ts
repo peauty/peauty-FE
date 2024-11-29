@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import { colors } from "../../../../style/color";
 import { typography } from "../../../../style/typography";
-import theme from "../../../../style/theme";
 
 export const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  /* max-width: 420px; */
 `;
 
 export const Label = styled.label`
   ${typography.subtitle300};
   color: ${colors.gray100};
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   display: inline-block;
 `;
 
