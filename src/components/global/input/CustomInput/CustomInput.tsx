@@ -36,7 +36,9 @@ export default function CustomInput({
     <Container fullwidth={fullwidth} hasButton={hasButton}>
       {label && (
         <Label>
-          <Text typo="subtitle300">{label}</Text>
+          <Text typo="subtitle300" color="gray100">
+            {label}
+          </Text>
         </Label>
       )}
       <InputWrapper variant={variant} error={!!error} disabled={disabled}>

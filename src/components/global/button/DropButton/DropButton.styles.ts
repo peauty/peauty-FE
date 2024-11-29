@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 
 export const Label = styled.label`
   ${typography.subtitle300};
-  color: ${colors.black};
+  color: ${colors.gray100};
   margin-bottom: 5px;
   display: inline-block;
 `;
