@@ -132,32 +132,18 @@ export default function Edit() {
                 onSelect={handleSizeSelect}
               />
             </Style.SelectWrapper>
-            <Style.Wrapper>
-              <Style.HalfWrapper>
-                <CustomInput
-                  error=""
-                  hint=""
-                  label="나이"
-                  placeholder="예) 4"
-                  variant="outlined"
-                />
-                <Text color="gray100" typo="body100">
-                  살
-                </Text>
-              </Style.HalfWrapper>
 
-              <Style.HalfWrapper>
-                <CustomInput
-                  error=""
-                  hint=""
-                  label="몸무게"
-                  placeholder="예) 22"
-                  variant="outlined"
-                />
-                <Text color="gray100" typo="body100">
-                  kg
-                </Text>
-              </Style.HalfWrapper>
+            <Style.Wrapper>
+              <CustomInput
+                error=""
+                hint=""
+                label="몸무게"
+                placeholder="예) 22"
+                variant="outlined"
+              />
+              <Text color="gray100" typo="body100">
+                kg
+              </Text>
             </Style.Wrapper>
 
             <DatePicker

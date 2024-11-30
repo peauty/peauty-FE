@@ -13,7 +13,7 @@ export const Style = {
   `,
   Wrapper: styled.div`
     display: flex;
-    justify-content: space-between;
+    align-items: flex-end;
     gap: 2%;
   `,
   HalfWrapper: styled.div`
