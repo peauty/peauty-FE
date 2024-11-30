@@ -4,6 +4,7 @@ export const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 70px;
+    padding: 0 24px; // 좌우 패딩
     height: 100vh; // 전체 높이 사용
 `;
 
@@ -13,7 +14,6 @@ export const ContentWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 24px; // 좌우 패딩
 `;
 
 export const ButtonWrapper = styled.div`

@@ -46,7 +46,7 @@ export default function SignIn() {
         </Text>
       </ContentWrapper>
       <ButtonWrapper>
-        <CustomButton size="large" variant="secondary" fullwidth={true} onClick={handleGeneralSignUp}>
+        <CustomButton size="large" variant="outline" fullwidth={true} onClick={handleGeneralSignUp}>
           일반 회원 가입
         </CustomButton>
         <CustomButton size="large" variant="outline" fullwidth={true}>

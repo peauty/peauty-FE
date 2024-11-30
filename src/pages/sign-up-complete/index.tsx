@@ -29,8 +29,8 @@ export default function SignUpComplete() {
                         를 등록하시겠어요?</Text>
                 </ContentWrapper>
                 <ButtonWrapper>
-                    <CustomButton variant="secondary" size="big" onClick={handleRegisterNow}>지금 등록할게요</CustomButton>
-                    <CustomButton variant="secondary" size="big" onClick={handleRegisterLater}>나중에 등록할게요</CustomButton>
+                    <CustomButton variant="outline" size="big" onClick={handleRegisterNow}>지금 등록할게요</CustomButton>
+                    <CustomButton variant="outline" size="big" onClick={handleRegisterLater}>나중에 등록할게요</CustomButton>
                 </ButtonWrapper>                   
             </PageWrapper>
         </>

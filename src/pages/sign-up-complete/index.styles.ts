@@ -21,7 +21,7 @@ export const ButtonWrapper = styled.div`
     align-items: center;
     justify-content: center;
     gap: 20px;
-    padding-bottom: 24px;
+    padding-bottom: 275px;
 `;
 
 
