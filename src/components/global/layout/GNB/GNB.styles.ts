@@ -19,8 +19,8 @@ export const Nav = styled.nav`
   padding: 19px 40px 0px;
 `;
 export const ButtonNav = styled(Nav)`
-  padding: 30px 20px;
-  box-shadow: none;
+  padding: 20px;
+  /* box-shadow: none; */
 `;
 export const MenuItem = styled.div<{ isActive?: boolean }>`
   flex: 1;
