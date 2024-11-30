@@ -12,14 +12,15 @@ import { LargeGrid } from "../../../../components/button/MultiSelectButton/Multi
 
 import { Style } from "./index.styles";
 import { RadioSelectButton } from "../../../../components/button/RadioSelectButton";
-import DatePicker from "../../../../components/page/pet-edit/DatePicker";
-import ProfileImg from "../../../../components/ProfileImg";
+import DatePicker from "./components/DatePicker";
+
 import { RadioSelectButtonProps } from "../../../../components/button/RadioSelectButton/RadioSelectButton";
 import {
   Default,
   Gender,
 } from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
 import { MultiSelectButtonProps } from "../../../../components/button/MultiSelectButton/MultiSelectButton";
+import ProfileImg from "../../../../components/profile-img/ProfileImg";
 
 export default function Edit() {
   const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)

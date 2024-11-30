@@ -1,6 +1,6 @@
 import React from "react";
-import { Style } from "../../../pages/my-page/pet/edit/index.styles";
-import { DropButton } from "../../button/DropButton";
+import { Style } from "../index.styles";
+import { DropButton } from "../../../../../components/button/DropButton";
 
 interface DatePickerProps {
   yearOptions: string[];
