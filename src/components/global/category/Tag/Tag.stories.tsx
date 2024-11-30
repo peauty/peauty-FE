@@ -4,7 +4,7 @@ import { colors } from "../../../../style/color";
 
 // Storybook 메타데이터 설정
 const meta: Meta<typeof Tag> = {
-  title: "Components/Tag", // Storybook에서의 위치
+  title: "components/Tag", // Storybook에서의 위치
   component: Tag,
   parameters: {
     layout: "centered", // 컴포넌트를 중앙에 배치

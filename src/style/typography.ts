@@ -42,6 +42,10 @@ export const typography = {
     font-size: 12px;
   `,
   body500: css`
+    font-weight: 600;
+    font-size: 10px;
+  `,
+  body600: css`
     font-weight: 400;
     font-size: 10px;
   `,
