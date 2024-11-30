@@ -6,18 +6,18 @@ import {
   Layout,
   MultiSelectButton,
 } from "../../../../components";
-import { MultiSelectButtonProps } from "../../../../components/global/button/MultiSelectButton/MultiSelectButton";
-import { LargeGrid } from "../../../../components/global/button/MultiSelectButton/MultiSelectButton.stories";
-import { Text } from "../../../../components/global/texts/Text";
+import { MultiSelectButtonProps } from "../../../../components/button/MultiSelectButton/MultiSelectButton";
+import { LargeGrid } from "../../../../components/button/MultiSelectButton/MultiSelectButton.stories";
+import { Text } from "../../../../components/texts/Text";
 
 import { Style } from "./index.styles";
-import { RadioSelectButton } from "../../../../components/global/button/RadioSelectButton";
+import { RadioSelectButton } from "../../../../components/button/RadioSelectButton";
 import {
   Default,
   Gender,
-} from "../../../../components/global/button/RadioSelectButton/RadioSelectButton.stories";
-import { RadioSelectButtonProps } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton";
-import ProfileImg from "../../../../components/global/ProfileImg";
+} from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+import { RadioSelectButtonProps } from "../../../../components/button/RadioSelectButton/RadioSelectButton";
+import ProfileImg from "../../../../components/ProfileImg";
 
 export default function Edit() {
   const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)

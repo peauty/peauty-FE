@@ -1,7 +1,7 @@
-import SocialLoginModal from "../../components/page/sign-in/SocialLoginModal/SocialLoginModal";
+import SocialLoginModal from "./components/SocialLoginModal/SocialLoginModal";
 import { useEffect, useState } from "react";
 import { ButtonWrapper, ContentWrapper, PageWrapper } from "./index.styles";
-import { CustomButton } from "../../components/global/button/CustomButton";
+import { CustomButton } from "../../components/button/CustomButton";
 import { Text } from '../../components';
 
 function parseQueryParams() {

@@ -10,10 +10,10 @@ import {
 } from "./index.styles";
 import { useLocation } from "../../hooks/useLocation";
 import { useCheckNickname, useSignup } from "../../hooks/useUser";
-import { AppBar } from "../../components/global/layout/AppBar";
-import { ProgressBlock } from "../../components/global/progress/ProgressBlock";
-import { CustomInput } from "../../components/global/input/CustomInput";
-import { CustomButton } from "../../components/global/button/CustomButton";
+import { AppBar } from "../../components/layout/AppBar";
+import { ProgressBlock } from "../../components/progress/ProgressBlock";
+import { CustomInput } from "../../components/input/CustomInput";
+import { CustomButton } from "../../components/button/CustomButton";
 import { StepWords } from "./StepWords";
 import { useNavigate } from "react-router-dom";
 import { UserSignupInput } from "../../types/user";

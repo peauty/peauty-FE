@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'; // For programmatic navigation
 import symbol from '../../assets/images/symbol.png';
 import { ButtonWrapper, ContentWrapper, Logo, PageWrapper } from './index.styles';
-import { CustomButton } from '../../components/global/button/CustomButton';
+import { CustomButton } from '../../components/button/CustomButton';
 import { Text } from '../../components';
 
 const Intro = () => {

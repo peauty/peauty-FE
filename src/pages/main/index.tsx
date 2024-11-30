@@ -1,5 +1,5 @@
 import { Layout, GNB, AppBar, Wrapper } from "../../components";
-import EstimateStauts from "../../components/page/main/EstimateStatus";
+import EstimateStauts from "./components/EstimateStatus";
 const userType = "user";
 
 export default function Main() {
