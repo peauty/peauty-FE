@@ -13,12 +13,16 @@ export default function SocialLoginModal({ onClose }: SocialLoginModalProps) {
     window.location.href = import.meta.env.VITE_KAKAO_SOCIAL_LOGIN_URL;
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = import.meta.env.VITE_GOOGLE_SOCIAL_LOGIN_URL;
+  }
+
   return (
     <CustomModal onClose={onClose}>
       <ModalContent>
         <SocialLoginButton type="kakao" onClick={handleKakaoLogin}/>
         <SocialLoginButton type="naver" />
-        <SocialLoginButton type="google" />
+        <SocialLoginButton type="google" onClick={handleGoogleLogin}/>
       </ModalContent>
     </CustomModal>
   );
