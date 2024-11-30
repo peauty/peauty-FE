@@ -1,4 +1,3 @@
-// SocialLoginButton.tsx
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { SiNaver } from "react-icons/si";
@@ -8,12 +7,14 @@ type SocialLoginButtonProps = {
   type: 'kakao' | 'google' | 'naver';
   round?: boolean; // 동그란 버튼 여부
   fullwidth?: boolean;
+  onClick?: () => void; // 클릭 이벤트 핸들러 추가
 };
 
 function SocialLoginButton({ 
   type, 
   round = false,
-  fullwidth = true
+  fullwidth = true,
+  onClick, // onClick 속성 추가
 }: SocialLoginButtonProps) {
   const getButtonText = () => {
     switch (type) {
@@ -42,7 +43,12 @@ function SocialLoginButton({
   };
 
   return (
-    <ButtonWrapper type={type} round={round} fullwidth={fullwidth}>
+    <ButtonWrapper
+      type={type}
+      round={round}
+      fullwidth={fullwidth} 
+      onClick={onClick} // 버튼에 클릭 핸들러 연결
+    >
       {getButtonIcon()}
       {!round && getButtonText()}
     </ButtonWrapper>

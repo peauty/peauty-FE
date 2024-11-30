@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
-import QueryProvider from "./provider/query-provider";
-import GlobalStyle from "./style/global-style";
-import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
+import QueryProvider from "./provider/query-provider";
+import { RouterProvider } from "react-router-dom";
+import GlobalStyle from "./style/global-style";
 
 createRoot(document.getElementById("root")!).render(
   <QueryProvider>

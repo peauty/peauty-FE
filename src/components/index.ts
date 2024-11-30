@@ -16,3 +16,4 @@ export * from "./global/progress/ProgressBlock";
 export * from "./global/progress/StepProgress";
 export * from "./page/sign-in/SocialLoginButton";
 export * from "./global/layout/Wrpper";
+export * from "./global/texts/Text"

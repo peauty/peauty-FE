@@ -9,6 +9,7 @@ export { default as DropDown } from "./DropDown";
 export { default as Favicon } from "./Favicon";
 export { default as Home } from "./Home";
 export { default as Logo } from "./Logo";
+export { default as Warning } from "./Warning";
 export { default as Maker } from "./Maker";
 export { default as ScissorsIcon } from "./ScissorsIcon";
 export { default as Search } from "./Search";
