@@ -87,7 +87,9 @@ export const Button = styled.button<{
           border: 1px solid ${colors.gray200};
 
           &:hover:not(:disabled) {
-            background-color: #eef2ff;
+            color: ${colors.blue100};
+            border: 1px solid ${colors.blue100};
+            background-color: ${colors.blue300};
           }
 
           &:active:not(:disabled) {
