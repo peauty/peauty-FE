@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
 
 export const Main = styled.div`
   width: 100%;
+  height: 90%; // GNB 높이만큼 줄이기
   padding: ${theme.size.appBarHeight} 0 0;
   display: flex;
   flex-direction: column;

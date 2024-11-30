@@ -56,9 +56,10 @@ export const Button = styled.button<{
         `;
       default: // medium
         return css`
-          padding: 12px 24px;
+          /* padding: 12px 24px; */
           ${typography.subtitle200}
           height: 60px;
+          width: 90%;
         `;
     }
   }}

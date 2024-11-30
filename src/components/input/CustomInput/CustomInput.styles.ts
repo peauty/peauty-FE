@@ -20,6 +20,7 @@ export const Container = styled.div<{
 }>`
   display: flex;
   flex-direction: column;
+  gap: 8px;
   width: ${({ fullwidth, width }) =>
     width ? width : fullwidth ? "100%" : "auto"};
   ${({ hasButton }) =>
@@ -29,10 +30,11 @@ export const Container = styled.div<{
     `}
 `;
 
-export const Label = styled.label`
-  font-weight: 500;
-  color: #374151;
+export const Label = styled.label<{ focused: boolean }>`
+  ${typography.subtitle300}
+  color: ${({ focused }) => (focused ? colors.blue100 : colors.gray100)};
   margin-bottom: 5px;
+  transition: color 0.2s ease;
 `;
 
 export const InputWrapper = styled.div<{
@@ -52,7 +54,8 @@ export const InputWrapper = styled.div<{
             ? `1px solid ${colors.blue100}`
             : `1px solid ${error ? colors.red200 : colors.gray300}`};
           padding: 0px 10px;
-          height: 40px;
+          height: 50px;
+          border-radius: 10px;
 
           &:focus-within {
             border-color: ${error ? colors.red200 : colors.blue200};
@@ -64,7 +67,8 @@ export const InputWrapper = styled.div<{
           border-bottom: 1px solid ${error ? colors.red200 : colors.gray300};
           border-radius: 0;
           padding: 5px 10px;
-          height: 32px;
+          height: 50px;
+          border-radius: 10px;
 
           &:focus-within {
             border-bottom-color: ${error ? colors.red200 : colors.blue200};

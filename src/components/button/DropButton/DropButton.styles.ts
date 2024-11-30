@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import { colors } from "../../../style/color";
 import { typography } from "../../../style/typography";
-import theme from "../../../style/theme";
 
 export const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  /* max-width: 420px; */
 `;
 
 export const Label = styled.label`
   ${typography.subtitle300};
-  color: ${colors.black};
-  margin-bottom: 5px;
+  color: ${colors.gray100};
+  margin-bottom: 8px;
   display: inline-block;
 `;
 
@@ -74,7 +72,7 @@ export const DropdownList = styled.ul`
 export const DropdownListItem = styled.li`
   padding: 10px 15px;
   ${typography.body100};
-  color: ${colors.black};
+  color: ${colors.gray100};
   cursor: pointer;
 
   text-decoration: none;
