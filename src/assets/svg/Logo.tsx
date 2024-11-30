@@ -1,4 +1,3 @@
-import * as React from "react";
 import type { SVGProps } from "react";
 import { colors } from "../../style/color";
 const SvgLogo = (props: SVGProps<SVGSVGElement>) => (

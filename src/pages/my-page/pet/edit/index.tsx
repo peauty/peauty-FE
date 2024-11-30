@@ -5,20 +5,21 @@ import {
   DropButton,
   Layout,
   MultiSelectButton,
+  Text,
   Wrapper,
 } from "../../../../components";
-import { MultiSelectButtonProps } from "../../../../components/global/button/MultiSelectButton/MultiSelectButton";
-import { Text } from "../../../../components/global/texts/Text";
+import { LargeGrid } from "../../../../components/button/MultiSelectButton/MultiSelectButton.stories";
+
 import { Style } from "./index.styles";
-import { RadioSelectButton } from "../../../../components/global/button/RadioSelectButton";
+import { RadioSelectButton } from "../../../../components/button/RadioSelectButton";
+import DatePicker from "../../../../components/page/pet-edit/DatePicker";
+import ProfileImg from "../../../../components/ProfileImg";
+import { RadioSelectButtonProps } from "../../../../components/button/RadioSelectButton/RadioSelectButton";
 import {
   Default,
   Gender,
-} from "../../../../components/global/button/RadioSelectButton/RadioSelectButton.stories";
-import { RadioSelectButtonProps } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton";
-import ProfileImg from "../../../../components/global/ProfileImg";
-import { LargeGrid } from "../../../../components/global/button/MultiSelectButton/MultiSelectButton.stories";
-import DatePicker from "../../../../components/page/pet-edit/DatePicker";
+} from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+import { MultiSelectButtonProps } from "../../../../components/button/MultiSelectButton/MultiSelectButton";
 
 export default function Edit() {
   const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)
@@ -185,10 +186,11 @@ export default function Edit() {
               variant="outlined"
             />
           </Style.EditPageWrapper>
+
+          <Style.ConfirmButtonWrapper>
+            <CustomButton variant="primary">확인</CustomButton>
+          </Style.ConfirmButtonWrapper>
         </Wrapper>
-        <Style.ConfirmButtonWrapper>
-          <CustomButton variant="primary">확인</CustomButton>
-        </Style.ConfirmButtonWrapper>
       </Layout>
     </>
   );
