@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, MenuItem } from "./GNB.styles"; // 추가된 LargeButton 스타일
+import { Nav, MenuItem, ButtonNav } from "./GNB.styles"; // 추가된 LargeButton 스타일
 import {
   Home,
   Search,
@@ -37,25 +37,34 @@ const GNB: React.FC<GNBProps> = ({ type, onLargeButtonClick }) => {
   const menuItems = type === "user" ? userMenuItems : stylistMenuItems;
 
   return (
-    <Nav>
-      {/* 기존 메뉴 */}
-      {type &&
-        menuItems.map((item) => (
-          <MenuItem key={item.path}>
-            {item.icon}
-            <Text typo="body200">{item.label}</Text>
-          </MenuItem>
-        ))}
+    <>
+      {/* GNB 메뉴 */}
+      {type && (
+        <Nav>
+          {menuItems.map((item) => (
+            <MenuItem key={item.path}>
+              {item.icon}
+              <Text typo="body200">{item.label}</Text>
+            </MenuItem>
+          ))}
+        </Nav>
+      )}
 
       {/* 큰 버튼 */}
       {!type && (
-        <CustomButton fullwidth variant="primary" onClick={onLargeButtonClick}>
-          <Text typo="body200" color="white">
-            다음
-          </Text>
-        </CustomButton>
+        <ButtonNav>
+          <CustomButton
+            fullwidth
+            variant="primary"
+            onClick={onLargeButtonClick}
+          >
+            <Text typo="body200" color="white">
+              다음
+            </Text>
+          </CustomButton>
+        </ButtonNav>
       )}
-    </Nav>
+    </>
   );
 };
 
