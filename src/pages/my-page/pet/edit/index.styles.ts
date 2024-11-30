@@ -13,7 +13,7 @@ export const Style = {
   HalfWrapper: styled.div`
     display: flex;
     align-items: flex-end;
-    width: 210px;
+    width: 48%;
     gap: 5px;
   `,
   ConfirmButtonWrapper: styled.div`

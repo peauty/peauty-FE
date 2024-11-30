@@ -1,6 +1,8 @@
+import { useState } from "react";
 import {
   CustomButton,
   CustomInput,
+  DropButton,
   Layout,
   MultiSelectButton,
 } from "../../../../components";
@@ -9,14 +11,50 @@ import { LargeGrid } from "../../../../components/global/button/MultiSelectButto
 import { Text } from "../../../../components/global/texts/Text";
 
 import { Style } from "./index.styles";
+import { RadioSelectButton } from "../../../../components/global/button/RadioSelectButton";
+import {
+  Default,
+  Gender,
+} from "../../../../components/global/button/RadioSelectButton/RadioSelectButton.stories";
+import { RadioSelectButtonProps } from "../../../../components/global/button/RadioSelectButton/RadioSelectButton";
+import ProfileImg from "../../../../components/global/ProfileImg";
 
 export default function Edit() {
-  const handleSelect = (selectedIndexes: number[]) => {
-    console.log("Selected buttons:", selectedIndexes);
+  const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)
+  const [selectedBreed, setSelectedBreed] = useState<string>("");
+
+  const handleBreedSelect = (value: string) => {
+    setSelectedBreed(value);
+    console.log("Selected Breed:", selectedBreed);
   };
+
+  const handleDiseaseSelect = (selectedDiseaseIndexes: number[]) => {
+    console.log("Selected Diseases:", selectedDiseaseIndexes);
+  };
+
+  const handleSizeSelect = (selectedSizeIndex: number) => {
+    console.log("Selected Size:", selectedSizeIndex);
+  };
+
+  const handleGenderSelect = (selectedGenderIndex: number) => {
+    console.log("Selected Gender:", selectedGenderIndex);
+  };
+
+  const handleEditProfile = () => {
+    console.log("이미지 변경");
+  };
+
   return (
     <>
       <Layout>
+        <ProfileImg
+          width="120px"
+          height="120px"
+          src="/svg/logo.svg"
+          alt="프로필"
+          onClick={handleEditProfile}
+        />
+
         <Style.EditPageWrapper>
           <Style.Wrapper>
             <CustomInput
@@ -28,8 +66,29 @@ export default function Edit() {
             />
           </Style.Wrapper>
 
-          <Text typo="subtitle300">견종</Text>
-          <Text typo="subtitle300">성별</Text>
+          <DropButton
+            label="견종"
+            placeholder="견종을 선택해주세요"
+            options={dogBreeds}
+            onSelect={handleBreedSelect}
+          />
+          <Text typo="subtitle300">
+            성별
+            <RadioSelectButton
+              {...(Gender.args as RadioSelectButtonProps)}
+              selectedIndex={0}
+              onSelect={handleGenderSelect}
+            />
+          </Text>
+
+          <Text typo="subtitle300">
+            분류
+            <RadioSelectButton
+              {...(Default.args as RadioSelectButtonProps)}
+              selectedIndex={0}
+              onSelect={handleSizeSelect}
+            />
+          </Text>
 
           <Style.Wrapper>
             <Style.HalfWrapper>
@@ -62,9 +121,9 @@ export default function Edit() {
           <Text typo="subtitle300">
             질병 이력 <Text typo="body400">(중복 선택도 가능해요)</Text>
             <MultiSelectButton
-              {...(LargeGrid.args as MultiSelectButtonProps)} // 스토리북의 LargeGrid args 사용
+              {...(LargeGrid.args as MultiSelectButtonProps)}
               selectedIndexes={[0]}
-              onSelect={handleSelect} // 커스텀 이벤트 핸들러
+              onSelect={handleDiseaseSelect}
             />
           </Text>
 

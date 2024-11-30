@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { colors } from "../../../../style/color";
 import { typography } from "../../../../style/typography";
-import theme from "../../../../style/theme"
+import theme from "../../../../style/theme";
 
 export const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  max-width: 420px;
+  /* max-width: 420px; */
 `;
-
 
 export const Label = styled.label`
   ${typography.subtitle300};
@@ -18,10 +17,11 @@ export const Label = styled.label`
 `;
 
 export const DropdownContainer = styled.div<{ isActive: boolean }>`
-   width: 100%;  
+  width: 100%;
   height: 50px;
   border-radius: 10px;
-  border: 1px solid ${({ isActive }) => (isActive ? colors.blue100 : colors.gray300)};
+  border: 1px solid
+    ${({ isActive }) => (isActive ? colors.blue100 : colors.gray300)};
   display: flex;
   align-items: center;
   padding: 0 15px;
@@ -37,7 +37,7 @@ export const DropdownContainer = styled.div<{ isActive: boolean }>`
 
 export const Placeholder = styled.span`
   ${typography.body100};
-  color: ${colors.gray400};
+  color: ${colors.gray200};
 `;
 
 export const SelectedValue = styled.span`
@@ -78,7 +78,7 @@ export const DropdownListItem = styled.li`
   cursor: pointer;
 
   text-decoration: none;
-  border-bottom: none; 
+  border-bottom: none;
 
   &:hover {
     background-color: ${colors.blue300};
