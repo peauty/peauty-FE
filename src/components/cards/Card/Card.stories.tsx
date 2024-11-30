@@ -16,11 +16,8 @@ type Story = StoryObj<typeof Card>;
 
 // 예제 TagProps 생성
 const exampleTagProps: TagProps = {
-  color: {
-    backgroundColor: "blue300",
-    borderColor: "blue100",
-    fontColor: "blue100",
-  },
+  backgroundColor: "blue300",
+  fontColor: "blue100",
 };
 
 export const Default: Story = {
@@ -32,6 +29,12 @@ export const Default: Story = {
     weight: "3.4kg",
     breed: "말티즈",
     tags: [
+      { text: "피부병", tagProps: exampleTagProps },
+      { text: "슬개골", tagProps: exampleTagProps },
+      { text: "피부병", tagProps: exampleTagProps },
+      { text: "슬개골", tagProps: exampleTagProps },
+      { text: "피부병", tagProps: exampleTagProps },
+      { text: "슬개골", tagProps: exampleTagProps },
       { text: "피부병", tagProps: exampleTagProps },
       { text: "슬개골", tagProps: exampleTagProps },
     ],
@@ -58,6 +61,33 @@ export const WithWrapper: Story = {
     weight: "3.4kg",
     breed: "말티즈",
     tags: [
+      { text: "피부병", tagProps: exampleTagProps },
+      { text: "슬개골", tagProps: exampleTagProps },
+    ],
+  },
+};
+
+
+export const WithManyTagsWrapper: Story = {
+  render: (args) => (
+    <_globalStyleWidth>
+      <Card {...args} />
+    </_globalStyleWidth>
+  ),
+  args: {
+    imageSrc: "https://via.placeholder.com/80",
+    name: "꼬미",
+    age: 3,
+    gender: "암컷",
+    weight: "3.4kg",
+    breed: "말티즈",
+    tags: [
+      { text: "피부병", tagProps: exampleTagProps },
+      { text: "슬개골", tagProps: exampleTagProps },
+      { text: "피부병", tagProps: exampleTagProps },
+      { text: "슬개골", tagProps: exampleTagProps },
+      { text: "피부병", tagProps: exampleTagProps },
+      { text: "슬개골", tagProps: exampleTagProps },
       { text: "피부병", tagProps: exampleTagProps },
       { text: "슬개골", tagProps: exampleTagProps },
     ],

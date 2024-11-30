@@ -31,4 +31,11 @@ export const InfoWrapper = styled.div`
     flex-direction: column;
     align-items: flex-start;
     margin-left: 16px;
+    gap: 5px;
+`
+
+export const DiseaseWrapper = styled.div`
+    display: flex;
+    gap: 5px;
+
 `
