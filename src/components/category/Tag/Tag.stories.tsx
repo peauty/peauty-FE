@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Tag } from "./index";
-import { colors } from "../../../style/color";
 
 // Storybook 메타데이터 설정
 const meta: Meta<typeof Tag> = {
@@ -26,11 +25,9 @@ export const Default: Story = {
 export const CustomColorTag: Story = {
   args: {
     children: "커스텀 색상 태그", // children으로 전달
-    color: {
-      backgroundColor: "red300", // 빨간 배경
-      borderColor: "red100", // 빨간 테두리
-      fontColor: "red100", // 빨간 폰트
-    },
+    backgroundColor: "red300", // 빨간 배경
+    borderColor: "red100", // 빨간 테두리
+    fontColor: "red100", // 빨간 폰트
   },
 };
 

@@ -10,20 +10,20 @@ export interface TagProps {
   /**
    * 스타일 옵션: 색상 지정
    */
-  color?: {
-    backgroundColor?: Color;
-    borderColor?: Color;
-    fontColor?: Color;
-  };
+  backgroundColor?: Color;
+  borderColor?: Color;
+  fontColor?: Color;
 }
 
 export default function Tag({
   children,
-  color,
+  backgroundColor,
+  borderColor,
+  fontColor
 }: React.PropsWithChildren<TagProps>) {
   return (
-    <TagWrapper color={color}>
-      <Text typo="body300" color={color?.fontColor}>{children}</Text>
+    <TagWrapper backgroundColor={backgroundColor} borderColor={borderColor}>
+      <Text typo="body300" color={fontColor}>{children}</Text>
     </TagWrapper>
   );
 }

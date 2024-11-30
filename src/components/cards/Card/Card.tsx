@@ -2,7 +2,7 @@ import { Tag } from "../../category/Tag";
 import { TagProps } from "../../category/Tag/Tag";
 import { Text } from "../../texts/Text";
 import ProfileImg from "../../profile-img/ProfileImg";
-import { CardWrapper, InfoWrapper, ProfileImagWrapper, TagsWrapper } from "./Card.styles";
+import { CardWrapper, DiseaseWrapper, InfoWrapper, ProfileImagWrapper, TagsWrapper } from "./Card.styles";
 
 
 export interface TagItem {
@@ -39,13 +39,17 @@ export default function Card({
         <Text color={"gray100"} typo={"body300"}>
           {age}살 | {gender} | {weight} | {breed}
         </Text>
-        <TagsWrapper>
-          {tags.map((tag, index) => (
-            <Tag key={index} {...tag.tagProps}>
-              {tag.text}
-            </Tag>
-          ))}
-        </TagsWrapper>
+        <DiseaseWrapper>
+          <Text typo={"subtitle300"}>질병</Text>
+          <TagsWrapper>
+            {tags.map((tag, index) => (
+              <Tag key={index} {...tag.tagProps}>
+                {tag.text}
+              </Tag>
+            ))}
+          </TagsWrapper>        
+        </DiseaseWrapper>
+
       </InfoWrapper>
     </CardWrapper>
   );
