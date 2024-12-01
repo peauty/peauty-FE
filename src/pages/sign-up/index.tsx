@@ -34,8 +34,9 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [checkedNickname, setCheckedNickname] = useState("");
+  const [isNickNameAvailable, setisNickNameAvailable] = useState(false);
   const { location, error: locationError, locationLoading, fetchLocation } = useLocation();
-  const { isNickNameAvailable, setisNickNameAvailable, check } = useCheckNickname();
+  const { check } = useCheckNickname();
   const { signup } = useSignup();
   const navigate = useNavigate();
 
@@ -74,23 +75,6 @@ export default function SignUp() {
     }
   }, [location]);
 
-  useEffect(() => {
-    if (checkedNickname === "") {
-      return;
-    }
-    if (isNickNameAvailable === null) {
-      setError("");
-      setSuccess("");
-    } else if (isNickNameAvailable) {
-      setSuccess("사용 가능한 닉네임입니다.");
-      setError("");
-    } else {
-      setSuccess("");
-      setError("이미 사용 중인 닉네임입니다.");
-    }
-  }, [isNickNameAvailable]);
-
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
@@ -117,7 +101,13 @@ export default function SignUp() {
       return;
     }
     setCheckedNickname(inputValue);
-    await check(inputValue);
+    const isAvailableNickname = await check(inputValue);
+    if (!isAvailableNickname) {
+      setError("이미 사용중인 닉네임입니다.");
+    } else {
+      setisNickNameAvailable(true);
+      setSuccess("사용 가능한 닉네임입니다.");
+    }
   };
 
   const handleNext = async () => {
@@ -189,7 +179,7 @@ export default function SignUp() {
               value={inputValue}
               onChange={handleInputChange}
               error={error}
-              success={checkedNickname === inputValue ? success : ""}
+              success={currentStep === 3 ? checkedNickname === inputValue ? success : "" : ""}
               height="40px"
               suffix={
                 currentStep === 2 ? (
