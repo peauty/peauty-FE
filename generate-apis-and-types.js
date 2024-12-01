@@ -95,7 +95,14 @@ const generateApiCode = (tag, endpoints) => {
   endpoints.forEach(endpoint => {
     const operationId = endpoint.operationId;
     const responseType = endpoint.responses['200']?.content?.['application/json']?.schema?.$ref?.split('/').pop() || 'any';
-    const requestType = endpoint.requestBody?.content?.['application/json']?.schema?.$ref?.split('/').pop();
+    
+    // 요청 타입 처리 수정
+    let requestType = null;
+    const contentType = endpoint.requestBody?.content && Object.keys(endpoint.requestBody.content)[0];
+    
+    if (contentType === 'application/json') {
+      requestType = endpoint.requestBody?.content['application/json']?.schema?.$ref?.split('/').pop();
+    }
     
     if (responseType !== 'any') {
       imports.add(`import { ${responseType} } from "../../../types/${tag.toLowerCase()}";`);
@@ -124,8 +131,21 @@ const generateApiCode = (tag, endpoints) => {
       params.push(`query: { ${queryType} }`);
     }
 
-    // Request body
-    if (requestType) {
+    // Multipart form data 처리
+    let isMultipart = contentType === 'multipart/form-data';
+    if (isMultipart) {
+      const formDataSchema = endpoint.requestBody?.content['multipart/form-data']?.schema;
+      if (formDataSchema?.properties) {
+        Object.entries(formDataSchema.properties).forEach(([key, prop]) => {
+          if (prop.type === 'string' && prop.format === 'binary') {
+            params.push(`${key}: File`);
+          }
+        });
+      }
+      imports.add('import FormData from "form-data";');
+    }
+    // JSON request body
+    else if (requestType) {
       params.push(`data: ${requestType}`);
     }
 
@@ -133,15 +153,30 @@ const generateApiCode = (tag, endpoints) => {
     const method = endpoint.method.toLowerCase();
     
     let apiCall = `export const ${methodName} = async (${params.join(', ')}): Promise<${responseType}> => {`;
-    apiCall += `\n  const res = await CustomerAPI.${method}<${responseType}>(\`${urlParams}\``;
     
-    if (method === 'get' && queryParams.length > 0) {
-      apiCall += `, { params: query }`;
-    } else if (requestType) {
-      apiCall += `, data`;
+    // Multipart form data 처리 로직
+    if (isMultipart) {
+      apiCall += `
+  const formData = new FormData();
+  ${endpoint.requestBody.content['multipart/form-data'].schema.properties.image ? 'formData.append("image", image);' : ''}
+  const res = await CustomerAPI.${method}<${responseType}>(\`${urlParams}\`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });`;
+    } else {
+      apiCall += `\n  const res = await CustomerAPI.${method}<${responseType}>(\`${urlParams}\``;
+      
+      if (method === 'get' && queryParams.length > 0) {
+        apiCall += `, { params: query }`;
+      } else if (requestType) {
+        apiCall += `, data`;
+      }
+      
+      apiCall += `);`;
     }
     
-    apiCall += `);\n  return res.data;\n};\n`;
+    apiCall += `\n  return res.data;\n};\n`;
     
     apiCalls.push(apiCall);
   });

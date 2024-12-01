@@ -3,6 +3,7 @@ import { GetCustomerProfileResponse } from "../../../types/customer";
 import { UpdateCustomerProfileResponse } from "../../../types/customer";
 import { UpdateCustomerProfileRequest } from "../../../types/customer";
 import { UploadProfileImageResponse } from "../../../types/customer";
+import FormData from "form-data";
 import { CheckCustomerNicknameDuplicatedResponse } from "../../../types/customer";
 
 export const getCustomerProfile = async (userId: number): Promise<GetCustomerProfileResponse> => {
@@ -15,8 +16,14 @@ export const updateCustomerProfile = async (userId: number, data: UpdateCustomer
   return res.data;
 };
 
-export const uploadProfileImage = async (userId: number): Promise<UploadProfileImageResponse> => {
-  const res = await CustomerAPI.post<UploadProfileImageResponse>(`/v1/users/${userId}/profile/images`);
+export const uploadProfileImage = async (userId: number, image: File): Promise<UploadProfileImageResponse> => {
+  const formData = new FormData();
+  formData.append("image", image);
+  const res = await CustomerAPI.post<UploadProfileImageResponse>(`/v1/users/${userId}/profile/images`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return res.data;
 };
 
