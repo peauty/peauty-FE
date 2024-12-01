@@ -1,12 +1,15 @@
 {
-  "include": ["src", "custom.d.ts"],
+  "include": ["src", "custom.d.ts", "create_component.js"],
 
   "compilerOptions": {
+    "module": "esnext", // 'es2020', 'es2022', 'system', 'node16', 'nodenext'도 가능
+    "target": "esnext",
     "jsx": "react-jsx", // React 17 이상의 JSX 변환을 사용할 경우
     "strict": true, // 선택적, 더 엄격한 타입 검사를 활성화
     "esModuleInterop": true, // ES 모듈과의 호환성
     "skipLibCheck": true, // 라이브러리 타입 체크 건너뛰기
-    "noEmit": true // .js 파일 생성 방지
+    "noEmit": true, // .js 파일 생성 방지
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true //ES6 모듈의 default export 방식을 사용하는 것처럼 import를 작성할 수 있도록 허용
   }
 }
-
