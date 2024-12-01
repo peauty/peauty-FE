@@ -30,13 +30,17 @@ export const Container = styled.div<{
     `}
 `;
 
-export const Label = styled.label<{ focused: boolean }>`
+export const Label = styled.label<{ focused: boolean; error: boolean }>`
   ${typography.subtitle300}
-  color: ${({ focused }) => (focused ? colors.blue100 : colors.gray100)};
+  color: ${({ focused, error }) =>
+    error
+      ? colors.red100 // 에러 상태일 때 색상
+      : focused
+        ? colors.blue100 // 포커스 상태일 때 색상
+        : colors.gray100}; // 기본 상태일 때 색상
   margin-bottom: 5px;
   transition: color 0.2s ease;
 `;
-
 export const InputWrapper = styled.div<{
   variant: string;
   error: boolean;
@@ -45,14 +49,14 @@ export const InputWrapper = styled.div<{
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: "transparent";
+  background-color: ${colors.gray400};
   ${({ variant, error, disabled }) =>
     variant === "outlined"
       ? css`
           border-radius: 5px;
           border: ${disabled
             ? `1px solid ${colors.blue100}`
-            : `1px solid ${error ? colors.red200 : colors.gray300}`};
+            : `1px solid ${error ? colors.red200 : colors.gray400}`};
           padding: 0px 10px;
           height: 50px;
           border-radius: 10px;

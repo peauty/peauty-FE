@@ -25,13 +25,13 @@ export const Default: Story = {
   },
 };
 
-// 밑줄 스타일 입력 필드
-export const Underlined: Story = {
-  args: {
-    label: "밑줄 스타일",
-    variant: "underlined",
-  },
-};
+// // 밑줄 스타일 입력 필드
+// export const Underlined: Story = {
+//   args: {
+//     label: "밑줄 스타일",
+//     variant: "underlined",
+//   },
+// };
 
 // 에러 상태
 export const WithError: Story = {
