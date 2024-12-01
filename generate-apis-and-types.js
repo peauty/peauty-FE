@@ -132,7 +132,7 @@ const generateApiCode = (tag, endpoints) => {
     const methodName = operationId.charAt(0).toLowerCase() + operationId.slice(1);
     const method = endpoint.method.toLowerCase();
     
-    let apiCall = `export const ${methodName} = async (${params.join(', ')}) => {`;
+    let apiCall = `export const ${methodName} = async (${params.join(', ')}): Promise<${responseType}> => {`;
     apiCall += `\n  const res = await CustomerAPI.${method}<${responseType}>(\`${urlParams}\``;
     
     if (method === 'get' && queryParams.length > 0) {
@@ -141,7 +141,7 @@ const generateApiCode = (tag, endpoints) => {
       apiCall += `, data`;
     }
     
-    apiCall += `);\n  return res;\n};\n`;
+    apiCall += `);\n  return res.data;\n};\n`;
     
     apiCalls.push(apiCall);
   });
