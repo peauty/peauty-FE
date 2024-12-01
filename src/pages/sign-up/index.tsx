@@ -16,7 +16,7 @@ import { CustomInput } from "../../components/input/CustomInput";
 import { CustomButton } from "../../components/button/CustomButton";
 import { StepWords } from "./StepWords";
 import { useNavigate } from "react-router-dom";
-import { UserSignupInput } from "../../types/user";
+import { SignUpRequest } from "../../types/auth";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -130,9 +130,9 @@ export default function SignUp() {
       setCurrentStep((prevStep) => prevStep + 1);
     } else {
       // formData를 UserSignupInput 형태로 매핑
-      const signupData: UserSignupInput = {
+      const signupData: SignUpRequest = {
         socialId: formData.socialId || "",
-        socialPlatform: formData.socialPlatform || "",
+        socialPlatform: formData.socialPlatform as 'KAKAO' | 'GOOGLE' | 'APPLE' | '', 
         name: formData.name || "",
         phoneNum: formData.phone || "",
         address: formData.location || "",
