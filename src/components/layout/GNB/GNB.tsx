@@ -16,7 +16,7 @@ interface GNBProps {
   onLargeButtonClick?: () => void; // 큰 버튼 클릭 이벤트
 }
 
-const GNB: React.FC<GNBProps> = ({ type, onLargeButtonClick }) => {
+export function GNB({ type, onLargeButtonClick }: GNBProps) {
   // 회원(GNB) 메뉴 구성
   const userMenuItems = [
     { icon: <Home />, label: "홈", path: "/" },
@@ -66,6 +66,6 @@ const GNB: React.FC<GNBProps> = ({ type, onLargeButtonClick }) => {
       )}
     </>
   );
-};
+}
 
 export default GNB;
