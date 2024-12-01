@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from "styled-components";
 
 export const typography = {
   title100: css`
@@ -21,6 +21,10 @@ export const typography = {
     font-weight: 600;
     font-size: 14px;
   `,
+  subtitle400: css`
+    font-weight: 400;
+    font-size: 16px;
+  `,
   body100: css`
     font-weight: 500;
     font-size: 14px;
@@ -38,6 +42,10 @@ export const typography = {
     font-size: 12px;
   `,
   body500: css`
+    font-weight: 600;
+    font-size: 10px;
+  `,
+  body600: css`
     font-weight: 400;
     font-size: 10px;
   `,
