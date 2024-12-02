@@ -1,7 +1,7 @@
 import { MultiSelectButton } from "../../../../components/button/MultiSelectButton";
 import { CustomInput } from "../../../../components/input/CustomInput";
 import { CustomButton } from "../../../../components/button/CustomButton";
-import { ButtonWrapper ,SectionWrapper} from "../../index.styles";
+import { ConfirmButtonWrapper ,SectionWrapper} from "../../index.styles";
 import { Text } from "../../../../components/texts/Text"; 
 
 interface Step2Props {
@@ -42,11 +42,11 @@ export default function Step2({ onNext }: Step2Props) {
         variant="outlined"
       />
      
-      <ButtonWrapper>
+      <ConfirmButtonWrapper>
         <CustomButton fullwidth onClick={onNext}>
           다음
         </CustomButton>
-      </ButtonWrapper>
+      </ConfirmButtonWrapper>
       </SectionWrapper>
     </div>
   );
