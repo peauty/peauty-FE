@@ -4,19 +4,17 @@ import { typography } from "../../../style/typography";
 import { colors } from "../../../style/color";
 
 interface TagStyleProps {
-  color?: {
-    backgroundColor?: string;
-    borderColor?: string;
-    fontColor?: string;
-  };
+  backgroundColor?: keyof typeof colors;
+  borderColor?: keyof typeof colors;
 }
 
 export const TagWrapper = styled.div<TagStyleProps>`
-  color: ${({ color }) => color?.fontColor || colors.blue200}; /* 폰트 색상 */
-  border: 1px solid ${({ color }) => color?.borderColor || colors.blue200}; /* border 색상 */
-  border-radius: 5px;
-  background-color: ${({ color }) =>
-    color?.backgroundColor || colors.blue100}; /* 배경 색상 */
   padding: 3px 10px;
-  font-weight: 500;
+  ${typography.body300};
+  border-radius: 5px;
+  text-align: center;
+
+  /* 색상 관련 스타일링 */
+  background-color: ${({ backgroundColor }) => backgroundColor ? colors[backgroundColor] : colors.blue300};
+  border:  ${({ borderColor }) => borderColor ? `1px solid ${colors[borderColor]}` : null};
 `;
