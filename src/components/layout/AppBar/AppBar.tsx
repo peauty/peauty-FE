@@ -13,7 +13,9 @@ export default function AppBar({ prefix, title, onclick }: Props) {
     <StyledHeader>
       {prefix ? (
         prefix === "backButton" ? (
-          <StyledAppBarBack onClick={onclick} />
+          <div style={{ padding: "25px" }}>
+            <StyledAppBarBack onClick={onclick} height={20} />
+          </div>
         ) : (
           <Logo width="94px" height="24px" onClick={onclick} />
         )

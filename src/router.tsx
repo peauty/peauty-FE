@@ -9,6 +9,7 @@ import NotFound from "./pages/not-found";
 import Edit from "./pages/my-page/pet/edit";
 import Main from "./pages/main";
 import SignUpComplete from "./pages/sign-up-complete";
+import Shop from "./pages/shop";
 export const router = createBrowserRouter(
   [
     {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter(
       children: [
         {
           path: "signin",
-          element: <SignIn/>
+          element: <SignIn />,
         },
         {
           path: "signup",
@@ -25,11 +26,11 @@ export const router = createBrowserRouter(
         },
         {
           path: "signup-complete",
-          element: <SignUpComplete/>
+          element: <SignUpComplete />,
         },
         {
           path: "intro",
-          element: <Intro/>
+          element: <Intro />,
         },
         {
           path: "/pet/edit",
@@ -41,7 +42,11 @@ export const router = createBrowserRouter(
         },
         {
           path: "mypage",
-          element: <MyPage/>
+          element: <MyPage />,
+        },
+        {
+          path: "shop",
+          element: <Shop />,
         },
       ],
       errorElement: <NotFound />,
