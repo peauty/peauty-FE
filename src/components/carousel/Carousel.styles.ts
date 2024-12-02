@@ -4,22 +4,22 @@ import theme from "../../style/theme";
 
 export const Wrapper = styled.div`
   position: relative;
-  margin: 0 auto;
   overflow: hidden;
   width: 100%;
-  max-width: ${theme.size.maxWidth};
-  min-width: ${theme.size.minWidth};
+  border-radius: 10px;
 `;
 
 export const CarouselImage = styled.div`
   display: flex;
+  width: 100%;
   transition: transform 0.5s ease;
 `;
 
 export const Image = styled.img`
+  flex: 0 0 100%; // 각 이미지가 부모의 100% 너비를 차지
+  height: auto;
   object-fit: cover;
   border-radius: 10px;
-  width: 100%;
 `;
 
 export const DotWrapper = styled.div`

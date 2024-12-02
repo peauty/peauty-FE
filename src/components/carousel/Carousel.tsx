@@ -10,7 +10,6 @@ import {
 
 interface CarouselProps {
   images?: string[];
-  width?: number;
   height?: number;
   autoPlay?: boolean;
   autoPlayInterval?: number;
@@ -18,7 +17,6 @@ interface CarouselProps {
 
 export default function Carousel({
   images = [],
-  width = 440,
   height = 150,
   autoPlay = true,
   autoPlayInterval = 2500,
@@ -86,8 +84,7 @@ export default function Carousel({
           <CarouselImage
             ref={carouselRef}
             style={{
-              width: `${slides.length * width}px`,
-              transform: `translateX(-${currentIndex * width}px)`,
+              transform: `translateX(-${currentIndex * 100}%)`, // 퍼센트 기반 이동
               transition: isTransitioning
                 ? "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)" // 더 부드럽게
                 : "none",
@@ -98,7 +95,7 @@ export default function Carousel({
                 key={index}
                 src={src}
                 alt={`Slide ${index}`}
-                style={{ width: `${width}px`, height: `${height}px` }}
+                style={{ height: `${height}px` }}
               />
             ))}
           </CarouselImage>

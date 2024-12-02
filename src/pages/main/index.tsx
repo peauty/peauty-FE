@@ -14,7 +14,9 @@ export default function Main() {
       <AppBar prefix="logo" />
       <Wrapper>
         <ProposalItem />
-        <Carousel images={images} />
+        <div style={{ margin: "15px 0px" }}>
+          <Carousel images={images} />
+        </div>
       </Wrapper>
       <GNB type={userType} />
     </Layout>
