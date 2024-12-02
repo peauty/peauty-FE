@@ -39,7 +39,11 @@ export default function CustomInput({
 
   return (
     <Container fullwidth={fullwidth} hasButton={hasButton}>
-      {label && <Label focused={focused}>{label}</Label>}
+      {label && (
+        <Label focused={focused} error={!!error}>
+          {label}
+        </Label>
+      )}
       <InputWrapper
         variant={variant}
         error={!!error}
@@ -56,7 +60,10 @@ export default function CustomInput({
       </InputWrapper>
       {(error || hint || success) && (
         <Message error={!!error}>
-          <Text color={error ? "red100" : (success ? "blue100" : undefined)} typo="body500">
+          <Text
+            color={error ? "red100" : success ? "blue100" : undefined}
+            typo="body500"
+          >
             {error || hint || success}
           </Text>
         </Message>
