@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import { typography } from "../../style/typography";
-import { colors } from "../../style/color";
 
 export const PageWrapper = styled.div`
     display: flex;
@@ -36,29 +35,18 @@ export const ProfileMenuWrapper = styled.div`
     margin-left: 16px;
 `;
 
-export const TextWrapper = styled.div`
+export const MyInfoWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    ${typography.subtitle100}
 `;
 
-export const NickName = styled.div`
-    color: ${colors.blue100};
-`
-export const Call = styled.span`
-    color: ${colors.black};   
-`
-
-export const EditProfile = styled.div`
-    color: ${colors.gray100};
-    ${typography.subtitle300};
-`
 export const BoldText = styled.div`
     ${typography.subtitle200};
     font-weight: bold;
 `
 
-export const InfoText = styled.div`
+export const InfoWrapper = styled.div`
+    gap: 5px;
     display: flex;
 `
 

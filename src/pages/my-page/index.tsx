@@ -1,7 +1,7 @@
 //index.tsx
 import Card from "../../components/cards/Card";
-import { BoldText, Call, CardWrapper, ContentWrapper, EditProfile, InfoText, NickName, PageWrapper, ProfileImageWrapper, ProfileMenuWrapper, ProfileWrapper, TextWrapper } from "./index.styles";
-import { AppBar, Divider, GNB, SubMenuButton } from "../../components";
+import { BoldText, CardWrapper, ContentWrapper, InfoWrapper, PageWrapper, ProfileImageWrapper, ProfileMenuWrapper, ProfileWrapper, MyInfoWrapper } from "./index.styles";
+import { AppBar, Divider, GNB, SubMenuButton, Text } from "../../components";
 import InfoButton from "../../components/button/InfoButton";
 import ProfileImg from "../../components/profile-img/ProfileImg";
 
@@ -17,11 +17,11 @@ export default function MyPage() {
                             <ProfileImg src={"https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785"} alt={"프로필사진"} width={'75'} height={"75"}/>
                         </ProfileImageWrapper>
                         <ProfileMenuWrapper>
-                            <TextWrapper>
-                                <NickName>화난거아니다<Call> 님</Call>
-                                </NickName>
-                                <EditProfile>내 정보 수정하기</EditProfile>
-                            </TextWrapper>
+                            <MyInfoWrapper>
+                                <Text typo={"subtitle100"} color={"blue100"} font-weight="bold">화난거아니다<Text typo={"subtitle100"}> 님</Text>
+                                </Text>
+                                <Text typo={"subtitle300"} color={"gray100"}>내 정보 수정하기</Text>
+                            </MyInfoWrapper>
                             <SubMenuButton text="" to={"/"}/>
                         </ProfileMenuWrapper>
                     </ProfileWrapper>
@@ -68,9 +68,9 @@ export default function MyPage() {
                     
 
                     <Divider/>
-                    <InfoText>
+                    <InfoWrapper>
                         <BoldText>미용내역</BoldText><InfoButton message={"미용내역스"}/>
-                    </InfoText>
+                    </InfoWrapper>
                     <SubMenuButton text="퓨티 미용 내역" to="/"/>
                     <Divider/>
                     <BoldText>리뷰</BoldText>
