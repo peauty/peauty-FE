@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode } from "react";
-import { Wrapper, Main } from "./GNBLayout.styles";
+import { Main, Wrapper } from "../Layout/Layout.styles";
 import GNB from "../GNB/GNB";
 import { Outlet } from "react-router-dom";
 
