@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   width: 100%;
   min-width: ${theme.size.minWidth};
   max-width: ${theme.size.maxWidth};
-  /* height: 100vh; */
   margin: 0 auto;
   overscroll-behavior-y: contain;
   box-sizing: border-box;
@@ -14,7 +13,7 @@ export const Wrapper = styled.div`
 
 export const Main = styled.div`
   width: 100%;
-  height: 90%; // GNB 높이만큼 줄이기
+  //height: 100% // GNB 높이만큼 줄이기
   padding: ${theme.size.appBarHeight} 0 0;
   display: flex;
   flex-direction: column;

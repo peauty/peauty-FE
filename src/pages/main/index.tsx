@@ -2,7 +2,9 @@ import { Layout, GNB, AppBar, Wrapper } from "../../components";
 import Carousel from "../../components/carousel/Carousel";
 const userType = "user";
 import ProposalItem from "./components/ProposalItem";
-// import
+import AD from "./components/AD";
+import PopularStore from "./components/PopularStore";
+import NewStore from "./components/NewStore";
 export default function Main() {
   const images = [
     "assets/images/main/배너.png",
@@ -17,6 +19,9 @@ export default function Main() {
         <div style={{ margin: "15px 0px" }}>
           <Carousel images={images} />
         </div>
+        <AD />
+        <PopularStore />
+        <NewStore />
       </Wrapper>
       <GNB type={userType} />
     </Layout>

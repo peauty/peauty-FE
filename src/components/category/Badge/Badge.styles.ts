@@ -5,13 +5,15 @@ export const BadgeWrapper = styled.div<{
   borderRadius: string;
   padding: string;
 }>`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: ${({ backgroundColor }) => backgroundColor};
   border-radius: ${({ borderRadius }) => borderRadius};
-  padding: ${({ padding }) => padding};
+  padding: 2px 7px;
   gap: 5px;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const IconWrapper = styled.div`
