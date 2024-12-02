@@ -11,14 +11,18 @@ export const Nav = styled.nav`
   height: ${theme.size.gnbHeight};
   display: flex;
   justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background: white;
   box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
   z-index: ${theme.zIndex.gnb};
   padding: 19px 40px 0px;
 `;
-
-export const MenuItem = styled.div<{ isActive: boolean }>`
+export const ButtonNav = styled(Nav)`
+  padding: 20px 0px;
+  /* box-shadow: none; */
+`;
+export const MenuItem = styled.div<{ isActive?: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
