@@ -3,6 +3,7 @@ import App from "./App";
 import Intro from "./pages/intro";
 import SignIn from "./pages/sign-in";
 import SignUp from "./pages/sign-up";
+import MyPage from "./pages/my-page";
 
 import NotFound from "./pages/not-found";
 import Edit from "./pages/my-page/pet/edit";
@@ -37,6 +38,10 @@ export const router = createBrowserRouter(
         {
           path: "/",
           element: <Main />,
+        },
+        {
+          path: "mypage",
+          element: <MyPage/>
         },
       ],
       errorElement: <NotFound />,
