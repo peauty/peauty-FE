@@ -14,7 +14,7 @@ const parseArgs = () => {
 
 const createComponent = (componentName) => {
   // 프로젝트 루트 기준으로 /src/components/global 경로 설정
-  const baseDir = path.join(process.cwd(), 'src', 'components', 'global');
+  const baseDir = path.join(process.cwd(), 'src', 'components');
   const componentDir = path.join(baseDir, componentName);
 
   // /src/components/global 디렉토리가 없으면 생성

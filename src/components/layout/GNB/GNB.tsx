@@ -1,6 +1,5 @@
 import React from "react";
-import { Nav, MenuItem } from "./GNB.styles";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Nav, MenuItem, ButtonNav } from "./GNB.styles"; // 추가된 LargeButton 스타일
 import {
   Home,
   Search,
@@ -9,16 +8,15 @@ import {
   Check,
   Calendar,
 } from "../../../assets/svg";
+import { CustomButton } from "../../button/CustomButton";
 import { Text } from "../../texts/Text";
 
 interface GNBProps {
-  type: "user" | "stylist"; // GNB 타입 (회원/미용사)
+  type?: "user" | "stylist"; // GNB 타입 (회원/미용사)
+  onLargeButtonClick?: () => void; // 큰 버튼 클릭 이벤트
 }
 
-const GNB: React.FC<GNBProps> = ({ type }) => {
-  const navigate = useNavigate();
-  const location = useLocation(); // 현재 경로 정보를 가져옵니다.
-
+export function GNB({ type, onLargeButtonClick }: GNBProps) {
   // 회원(GNB) 메뉴 구성
   const userMenuItems = [
     { icon: <Home />, label: "홈", path: "/" },
@@ -39,19 +37,35 @@ const GNB: React.FC<GNBProps> = ({ type }) => {
   const menuItems = type === "user" ? userMenuItems : stylistMenuItems;
 
   return (
-    <Nav>
-      {menuItems.map((item) => (
-        <MenuItem
-          key={item.path}
-          isActive={location.pathname === item.path} // 현재 경로와 비교하여 활성화 상태 설정
-          onClick={() => navigate(item.path)} // 경로 이동
-        >
-          {item.icon}
-          <Text typo="body200">{item.label}</Text>
-        </MenuItem>
-      ))}
-    </Nav>
+    <>
+      {/* GNB 메뉴 */}
+      {type && (
+        <Nav>
+          {menuItems.map((item) => (
+            <MenuItem key={item.path}>
+              {item.icon}
+              <Text typo="body200">{item.label}</Text>
+            </MenuItem>
+          ))}
+        </Nav>
+      )}
+
+      {/* 큰 버튼 */}
+      {!type && (
+        <ButtonNav>
+          <CustomButton
+            fullwidth
+            variant="primary"
+            onClick={onLargeButtonClick}
+          >
+            <Text typo="body200" color="white">
+              다음
+            </Text>
+          </CustomButton>
+        </ButtonNav>
+      )}
+    </>
   );
-};
+}
 
 export default GNB;

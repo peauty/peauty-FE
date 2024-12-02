@@ -9,14 +9,16 @@ export const CustomerAPI = axios.create({
 
 CustomerAPI.interceptors.response.use(
   (response) => {
-    if (response.data.responseCode === "0000") {
-      return response.data.data; // Return only the 'data' field
+    const { responseCode, errorMessage, serviceErrorMessage } = response.data;
+    if (responseCode === "0000") {
+      return response.data;
     } else {
-      return Promise.reject(new Error(response.data.errorMessage || 'Unexpected Error'));
+      const error = new Error(errorMessage || serviceErrorMessage || '알 수 없는 에러');
+      throw error;
     }
   },
   (error) => {
-    return Promise.reject(error);
+    throw new Error(error.message || '네트워크 오류');
   }
 );
 
