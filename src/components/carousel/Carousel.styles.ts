@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { colors } from "../../style/color";
 import theme from "../../style/theme";
 
@@ -15,9 +15,9 @@ export const CarouselImage = styled.div`
   transition: transform 0.5s ease;
 `;
 
-export const Image = styled.img`
+export const Image = styled.img<{ rounded?: boolean }>`
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: ${({ rounded }) => (rounded ? "10px" : "0")};
 `;
 
 export const DotWrapper = styled.div`
@@ -28,18 +28,41 @@ export const DotWrapper = styled.div`
   margin: 16px 0;
 `;
 
-export const DotStyle = styled.div`
-  width: 8px;
-  height: 8px;
+export const DotStyle = styled.div<{ size: number; height: number }>`
+  width: ${({ size }) => `${size}px`};
+  height: ${({ height }) => `${height}px`};
   border-radius: 50%;
   background-color: ${colors.gray200};
   cursor: pointer;
 `;
 
-export const SelectedDot = styled.div`
-  width: 24px;
-  height: 8px;
-  border-radius: 4px;
+export const SelectedDot = styled.div<{ size: number; height: number }>`
+  width: ${({ size }) => `${size * 3}px`};
+  height: ${({ height }) => `${height}px`};
+  border-radius: ${({ height }) => `${height / 2}px`};
   background-color: ${colors.gray100};
   cursor: pointer;
+`;
+
+export const ArrowButton = styled.div<{ position: "left" | "right" }>`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  ${({ position }) =>
+    position === "left"
+      ? css`
+          left: 10px;
+        `
+      : css`
+          right: 10px;
+        `}
+  color: ${colors.gray100};
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+
+  &:hover {
+    color: ${colors.gray200};
+  }
 `;

@@ -6,6 +6,7 @@ import {
   DotWrapper,
   DotStyle,
   SelectedDot,
+  ArrowButton,
 } from "./Carousel.styles";
 
 interface CarouselProps {
@@ -14,14 +15,20 @@ interface CarouselProps {
   height?: number;
   autoPlay?: boolean;
   autoPlayInterval?: number;
+  rounded?: boolean;
+  dotSize?: number; // Dot의 가로 크기
+  dotHeight?: number; // Dot의 높이
 }
 
 export default function Carousel({
   images = [],
-  width = 440,
+  width = 480,
   height = 150,
   autoPlay = true,
   autoPlayInterval = 2500,
+  rounded = false,
+  dotSize = 8,
+  dotHeight = 8,
 }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -83,13 +90,21 @@ export default function Carousel({
     <Wrapper>
       {images.length > 0 ? (
         <>
+          {/* 좌우 화살표 버튼 */}
+          <ArrowButton position="left" onClick={handlePrev}>
+            {"<"}
+          </ArrowButton>
+          <ArrowButton position="right" onClick={handleNext}>
+            {">"}
+          </ArrowButton>
+
           <CarouselImage
             ref={carouselRef}
             style={{
               width: `${slides.length * width}px`,
               transform: `translateX(-${currentIndex * width}px)`,
               transition: isTransitioning
-                ? "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)" // 더 부드럽게
+                ? "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)"
                 : "none",
             }}
           >
@@ -98,6 +113,7 @@ export default function Carousel({
                 key={index}
                 src={src}
                 alt={`Slide ${index}`}
+                rounded={rounded}
                 style={{ width: `${width}px`, height: `${height}px` }}
               />
             ))}
@@ -112,9 +128,9 @@ export default function Carousel({
               >
                 {index ===
                 (currentIndex - 1 + images.length) % images.length ? (
-                  <SelectedDot />
+                  <SelectedDot size={dotSize} height={dotHeight} />
                 ) : (
-                  <DotStyle />
+                  <DotStyle size={dotSize} height={dotHeight} />
                 )}
               </div>
             ))}
