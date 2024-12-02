@@ -1,13 +1,20 @@
 import { Layout, GNB, AppBar, Wrapper } from "../../components";
+import Carousel from "../../components/carousel/Carousel";
 const userType = "user";
 import ProposalItem from "./components/ProposalItem";
-// import 
+// import
 export default function Main() {
+  const images = [
+    "assets/images/main/배너.png",
+    "assets/images/main/배너.png",
+    "assets/images/main/배너.png",
+  ];
   return (
     <Layout>
       <AppBar prefix="logo" />
       <Wrapper>
         <ProposalItem />
+        <Carousel images={images} />
       </Wrapper>
       <GNB type={userType} />
     </Layout>

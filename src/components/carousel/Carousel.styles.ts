@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   margin: 0 auto;
   overflow: hidden;
+  width: 100%;
   max-width: ${theme.size.maxWidth};
   min-width: ${theme.size.minWidth};
 `;
@@ -18,6 +19,7 @@ export const CarouselImage = styled.div`
 export const Image = styled.img`
   object-fit: cover;
   border-radius: 10px;
+  width: 100%;
 `;
 
 export const DotWrapper = styled.div`
