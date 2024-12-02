@@ -6,10 +6,11 @@ import { typography } from "../../style/typography";
 export const ProgressWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 25px 10px;
+  padding: 20px 10px;
 `;
 
 export const SectionWrapper = styled.div`
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px; 
@@ -30,12 +31,6 @@ export const ProgressBlock = styled.div<{ isActive: boolean }>`
     props.isActive ? colors.blue100 : colors.gray200};
   border-radius: 4px;
 `;
-
-export const BasicInfoText = styled.div<{ subtitle2?: boolean; marginTop?: string }>`
-  ${(props) => (props.subtitle2 ? typography.subtitle300 : typography.subtitle100)};
-  margin-top: ${(props) => props.marginTop || "14px"};
-`;
-
 export const GridWrapper = styled.div`
   display: grid;
   grid-template-rows: repeat(1, 38px); 
@@ -71,11 +66,16 @@ export const InputFieldWrapper = styled.div`
   gap: 5px;
 `;
 
-
 export const ButtonWrapper = styled.div`
-//gap: 10px;
- width: 100%;
-  display: flex;
-  justify-content: center;
+    bottom: 20px;
+    width: 110%;
 `;
+
+
+export const ConfirmButtonWrapper = styled.div`
+    position: absolute;
+    bottom: 100px;
+    width: 100%;
+`;
+
 
