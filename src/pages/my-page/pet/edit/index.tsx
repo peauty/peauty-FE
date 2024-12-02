@@ -89,7 +89,6 @@ export default function Edit() {
 
   return (
     <>
-      <Layout>
         <Wrapper>
           <ProfileImg
             width="120px"
@@ -192,7 +191,6 @@ export default function Edit() {
             <CustomButton variant="primary">확인</CustomButton>
           </Style.ConfirmButtonWrapper>
         </Wrapper>
-      </Layout>
     </>
   );
 }
