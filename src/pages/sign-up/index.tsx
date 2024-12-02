@@ -142,7 +142,7 @@ export default function SignUp() {
   
       try {
         await signup(signupData);
-        navigate("/signup-complete");
+        navigate("/signup/complete");
       } catch (error) {
         setError("회원가입 중 문제가 발생했습니다.");
       }
