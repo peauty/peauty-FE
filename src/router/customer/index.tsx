@@ -6,7 +6,11 @@ import { petPaths } from "./pet";
 export const customerPaths = [
   {
     path: "mypage",
-    element: <CustomerMyPage />,
+    element: <CustomerMyPage/>
+  },
+  {
+    path: "mypage-edit",
+    element: <CustomerMyPage/>
   },
   {
     path: "signup",
@@ -14,7 +18,7 @@ export const customerPaths = [
   },
   {
     path: "signup-complete",
-    element: <CustomerSignUpComplete />,
+    element: <CustomerSignUpComplete/>
   },
   {
     path: "pet",
