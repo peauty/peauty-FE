@@ -9,6 +9,7 @@ import NotFound from "./pages/not-found";
 import Edit from "./pages/my-page/pet/edit";
 import Main from "./pages/main";
 import SignUpComplete from "./pages/sign-up-complete";
+import PetInfoPage from "./pages/my-page/pet/info";
 export const router = createBrowserRouter(
   [
     {
@@ -43,6 +44,11 @@ export const router = createBrowserRouter(
           path: "mypage",
           element: <MyPage/>
         },
+        {
+          path: "/pet/info",
+          element: <PetInfoPage/>
+        },
+        
       ],
       errorElement: <NotFound />,
     },
