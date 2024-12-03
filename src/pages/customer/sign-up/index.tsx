@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SvgWarning from "../../assets/svg/Warning";
+import SvgWarning from "../../../assets/svg/Warning";
 import {
   ButtonWrapper,
   ContentWrapper,
@@ -8,16 +8,16 @@ import {
   SubTitle,
   Title,
 } from "./index.styles";
-import { useLocation } from "../../hooks/useLocation";
-import { useCheckNickname, useSignup } from "../../hooks/useUser";
-import { AppBar } from "../../components/layout/AppBar";
-import { ProgressBlock } from "../../components/progress/ProgressBlock";
-import { CustomInput } from "../../components/input/CustomInput";
-import { CustomButton } from "../../components/button/CustomButton";
+import { useLocation } from "../../../hooks/useLocation";
+import { useCheckNickname, useSignup } from "../../../hooks/useUser";
+import { AppBar } from "../../../components/layout/AppBar";
+import { ProgressBlock } from "../../../components/progress/ProgressBlock";
+import { CustomInput } from "../../../components/input/CustomInput";
+import { CustomButton } from "../../../components/button/CustomButton";
 import { StepWords } from "./StepWords";
 import { useNavigate } from "react-router-dom";
-import { SignUpRequest } from "../../types/auth";
-import { ROUTE } from "../../constants/routes";
+import { SignUpRequest } from "../../../types/auth";
+import { ROUTE } from "../../../constants/routes";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -29,7 +29,7 @@ function parseQueryParams() {
   };
 }
 
-export default function SignUp() {
+export default function CustomerSignUp() {
   const [currentStep, setCurrentStep] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
@@ -143,7 +143,7 @@ export default function SignUp() {
   
       try {
         await signup(signupData);
-        navigate(ROUTE.customer.signUpComplete);
+        navigate(ROUTE.customer.signupComplete);
       } catch (error) {
         setError("회원가입 중 문제가 발생했습니다.");
       }

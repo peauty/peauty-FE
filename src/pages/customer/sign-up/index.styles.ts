@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
-import { typography } from "../../style/typography";
-import { colors } from "../../style/color";
-import AppBarBack from "../../assets/svg/AppBarBack";
+import { typography } from "../../../style/typography";
+import { colors } from "../../../style/color";
+import AppBarBack from "../../../assets/svg/AppBarBack";
 
 export const PageWrapper = styled.div`
     display: flex;
