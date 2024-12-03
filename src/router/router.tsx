@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../components/layout/Layout";
 import NotFound from "../pages/not-found";
 import { customerPaths } from "./customer";
-import { desingerPaths } from "./designer";
+import { designerPaths } from "./designer";
 import { rootPaths } from "./root";
 
 export const router = createBrowserRouter(
@@ -22,7 +22,7 @@ export const router = createBrowserRouter(
     {
       path: "/designer",
       element: <Layout />,
-      children: desingerPaths,
+      children: designerPaths,
       errorElement: <NotFound />,
     }
   ]  

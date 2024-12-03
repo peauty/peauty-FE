@@ -1,10 +1,10 @@
-import DesignerMyPage from "../../pages/desinger/mypage";
-import DesignerSignUp from "../../pages/desinger/signup";
-import DesignerSignUpComplete from "../../pages/desinger/signup-complete";
-import DesignerSignUpDetail from "../../pages/desinger/signup-detail";
-import DesignerSignUpDetailComplete from "../../pages/desinger/signup-detail-complete";
+import DesignerMyPage from "../../pages/designer/mypage";
+import DesignerSignUp from "../../pages/designer/signup";
+import DesignerSignUpComplete from "../../pages/designer/signup-complete";
+import DesignerSignUpDetail from "../../pages/designer/signup-detail";
+import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
 
-export const desingerPaths = [
+export const designerPaths = [
     {
       path: "mypage",
       element: <DesignerMyPage/>
