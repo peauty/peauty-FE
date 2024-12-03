@@ -17,3 +17,4 @@ export * from "../pages/sign-in/components/SocialLoginButton";
 export * from "./layout/Wrpper";
 export * from "./layout/GNBLayout/GNBLayout";
 export * from "./texts/Text";
+export * from "./rating/Rating";

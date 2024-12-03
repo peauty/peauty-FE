@@ -10,6 +10,7 @@ export default function ShopOverview() {
         display: "flex",
         flexDirection: "column",
         gap: "15px",
+        padding: "0 20px",
       }}
     >
       <div>

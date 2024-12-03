@@ -1,7 +1,7 @@
 import { AppBar, Wrapper } from "../../components";
 import EstimateStauts from "./components/EstimateStatus";
 import Carousel from "../../components/carousel/Carousel";
-const userType = "user";
+import BottomSheet from "../../components/buttom-sheet/BottomSheet";
 
 export default function Main() {
   const images = [
@@ -20,6 +20,7 @@ export default function Main() {
           images={images}
           height={300}
         />
+        <BottomSheet options={["1", "2"]} />
       </Wrapper>
     </>
   );

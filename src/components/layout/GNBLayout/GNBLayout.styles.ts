@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import theme from "../../../style/theme";
 export const Wrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* 화면 전체를 차지하도록 설정 */
-  padding-bottom: ${theme.size.gnbHeight};
+  padding: ${theme.size.appBarHeight} 0 ${theme.size.gnbHeight};
   box-sizing: border-box;
 `;
 
