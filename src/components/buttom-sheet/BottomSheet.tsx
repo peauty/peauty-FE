@@ -9,7 +9,7 @@ interface BottomSheetProps {
   options: string[]; // 옵션 목록
 }
 
-const BottomSheet: React.FC<BottomSheetProps> = ({ options }) => {
+function BottomSheet({ options }: BottomSheetProps) {
   const [isOpen, setIsOpen] = useState(false); // BottomSheet 열림 상태 관리
   const [selectedOption, setSelectedOption] = useState(options[0]); // 선택된 옵션 초기값
 
@@ -29,17 +29,19 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ options }) => {
       )}
 
       {/* Bottom Sheet */}
-      <Sheet isOpen={isOpen}>
-        {options.map((option, index) => (
-          <Option
-            key={index}
-            isSelected={selectedOption === option} // 선택된 옵션인지 확인
-            onClick={() => handleSelect(option)}
-          >
-            {option}
-          </Option>
-        ))}
-      </Sheet>
+      {isOpen && (
+        <Sheet isOpen={isOpen}>
+          {options.map((option, index) => (
+            <Option
+              key={index}
+              isSelected={selectedOption === option} // 선택된 옵션인지 확인
+              onClick={() => handleSelect(option)}
+            >
+              {option}
+            </Option>
+          ))}
+        </Sheet>
+      )}
     </>
   );
 
@@ -47,7 +49,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ options }) => {
     <>
       {/* 버튼 */}
       <OpenButton onClick={() => setIsOpen(true)}>
-        <Text typo="body100" color="gray100">
+        <Text typo="body300" color="gray100">
           {selectedOption} {/* 선택된 옵션 표시 */}
         </Text>
         {isOpen ? <UpArrow height={12} /> : <DownArrow height={12} />}
@@ -57,6 +59,6 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ options }) => {
       {ReactDOM.createPortal(BottomSheetContent, document.body)}
     </>
   );
-};
+}
 
 export default BottomSheet;

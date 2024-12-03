@@ -8,9 +8,7 @@ export default function Rating({ score }: RatingProps) {
   return (
     <RatingWrapper>
       <Star height={12} />
-      <Text typo="body600" color="gray100">
-        {score}
-      </Text>
+      <Text typo="body300">{score}</Text>
     </RatingWrapper>
   );
 }

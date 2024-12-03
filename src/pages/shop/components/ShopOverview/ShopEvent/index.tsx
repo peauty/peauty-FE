@@ -15,7 +15,7 @@ export default function ShopEvent() {
         gap: "10px",
       }}
     >
-      <div style={{ display: "flex", gap: "px", alignItems: "center" }}>
+      <div style={{ display: "flex", gap: "7px", alignItems: "center" }}>
         <RedSpeaker height={14} />
         <Text typo="subtitle300">5주년 이벤트</Text>
       </div>

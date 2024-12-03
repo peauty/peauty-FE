@@ -1,6 +1,6 @@
 import { AppBar, GNB } from "../../components";
 import Carousel from "../../components/carousel/Carousel";
-import Temp from "../../../public/assets/images/main/temp.png";
+import Temp from "../../assets/images/temp.png";
 import ShopOverview from "./components/ShopOverview";
 import ShopNav from "./components/ShopNav";
 import ShopDetail from "./components/ShopDetail";

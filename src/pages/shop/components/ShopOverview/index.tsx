@@ -3,6 +3,8 @@ import { Shop } from "../../../../assets/svg";
 import { Badge } from "../../../../components/category/Badge";
 import ShopEvent from "./ShopEvent";
 import { Maker } from "../../../../assets/svg";
+import Rating from "../../../../components/rating";
+
 export default function ShopOverview() {
   return (
     <div
@@ -14,7 +16,13 @@ export default function ShopOverview() {
       }}
     >
       <div>
-        <Text typo="subtitle100">호키포키</Text>
+        <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+          <Text typo="subtitle100">호키포키</Text>
+          <Rating score="5.0" />
+          <div>
+            <Badge type="scissors" variant="bronze" text="2023 브론즈 시저" />
+          </div>
+        </div>
         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
           <Maker height={14} />
           <Text typo="body100" color="gray100">

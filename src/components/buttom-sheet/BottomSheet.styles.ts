@@ -64,4 +64,5 @@ export const OpenButton = styled.button`
   border: none;
   display: flex;
   align-items: center;
+  gap: 5px;
 `;
