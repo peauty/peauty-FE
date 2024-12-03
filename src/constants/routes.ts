@@ -7,6 +7,7 @@ export const ROUTE = {
     // Customer routes
     customer: {
       mypage: '/customer/mypage', // 마이페이지
+      mypageEdit: '/customer/mypage-edit', // 마이페이지 수정
       signup: '/customer/signup', // 회원가입
       signupComplete: '/customer/signup-complete', // 회원가입 완료
       pet: {

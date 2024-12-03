@@ -10,6 +10,10 @@ export const customerPaths = [
       element: <CustomerMyPage/>
     },
     {
+      path: "mypage-edit",
+      element: <CustomerMyPage/>
+    },
+    {
       path: "signup",
       element: <CustomerSignUp />,
     },
