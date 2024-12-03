@@ -4,6 +4,7 @@ export { default as Auth } from "./Auth";
 export { default as Bookmark } from "./Bookmark";
 export { default as Calendar } from "./Calendar";
 export { default as Camera } from "./Camera";
+export { default as CareerIcon } from "./CareerIcon";
 export { default as Check } from "./Check";
 export { default as DefaultProfile } from "./DefaultProfile";
 export { default as DropDown } from "./DropDown";
