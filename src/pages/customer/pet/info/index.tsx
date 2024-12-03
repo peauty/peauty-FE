@@ -1,5 +1,4 @@
 import { AppBar, GNB, Text } from "../../../../components";
-import { Layout } from "../../../../components/layout/Layout";
 import {InfoWrapper,PageWrapper, ContentWrapper, ButtonWrapper ,MyInfoWrapper} from "./index.styles";
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
 import OptionButton from "./components/OptionButton";
@@ -16,7 +15,6 @@ export default function PetInfoPage() {
   };
 
   return (
-    <Layout>
       <PageWrapper>
         <AppBar prefix="backButton" />
         <ContentWrapper>
@@ -74,7 +72,5 @@ export default function PetInfoPage() {
           </ButtonWrapper>
         </ContentWrapper>
       </PageWrapper>
-      <GNB type="user" />
-    </Layout>
   );
 }
