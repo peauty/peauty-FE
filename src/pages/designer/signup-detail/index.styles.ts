@@ -8,7 +8,7 @@ export const Style = {
   SectionWrapper: styled.div`
     display: flex;
     flex-direction: column;
-
+    margin-bottom: 30px;
     gap: 20px;
   `,
   TitleWrapper: styled.div`
@@ -19,5 +19,8 @@ export const Style = {
     display: flex;
     flex-direction: column;
     gap: 8px;
+  `,
+  AddWrapper: styled.div`
+    width: 70px;
   `,
 };

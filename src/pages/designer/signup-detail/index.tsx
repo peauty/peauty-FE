@@ -1,4 +1,5 @@
-import { AppBar, CustomInput, Text } from "../../../components";
+import { AddImage } from "../../../assets/svg";
+import { AppBar, CustomButton, CustomInput, Text } from "../../../components";
 import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
 import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
 import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
@@ -19,6 +20,12 @@ export default function DesignerSignUpDetail() {
             <Text color="gray100" typo="body500">
               이미지 등록은 최대 3장까지 가능해요
             </Text>
+
+            <Style.AddWrapper>
+              <CustomButton variant="secondary">
+                <AddImage width={15} />
+              </CustomButton>
+            </Style.AddWrapper>
           </Style.TitleWrapper>
         </Style.SectionWrapper>
 
