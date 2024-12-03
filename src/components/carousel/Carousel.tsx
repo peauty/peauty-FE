@@ -13,6 +13,7 @@ interface CarouselProps {
   images?: string[];
   width?: number;
   height?: number;
+  fullWidth?: boolean;
   autoPlay?: boolean;
   autoPlayInterval?: number;
   rounded?: boolean;
@@ -24,13 +25,15 @@ export default function Carousel({
   images = [],
   width = 480,
   height = 150,
+  fullWidth = false,
   autoPlay = true,
   autoPlayInterval = 2500,
   rounded = false,
   dotSize = 8,
   dotHeight = 8,
 }: CarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const screenWidth = window.innerWidth > 480 ? 480 : window.innerWidth;
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
