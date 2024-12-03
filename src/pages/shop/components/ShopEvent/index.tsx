@@ -8,14 +8,14 @@ export default function ShopEvent() {
         backgroundColor: `${colors.blue300}`,
         padding: "20px",
         borderRadius: "10px",
-        margin: "10px 0",
+        marginTop: "10px",
         display: "flex",
         flexDirection: "column",
         whiteSpace: "pre-line",
         gap: "10px",
       }}
     >
-      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+      <div style={{ display: "flex", gap: "px", alignItems: "center" }}>
         <RedSpeaker height={14} />
         <Text typo="subtitle300">5주년 이벤트</Text>
       </div>

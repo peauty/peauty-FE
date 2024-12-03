@@ -3,9 +3,9 @@ import { colors } from "../../../../style/color";
 
 export const NavWrapper = styled.nav`
   display: flex;
-  padding: 10px 20px 20px;
   align-items: center;
-  max-width: 230px; /* Nav의 크기를 제한 */
+  height: 55px;
+  max-width: 150px; /* Nav의 크기를 제한 */
 `;
 
 export const NavItem = styled.div<{ active: boolean }>`
@@ -25,9 +25,9 @@ export const NavItem = styled.div<{ active: boolean }>`
     right: 0;
     margin: auto;
     width: ${({ active }) =>
-      active ? "80%" : "0"}; /* 활성화된 아이템의 밑줄 */
+      active ? "100%" : "0"}; /* 활성화된 아이템의 밑줄 */
     height: 5px;
     background-color: ${colors.blue200}; /* 밑줄 색 */
     transition: width 0.3s ease;
   }
-`
+`;
