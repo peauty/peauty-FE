@@ -3,12 +3,13 @@ import symbol from '../../assets/images/symbol.png';
 import { ButtonWrapper, ContentWrapper, Logo, PageWrapper } from './index.styles';
 import { CustomButton } from '../../components/button/CustomButton';
 import { Text } from '../../components';
+import { ROUTE } from '../../constants/routes';
 
 const Intro = () => {
   const navigate = useNavigate();
 
   const handleStartClick = () => {
-    navigate('/signin');
+    navigate(ROUTE.signIn);
   };
 
   return (

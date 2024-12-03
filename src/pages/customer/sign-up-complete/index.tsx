@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { Text, CustomButton } from "../../components";
+import { Text, CustomButton } from "../../../components";
 import { ButtonWrapper, ContentWrapper, PageWrapper, Particle, PyroWrapper } from "./index.styles";
 
 
-export default function SignUpComplete() {
+export default function CustomerSignUpComplete() {
     const navigate = useNavigate();
 
     const handleRegisterNow = () => {
