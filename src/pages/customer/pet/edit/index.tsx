@@ -22,7 +22,7 @@ import {
 import { MultiSelectButtonProps } from "../../../../components/button/MultiSelectButton/MultiSelectButton";
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
 
-export default function Edit() {
+export default function PetEdit() {
   const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)
   const [selectedBreed, setSelectedBreed] = useState<string>("");
 

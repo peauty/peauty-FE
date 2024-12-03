@@ -1,12 +1,12 @@
 //index.tsx
-import Card from "../../components/cards/Card";
+import Card from "../../../components/cards/Card";
 import { BoldText, CardWrapper, ContentWrapper, InfoWrapper, PageWrapper, ProfileImageWrapper, ProfileMenuWrapper, ProfileWrapper, MyInfoWrapper } from "./index.styles";
-import { AppBar, Divider, GNB, SubMenuButton, Text } from "../../components";
-import InfoButton from "../../components/button/InfoButton";
-import ProfileImg from "../../components/profile-img/ProfileImg";
+import { AppBar, Divider, GNB, SubMenuButton, Text } from "../../../components";
+import InfoButton from "../../../components/button/InfoButton";
+import ProfileImg from "../../../components/profile-img/ProfileImg";
 
 
-export default function MyPage() {
+export default function CustomerMyPage() {
     return (
         <>
             <AppBar prefix="backButton" title="회원정보"/>
