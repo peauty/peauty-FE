@@ -10,6 +10,7 @@ export const ROUTE = {
       signup: '/customer/signup', // 회원가입
       signupComplete: '/customer/signup-complete', // 회원가입 완료
       pet: {
+        info: '/customer/pet/info',
         edit: '/customer/pet/edit', // 반려동물 정보 수정
       },
     },
