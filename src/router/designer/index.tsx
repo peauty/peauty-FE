@@ -3,7 +3,6 @@ import DesignerSignUp from "../../pages/designer/signup";
 import DesignerSignUpComplete from "../../pages/designer/signup-complete";
 import DesignerSignUpDetail from "../../pages/designer/signup-detail";
 import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
-import Shop from "../../pages/shop";
 
 export const designerPaths = [
   {
@@ -25,9 +24,5 @@ export const designerPaths = [
   {
     path: "signup-detail-complete",
     element: <DesignerSignUpDetailComplete />,
-  },
-  {
-    path: "shop",
-    element: <Shop />,
   },
 ];

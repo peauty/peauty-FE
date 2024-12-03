@@ -4,6 +4,7 @@ import Temp from "../../../public/assets/images/main/temp.png";
 import ShopOverview from "./components/ShopOverview";
 import ShopNav from "./components/ShopNav";
 import ShopDetail from "./components/ShopDetail";
+import { GNBLayout } from "../../components/layout/GNBLayout";
 export default function Shop() {
   const images = [Temp, Temp, Temp];
   return (
@@ -15,7 +16,6 @@ export default function Shop() {
         <ShopNav />
         <ShopDetail />
       </div>
-      <GNB type="user" />
     </>
   );
 }
