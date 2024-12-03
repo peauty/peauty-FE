@@ -1,19 +1,20 @@
-import { Divider, Text } from "../../../../components";
-import { Shop } from "../../../../assets/svg";
-import { Badge } from "../../../../components/category/Badge";
-import ShopEvent from "./ShopEvent";
-import { Maker } from "../../../../assets/svg";
-export default function ShopOverview() {
+import { Divider, Text } from "../../../../../components";
+import { Shop } from "../../../../../assets/svg";
+import { Badge } from "../../../../../components/category/Badge";
+import ShopEvent from "../ShopEvent";
+import { Maker } from "../../../../../assets/svg";
+export default function ShopInfo() {
   return (
     <div
       style={{
+        padding: "20px 20px 0",
         display: "flex",
         flexDirection: "column",
         gap: "15px",
       }}
     >
       <div>
-        <Text typo="subtitle100">호키포키</Text>
+        <Text typo="subtitle100">까끌래뽀끌래</Text>
         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
           <Maker height={14} />
           <Text typo="body100" color="gray100">
@@ -43,7 +44,7 @@ export default function ShopOverview() {
         </div>
 
         {/* 두 번째 줄 */}
-        <Text typo="body400" color="gray100">
+        <Text typo="body300" color="gray100">
           안녕하세요. 말티즈 및 푸들 모발 케어 전문 호키포키입니다.{"\n"}
           보호자의 반려견을 정성을 다해서 케어해드립니다.
         </Text>

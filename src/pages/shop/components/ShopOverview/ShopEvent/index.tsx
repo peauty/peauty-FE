@@ -1,6 +1,6 @@
-import { Text } from "../../../../components";
-import { colors } from "../../../../style/color";
-import { RedSpeaker } from "../../../../assets/svg";
+import { Text } from "../../../../../components";
+import { colors } from "../../../../../style/color";
+import { RedSpeaker } from "../../../../../assets/svg";
 export default function ShopEvent() {
   return (
     <div

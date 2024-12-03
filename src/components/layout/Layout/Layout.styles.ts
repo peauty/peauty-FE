@@ -15,6 +15,7 @@ export const Main = styled.div`
   width: 100%;
   /* height: 100vh; */
   padding: ${theme.size.appBarHeight} 0 ${theme.size.gnbHeight};
+  /* padding: ${theme.size.appBarHeight} 0 0; */
   display: flex;
   flex-direction: column;
   flex: 1;
