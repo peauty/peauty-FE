@@ -1,10 +1,7 @@
 import { AppBar, Wrapper } from "../../components";
 import EstimateStauts from "./components/EstimateStatus";
 import Carousel from "../../components/carousel/Carousel";
-import styled from "styled-components";
-import { useState } from "react";
-import BottomSheet from "../../components/buttom-sheet/BottomSheet";
-const userType = "user";
+
 
 export default function Main() {
   const images = [
