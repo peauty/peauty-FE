@@ -46,8 +46,8 @@ export const SelectedDot = styled.div<{ size: number; height: number }>`
 
 export const ArrowButton = styled.div<{ position: "left" | "right" }>`
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 50%; /* 부모 요소의 세로 중앙에 위치 */
+  transform: translateY(-100%);
   ${({ position }) =>
     position === "left"
       ? css`
