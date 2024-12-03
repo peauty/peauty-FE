@@ -11,6 +11,7 @@ export { default as Favicon } from "./Favicon";
 export { default as Home } from "./Home";
 export { default as Logo } from "./Logo";
 export { default as Maker } from "./Maker";
+export { default as RedSpeaker } from "./RedSpeaker";
 export { default as ScissorsIcon } from "./ScissorsIcon";
 export { default as Search } from "./Search";
 export { default as Shop } from "./Shop";

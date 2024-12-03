@@ -1,7 +1,8 @@
 import { Divider, Text } from "../../../../components";
 import { Shop } from "../../../../assets/svg";
 import { Badge } from "../../../../components/category/Badge";
-
+import ShopEvent from "../ShopEvent";
+import { Maker } from "../../../../assets/svg";
 export default function ShopInfo() {
   return (
     <div
@@ -14,6 +15,12 @@ export default function ShopInfo() {
     >
       <div>
         <Text typo="subtitle100">까끌래뽀끌래</Text>
+        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          <Maker height={14} />
+          <Text typo="body100" color="gray100">
+            성남시 위례구
+          </Text>
+        </div>
       </div>
       <div
         style={{
@@ -45,6 +52,7 @@ export default function ShopInfo() {
           <Badge type="general" text="사업자 등록 인증" variant="green" />
           <Badge type="general" text="말티즈 전문가" />
         </div>
+        <ShopEvent />
       </div>
 
       <Divider thickness={3} />
