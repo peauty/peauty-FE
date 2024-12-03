@@ -17,6 +17,7 @@ import { CustomButton } from "../../components/button/CustomButton";
 import { StepWords } from "./StepWords";
 import { useNavigate } from "react-router-dom";
 import { SignUpRequest } from "../../types/auth";
+import { ROUTE } from "../../constants/routes";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -142,7 +143,7 @@ export default function SignUp() {
   
       try {
         await signup(signupData);
-        navigate("/signup-complete");
+        navigate(ROUTE.customer.signUpComplete);
       } catch (error) {
         setError("회원가입 중 문제가 발생했습니다.");
       }
@@ -155,7 +156,7 @@ export default function SignUp() {
       setError("");
       setInputValue(formData[StepWords[currentStep - 1].key] || "");
     } else {
-      navigate("/signin");
+      navigate(ROUTE.signIn);
     }
   };
 
