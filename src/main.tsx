@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { router } from "./router";
+import { router } from "./router/router";
 import QueryProvider from "./provider/query-provider";
 import { RouterProvider } from "react-router-dom";
 import GlobalStyle from "./style/global-style";

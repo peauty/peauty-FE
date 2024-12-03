@@ -1,12 +1,11 @@
 import { styled } from "styled-components";
-import { typography } from "../../style/typography";
-import { colors } from "../../style/color";
-import AppBarBack from "../../assets/svg/AppBarBack";
+import { typography } from "../../../style/typography";
+import { colors } from "../../../style/color";
+import AppBarBack from "../../../assets/svg/AppBarBack";
 
 export const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    padding-top: 70px;
     height: 100vh; // 전체 높이 사용
 `;
 
