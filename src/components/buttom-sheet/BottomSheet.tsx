@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Backdrop, Sheet, Option, OpenButton } from "./BottomSheet.styles";
+import { Sheet, Option, OpenButton } from "./BottomSheet.styles";
 import { Text } from "../texts/Text";
 import { DownArrow, UpArrow } from "../../assets/svg";
+import BackDrop from "../back-drop/BackDrop";
 
 interface BottomSheetProps {
   options: string[]; // 옵션 목록
@@ -26,8 +27,13 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ options }) => {
         {isOpen ? <UpArrow height={12} /> : <DownArrow height={12} />}
       </OpenButton>
 
-      {/* Backdrop */}
-      <Backdrop isOpen={isOpen} onClick={() => setIsOpen(false)} />
+      {/* BackDrop */}
+      {isOpen && (
+        <BackDrop
+          fullScreen
+          onClick={() => setIsOpen(false)} // BackDrop 클릭 시 닫기
+        />
+      )}
 
       {/* Bottom Sheet */}
       <Sheet isOpen={isOpen}>
