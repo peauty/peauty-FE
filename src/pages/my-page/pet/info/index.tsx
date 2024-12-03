@@ -32,7 +32,6 @@ export default function PetInfoPage() {
             alt="프로필사진"
             width="200"
             height="200"
-            style={{ borderRadius: "50%" }}
           />
 
           <MyInfoWrapper>
