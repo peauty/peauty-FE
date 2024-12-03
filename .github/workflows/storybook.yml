@@ -32,6 +32,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
 
+      # 기존 Chromatic Action
       - name: Chromatic에 게시
         id: chromatic
         uses: chromaui/action@v1
