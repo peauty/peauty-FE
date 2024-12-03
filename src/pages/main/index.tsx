@@ -1,7 +1,7 @@
 import { AppBar, Wrapper } from "../../components";
 import EstimateStauts from "./components/EstimateStatus";
 import Carousel from "../../components/carousel/Carousel";
-const userType = "user";
+
 
 export default function Main() {
   const images = [
