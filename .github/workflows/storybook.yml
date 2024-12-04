@@ -2,7 +2,7 @@ name: Preview
 
 on:
   pull_request:
-    branches: ["feature/**"]
+    branches: [sprint/**"]
 
 permissions:
   contents: write
