@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ButtonWrapper, ContentWrapper, Wrapper } from "./index.styles";
 import { CustomButton } from "../../components/button/CustomButton";
 import { Text } from "../../components";
+import { useUserDetails } from "../../hooks/useUserDetails";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -14,6 +15,7 @@ function parseQueryParams() {
 
 export default function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const {userId, role} = useUserDetails();
 
   useEffect(() => {
     const { accessToken, refreshToken } = parseQueryParams();
@@ -21,8 +23,14 @@ export default function SignIn() {
       // 토큰 저장
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      // 메인 페이지로 이동
-      window.location.href = "/";
+
+      if (role === "ROLE_CUSTOMER") {
+        window.location.href = "/";
+      } else if (role === "ROLE_DESIGNER") {
+        window.location.href = "/";
+      } else {
+        window.location.href = "/";
+      }
     }
   });
 

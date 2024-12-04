@@ -1,5 +1,6 @@
 import { signUp } from '../apis/resources/auth';
 import { checkCustomerNicknameDuplicated } from '../apis/resources/customer';
+import { ROUTE } from '../constants/routes';
 import { SignUpRequest } from '../types/auth';
 
 export const useCheckNickname = () => {
@@ -25,8 +26,7 @@ export const useSignup = () => {
         if (!result.accessToken || !result.refreshToken) {
           throw new Error("토큰이 존재하지 않습니다.");
         } else {
-          localStorage.setItem("accessToken", result.accessToken);
-          localStorage.setItem("refreshToken",result.refreshToken);
+          window.location.href = `${ROUTE.signIn}?accessToken=${result.accessToken}&refreshToken=${result.refreshToken}`;
         }
       } catch (error: any) {
         console.error(error);
