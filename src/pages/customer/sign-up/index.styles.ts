@@ -6,14 +6,12 @@ import AppBarBack from "../../../assets/svg/AppBarBack";
 export const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    height: 100vh; // 전체 높이 사용
 `;
 
 export const ContentWrapper = styled.div`
     flex: 1; // 남은 공간 모두 사용
     display: flex;
     flex-direction: column;
-    padding: 0 24px; // 좌우 패딩
 `;
 
 export const Title = styled.div`

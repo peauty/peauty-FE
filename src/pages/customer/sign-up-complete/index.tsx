@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { Text, CustomButton } from "../../../components";
 import { ButtonWrapper, ContentWrapper, PageWrapper, Particle, PyroWrapper } from "./index.styles";
+import { ROUTE } from "../../../constants/routes";
 
 
 export default function CustomerSignUpComplete() {
     const navigate = useNavigate();
 
     const handleRegisterNow = () => {
-        // TODO
-        navigate("/");
+        navigate(ROUTE.customer.home) // TODO 바꾸기
     }
 
     const handleRegisterLater = () => {
-        navigate("/");
+        navigate(ROUTE.customer.home);
     }
 
     return (

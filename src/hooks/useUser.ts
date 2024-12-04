@@ -26,7 +26,8 @@ export const useSignup = () => {
         if (!result.accessToken || !result.refreshToken) {
           throw new Error("토큰이 존재하지 않습니다.");
         } else {
-          window.location.href = `${ROUTE.signIn}?accessToken=${result.accessToken}&refreshToken=${result.refreshToken}`;
+          localStorage.setItem("accessToken", result.accessToken);
+          localStorage.setItem("refreshToken", result.refreshToken);
         }
       } catch (error: any) {
         console.error(error);
