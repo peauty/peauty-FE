@@ -1,1 +1,1 @@
-export { default } from './MyPageEdit';
+export { default } from './CustomerMyPageEdit';

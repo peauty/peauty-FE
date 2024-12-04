@@ -1,8 +1,8 @@
 import { AppBar, CustomInput, CustomButton } from "../../../components";
 import ProfileImg from "../../../components/profile-img/ProfileImg";
-import { MyPageEditWrapper } from "./MyPageEdit.styles";
+import { MyPageEditWrapper } from "./CustomerMyPageEdit.styles";
 
-export default function MayPageEdit() {
+export default function CustomerMyPageEdit() {
     return (
         <>
             <MyPageEditWrapper>
@@ -54,6 +54,7 @@ export default function MayPageEdit() {
                     }
                 />
             </MyPageEditWrapper>
+            <GNB/>
         </>
     );
 }
