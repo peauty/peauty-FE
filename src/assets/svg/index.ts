@@ -19,3 +19,5 @@ export { default as Star } from "./Star";
 export { default as UpArrow } from "./UpArrow";
 export { default as Warning } from "./Warning";
 export { default as AddImage } from "./AddImage";
+export { default as Firework } from "./Firework";
+export { default as Medal } from "./Medal";
