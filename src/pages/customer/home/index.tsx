@@ -1,6 +1,6 @@
-import { AppBar, Wrapper } from "../../components";
+import { AppBar, GNB, Wrapper } from "../../../components";
 import EstimateStauts from "./components/EstimateStatus";
-import Carousel from "../../components/carousel/Carousel";
+import Carousel from "../../../components/carousel/Carousel";
 
 export default function CustomerHome() {
   const images = [
@@ -20,6 +20,7 @@ export default function CustomerHome() {
           height={300}
         />
       </Wrapper>
+      <GNB type="customer"></GNB>
     </>
   );
 }
