@@ -3,6 +3,7 @@ import { AppBar, CustomButton, CustomInput, Text } from "../../../components";
 import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
 import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
 import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+import { GNBLayout } from "../../../components/layout/GNBLayout";
 import { Style } from "./index.styles";
 
 export default function DesignerSignUpDetail() {
@@ -33,9 +34,47 @@ export default function DesignerSignUpDetail() {
           <Style.TitleWrapper>
             <Text typo="subtitle300">공지사항</Text>
             <Text color="gray100" typo="body500">
+              현재 진행 중인 이벤트가 있다면 등록해 주세요
+            </Text>
+          </Style.TitleWrapper>
+
+          <CustomInput
+            error=""
+            hint=""
+            label="제목"
+            placeholder="이벤트 제목"
+            variant="outlined"
+          />
+          <CustomInput
+            error=""
+            hint=""
+            label="내용"
+            placeholder="이벤트 내용"
+            variant="outlined"
+          />
+        </Style.SectionWrapper>
+        <Style.SectionWrapper>
+          <Style.TitleWrapper>
+            <Text typo="subtitle300">이벤트</Text>
+            <Text color="gray100" typo="body500">
               매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요
             </Text>
           </Style.TitleWrapper>
+
+          <CustomInput
+            error=""
+            hint=""
+            label="제목"
+            placeholder="공지사항의 제목"
+            variant="outlined"
+          />
+          <CustomInput
+            error=""
+            hint=""
+            label="내용"
+            placeholder="공지사항의 내용"
+            variant="outlined"
+          />
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
@@ -87,7 +126,9 @@ export default function DesignerSignUpDetail() {
           />
 
           <Style.RadioWrapper>
-            <Text typo="subtitle300">결제 방식</Text>
+            <Text typo="subtitle300" color="gray100">
+              결제 방식
+            </Text>
 
             <RadioSelectButton
               {...(Payment.args as RadioSelectButtonProps)}
@@ -104,6 +145,18 @@ export default function DesignerSignUpDetail() {
               경력을 등록하면 고객에게 전문성을 어필할 수 있어요
             </Text>
           </Style.TitleWrapper>
+          <Style.RowWrapper>
+            <CustomInput
+              error=""
+              hint=""
+              label=""
+              placeholder="예) 22"
+              variant="outlined"
+            />
+            <Text color="gray100" typo="body100">
+              년
+            </Text>
+          </Style.RowWrapper>
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
@@ -113,7 +166,17 @@ export default function DesignerSignUpDetail() {
               자격증을 등록하면 고객에게 신뢰를 줄 수 있어요
             </Text>
           </Style.TitleWrapper>
+          <CustomButton variant="outline">
+            <Style.ColumnWrapper>
+              <Text color="gray400" typo="body500">
+                증빙 사진을 업로드 해주세요
+              </Text>
+              <AddImage width={15} />
+            </Style.ColumnWrapper>
+          </CustomButton>
         </Style.SectionWrapper>
+
+        <CustomButton>확인</CustomButton>
       </Style.RegisterPageWrapper>
     </>
   );
