@@ -1,9 +1,15 @@
 import { AddImage } from "../../../assets/svg";
-import { AppBar, CustomButton, CustomInput, Text } from "../../../components";
+import {
+  AppBar,
+  CustomButton,
+  CustomInput,
+  GNB,
+  Text,
+} from "../../../components";
+import { LocationButton } from "../../../components/button/LocationButton";
 import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
 import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
 import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
-import { GNBLayout } from "../../../components/layout/GNBLayout";
 import { Style } from "./index.styles";
 
 export default function DesignerSignUpDetail() {
@@ -42,14 +48,14 @@ export default function DesignerSignUpDetail() {
             error=""
             hint=""
             label="제목"
-            placeholder="이벤트 제목"
+            placeholder="공지사항의 제목을 입력해주세요"
             variant="outlined"
           />
           <CustomInput
             error=""
             hint=""
             label="내용"
-            placeholder="이벤트 내용"
+            placeholder="공지사항의 내용을 입력해주세요"
             variant="outlined"
           />
         </Style.SectionWrapper>
@@ -65,14 +71,14 @@ export default function DesignerSignUpDetail() {
             error=""
             hint=""
             label="제목"
-            placeholder="공지사항의 제목"
+            placeholder="이벤트 제목을 입력해주세요"
             variant="outlined"
           />
           <CustomInput
             error=""
             hint=""
             label="내용"
-            placeholder="공지사항의 내용"
+            placeholder="이벤트 내용을 입력해주세요"
             variant="outlined"
           />
         </Style.SectionWrapper>
@@ -94,26 +100,13 @@ export default function DesignerSignUpDetail() {
             variant="outlined"
           />
 
-          <CustomInput
-            error=""
-            hint=""
-            label="위치"
-            placeholder=""
-            variant="outlined"
-          />
-          <CustomInput
-            error=""
-            hint=""
-            label=""
-            placeholder="상세 주소를 입력해주세요"
-            variant="outlined"
-          />
+          <LocationButton />
 
           <CustomInput
             error=""
             hint=""
             label="영업 시간"
-            placeholder=""
+            placeholder="영업 시간을 입력해주세요"
             variant="outlined"
           />
 
@@ -121,7 +114,7 @@ export default function DesignerSignUpDetail() {
             error=""
             hint=""
             label="대표 전화번호"
-            placeholder=""
+            placeholder="대표 전화번호를 입력해주세요"
             variant="outlined"
           />
 
@@ -168,16 +161,15 @@ export default function DesignerSignUpDetail() {
           </Style.TitleWrapper>
           <CustomButton variant="outline">
             <Style.ColumnWrapper>
-              <Text color="gray400" typo="body500">
+              <Text color="blue100" typo="body500">
                 증빙 사진을 업로드 해주세요
               </Text>
               <AddImage width={15} />
             </Style.ColumnWrapper>
           </CustomButton>
         </Style.SectionWrapper>
-
-        <CustomButton>확인</CustomButton>
       </Style.RegisterPageWrapper>
+      <GNB buttonText="확인" />
     </>
   );
 }
