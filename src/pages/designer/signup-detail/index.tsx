@@ -1,5 +1,6 @@
 import { AddImage } from "../../../assets/svg";
 import { AppBar, CustomButton, CustomInput, Text } from "../../../components";
+import { LocationButton } from "../../../components/button/LocationButton";
 import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
 import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
 import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
@@ -94,20 +95,7 @@ export default function DesignerSignUpDetail() {
             variant="outlined"
           />
 
-          <CustomInput
-            error=""
-            hint=""
-            label="위치"
-            placeholder=""
-            variant="outlined"
-          />
-          <CustomInput
-            error=""
-            hint=""
-            label=""
-            placeholder="상세 주소를 입력해주세요"
-            variant="outlined"
-          />
+          <LocationButton />
 
           <CustomInput
             error=""
