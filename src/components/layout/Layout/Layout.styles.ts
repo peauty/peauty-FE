@@ -13,8 +13,7 @@ export const Wrapper = styled.div`
 
 export const Main = styled.div`
   width: 100%;
-  height: 100vh;
-  padding: 20px;
+  padding: ${theme.size.appBarHeight} 25px;
   display: flex;
   flex-direction: column;
   flex: 1;
