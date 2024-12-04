@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import * as S from "./CustomModal.styles";
+import { Main } from "../../layout/Layout/Layout.styles";
 
 interface CustomModalProps {
   children: ReactNode; // 모달 내부에 렌더링될 콘텐츠

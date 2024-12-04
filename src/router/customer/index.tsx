@@ -1,4 +1,3 @@
-import { GNBLayout } from "../../components/layout/GNBLayout";
 import CustomerMyPage from "../../pages/customer/mypage";
 import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
@@ -19,7 +18,6 @@ export const customerPaths = [
   },
   {
     path: "pet",
-    element: <GNBLayout type="customer" />,
     children: petPaths,
   },
 ];

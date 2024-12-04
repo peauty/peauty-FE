@@ -10,7 +10,7 @@ export default function Layout({ style }: LayoutProps) {
   return (
     <Wrapper>
       <Main style={style}>
-        <Outlet/>
+        <Outlet />
       </Main>
     </Wrapper>
   );

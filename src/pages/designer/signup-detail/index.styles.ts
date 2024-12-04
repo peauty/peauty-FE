@@ -33,6 +33,7 @@ export const Style = {
     gap: 8px;
   `,
   AddWrapper: styled.div`
-    width: 70px;
+    width: 60px;
+    margin-top: 10px;
   `,
 };

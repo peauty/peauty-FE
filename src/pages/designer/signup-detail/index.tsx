@@ -1,10 +1,15 @@
 import { AddImage } from "../../../assets/svg";
-import { AppBar, CustomButton, CustomInput, Text } from "../../../components";
+import {
+  AppBar,
+  CustomButton,
+  CustomInput,
+  GNB,
+  Text,
+} from "../../../components";
 import { LocationButton } from "../../../components/button/LocationButton";
 import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
 import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
 import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
-import { GNBLayout } from "../../../components/layout/GNBLayout";
 import { Style } from "./index.styles";
 
 export default function DesignerSignUpDetail() {
@@ -156,16 +161,15 @@ export default function DesignerSignUpDetail() {
           </Style.TitleWrapper>
           <CustomButton variant="outline">
             <Style.ColumnWrapper>
-              <Text color="gray400" typo="body500">
+              <Text color="blue100" typo="body500">
                 증빙 사진을 업로드 해주세요
               </Text>
               <AddImage width={15} />
             </Style.ColumnWrapper>
           </CustomButton>
         </Style.SectionWrapper>
-
-        <CustomButton>확인</CustomButton>
       </Style.RegisterPageWrapper>
+      <GNB buttonText="확인" />
     </>
   );
 }
