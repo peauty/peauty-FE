@@ -42,14 +42,14 @@ export default function DesignerSignUpDetail() {
             error=""
             hint=""
             label="제목"
-            placeholder="이벤트 제목"
+            placeholder="공지사항의 제목을 입력해주세요"
             variant="outlined"
           />
           <CustomInput
             error=""
             hint=""
             label="내용"
-            placeholder="이벤트 내용"
+            placeholder="공지사항의 내용을 입력해주세요"
             variant="outlined"
           />
         </Style.SectionWrapper>
@@ -65,14 +65,14 @@ export default function DesignerSignUpDetail() {
             error=""
             hint=""
             label="제목"
-            placeholder="공지사항의 제목"
+            placeholder="이벤트 제목을 입력해주세요"
             variant="outlined"
           />
           <CustomInput
             error=""
             hint=""
             label="내용"
-            placeholder="공지사항의 내용"
+            placeholder="이벤트 내용을 입력해주세요"
             variant="outlined"
           />
         </Style.SectionWrapper>
@@ -113,7 +113,7 @@ export default function DesignerSignUpDetail() {
             error=""
             hint=""
             label="영업 시간"
-            placeholder=""
+            placeholder="영업 시간을 입력해주세요"
             variant="outlined"
           />
 
@@ -121,7 +121,7 @@ export default function DesignerSignUpDetail() {
             error=""
             hint=""
             label="대표 전화번호"
-            placeholder=""
+            placeholder="대표 전화번호를 입력해주세요"
             variant="outlined"
           />
 
