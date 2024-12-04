@@ -1,4 +1,4 @@
-import { AppBar, CustomInput, CustomButton } from "../../../components";
+import { AppBar, CustomInput, CustomButton, GNB } from "../../../components";
 import ProfileImg from "../../../components/profile-img/ProfileImg";
 import { MyPageEditWrapper } from "./CustomerMyPageEdit.styles";
 
