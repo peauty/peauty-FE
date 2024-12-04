@@ -12,7 +12,7 @@ import { CustomButton } from "../../button/CustomButton";
 import { Text } from "../../texts/Text";
 
 interface GNBProps {
-  type?: "user" | "stylist"; // GNB 타입 (회원/미용사)
+  type?: "customer" | "designer"; // GNB 타입 (회원/미용사)
   onLargeButtonClick?: () => void; // 큰 버튼 클릭 이벤트
 }
 
@@ -34,7 +34,7 @@ export function GNB({ type, onLargeButtonClick }: GNBProps) {
   ];
 
   // 현재 메뉴 항목 결정
-  const menuItems = type === "user" ? userMenuItems : stylistMenuItems;
+  const menuItems = type === "customer" ? userMenuItems : stylistMenuItems;
 
   return (
     <>
