@@ -14,6 +14,13 @@ export const ContentWrapper = styled.div`
   align-items: center;
 `;
 
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 90vh;
+`;
+
 export const ButtonWrapper = styled.div`
   width: 100%;
   padding-bottom: 50px;

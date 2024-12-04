@@ -1,21 +1,22 @@
 import { styled } from "styled-components";
+import theme from "../../style/theme";
 
 export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh; // 전체 높이 사용
+  width: 100%;
+  height: calc(98vh - ${theme.size.appBarHeight});
 `;
 
 export const ContentWrapper = styled.div`
   flex: 1; // 남은 공간 모두 사용
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
 export const ButtonWrapper = styled.div`
-  /* padding: 24px; */
   background: white;
 `;
 
