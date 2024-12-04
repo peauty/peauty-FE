@@ -6,6 +6,5 @@ export const MyPageEditWrapper = styled.div`
   gap: 20px;
   width: 100%;
   height: 100vh;
-  padding: 0 25px;
   overflow-y: auto;
 `;

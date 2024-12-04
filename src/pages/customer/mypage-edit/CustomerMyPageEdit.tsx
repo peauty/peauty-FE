@@ -54,7 +54,7 @@ export default function CustomerMyPageEdit() {
                     }
                 />
             </MyPageEditWrapper>
-            <GNB/>
+            <GNB buttonText="확인"/>
         </>
     );
 }
