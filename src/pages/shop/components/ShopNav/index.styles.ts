@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { colors } from "../../../../style/color";
 
 export const NavWrapper = styled.nav`
+  position: sticky;
   display: flex;
   align-items: center;
   height: 55px;
-  max-width: 150px; /* Nav의 크기를 제한 */
+  max-width: 200px; /* Nav의 크기를 제한 */
   padding: 0 20px;
 `;
 

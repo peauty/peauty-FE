@@ -3,9 +3,14 @@ import BottomSheet from "../../../../components/buttom-sheet/BottomSheet";
 import StarRating from "../../../../components/star-rating/StarRating";
 import ReviewPhotos from "./ReviewPhotos";
 import ReviewItem from "./ReviewItem";
-export default function ShopReview() {
+import { forwardRef } from "react";
+
+const ShopReview = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>((props, ref) => {
   return (
-    <div style={{ padding: "30px 20px" }}>
+    <div ref={ref} {...props} style={{ padding: "30px 20px" }}>
       <div style={{ display: "flex", marginTop: "25px 0 10px" }}>
         <div style={{ flex: "1" }}>
           <Text typo="subtitle300">고객 리뷰</Text>
@@ -22,4 +27,6 @@ export default function ShopReview() {
       <ReviewItem />
     </div>
   );
-}
+});
+
+export default ShopReview;

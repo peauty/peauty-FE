@@ -1,20 +1,26 @@
-import { useState } from "react";
+import React from "react";
+import styled from "styled-components";
 import { NavWrapper, NavItem } from "./index.styles";
+interface ShopNavProps {
+  activeSection: string;
+  onNavigate: (id: string) => void;
+}
 
-export default function ShopNav() {
-  const [activeIndex, setActiveIndex] = useState(0); // 현재 활성화된 메뉴 인덱스
-
-  const menuItems = ["홈", "리뷰", "뱃지"];
+export default function ShopNav({ activeSection, onNavigate }: ShopNavProps) {
+  const navItems = [
+    { id: "detail", label: "홈" },
+    { id: "review", label: "리뷰" },
+  ];
 
   return (
     <NavWrapper>
-      {menuItems.map((item, index) => (
+      {navItems.map((item) => (
         <NavItem
-          key={index}
-          active={index === activeIndex}
-          onClick={() => setActiveIndex(index)}
+          key={item.id}
+          active={activeSection === item.id}
+          onClick={() => onNavigate(item.id)}
         >
-          {item}
+          {item.label}
         </NavItem>
       ))}
     </NavWrapper>

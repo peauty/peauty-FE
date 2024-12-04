@@ -15,5 +15,5 @@ export const GNBwrapper = styled.div`
   flex-direction: column;
   flex: 1;
   box-sizing: border-box;
-  overflow-y: auto; /* 컨텐츠가 길 경우 스크롤 허용 */
+  //overflow-y: auto; /*컨텐츠가 길 경우 스크롤 허용 */
 `;
