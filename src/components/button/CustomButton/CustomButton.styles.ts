@@ -59,7 +59,7 @@ export const Button = styled.button<{
           /* padding: 12px 24px; */
           ${typography.subtitle200}
           height: 60px;
-          width: 90%;
+          width: 100%;
         `;
     }
   }}
