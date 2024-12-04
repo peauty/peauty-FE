@@ -16,9 +16,10 @@ interface GNBProps {
   onLargeButtonClick?: () => void; // 큰 버튼 클릭 이벤트
   children?: React.ReactNode;
   buttonText?: string;
+  disabled?: boolean;
 }
 
-export function GNB({ type, onLargeButtonClick, buttonText }: GNBProps) {
+export function GNB({ type, onLargeButtonClick, buttonText, disabled }: GNBProps) {
   // 회원(GNB) 메뉴 구성
   const userMenuItems = [
     { icon: <Home />, label: "홈", path: "/" },
@@ -60,6 +61,7 @@ export function GNB({ type, onLargeButtonClick, buttonText }: GNBProps) {
               fullwidth
               variant="primary"
               onClick={onLargeButtonClick}
+              disabled={disabled}
             >
               <Text typo="body200" color="white">
                 {buttonText}

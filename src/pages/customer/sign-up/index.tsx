@@ -18,6 +18,8 @@ import { StepWords } from "./StepWords";
 import { useNavigate } from "react-router-dom";
 import { SignUpRequest } from "../../../types/auth";
 import { ROUTE } from "../../../constants/routes";
+import { GNB } from "../../../components/layout/GNB";
+import Loading from "../../../components/page/sign-up/Loading";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -40,6 +42,7 @@ export default function CustomerSignUp() {
   const { check } = useCheckNickname();
   const { signup } = useSignup();
   const navigate = useNavigate();
+  const LOADINGIMAGE = "https://avatars.githubusercontent.com/u/70759627?v=4" // TODO 포켓 이미지로 변경
 
   // 각 Step별 데이터를 저장할 상태 추가
   const [formData, setFormData] = useState<Record<string, string>>({});
@@ -162,6 +165,7 @@ export default function CustomerSignUp() {
 
   return (
     <>
+      {locationLoading && <Loading imageUrl={LOADINGIMAGE}/>}
       <AppBar prefix={"backButton"} onclick={handleBack} title="회원가입" />
       <PageWrapper>
         <ContentWrapper>
@@ -197,13 +201,10 @@ export default function CustomerSignUp() {
             />
           </InputSection>
         </ContentWrapper>
-        <ButtonWrapper>
-          <CustomButton onClick={handleNext} disabled={
-            currentStep === 3 ? (inputValue === "" || error !== "" || !isNickNameAvailable) :
-            inputValue === "" || error != "" }> 
-            {currentStep === totalSteps - 1 ? "완료" : "다음"}
-          </CustomButton>
-        </ButtonWrapper>
+        <GNB buttonText={currentStep === totalSteps - 1 ? "완료" : "다음"} onLargeButtonClick={handleNext} disabled={
+          currentStep === 3 ? (inputValue === "" || error !== "" || !isNickNameAvailable) :
+          inputValue === "" || error != "" }> 
+        </GNB>
       </PageWrapper>
     </>
   );

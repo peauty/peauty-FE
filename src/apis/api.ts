@@ -3,6 +3,7 @@ import { ROUTE } from '../constants/routes';
 
 const publicPaths: string[] = [
   "/v1/auth/sign-up",
+  "/v1/users/check"
 ]
 
 function createAPI(baseURL: string) {
