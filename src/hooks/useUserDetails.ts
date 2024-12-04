@@ -14,11 +14,13 @@ export function useUserDetails() {
     userId: number | null;
     role: string | null;
   }>({ userId: null, role: null });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!accessToken) {
+      setIsLoading(false);
       return;
     }
 
@@ -30,10 +32,11 @@ export function useUserDetails() {
       });
     } catch (error) {
       console.error("토큰 디코드 중 오류 발생:", error);
-      setUserDetails({ userId: null, role: null });
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
-  return userDetails;
+  return { ...userDetails, isLoading };
 }
 
