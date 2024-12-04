@@ -4,6 +4,8 @@ import { ButtonWrapper, ContentWrapper, Wrapper } from "./index.styles";
 import { CustomButton } from "../../components/button/CustomButton";
 import { Text } from "../../components";
 import { useUserDetails } from "../../hooks/useUserDetails";
+import { ROUTE } from "../../constants/routes";
+import { useNavigate } from "react-router-dom";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -15,24 +17,26 @@ function parseQueryParams() {
 
 export default function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const {userId, role} = useUserDetails();
+  const {userId, role, isLoading} = useUserDetails();
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (isLoading) return;
+  
     const { accessToken, refreshToken } = parseQueryParams();
     if (accessToken && refreshToken) {
-      // 토큰 저장
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-
+  
       if (role === "ROLE_CUSTOMER") {
-        window.location.href = "/";
+        navigate(ROUTE.customer.home);
       } else if (role === "ROLE_DESIGNER") {
-        window.location.href = "/";
+        navigate(ROUTE.signIn);
       } else {
-        window.location.href = "/";
+        navigate(ROUTE.signIn);
       }
     }
-  });
+  }, [isLoading, role, navigate]);
 
   const handleGeneralSignUp = () => {
     setIsModalVisible(true);

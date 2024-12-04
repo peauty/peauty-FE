@@ -2,7 +2,7 @@ import { AppBar, Wrapper } from "../../components";
 import EstimateStauts from "./components/EstimateStatus";
 import Carousel from "../../components/carousel/Carousel";
 
-export default function Main() {
+export default function CustomerHome() {
   const images = [
     "assets/images/main/temp.png",
     "assets/images/main/temp.png",
