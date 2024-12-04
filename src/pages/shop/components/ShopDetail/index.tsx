@@ -5,9 +5,12 @@ import { forwardRef } from "react";
 import styled from "styled-components";
 
 const StyledShopDetail = styled.div`
+  display: flex;
+  flex-direction: column;
+  scroll-margin-top: 140px;
+  /* AppBar와 StickyContainer의 높이를 고려하여 더 크게 설정 */
   margin: 20px 0 0;
   padding: 0 20px;
-  scroll-margin-top: 130px; /* AppBar 높이만큼 스크롤 마진 추가 */
 `;
 
 const ShopDetail = forwardRef<

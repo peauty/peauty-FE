@@ -10,7 +10,9 @@ export const NavWrapper = styled.nav`
   padding: 0 20px;
 `;
 
-export const NavItem = styled.div<{ active: boolean }>`
+export const NavItem = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "active",
+})<{ active: boolean }>`
   flex: 1; /* 모든 메뉴 아이템이 공평하게 공간을 나눔 */
   text-align: center; /* 텍스트를 가운데 정렬 */
   position: relative;
