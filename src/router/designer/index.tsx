@@ -5,24 +5,24 @@ import DesignerSignUpDetail from "../../pages/designer/signup-detail";
 import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
 
 export const designerPaths = [
-    {
-      path: "mypage",
-      element: <DesignerMyPage/>
-    },
-    {
-      path: "signup",
-      element: <DesignerSignUp />,
-    },
-    {
-      path: "signup-complete",
-      element: <DesignerSignUpComplete/>
-    },
-    {
-      path: "signup-detail",
-      element: <DesignerSignUpDetail/>
-    },
-    {
-      path: "signup-detail-complete",
-      element: <DesignerSignUpDetailComplete/>
-    }
-  ]
+  {
+    path: "mypage",
+    element: <DesignerMyPage />,
+  },
+  {
+    path: "signup",
+    element: <DesignerSignUp />,
+  },
+  {
+    path: "signup-complete",
+    element: <DesignerSignUpComplete />,
+  },
+  {
+    path: "signup-detail",
+    element: <DesignerSignUpDetail />,
+  },
+  {
+    path: "signup-detail-complete",
+    element: <DesignerSignUpDetailComplete />,
+  },
+];
