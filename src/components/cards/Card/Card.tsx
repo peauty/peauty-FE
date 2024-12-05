@@ -1,14 +1,7 @@
 import { Tag } from "../../category/Tag";
-import { TagProps } from "../../category/Tag/Tag";
 import { Text } from "../../texts/Text";
 import ProfileImg from "../../profile-img/ProfileImg";
 import { CardWrapper, DiseaseWrapper, InfoWrapper, ProfileImagWrapper, TagsWrapper } from "./Card.styles";
-
-
-export interface TagItem {
-  text: string; // 태그에 표시될 텍스트
-  tagProps: TagProps; // 스타일 정보 포함
-}
 
 interface CardProps {
   imageSrc: string;
@@ -17,7 +10,7 @@ interface CardProps {
   gender: string;
   weight: string;
   breed: string;
-  tags: TagItem[];
+  tags: string[];
 }
 
 export default function Card({
@@ -42,11 +35,9 @@ export default function Card({
         <DiseaseWrapper>
           <Text typo={"subtitle300"}>질병</Text>
           <TagsWrapper>
-            {tags.map((tag, index) => (
-              <Tag key={index} {...tag.tagProps}>
-                {tag.text}
-              </Tag>
-            ))}
+          {tags.map((tag, index) => (
+            <Tag key={index} text={tag} />
+          ))}
           </TagsWrapper>        
         </DiseaseWrapper>
 
