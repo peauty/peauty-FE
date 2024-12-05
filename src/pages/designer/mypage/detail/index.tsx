@@ -66,7 +66,7 @@ export default function CustomerMyPageDetail() {
           <Divider />
         </FieldWrapper>
       </PageWrapper>
-      <GNB type="customer" />
+      <GNB type="designer" />
     </>
   );
 }
