@@ -1,7 +1,6 @@
-import { signUp } from '../apis/resources/auth';
-import { checkCustomerNicknameDuplicated } from '../apis/resources/customer';
-import { ROUTE } from '../constants/routes';
-import { SignUpRequest } from '../types/auth';
+import { signUp } from "../apis/customer/resources/auth";
+import { checkCustomerNicknameDuplicated } from "../apis/customer/resources/customer";
+import { SignUpRequest } from "../types/customer/auth";
 
 export const useCheckNickname = () => {
   const check = async (nickname: string) => {

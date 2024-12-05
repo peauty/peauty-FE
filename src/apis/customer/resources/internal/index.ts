@@ -1,5 +1,5 @@
+import { UploadImageResponse } from "../../../../types/customer/internal";
 import { CustomerAPI } from "../../api";
-import { UploadImageResponse } from "../../../types/internal";
 import FormData from "form-data";
 
 export const uploadImage = async (image: File): Promise<UploadImageResponse> => {
