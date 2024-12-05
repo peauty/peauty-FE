@@ -7,8 +7,8 @@ export interface SignUpRequest {
   socialId?: string;
   socialPlatform?: 'KAKAO' | 'GOOGLE' | 'APPLE';
   name?: string;
-  phoneNum?: string;
-  address?: string;
+  phoneNumber?: string;
+  email?: string;
   nickname?: string;
   profileImageUrl?: string;
 }
