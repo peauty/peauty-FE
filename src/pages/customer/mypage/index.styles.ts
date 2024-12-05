@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { typography } from "../../../style/typography";
+import { colors } from "../../../style/color";
 
 export const PageWrapper = styled.div`
     display: flex;
@@ -53,4 +54,12 @@ export const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+`
+
+export const NoPuppyPlaceholder = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${colors.gray200};
+    height: 150px;
 `

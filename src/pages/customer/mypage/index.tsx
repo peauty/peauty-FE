@@ -1,4 +1,3 @@
-//index.tsx
 import Card from "../../../components/cards/Card";
 import {
   BoldText,
@@ -10,12 +9,41 @@ import {
   ProfileMenuWrapper,
   ProfileWrapper,
   MyInfoWrapper,
+  NoPuppyPlaceholder,
 } from "./index.styles";
 import { AppBar, Divider, GNB, SubMenuButton, Text } from "../../../components";
 import InfoButton from "../../../components/button/InfoButton";
 import ProfileImg from "../../../components/profile-img/ProfileImg";
+import { useUserDetails } from "../../../hooks/useUserDetails";
+import { useEffect, useState } from "react";
+import { getPuppyProfiles } from "../../../apis/customer/resources/puppy";
+import { GetPuppyProfilesResponse, GetPuppyDetailResponse } from "../../../types/customer/puppy";
 
 export default function CustomerMyPage() {
+  const { userId, isLoading } = useUserDetails();
+  const [profile, setProfile] = useState<GetPuppyProfilesResponse | null>(null);
+  const [puppies, setPuppies] = useState<GetPuppyDetailResponse[]>([]);
+
+  useEffect(() => {
+    const fetchPuppyProfiles = async () => {
+      if (userId) {
+        try {
+          const data = await getPuppyProfiles(userId);
+          setProfile({
+            customerId: data.customerId,
+            customerNickname: data.customerNickname,
+            customerImageUrl: data.customerImageUrl,
+          });
+          setPuppies(data.puppies || []);
+        } catch (error) {
+          console.error("Failed to fetch puppy profiles:", error);
+        }
+      }
+    };
+
+    fetchPuppyProfiles();
+  }, [userId]);
+
   return (
     <>
       <AppBar prefix="backButton" title="회원정보" />
@@ -24,9 +52,7 @@ export default function CustomerMyPage() {
           <ProfileWrapper>
             <ProfileImageWrapper>
               <ProfileImg
-                src={
-                  "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785"
-                }
+                src={profile?.customerImageUrl || ""}
                 alt={"프로필사진"}
                 width={"75"}
                 height={"75"}
@@ -35,7 +61,7 @@ export default function CustomerMyPage() {
             <ProfileMenuWrapper>
               <MyInfoWrapper>
                 <Text typo={"subtitle100"} color={"blue100"} font-weight="bold">
-                  화난거아니다<Text typo={"subtitle100"}> 님</Text>
+                  {profile?.customerNickname || "사용자"}<Text typo={"subtitle100"}> 님</Text>
                 </Text>
                 <Text typo={"subtitle300"} color={"gray100"}>
                   내 정보 수정하기
@@ -46,31 +72,24 @@ export default function CustomerMyPage() {
           </ProfileWrapper>
           <Divider thickness={2} />
           <SubMenuButton text="우리집 퓨티들" iconType="plus" to="/" />
-          <CardWrapper>
-            <Card
-              imageSrc={
-                "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785"
-              }
-              name={"꼬미"}
-              age={3}
-              gender={"암컷"}
-              weight={"3.4kg"}
-              breed={"말티즈"}
-              tags={["피부병", "슬개골"]}
-            />
-            <Card
-              imageSrc={
-                "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785"
-              }
-              name={"꼬미"}
-              age={3}
-              gender={"암컷"}
-              weight={"3.4kg"}
-              breed={"말티즈"}
-              tags={["피부병", "슬개골"]}
-            />
-          </CardWrapper>
-
+          {puppies.length === 0 ? (
+            <NoPuppyPlaceholder>아직 등록된 반려견이 없어요!</NoPuppyPlaceholder>
+          ) : (
+            <CardWrapper>
+              {puppies.map((puppy) => (
+                <Card
+                  key={puppy.puppyId}
+                  imageSrc={puppy.profileImageUrl || ""}
+                  name={puppy.name || ""}
+                  age={puppy.age || 0}
+                  gender={puppy.sex || ""}
+                  weight={`${puppy.weight}kg` || ""}
+                  breed={puppy.breed || ""}
+                  tags={puppy.disease || []}
+                />
+              ))}
+            </CardWrapper>
+          )}
           <Divider />
           <InfoWrapper>
             <BoldText>미용내역</BoldText>
