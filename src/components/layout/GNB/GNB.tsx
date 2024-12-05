@@ -13,12 +13,13 @@ import { Text } from "../../texts/Text";
 import { ROUTE } from "../../../constants/routes";
 import { useNavigate, useLocation } from "react-router-dom";
 
-interface GNBProps {
+export interface GNBProps {
   type?: "customer" | "designer"; // GNB 타입 (회원/미용사)
   onLargeButtonClick?: () => void; // 큰 버튼 클릭 이벤트
   children?: React.ReactNode;
   buttonText?: string;
   disabled?: boolean;
+  isActive?: boolean;
 }
 
 export function GNB({ type, onLargeButtonClick, buttonText, disabled }: GNBProps) {

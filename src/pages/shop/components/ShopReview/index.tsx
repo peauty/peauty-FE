@@ -4,7 +4,7 @@ import BottomSheet from "../../../../components/bottom-sheet/BottomSheet";
 import StarRating from "../../../../components/star-rating/StarRating";
 import ReviewPhotos from "./ReviewPhotos";
 import ReviewItem from "./ReviewItem";
-import { TabWrapper } from "../index.styles";
+import { TabWrapper2 } from "../index.styles";
 import { CustomerRiverWrapper } from "./index.styles";
 import { IconContain } from "../ShopDetail/ShopInfo/index.styles";
 // 리뷰 데이터 타입 정의
@@ -83,7 +83,7 @@ const ShopReview = forwardRef<
   };
 
   return (
-    <TabWrapper ref={ref} {...props}>
+    <TabWrapper2 ref={ref} {...props}>
       <Text typo="subtitle300">고객 리뷰</Text>
       <CustomerRiverWrapper>
         <IconContain>
@@ -117,7 +117,7 @@ const ShopReview = forwardRef<
           </Text>
         </div>
       )}
-    </TabWrapper>
+    </TabWrapper2>
   );
 });
 

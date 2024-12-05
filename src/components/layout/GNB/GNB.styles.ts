@@ -1,18 +1,17 @@
 import styled from "styled-components";
 import { colors } from "../../../style/color";
+import { GNBProps } from "./GNB";
 
 export const Nav = styled.nav`
-  /* padding: 20px; */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
 `;
 
-export const MenuItem = styled.div<{ isActive?: boolean }>`
+export const MenuItem = styled.div<GNBProps>`
   flex: 1;
   display: flex;
   flex-direction: column;

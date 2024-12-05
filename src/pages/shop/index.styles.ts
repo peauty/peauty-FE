@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import theme from "../../style/theme";
+
 export const StickyContainer = styled.div`
   position: sticky;
   top: ${theme.size.appBarHeight}; /* 화면 상단에 고정 */

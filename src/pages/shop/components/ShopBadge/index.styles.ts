@@ -22,11 +22,14 @@ export const BadgeItem = styled.div`
 `;
 
 export const BadgeIcon = styled.div`
+display: flex;
   align-items: center;
   justify-content: center;
+  align-items: center;
   aspect-ratio: 1/1;
   border-radius: 15px;
   background-color: ${colors.blue300};
+  box-sizing: border-box;
   &:hover {
     box-shadow: 0 0 10px ${colors.blue100};
     /* 활성화되지 않은 배지를 호버했을 때 색상 변경 */
