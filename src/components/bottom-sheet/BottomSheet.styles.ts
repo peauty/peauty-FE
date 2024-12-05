@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import theme from "../../style/theme";
 
 // 아래에서 부드럽게 나타나는 애니메이션
 const slideUp = keyframes`
@@ -24,12 +25,12 @@ const slideDown = keyframes`
   }
 `;
 
-
 export const Sheet = styled.div<{ isOpen: boolean }>`
-  position: absolute;
+  position: fixed; /* 부모의 padding 영향을 받지 않음 */
   bottom: 0;
-  left: 0;
+  transform: translateX(-50%);
   width: 100%;
+  max-width: ${theme.size.maxWidth};
   background: white;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 20px 20px 0 0;
@@ -63,5 +64,5 @@ export const OpenButton = styled.button`
   border: none;
   display: flex;
   align-items: center;
-  gap: 8px; /* 텍스트와 아이콘 간격 */
+  gap: 5px;
 `;

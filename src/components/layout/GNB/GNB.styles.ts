@@ -2,14 +2,14 @@ import styled from "styled-components";
 import { colors } from "../../../style/color";
 
 export const Nav = styled.nav`
-  padding: 20px;
+  /* padding: 20px; */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  /* align-items: center; */
 `;
 
 export const MenuItem = styled.div<{ isActive?: boolean }>`
@@ -17,14 +17,14 @@ export const MenuItem = styled.div<{ isActive?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 5px;
   cursor: pointer;
   color: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
 
   svg {
-    width: 21px;
-    height: 21px;
+    width: 20px;
+    height: 20px;
     fill: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
   }
 
@@ -53,7 +53,7 @@ export const ContentWrapper = styled.div`
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  padding: 20px;
+  padding: 20px 10px 10px;
   background-color: white;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 `;
