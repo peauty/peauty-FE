@@ -1,8 +1,11 @@
 import SocialLoginModal from "./components/SocialLoginModal/SocialLoginModal";
 import { useEffect, useState } from "react";
-import { ButtonWrapper, ContentWrapper, PageWrapper } from "./index.styles";
+import { ButtonWrapper, ContentWrapper, Wrapper } from "./index.styles";
 import { CustomButton } from "../../components/button/CustomButton";
-import { Text } from '../../components';
+import { Text } from "../../components";
+import { useUserDetails } from "../../hooks/useUserDetails";
+import { ROUTE } from "../../constants/routes";
+import { useNavigate } from "react-router-dom";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -14,18 +17,27 @@ function parseQueryParams() {
 
 export default function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const {userId, role, isLoading} = useUserDetails();
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (isLoading) return;
+  
     const { accessToken, refreshToken } = parseQueryParams();
     if (accessToken && refreshToken) {
-      // 토큰 저장
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      // 메인 페이지로 이동
-      window.location.href = "/";
-    }
-  })
   
+      if (role === "ROLE_CUSTOMER") {
+        navigate(ROUTE.customer.home);
+      } else if (role === "ROLE_DESIGNER") {
+        navigate(ROUTE.signIn);
+      } else {
+        navigate(ROUTE.signIn);
+      }
+    }
+  }, [isLoading, role, navigate]);
+
   const handleGeneralSignUp = () => {
     setIsModalVisible(true);
   };
@@ -35,27 +47,38 @@ export default function SignIn() {
   };
 
   return (
-    <PageWrapper>
-      <ContentWrapper>
-        <Text color={'black'} typo={"title100"}>
-          <Text color={'blue100'} typo={"title100"}>퓨티</Text>
-          에 오신 것을 환영해요
-        </Text>
-        <Text color={'gray100'} typo={"subtitle300"}>
-          퓨티는 반려견에게 <Text color={'blue100'} typo={"subtitle300"}>딱!</Text> 맞는 관리를 위한 서비스예요
-        </Text>
-      </ContentWrapper>
-      <ButtonWrapper>
-        <CustomButton size="large" variant="outline" fullwidth={true} onClick={handleGeneralSignUp}>
-          일반 회원 가입
-        </CustomButton>
-        <CustomButton size="large" variant="outline" fullwidth={true}>
-          미용사 회원 가입
-        </CustomButton>
-      </ButtonWrapper>
-      {isModalVisible && (
-        <SocialLoginModal onClose={handleCloseModal} />
-      )}
-    </PageWrapper>
+    <>
+      <Wrapper>
+        <ContentWrapper>
+          <Text color={"black"} typo={"title100"}>
+            <Text color={"blue100"} typo={"title100"}>
+              퓨티
+            </Text>
+            에 오신 것을 환영해요
+          </Text>
+          <Text color={"gray100"} typo={"subtitle300"}>
+            퓨티는 반려견에게{" "}
+            <Text color={"blue100"} typo={"subtitle300"}>
+              딱!
+            </Text>{" "}
+            맞는 관리를 위한 서비스예요
+          </Text>
+        </ContentWrapper>
+        <ButtonWrapper>
+          <CustomButton
+            size="large"
+            variant="outline"
+            fullwidth={true}
+            onClick={handleGeneralSignUp}
+          >
+            일반 회원 가입
+          </CustomButton>
+          <CustomButton size="large" variant="outline" fullwidth={true}>
+            미용사 회원 가입
+          </CustomButton>
+        </ButtonWrapper>
+        {isModalVisible && <SocialLoginModal onClose={handleCloseModal} />}
+      </Wrapper>
+    </>
   );
 }

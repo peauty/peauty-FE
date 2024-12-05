@@ -14,14 +14,14 @@ type Story = StoryObj<typeof GNB>;
 // User GNB
 export const UserGNB: Story = {
   args: {
-    type: "user",
+    type: "customer",
   },
 };
 
 // Stylist GNB
 export const StylistGNB: Story = {
   args: {
-    type: "stylist",
+    type: "designer",
   },
 };
 

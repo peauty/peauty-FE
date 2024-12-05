@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "svgr": "npx @svgr/cli -d src/assets/svg --ignore-existing --typescript --no-dimensions public/svg",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_bbf18d311f19e2d"
   },
   "dependencies": {
     "@eslint/plugin-kit": "^0.2.3",
@@ -44,6 +45,7 @@
     "@types/react-modal": "^3",
     "@types/styled-components": "^5.1.34",
     "@vitejs/plugin-react": "^4.3.3",
+    "chromatic": "^11.20.0",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",

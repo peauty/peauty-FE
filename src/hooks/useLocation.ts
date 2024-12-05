@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { kakaoMapAPI } from "../apis/resources/external/kakaoMapAPI";
+import { kakaoMapAPI } from "../apis/external/kakaoMapAPI";
 
 export function useLocation() {
   const [location, setLocation] = useState("");
