@@ -1,5 +1,6 @@
 import DesignerMyPage from "../../pages/designer/mypage";
 import DesignerMyPageDetail from "../../pages/designer/mypage/detail";
+import DesignerMyPageEdit from "../../pages/designer/mypage/edit";
 import DesignerSignUp from "../../pages/designer/signup";
 import DesignerSignUpComplete from "../../pages/designer/signup-complete";
 import DesignerSignUpDetail from "../../pages/designer/signup-detail";
@@ -31,4 +32,9 @@ export const designerPaths = [
     path: "mypage/detail",
     element: <DesignerMyPageDetail />,
   },
+  {
+    path: "mypage/edit",
+    element: <DesignerMyPageEdit />,
+  },
+  
 ];
