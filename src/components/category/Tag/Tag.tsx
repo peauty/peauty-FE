@@ -19,11 +19,12 @@ export default function Tag({
   children,
   backgroundColor,
   borderColor,
-  fontColor
 }: React.PropsWithChildren<TagProps>) {
   return (
     <TagWrapper backgroundColor={backgroundColor} borderColor={borderColor}>
-      <Text typo="body300" color={fontColor}>{children}</Text>
+      <Text typo="body300" color="blue100">
+        {children}
+      </Text>
     </TagWrapper>
   );
 }

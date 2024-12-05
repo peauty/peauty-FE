@@ -15,6 +15,8 @@ export const TagWrapper = styled.div<TagStyleProps>`
   text-align: center;
 
   /* 색상 관련 스타일링 */
-  background-color: ${({ backgroundColor }) => backgroundColor ? colors[backgroundColor] : colors.blue300};
-  border: 1px solid ${({ borderColor }) => borderColor ? colors[borderColor] : null};
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor ? colors[backgroundColor] : colors.blue300};
+  border: 1px solid
+    ${({ borderColor }) => (borderColor ? colors[borderColor] : "none")};
 `;
