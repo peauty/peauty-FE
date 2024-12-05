@@ -1,5 +1,6 @@
 import CustomerMyPage from "../../pages/customer/mypage";
 import CustomerMyPageEdit from "../../pages/customer/mypage-edit";
+import CustomerRequestNotice from "../../pages/customer/request/notice";
 import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
 import CustomerHome from "../../pages/main";
@@ -29,5 +30,9 @@ export const customerPaths = [
   {
     path: "pet",
     children: petPaths,
+  },
+  {
+    path: "request-notice",
+    element: <CustomerRequestNotice />,
   },
 ];
