@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ROUTE } from '../constants/routes';
+import { ROUTE } from '../../constants/routes';
 
 const publicPaths: string[] = [
   "/v1/auth/sign-up",
@@ -55,4 +55,3 @@ function createAPI(baseURL: string) {
 }
 
 export const CustomerAPI = createAPI(import.meta.env.VITE_CUSTOMER_BASE_URL)
-export const DesignerAPI = createAPI(import.meta.env.VITE_DESIGNER_BASE_URL)
