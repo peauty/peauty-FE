@@ -1,9 +1,5 @@
+import { AddPuppyRequest, DeletePuppyResponse, PuppyDetailResponse, UpdatePuppyRequest, UpdatePuppyResponse } from "../../../../types/customer/puppy";
 import { CustomerAPI } from "../../api";
-import { PuppyDetailResponse } from "../../../types/puppy";
-import { UpdatePuppyResponse } from "../../../types/puppy";
-import { UpdatePuppyRequest } from "../../../types/puppy";
-import { DeletePuppyResponse } from "../../../types/puppy";
-import { AddPuppyRequest } from "../../../types/puppy";
 
 export const getPuppyDetail = async (userId: number, puppyId: number): Promise<PuppyDetailResponse> => {
   const res = await CustomerAPI.get<PuppyDetailResponse>(`/v1/users/${userId}/puppies/${puppyId}`);

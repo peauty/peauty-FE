@@ -1,10 +1,6 @@
+import { CheckCustomerNicknameDuplicatedResponse, GetCustomerProfileResponse, UpdateCustomerProfileRequest, UpdateCustomerProfileResponse, UploadProfileImageResponse } from "../../../../types/customer/customer";
 import { CustomerAPI } from "../../api";
-import { GetCustomerProfileResponse } from "../../../types/customer";
-import { UpdateCustomerProfileResponse } from "../../../types/customer";
-import { UpdateCustomerProfileRequest } from "../../../types/customer";
-import { UploadProfileImageResponse } from "../../../types/customer";
 import FormData from "form-data";
-import { CheckCustomerNicknameDuplicatedResponse } from "../../../types/customer";
 
 export const getCustomerProfile = async (userId: number): Promise<GetCustomerProfileResponse> => {
   const res = await CustomerAPI.get<GetCustomerProfileResponse>(`/v1/users/${userId}/profile`);
