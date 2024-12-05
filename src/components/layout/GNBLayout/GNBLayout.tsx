@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Wrapper } from "./GNBLayout.styles";
 import { GNBwrapper } from "./GNBLayout.styles";
 interface LayoutProps {
-  type?: "user" | "stylist";
+  type?: "customer" | "designer";
 }
 
 export default function GNBLayout({ type }: LayoutProps) {
