@@ -26,3 +26,4 @@ export { default as Smile } from "./Smile";
 export { default as Star } from "./Star";
 export { default as UpArrow } from "./UpArrow";
 export { default as Warning } from "./Warning";
+export { default as AddImage } from "./AddImage";

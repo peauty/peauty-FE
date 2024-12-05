@@ -4,8 +4,8 @@ import NotFound from "../pages/not-found";
 import { customerPaths } from "./customer";
 import { designerPaths } from "./designer";
 import { rootPaths } from "./root";
-import { GNBLayout } from "../components/layout/GNBLayout";
 import Shop from "../pages/shop";
+import theme from "../style/theme";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/shop",
-    element: <GNBLayout type="user" />,
+    element: <Layout style={{ padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`  }} />,
     children: [
       {
         path: "", // 기본 경로

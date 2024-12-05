@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { AppBar } from "../../components";
+import { AppBar, GNB } from "../../components";
 import Carousel from "../../components/carousel/Carousel";
 import Temp from "../../assets/images/temp.png";
 import ShopOverview from "./components/ShopOverview";
@@ -38,21 +38,21 @@ export default function Shop() {
       setCurrentView("main");
       // 네비게이션을 클릭했을 때 즉시 상태 업데이트
       setActiveSection(id);
-      
+
       const target =
-      id === "detail"
-      ? detailRef.current
-      : id === "review"
-      ? reviewRef.current
-      : badgeRef.current;
-      
+        id === "detail"
+          ? detailRef.current
+          : id === "review"
+            ? reviewRef.current
+            : badgeRef.current;
+
       if (target) {
         target.scrollIntoView({
           behavior: "smooth",
           block: "start",
           inline: "nearest",
         });
-        
+
         // 스크롤이 완료된 후 다시 한 번 상태를 확인하여 보정
         setTimeout(() => {
           setActiveSection(id);
@@ -131,16 +131,14 @@ export default function Shop() {
       </StickyContainer>
       {currentView === "main" ? (
         <>
-          {/* <div ref={detailRef} id="detail" style={{ scrollMarginTop: "200px" }}> */}
+
           <ShopDetail ref={detailRef} id="detail" />
-          {/* </div> */}
-          {/* <div ref={reviewRef} id="review" style={{ scrollMarginTop: "120px" }}> */}
           <ShopReview ref={reviewRef} id="review" />
-          {/* </div> */}
         </>
       ) : (
         <ShopBadge id="badge" ref={badgeRef} />
       )}
+      <GNB type="customer" />
     </>
   );
 }

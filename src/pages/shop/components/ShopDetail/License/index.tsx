@@ -1,11 +1,10 @@
 import { Text } from "../../../../../components";
 import styled from "styled-components";
 import { colors } from "../../../../../style/color";
+import { ContentsWrapper } from "../../index.styles";
 export default function License() {
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", marginTop: "20px" }}
-    >
+    <ContentsWrapper>
       <Text typo="subtitle300">자격증 및 기타 서류</Text>
       <div style={{ display: "flex", marginTop: "15px", gap: "5px" }}>
         <div
@@ -23,6 +22,6 @@ export default function License() {
           }}
         ></div>
       </div>
-    </div>
+    </ContentsWrapper>
   );
 }

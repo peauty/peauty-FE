@@ -13,7 +13,7 @@ export default function AppBar({ prefix, title, onclick }: Props) {
     <StyledHeader>
       {prefix ? (
         prefix === "backButton" ? (
-          <div style={{ padding: "25px" }}>
+          <div>
             <StyledAppBarBack onClick={onclick} height={20} />
           </div>
         ) : (
@@ -22,7 +22,7 @@ export default function AppBar({ prefix, title, onclick }: Props) {
       ) : null}
       {title && (
         <Title>
-          <Text typo="subtitle400">{title}</Text>
+          <Text typo="title300">{title}</Text>
         </Title>
       )}
     </StyledHeader>

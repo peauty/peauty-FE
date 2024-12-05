@@ -1,33 +1,23 @@
 import styled from "styled-components";
-import theme from "../../../style/theme";
 import { colors } from "../../../style/color";
 
 export const Nav = styled.nav`
+  /* padding: 20px; */
   position: fixed;
-  bottom: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: ${theme.size.maxWidth};
-  min-width: ${theme.size.minWidth};
-  height: ${theme.size.gnbHeight};
   display: flex;
-  justify-content: space-between;
   justify-content: center;
-  align-items: center;
-  background: white;
-  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
-  z-index: ${theme.zIndex.gnb};
-  padding: 19px 40px 0px;
+  /* align-items: center; */
 `;
-export const ButtonNav = styled(Nav)`
-  padding: 20px 0px;
-  /* box-shadow: none; */
-`;
+
 export const MenuItem = styled.div<{ isActive?: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 5px;
   cursor: pointer;
   color: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
@@ -50,8 +40,20 @@ export const MenuItem = styled.div<{ isActive?: boolean }>`
     width: 60px;
     height: 5px;
     background: ${colors.blue100};
-    /* margin-top: 4px; */
     position: absolute;
     bottom: 0;
   }
+`;
+
+export const ContentWrapper = styled.div`
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  padding: 20px 10px 10px;
+  background-color: white;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 `;

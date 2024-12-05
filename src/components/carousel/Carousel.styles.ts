@@ -4,8 +4,9 @@ import theme from "../../style/theme";
 
 export const Wrapper = styled.div`
   position: relative;
-  margin: 0 auto;
+  left: 0;
   overflow: hidden;
+  width: 100%;
   max-width: ${theme.size.maxWidth};
   min-width: ${theme.size.minWidth};
 `;
