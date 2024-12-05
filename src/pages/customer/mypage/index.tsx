@@ -56,22 +56,7 @@ export default function CustomerMyPage() {
               gender={"암컷"}
               weight={"3.4kg"}
               breed={"말티즈"}
-              tags={[
-                {
-                  text: "피부병",
-                  tagProps: {
-                    backgroundColor: "blue300",
-                    fontColor: "blue100",
-                  },
-                },
-                {
-                  text: "슬개골",
-                  tagProps: {
-                    backgroundColor: "red300",
-                    fontColor: "red100",
-                  },
-                },
-              ]}
+              tags={["피부병", "슬개골"]}
             />
             <Card
               imageSrc={
@@ -82,22 +67,7 @@ export default function CustomerMyPage() {
               gender={"암컷"}
               weight={"3.4kg"}
               breed={"말티즈"}
-              tags={[
-                {
-                  text: "피부병",
-                  tagProps: {
-                    backgroundColor: "blue300",
-                    fontColor: "blue100",
-                  },
-                },
-                {
-                  text: "슬개골",
-                  tagProps: {
-                    backgroundColor: "red300",
-                    fontColor: "red100",
-                  },
-                },
-              ]}
+              tags={["피부병", "슬개골"]}
             />
           </CardWrapper>
 
