@@ -1,5 +1,5 @@
 import { Letter, Pin } from "../../../../assets/svg";
-import { GNB, Text } from "../../../../components";
+import { AppBar, GNB, Text } from "../../../../components";
 import {
   IconBox,
   NoticeBox,
@@ -57,6 +57,7 @@ const notices: Notice[] = [
 export default function CustomerRequestNotice() {
   return (
     <>
+      <AppBar prefix="backButton" />
       <Wrapper>
         <Letter width={90} />
 
