@@ -1,29 +1,30 @@
-import { Layout, GNB, AppBar, Wrapper } from "../../components";
+import { AppBar, GNB,Divider } from "../../components";
+//import EstimateStauts from "./components/EstimateStatus";
 import Carousel from "../../components/carousel/Carousel";
-const userType = "user";
 import ProposalItem from "./components/ProposalItem";
+import Temp from "../../assets/images/배너.png"
 import AD from "./components/AD";
 import PopularStore from "./components/PopularStore";
 import NewStore from "./components/NewStore";
-export default function Main() {
-  const images = [
-    "assets/images/main/배너.png",
-    "assets/images/main/배너.png",
-    "assets/images/main/배너.png",
-  ];
+import { HomeWrapper} from "./index.styles";
+
+const images = [
+  Temp,Temp,Temp
+];
+export default function CustomerHome() {
   return (
-    <Layout>
-      <AppBar prefix="logo" />
-      <Wrapper>
-        <ProposalItem />
-        <div style={{ margin: "15px 0px" }}>
-          <Carousel images={images} />
-        </div>
-        <AD />
-        <PopularStore />
-        <NewStore />
-      </Wrapper>
-      <GNB type={userType} />
-    </Layout>
+  <>
+    <AppBar prefix="logo" />
+    <HomeWrapper>
+      <ProposalItem/>
+      <Carousel
+        images={images}
+        />
+      <AD/>
+      <PopularStore/>
+      <NewStore/>
+    </HomeWrapper>
+    <GNB type="customer" />
+  </>
   );
 }

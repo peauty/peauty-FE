@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Wrapper,
   CarouselImage,
@@ -6,22 +6,32 @@ import {
   DotWrapper,
   DotStyle,
   SelectedDot,
+  ClickArea,
 } from "./Carousel.styles";
 
 interface CarouselProps {
   images?: string[];
+  width?: number;
   height?: number;
+  fullWidth?: boolean;
   autoPlay?: boolean;
   autoPlayInterval?: number;
+  rounded?: boolean;
+  dotSize?: number; // Dot의 가로 크기
+  dotHeight?: number; // Dot의 높이
 }
 
 export default function Carousel({
   images = [],
+  width = 480,
   height = 150,
   autoPlay = true,
   autoPlayInterval = 2500,
+  rounded = false,
+  dotSize = 8,
+  dotHeight = 8,
 }: CarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
@@ -30,19 +40,21 @@ export default function Carousel({
   const handleNext = useCallback(() => {
     if (!isTransitioning) {
       setIsTransitioning(true);
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }
-  }, [isTransitioning]);
+  }, [isTransitioning, images.length]);
 
   const handlePrev = useCallback(() => {
     if (!isTransitioning) {
       setIsTransitioning(true);
-      setCurrentIndex((prevIndex) => prevIndex - 1);
+      setCurrentIndex(
+        (prevIndex) => (prevIndex - 1 + images.length) % images.length
+      );
     }
-  }, [isTransitioning]);
+  }, [isTransitioning, images.length]);
 
   const handleDotClick = (index: number) => {
-    setCurrentIndex(index + 1);
+    setCurrentIndex(index);
     setIsTransitioning(true);
   };
 
@@ -57,11 +69,6 @@ export default function Carousel({
     if (isTransitioning) {
       const handleTransitionEnd = () => {
         setIsTransitioning(false);
-        if (currentIndex === 0) {
-          setCurrentIndex(images.length);
-        } else if (currentIndex === slides.length - 1) {
-          setCurrentIndex(1);
-        }
       };
 
       const carousel = carouselRef.current;
@@ -75,18 +82,21 @@ export default function Carousel({
         }
       };
     }
-  }, [currentIndex, isTransitioning, images.length, slides.length]);
+  }, [isTransitioning]);
 
   return (
-    <Wrapper>
+    <Wrapper ref={carouselRef}>
+      <ClickArea position="left" onClick={handlePrev} />
+      <ClickArea position="right" onClick={handleNext} />
+
       {images.length > 0 ? (
         <>
           <CarouselImage
-            ref={carouselRef}
             style={{
-              transform: `translateX(-${currentIndex * 100}%)`, // 퍼센트 기반 이동
+              width: `${slides.length * width}px`,
+              transform: `translateX(-${(currentIndex + 1) * width}px)`,
               transition: isTransitioning
-                ? "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)" // 더 부드럽게
+                ? "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)"
                 : "none",
             }}
           >
@@ -95,7 +105,8 @@ export default function Carousel({
                 key={index}
                 src={src}
                 alt={`Slide ${index}`}
-                style={{ height: `${height}px` }}
+                rounded={rounded}
+                style={{ width: `${width}px`, height: `${height}px` }}
               />
             ))}
           </CarouselImage>
@@ -107,11 +118,10 @@ export default function Carousel({
                 onClick={() => handleDotClick(index)}
                 style={{ cursor: "pointer" }}
               >
-                {index ===
-                (currentIndex - 1 + images.length) % images.length ? (
-                  <SelectedDot />
+                {index === currentIndex ? (
+                  <SelectedDot size={dotSize} height={dotHeight} />
                 ) : (
-                  <DotStyle />
+                  <DotStyle size={dotSize} height={dotHeight} />
                 )}
               </div>
             ))}

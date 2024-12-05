@@ -16,3 +16,5 @@ export * from "./progress/StepProgress";
 export * from "../pages/sign-in/components/SocialLoginButton";
 export * from "./layout/Wrpper";
 export * from "./texts/Text";
+export * from "./rating/Rating";
+export * from './layout/GNB'

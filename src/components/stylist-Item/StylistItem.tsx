@@ -20,7 +20,7 @@ interface StyledItemProps {
   name: string;
   imageUrl: string;
   location: string;
-  star: number;
+  star: string;
   starCount: number;
   career: number;
   badges: StyledBadgeProps[];
@@ -50,17 +50,17 @@ export default function StylistItem({
           <Text typo="subtitle200" color="black">
             {name}
           </Text>
-          <Text typo="body600" color="black">
+          <Text typo="body700" color="black">
             {location}
           </Text>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
           <Star width={14} />{" "}
-          <Text typo="body600" color="gray100">
+          <Text typo="body400" color="gray100">
             <div style={{ display: "flex", gap: "5px" }}>
               <span>
-                {star}({starCount})
+                {star} ({starCount})
               </span>
               <span>|</span>
               <span>경력 {career}년</span>

@@ -1,27 +1,13 @@
 import { Text } from "../../../../components";
-import { colors } from "../../../../style/color";
+import { HomeContentsWrapper } from "../../index.styles";
+import { EdiContent } from "./index.styles";
 export default function AD() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        marginBottom: "20px",
-      }}
-    >
+    <HomeContentsWrapper>
       <Text typo="subtitle200">에디</Text>
-      <div
-        style={{
-          width: "`100%",
-          borderRadius: "10px",
-          backgroundColor: `${colors.gray400}`,
-          padding: "20PX",
-          height: "120px",
-        }}
-      >
+      <EdiContent>
         에디입니다.
-      </div>
-    </div>
+      </EdiContent>
+    </HomeContentsWrapper>
   );
 }

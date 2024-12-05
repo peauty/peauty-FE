@@ -2,7 +2,20 @@ import axios from 'axios';
 import * as fs from 'node:fs/promises';
 import path from 'path';
 
-const SWAGGER_URL = 'http://customer-dev.peauty.click:8080/v3/api-docs';
+const CUSTOMER_SERVER = 'http://customer-dev.peauty.click:8080/v3/api-docs';
+const DESIGNER_SERVER = 'http://designer-dev.peauty.click:8080/v3/api-docs';
+
+const SERVERS = {
+  customer: {
+    url: CUSTOMER_SERVER,
+    apiClass: 'CustomerAPI',
+  },
+  designer: {
+    url: DESIGNER_SERVER,
+    apiClass: 'DesignerAPI',
+  },
+};
+
 const BASE_DIR = path.join(process.cwd(), 'src');
 
 // 제외할 API 경로 설정
@@ -17,7 +30,6 @@ const groupPathsByTag = (paths) => {
   const groups = {};
   
   Object.entries(paths).forEach(([path, methods]) => {
-    // 제외할 API 경로 체크
     if (EXCLUDED_PATHS.includes(path)) {
       return;
     }
@@ -36,16 +48,6 @@ const groupPathsByTag = (paths) => {
   });
   
   return groups;
-};
-
-// 타입 이름 생성 함수
-const createTypeName = (str) => {
-  return str
-    .split('/')
-    .pop()
-    .split('-')
-    .map(s => s.charAt(0).toUpperCase() + s.slice(1))
-    .join('');
 };
 
 // 스키마를 TypeScript 인터페이스로 변환하는 함수
@@ -88,15 +90,15 @@ const convertSchemaToTS = (schema, components) => {
 };
 
 // API 코드 생성 함수
-const generateApiCode = (tag, endpoints) => {
-  const imports = new Set(['import { CustomerAPI } from "../../api";']);
+const generateApiCode = (tag, endpoints, serverType) => {
+  const apiClass = SERVERS[serverType].apiClass;
+  const imports = new Set([`import { ${apiClass} } from "../../api";`]);
   const apiCalls = [];
 
   endpoints.forEach(endpoint => {
     const operationId = endpoint.operationId;
     const responseType = endpoint.responses['200']?.content?.['application/json']?.schema?.$ref?.split('/').pop() || 'any';
     
-    // 요청 타입 처리 수정
     let requestType = null;
     const contentType = endpoint.requestBody?.content && Object.keys(endpoint.requestBody.content)[0];
     
@@ -105,10 +107,10 @@ const generateApiCode = (tag, endpoints) => {
     }
     
     if (responseType !== 'any') {
-      imports.add(`import { ${responseType} } from "../../../types/${tag.toLowerCase()}";`);
+      imports.add(`import { ${responseType} } from "../../../../types/${serverType}/${tag.toLowerCase()}";`);
     }
     if (requestType) {
-      imports.add(`import { ${requestType} } from "../../../types/${tag.toLowerCase()}";`);
+      imports.add(`import { ${requestType} } from "../../../../types/${serverType}/${tag.toLowerCase()}";`);
     }
 
     const params = [];
@@ -154,18 +156,17 @@ const generateApiCode = (tag, endpoints) => {
     
     let apiCall = `export const ${methodName} = async (${params.join(', ')}): Promise<${responseType}> => {`;
     
-    // Multipart form data 처리 로직
     if (isMultipart) {
       apiCall += `
   const formData = new FormData();
   ${endpoint.requestBody.content['multipart/form-data'].schema.properties.image ? 'formData.append("image", image);' : ''}
-  const res = await CustomerAPI.${method}<${responseType}>(\`${urlParams}\`, formData, {
+  const res = await ${apiClass}.${method}<${responseType}>(\`${urlParams}\`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });`;
     } else {
-      apiCall += `\n  const res = await CustomerAPI.${method}<${responseType}>(\`${urlParams}\``;
+      apiCall += `\n  const res = await ${apiClass}.${method}<${responseType}>(\`${urlParams}\``;
       
       if (method === 'get' && queryParams.length > 0) {
         apiCall += `, { params: query }`;
@@ -208,58 +209,63 @@ const createDirectoryIfNotExists = async (dir) => {
 // 메인 실행 함수
 const generateFiles = async () => {
   try {
-    const response = await axios.get(SWAGGER_URL);
-    const { paths, components: { schemas } } = response.data;
-    
-    const groupedPaths = groupPathsByTag(paths);
-    
-    // API 디렉토리 생성
-    const apisDir = path.join(BASE_DIR, 'apis', 'resources');
-    const typesDir = path.join(BASE_DIR, 'types');
-    
-    await createDirectoryIfNotExists(apisDir);
-    await createDirectoryIfNotExists(typesDir);
-
-    // 각 태그별로 파일 생성
-    for (const [tag, endpoints] of Object.entries(groupedPaths)) {
-      const tagLower = tag.toLowerCase();
+    // 각 서버 타입별로 파일 생성
+    for (const [serverType, serverConfig] of Object.entries(SERVERS)) {
+      console.log(`Generating files for ${serverType} server...`);
       
-      // API 폴더 및 파일 생성
-      const tagApiDir = path.join(apisDir, tagLower);
-      await createDirectoryIfNotExists(tagApiDir);
+      const response = await axios.get(serverConfig.url);
+      const { paths, components: { schemas } } = response.data;
       
-      const apiCode = generateApiCode(tag, endpoints);
-      await fs.writeFile(
-        path.join(tagApiDir, 'index.ts'),
-        apiCode
-      );
+      const groupedPaths = groupPathsByTag(paths);
+      
+      // API 디렉토리 생성
+      const apisDir = path.join(BASE_DIR, 'apis', serverType, 'resources');
+      const typesDir = path.join(BASE_DIR, 'types', serverType);
+      
+      await createDirectoryIfNotExists(apisDir);
+      await createDirectoryIfNotExists(typesDir);
 
-      // 타입 폴더 및 파일 생성
-      const tagTypeDir = path.join(typesDir, tagLower);
-      await createDirectoryIfNotExists(tagTypeDir);
-
-      // 관련된 타입들 추출
-      const relevantSchemas = {};
-      endpoints.forEach(endpoint => {
-        const responseSchema = endpoint.responses['200']?.content?.['application/json']?.schema;
-        if (responseSchema?.$ref) {
-          const schemaName = responseSchema.$ref.split('/').pop();
-          relevantSchemas[schemaName] = schemas[schemaName];
-        }
+      // 각 태그별로 파일 생성
+      for (const [tag, endpoints] of Object.entries(groupedPaths)) {
+        const tagLower = tag.toLowerCase();
         
-        const requestSchema = endpoint.requestBody?.content?.['application/json']?.schema;
-        if (requestSchema?.$ref) {
-          const schemaName = requestSchema.$ref.split('/').pop();
-          relevantSchemas[schemaName] = schemas[schemaName];
-        }
-      });
+        // API 폴더 및 파일 생성
+        const tagApiDir = path.join(apisDir, tagLower);
+        await createDirectoryIfNotExists(tagApiDir);
+        
+        const apiCode = generateApiCode(tag, endpoints, serverType);
+        await fs.writeFile(
+          path.join(tagApiDir, 'index.ts'),
+          apiCode
+        );
 
-      // 타입 파일 생성
-      const typeCode = generateTypeCode(relevantSchemas);
-      await fs.writeFile(
-        path.join(tagTypeDir, 'index.ts'),
-        typeCode
-      );
+        // 타입 폴더 및 파일 생성
+        const tagTypeDir = path.join(typesDir, tagLower);
+        await createDirectoryIfNotExists(tagTypeDir);
+
+        // 관련된 타입들 추출
+        const relevantSchemas = {};
+        endpoints.forEach(endpoint => {
+          const responseSchema = endpoint.responses['200']?.content?.['application/json']?.schema;
+          if (responseSchema?.$ref) {
+            const schemaName = responseSchema.$ref.split('/').pop();
+            relevantSchemas[schemaName] = schemas[schemaName];
+          }
+          
+          const requestSchema = endpoint.requestBody?.content?.['application/json']?.schema;
+          if (requestSchema?.$ref) {
+            const schemaName = requestSchema.$ref.split('/').pop();
+            relevantSchemas[schemaName] = schemas[schemaName];
+          }
+        });
+
+        // 타입 파일 생성
+        const typeCode = generateTypeCode(relevantSchemas);
+        await fs.writeFile(
+          path.join(tagTypeDir, 'index.ts'),
+          typeCode
+        );
+      }
     }
 
     console.log('Successfully generated API and type files!');

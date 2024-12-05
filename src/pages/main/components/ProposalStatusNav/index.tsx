@@ -12,7 +12,7 @@ export default function ProposalStautsNav() {
           onClick={() => setActiveTab("waiting")}
         >
           <Text
-            typo="body200"
+            typo="body300"
             color={activeTab === "waiting" ? "black" : "gray100"}
           >
             견적 받는중
@@ -23,7 +23,7 @@ export default function ProposalStautsNav() {
           onClick={() => setActiveTab("received")}
         >
           <Text
-            typo="body200"
+            typo="body300"
             color={activeTab === "received" ? "black" : "gray100"}
           >
             받은 견적
@@ -50,7 +50,7 @@ export default function ProposalStautsNav() {
               imageUrl="https://via.placeholder.com/65"
               location="몽끄의 아틀리에 위례점"
               name="수석실장 시언"
-              star={3}
+              star={"3.0"}
               starCount={12}
             />
           </div>
@@ -73,7 +73,7 @@ export default function ProposalStautsNav() {
               imageUrl="https://via.placeholder.com/65"
               location="디지털로 31길"
               name="까끌래 뽀끌래"
-              star={4.0}
+              star={"4.0"}
               starCount={2453}
             />
           </div>

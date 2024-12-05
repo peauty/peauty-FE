@@ -1,66 +1,44 @@
 import { Text } from "../../../../components";
 import { Badge } from "../../../../components/category/Badge";
 import { colors } from "../../../../style/color";
+import { HomeContentsWrapper } from "../../index.styles";
+import { PopularStoreItem, PopularStoreWrap,PopularStoreImg, PopularStoreText } from "./index.styles";
+import {  NewStoreBadgeWrap } from "../NewStore/index.styles";
 export default function PopularStore() {
   return (
-    <div>
+    <HomeContentsWrapper>
       <Text typo="subtitle200">
         우리동네 <span style={{ color: `${colors.red100}` }}>HOT</span>한 매장
       </Text>
-      <div
-        style={{
-          display: "flex",
-          gap: "25px",
-          alignItems: "center",
-          margin: "25px 0 ",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: `${colors.gray400}`,
-            borderRadius: "50%",
-            width: "90px",
-            height: "90px",
-          }}
-        ></div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+      <PopularStoreWrap>
+        <PopularStoreItem>
+        <PopularStoreImg/>
+        <PopularStoreText>
           <Text typo="subtitle300">몽뜨의 아뜰리네</Text>
-          <Text typo="body300" color="gray200">
+          <Text typo="body400" color="gray100">
             몽뜨의 아뜰리네
           </Text>
-          <div style={{ display: "flex", gap: "5px", marginTop: "3px" }}>
+          <NewStoreBadgeWrap>
             <Badge type="general" text="말티즈 전문가" />
             <Badge type="general" text="반려견 구조 자격증" />
-          </div>
-        </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          gap: "25px",
-          alignItems: "center",
-          margin: "25px 0 ",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: `${colors.gray400}`,
-            borderRadius: "50%",
-            width: "90px",
-            height: "90px",
-          }}
-        ></div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+          </NewStoreBadgeWrap>
+        </PopularStoreText>
+      </PopularStoreItem>
+      <PopularStoreItem
+        >
+        <PopularStoreImg/>
+        <PopularStoreText>
           <Text typo="subtitle300">몽뜨의 아뜰리네</Text>
-          <Text typo="body300" color="gray200">
+          <Text typo="body400" color="gray100">
             몽뜨의 아뜰리네
           </Text>
-          <div style={{ display: "flex", gap: "5px", marginTop: "3px" }}>
+          <NewStoreBadgeWrap>
             <Badge type="general" text="말티즈 전문가" />
             <Badge type="general" text="반려견 구조 자격증" />
-          </div>
-        </div>
-      </div>
-    </div>
+          </NewStoreBadgeWrap>
+        </PopularStoreText>
+      </PopularStoreItem>
+      </PopularStoreWrap>
+    </HomeContentsWrapper>
   );
 }
