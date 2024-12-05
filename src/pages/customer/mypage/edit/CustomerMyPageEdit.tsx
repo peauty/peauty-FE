@@ -1,5 +1,5 @@
-import { AppBar, CustomInput, CustomButton, GNB } from "../../../components";
-import ProfileImg from "../../../components/profile-img/ProfileImg";
+import { AppBar, CustomInput, CustomButton, GNB } from "../../../../components";
+import ProfileImg from "../../../../components/profile-img/ProfileImg";
 import { MyPageEditWrapper } from "./CustomerMyPageEdit.styles";
 
 export default function CustomerMyPageEdit() {
