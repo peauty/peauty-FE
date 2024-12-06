@@ -8,6 +8,7 @@ export const ROUTE = {
       home: '/customer/home',
       mypage: {
         home: '/customer/mypage',
+        detail: '/customer/mypage/detail',
         edit: '/customer/mypage/edit'
       },
       signup: '/customer/signup', // 회원가입

@@ -18,8 +18,11 @@ import { useUserDetails } from "../../../hooks/useUserDetails";
 import { useEffect, useState } from "react";
 import { getPuppyProfiles } from "../../../apis/customer/resources/puppy";
 import { GetPuppyProfilesResponse, GetPuppyDetailResponse } from "../../../types/customer/puppy";
+import { ROUTE } from "../../../constants/routes";
+import { useNavigate } from "react-router-dom";
 
 export default function CustomerMyPage() {
+  const navigate = useNavigate()
   const { userId, isLoading } = useUserDetails();
   const [profile, setProfile] = useState<GetPuppyProfilesResponse | null>(null);
   const [puppies, setPuppies] = useState<GetPuppyDetailResponse[]>([]);
@@ -46,7 +49,7 @@ export default function CustomerMyPage() {
 
   return (
     <>
-      <AppBar prefix="backButton" title="회원정보" />
+      <AppBar prefix="backButton" title="회원정보" onclick={() => navigate('customer/home')}/>
       <PageWrapper>
         <ContentWrapper>
           <ProfileWrapper>
@@ -67,7 +70,7 @@ export default function CustomerMyPage() {
                   내 정보 수정하기
                 </Text>
               </MyInfoWrapper>
-              <SubMenuButton text="" to={"/"} />
+              <SubMenuButton text="" to={ROUTE.customer.mypage.detail} />
             </ProfileMenuWrapper>
           </ProfileWrapper>
           <Divider thickness={2} />
