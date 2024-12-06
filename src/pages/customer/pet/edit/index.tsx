@@ -21,7 +21,7 @@ import { MultiSelectButtonProps } from "../../../../components/button/MultiSelec
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
 
 export default function PetEdit() {
-  const dogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)
+  const dummyDogBreeds = ["말티즈", "푸들", "말티푸", "비숑", "시츄"]; // 더미 데이터 (나중에 api로 get 해올 것)
   const [selectedBreed, setSelectedBreed] = useState<string>("");
 
   const handleBreedSelect = (value: string) => {
@@ -109,7 +109,7 @@ export default function PetEdit() {
         <DropButton
           label="견종"
           placeholder="견종을 선택해주세요"
-          options={dogBreeds}
+          options={dummyDogBreeds}
           onSelect={handleBreedSelect}
         />
 
