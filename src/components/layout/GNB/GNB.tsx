@@ -1,5 +1,5 @@
-import React from "react";
-import { Nav, MenuItem, ContentWrapper } from "./GNB.styles"; // 추가된 LargeButton 스타일
+import React, { useEffect, useState } from "react";
+import { Nav, MenuItem, ContentWrapper } from "./GNB.styles";
 import {
   Home,
   Search,
@@ -19,11 +19,9 @@ export interface GNBProps {
   children?: React.ReactNode;
   buttonText?: string;
   disabled?: boolean;
-  isActive?: boolean;
 }
 
 export function GNB({ type, onLargeButtonClick, buttonText, disabled }: GNBProps) {
-  // 회원(GNB) 메뉴 구성
   const userMenuItems = [
     { icon: <Home />, label: "홈", path: ROUTE.customer.home },
     { icon: <Search />, label: "요청하기", path: ROUTE.shop },
@@ -31,7 +29,6 @@ export function GNB({ type, onLargeButtonClick, buttonText, disabled }: GNBProps
     { icon: <Smile />, label: "마이페이지", path: "/mypage" },
   ];
 
-  // 미용사(GNB) 메뉴 구성
   const stylistMenuItems = [
     { icon: <Home />, label: "홈", path: ROUTE.designer.base },
     { icon: <Calendar />, label: "스케줄", path: "/schedule" },
@@ -39,48 +36,51 @@ export function GNB({ type, onLargeButtonClick, buttonText, disabled }: GNBProps
     { icon: <Smile />, label: "마이페이지", path: "/" },
   ];
 
-  // 현재 메뉴 항목 결정
   const menuItems = type === "customer" ? userMenuItems : stylistMenuItems;
 
   const navigate = useNavigate();
-  const location = useLocation(); // 현재 경로 가져오기
+  const location = useLocation();
+
+  const [activePath, setActivePath] = useState(location.pathname);
+
+  useEffect(() => {
+    setActivePath(location.pathname);
+  }, [location.pathname]);
 
   return (
-    <>
-      <Nav>
-        {/* GNB 메뉴 */}
-        {type && (
-          <ContentWrapper>
-            {menuItems.map((item) => (
-              <MenuItem
-                key={item.path}
-                isActive={location.pathname === item.path} // 현재 경로와 비교하여 isActive 설정
-                onClick={() => navigate(item.path)}
-              >
-                {item.icon}
-                <Text typo="body400">{item.label}</Text>
-              </MenuItem>
-            ))}
-          </ContentWrapper>
-        )}
-
-        {/* 큰 버튼 */}
-        {!type && (
-          <ContentWrapper>
-            <CustomButton
-              fullwidth
-              variant="primary"
-              onClick={onLargeButtonClick}
-              disabled={disabled}
+    <Nav>
+      {type && (
+        <ContentWrapper>
+          {menuItems.map((item) => (
+            <MenuItem
+              key={item.path}
+              isActive={activePath === item.path} // 경로와 상태 동기화
+              onClick={() => {
+                setActivePath(item.path); // 즉시 활성화 상태 업데이트
+                navigate(item.path);
+              }}
             >
-              <Text typo="body200" color="white">
-                {buttonText}
-              </Text>
-            </CustomButton>
-          </ContentWrapper>
-        )}
-      </Nav>
-    </>
+              {item.icon}
+              <Text typo="body300">{item.label}</Text>
+            </MenuItem>
+          ))}
+        </ContentWrapper>
+      )}
+      {!type && (
+        <ContentWrapper>
+          <CustomButton
+            fullwidth
+            variant="primary"
+            onClick={onLargeButtonClick}
+            disabled={disabled}
+          >
+            <Text typo="body200" color="white">
+              {buttonText}
+            </Text>
+          </CustomButton>
+        </ContentWrapper>
+      )}
+    </Nav>
   );
 }
 

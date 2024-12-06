@@ -1,17 +1,20 @@
 import styled from "styled-components";
 import { colors } from "../../../style/color";
-import { GNBProps } from "./GNB";
+import theme from "../../../style/theme";
 
 export const Nav = styled.nav`
   position: fixed;
-  top: 0;
-  left: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  display: flex;
-  justify-content: center;
+  max-width: 480px;
+  background: #ffffff;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 `;
 
-export const MenuItem = styled.div<GNBProps>`
+export const MenuItem = styled.div<{ isActive: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -45,14 +48,7 @@ export const MenuItem = styled.div<GNBProps>`
 `;
 
 export const ContentWrapper = styled.div`
-  position: fixed;
   display: flex;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
   padding: 20px 10px 10px;
-  background-color: white;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 `;

@@ -11,7 +11,7 @@ export const BadgeContainer = styled.div`
   height: calc(100vh - 125px - ${theme.size.gnbHeight});
 `;
 export const BadgeGrid = styled.div`
-  padding: 15px 30px;
+  padding: 15px;
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4개의 열로 구성 */
   grid-gap: 20px; /* 배지 간의 간격 */
