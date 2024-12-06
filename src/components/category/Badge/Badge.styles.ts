@@ -10,8 +10,8 @@ export const BadgeWrapper = styled.div<{
   justify-content: center;
   background-color: ${({ backgroundColor }) => backgroundColor};
   border-radius: ${({ borderRadius }) => borderRadius};
-  padding: ${({ padding }) => padding};
-  gap: 5px;
+  padding: ${({ padding }) => padding || "0px 7px"};
+  gap: 3px;
 `;
 
 export const IconWrapper = styled.div`

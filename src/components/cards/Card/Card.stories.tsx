@@ -2,7 +2,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import Card from "./Card";
 import { styled } from "styled-components";
 import theme from "../../../style/theme";
-import { TagProps } from "../../category/Tag/Tag";
 
 const meta: Meta<typeof Card> = {
   title: "Components/Card",
@@ -22,7 +21,7 @@ export const Default: Story = {
     gender: "암컷",
     weight: "3.4kg",
     breed: "말티즈",
-    tags: ["피부병", "슬개골", "피부병"],
+    tags: ["피부병", "슬개골", "피부병", "슬개골", "피부병", "슬개골", "피부병", "슬개골"],
   },
 };
 
@@ -62,16 +61,6 @@ export const WithManyTagsWrapper: Story = {
     gender: "암컷",
     weight: "3.4kg",
     breed: "말티즈",
-    tags: [
-      "피부병",
-      "슬개골",
-      "피부병",
-      "피부병",
-      "슬개골",
-      "피부병",
-      "피부병",
-      "슬개골",
-      "피부병",
-    ],
+    tags: ["피부병", "슬개골", "피부병", "슬개골", "피부병", "슬개골", "피부병", "슬개골"],
   },
 };
