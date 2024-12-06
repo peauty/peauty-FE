@@ -16,8 +16,8 @@ interface CardProps {
   weight: string;
   breed: string;
   tags: string[];
-  onClick: () => void;
-  isSelected: boolean;
+  onClick?: () => void;
+  isSelected?: boolean;
 }
 
 export default function Card({
@@ -29,7 +29,7 @@ export default function Card({
   breed,
   tags,
   onClick,
-  isSelected,
+  isSelected = false,
 }: CardProps) {
   return (
     <CardWrapper onClick={onClick} isSelected={isSelected}>
