@@ -23,7 +23,7 @@ interface StyledItemProps {
   star: number;
   starCount: number;
   career: number;
-  badges: StyledBadgeProps[];
+  badges?: StyledBadgeProps[];
 }
 
 export default function StylistItem({
@@ -53,10 +53,12 @@ export default function StylistItem({
           </Text>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <Star width={14}/>{" "}
+          <Star width={14} />{" "}
           <Text typo="body600" color="gray100">
             <div style={{ display: "flex", gap: "5px" }}>
-              <span>{star}({starCount})</span>
+              <span>
+                {star}({starCount})
+              </span>
               <span>|</span>
               <span>경력 {career}년</span>
             </div>
@@ -64,7 +66,13 @@ export default function StylistItem({
         </div>
         <BadgeContainer>
           {badges.map((badge, index) => (
-            <Badge key={index} type={badge.type} variant={badge.variant} text={badge.text} typo={badge.typo}/>
+            <Badge
+              key={index}
+              type={badge.type}
+              variant={badge.variant}
+              text={badge.text}
+              typo={badge.typo}
+            />
           ))}
         </BadgeContainer>
       </div>
