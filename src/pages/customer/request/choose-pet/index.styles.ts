@@ -7,6 +7,12 @@ export const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
+export const CardWrapper = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
