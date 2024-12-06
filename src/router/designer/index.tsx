@@ -1,9 +1,11 @@
 import DesignerMyPage from "../../pages/designer/mypage";
+import DesignerMyPageDetail from "../../pages/designer/mypage/detail";
 import DesignerSignUp from "../../pages/designer/signup";
 import DesignerSignUpComplete from "../../pages/designer/signup-complete";
 import DesignerSignUpDetail from "../../pages/designer/signup-detail";
 import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
 import DesignerMyBadgesPage from "../../pages/designer/mypage/badges";
+
 
 export const designerPaths = [
     {
@@ -29,5 +31,10 @@ export const designerPaths = [
     {
       path: "mypage/badges",
       element: <DesignerMyBadgesPage/>
-    }
-  ]
+    },
+    {
+    path: "mypage/detail",
+    element: <DesignerMyPageDetail />,
+     },
+  ];
+

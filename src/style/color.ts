@@ -31,7 +31,7 @@ export const colors = {
   silver200: "#A4A4A4",
   silver300: "#F0F0F0",
 
-  bronze100: "#AE8E5E",
+  bronze100: "#80715C",
   bronze200: "#A88C71",
   bronze300: "#E3DBC7",
 

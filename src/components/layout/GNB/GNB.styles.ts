@@ -1,30 +1,32 @@
 import styled from "styled-components";
 import { colors } from "../../../style/color";
+import theme from "../../../style/theme";
 
 export const Nav = styled.nav`
-  padding: 20px;
   position: fixed;
-  top: 0;
-  left: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  max-width: 480px;
+  background: #ffffff;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 `;
 
-export const MenuItem = styled.div<{ isActive?: boolean }>`
+export const MenuItem = styled.div<{ isActive: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 5px;
   cursor: pointer;
   color: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
 
   svg {
-    width: 21px;
-    height: 21px;
+    width: 20px;
+    height: 20px;
     fill: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
   }
 
@@ -46,14 +48,7 @@ export const MenuItem = styled.div<{ isActive?: boolean }>`
 `;
 
 export const ContentWrapper = styled.div`
-  position: fixed;
   display: flex;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 10px 10px;
 `;
