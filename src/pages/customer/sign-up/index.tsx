@@ -16,10 +16,10 @@ import { CustomInput } from "../../../components/input/CustomInput";
 import { CustomButton } from "../../../components/button/CustomButton";
 import { StepWords } from "./StepWords";
 import { useNavigate } from "react-router-dom";
-import { SignUpRequest } from "../../../types/auth";
 import { ROUTE } from "../../../constants/routes";
 import { GNB } from "../../../components/layout/GNB";
 import Loading from "../../../components/page/sign-up/Loading";
+import { SignUpRequest } from "../../../types/customer/auth";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -136,7 +136,7 @@ export default function CustomerSignUp() {
       // formData를 UserSignupInput 형태로 매핑
       const signupData: SignUpRequest = {
         socialId: formData.socialId || "",
-        socialPlatform: formData.socialPlatform as 'KAKAO' | 'GOOGLE' | 'APPLE' | '', 
+        socialPlatform: formData.socialPlatform as 'KAKAO' | 'GOOGLE' | 'APPLE', 
         name: formData.name || "",
         phoneNum: formData.phone || "",
         address: formData.location || "",

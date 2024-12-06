@@ -11,8 +11,10 @@ export const ROUTE = {
       signup: '/customer/signup', // 회원가입
       signupComplete: '/customer/signup-complete', // 회원가입 완료
       pet: {
-        info: '/customer/pet/info',
-        edit: '/customer/pet/edit', // 반려동물 정보 수정
+    },
+    request: {
+      notice: "/customer/request/notice",
+      choosePet: "/customer/request/choose-pet-for-grooming", // 반려동물 정보 수정
       },
     },
     designer: {
@@ -24,7 +26,7 @@ export const ROUTE = {
       mypageDetail: '/designer/mypage/detail',// 디자이너 마이페이지 회원 상세 정보 페이지
       mypageEdit: '/designer/mypage/edit', // 디자이너 마이페이지 수정
     },
-  
+    shop: "/shop",
     // Error route
     notFound: '*',
   };

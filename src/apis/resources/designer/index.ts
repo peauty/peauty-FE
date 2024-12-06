@@ -1,4 +1,4 @@
-import { CustomerAPI } from "../../api";
+import { DesignerAPI } from "../../api";
 import { GetDesignerWorkspaceResponse } from "../../../types/designer";
 import { UpdateDesignerWorkspaceResponse } from "../../../types/designer";
 import { UpdateDesignerWorkspaceRequest } from "../../../types/designer";
