@@ -48,7 +48,6 @@ export const WithWrapper: Story = {
   },
 };
 
-
 export const WithManyTagsWrapper: Story = {
   render: (args) => (
     <_globalStyleWidth>

@@ -56,7 +56,7 @@ export default function CustomerMyPage() {
               gender={"암컷"}
               weight={"3.4kg"}
               breed={"말티즈"}
-              tags={["피부병","슬개골"]}
+              tags={["피부병", "슬개골"]}
             />
             <Card
               imageSrc={
