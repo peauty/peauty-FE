@@ -24,7 +24,7 @@ export const ROUTE = {
       mypageDetail: '/designer/mypage/detail',// 디자이너 마이페이지 회원 상세 정보 페이지
       mypageEdit: '/designer/mypage/edit', // 디자이너 마이페이지 수정
     },
-  
+    shop: "/shop",
     // Error route
     notFound: '*',
   };
