@@ -2,30 +2,42 @@ import { AppBar, Text, GNB, Divider } from "../../../../components";
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
 import { PageWrapper, FieldWrapper, TextWrapper, LeftAlignedText } from "./index.styles";
 import { useNavigate } from "react-router-dom";
-import { ROUTE } from "../../../../constants/routes"; 
+import { ROUTE } from "../../../../constants/routes";
+import { useEffect, useState } from "react";
+import { getCustomerProfile } from "../../../../apis/customer/resources/customer";
+import { GetCustomerProfileResponse } from "../../../../types/customer/customer";
+import { useUserDetails } from "../../../../hooks/useUserDetails";
 
 export default function CustomerMyPageDetail() {
   const navigate = useNavigate();
+  const { userId, isLoading } = useUserDetails();
+  const [profileData, setProfileData] = useState<GetCustomerProfileResponse>({});
 
-  const ProfileData = {
-    designerId: 1,
-    name: "임시언",
-    nickname: "수석실장 시언",
-    profileImageUrl: "https://thumb.mt.co.kr/21/2024/11/2024110705371097800_2.jpg",
-    email: "jisu@gmail.com",
-    phoneNum: "010-1234-5678",
-  };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (userId) {
+        try {
+          const data = await getCustomerProfile(userId); // Replace with actual userId
+          setProfileData(data);
+        } catch (error) {
+          console.error('Failed to fetch profile:', error);
+        }
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleEditClick = () => {
-    navigate(ROUTE.designer.mypageEdit); // ROUTE 객체에서 경로 사용
+    navigate(ROUTE.customer.mypage.edit);
   };
 
   return (
     <>
       <PageWrapper>
-        <AppBar prefix="backButton" title="회원 정보" />
+        <AppBar prefix="backButton" title="회원 정보" onclick={() => navigate(ROUTE.customer.mypage.home)}/>
         <ProfileImg
-          src={ProfileData.profileImageUrl}
+          src={profileData.profileImageUrl || ""} 
           alt="profileImage"
           width="176px"
           height="176px"
@@ -37,7 +49,7 @@ export default function CustomerMyPageDetail() {
         <FieldWrapper>
           <TextWrapper>
             <Text typo="subtitle300" color="gray100">닉네임</Text>
-            <Text typo="body100" color="black">{ProfileData.nickname}</Text>
+            <Text typo="body100" color="black">{profileData.nickname}</Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
@@ -45,23 +57,15 @@ export default function CustomerMyPageDetail() {
         <FieldWrapper>
           <TextWrapper>
             <Text typo="subtitle300" color="gray100">이름</Text>
-            <Text typo="body100" color="black">{ProfileData.name}</Text>
+            <Text typo="body100" color="black">{profileData.name}</Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">휴대전화 번호</Text>
-            <Text typo="body100" color="black">{ProfileData.phoneNum}</Text>
-          </TextWrapper>
-          <Divider />
-        </FieldWrapper>
-
-        <FieldWrapper>
-          <TextWrapper>
-            <Text typo="subtitle300" color="gray100">이메일 주소</Text>
-            <Text typo="body100" color="black">{ProfileData.email}</Text>
+            <Text typo="subtitle300" color="gray100">주소</Text>
+            <Text typo="body100" color="black">{profileData.address}</Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>

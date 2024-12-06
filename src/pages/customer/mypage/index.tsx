@@ -20,15 +20,18 @@ import { getPuppyProfiles } from "../../../apis/customer/resources/puppy";
 import { GetPuppyProfilesResponse, GetPuppyDetailResponse } from "../../../types/customer/puppy";
 import { ROUTE } from "../../../constants/routes";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../components/page/sign-up/Loading";
 
 export default function CustomerMyPage() {
-  const navigate = useNavigate()
-  const { userId, isLoading } = useUserDetails();
+  const navigate = useNavigate();
+  const { userId } = useUserDetails();
   const [profile, setProfile] = useState<GetPuppyProfilesResponse | null>(null);
   const [puppies, setPuppies] = useState<GetPuppyDetailResponse[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
     const fetchPuppyProfiles = async () => {
+      setIsLoading(true); // 로딩 시작
       if (userId) {
         try {
           const data = await getPuppyProfiles(userId);
@@ -40,6 +43,8 @@ export default function CustomerMyPage() {
           setPuppies(data.puppies || []);
         } catch (error) {
           console.error("Failed to fetch puppy profiles:", error);
+        } finally {
+          setIsLoading(false); // 로딩 종료
         }
       }
     };
@@ -49,7 +54,8 @@ export default function CustomerMyPage() {
 
   return (
     <>
-      <AppBar prefix="backButton" title="회원정보" onclick={() => navigate('customer/home')}/>
+      {isLoading && <Loading imageUrl={"https://avatars.githubusercontent.com/u/70759627?v=4"} />}
+      <AppBar prefix="backButton" title="회원정보" onclick={() => navigate(ROUTE.customer.home)} />
       <PageWrapper>
         <ContentWrapper>
           <ProfileWrapper>
