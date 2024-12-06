@@ -17,23 +17,13 @@ type Story = StoryObj<typeof Tag>;
 // 기본 태그
 export const Default: Story = {
   args: {
-    children: "기본 태그", // children으로 전달
-  },
-};
-
-// 커스텀 색상 태그
-export const CustomColorTag: Story = {
-  args: {
-    children: "커스텀 색상 태그", // children으로 전달
-    backgroundColor: "red300", // 빨간 배경
-    borderColor: "red100", // 빨간 테두리
-    fontColor: "red100", // 빨간 폰트
+    text: "기본 태그", // children으로 전달
   },
 };
 
 // 길이가 긴 태그
 export const LongTag: Story = {
   args: {
-    children: "문자가 기이이이인 태그", // children으로 전달
+    text: "문자가 기이이이인 태그", // children으로 전달
   },
 };

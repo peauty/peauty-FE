@@ -20,7 +20,7 @@ function createAPI(baseURL: string) {
         config.url &&
         !publicPaths.some((path) => config.url!.startsWith(path))
       ) {
-        const token = sessionStorage.getItem("accessToken");
+        const token = localStorage.getItem("accessToken");
         if (token) {
           // token = await refreshTokenIfNeeded(); // TODO
           config.headers.Authorization = `Bearer ${token}`;

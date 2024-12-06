@@ -2,7 +2,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import Card from "./Card";
 import { styled } from "styled-components";
 import theme from "../../../style/theme";
-import { TagProps } from "../../category/Tag/Tag";
 
 const meta: Meta<typeof Card> = {
   title: "Components/Card",
@@ -14,12 +13,6 @@ export default meta;
 
 type Story = StoryObj<typeof Card>;
 
-// 예제 TagProps 생성
-const exampleTagProps: TagProps = {
-  backgroundColor: "blue300",
-  fontColor: "blue100",
-};
-
 export const Default: Story = {
   args: {
     imageSrc: "https://via.placeholder.com/80",
@@ -28,16 +21,7 @@ export const Default: Story = {
     gender: "암컷",
     weight: "3.4kg",
     breed: "말티즈",
-    tags: [
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-    ],
+    tags: ["피부병", "슬개골", "피부병", "슬개골", "피부병", "슬개골", "피부병", "슬개골"],
   },
 };
 
@@ -60,10 +44,7 @@ export const WithWrapper: Story = {
     gender: "암컷",
     weight: "3.4kg",
     breed: "말티즈",
-    tags: [
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-    ],
+    tags: ["피부병", "슬개골"],
   },
 };
 
@@ -81,15 +62,6 @@ export const WithManyTagsWrapper: Story = {
     gender: "암컷",
     weight: "3.4kg",
     breed: "말티즈",
-    tags: [
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-      { text: "피부병", tagProps: exampleTagProps },
-      { text: "슬개골", tagProps: exampleTagProps },
-    ],
+    tags: ["피부병", "슬개골", "피부병", "슬개골", "피부병", "슬개골", "피부병", "슬개골"],
   },
 };

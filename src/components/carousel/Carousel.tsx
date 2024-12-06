@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Wrapper,
   CarouselImage,
@@ -6,7 +6,7 @@ import {
   DotWrapper,
   DotStyle,
   SelectedDot,
-  ArrowButton,
+  ClickArea,
 } from "./Carousel.styles";
 
 interface CarouselProps {
@@ -25,14 +25,12 @@ export default function Carousel({
   images = [],
   width = 480,
   height = 150,
-  fullWidth = false,
   autoPlay = true,
   autoPlayInterval = 2500,
   rounded = false,
   dotSize = 8,
   dotHeight = 8,
 }: CarouselProps) {
-  const screenWidth = window.innerWidth > 480 ? 480 : window.innerWidth;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const carouselRef = useRef<HTMLDivElement | null>(null);
@@ -42,19 +40,21 @@ export default function Carousel({
   const handleNext = useCallback(() => {
     if (!isTransitioning) {
       setIsTransitioning(true);
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }
-  }, [isTransitioning]);
+  }, [isTransitioning, images.length]);
 
   const handlePrev = useCallback(() => {
     if (!isTransitioning) {
       setIsTransitioning(true);
-      setCurrentIndex((prevIndex) => prevIndex - 1);
+      setCurrentIndex(
+        (prevIndex) => (prevIndex - 1 + images.length) % images.length
+      );
     }
-  }, [isTransitioning]);
+  }, [isTransitioning, images.length]);
 
   const handleDotClick = (index: number) => {
-    setCurrentIndex(index + 1);
+    setCurrentIndex(index);
     setIsTransitioning(true);
   };
 
@@ -69,11 +69,6 @@ export default function Carousel({
     if (isTransitioning) {
       const handleTransitionEnd = () => {
         setIsTransitioning(false);
-        if (currentIndex === 0) {
-          setCurrentIndex(images.length);
-        } else if (currentIndex === slides.length - 1) {
-          setCurrentIndex(1);
-        }
       };
 
       const carousel = carouselRef.current;
@@ -87,25 +82,19 @@ export default function Carousel({
         }
       };
     }
-  }, [currentIndex, isTransitioning, images.length, slides.length]);
+  }, [isTransitioning]);
 
   return (
-    <Wrapper>
+    <Wrapper ref={carouselRef}>
+      <ClickArea position="left" onClick={handlePrev} />
+      <ClickArea position="right" onClick={handleNext} />
+
       {images.length > 0 ? (
         <>
-          {/* 좌우 화살표 버튼 */}
-          <ArrowButton position="left" onClick={handlePrev}>
-            {"<"}
-          </ArrowButton>
-          <ArrowButton position="right" onClick={handleNext}>
-            {">"}
-          </ArrowButton>
-
           <CarouselImage
-            ref={carouselRef}
             style={{
               width: `${slides.length * width}px`,
-              transform: `translateX(-${currentIndex * width}px)`,
+              transform: `translateX(-${(currentIndex + 1) * width}px)`,
               transition: isTransitioning
                 ? "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)"
                 : "none",
@@ -129,8 +118,7 @@ export default function Carousel({
                 onClick={() => handleDotClick(index)}
                 style={{ cursor: "pointer" }}
               >
-                {index ===
-                (currentIndex - 1 + images.length) % images.length ? (
+                {index === currentIndex ? (
                   <SelectedDot size={dotSize} height={dotHeight} />
                 ) : (
                   <DotStyle size={dotSize} height={dotHeight} />
