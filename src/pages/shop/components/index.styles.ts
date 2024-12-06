@@ -13,10 +13,11 @@ export const ContentContain = styled.div`
 export const TabWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  scroll-margin-top: 120px;
-  margin: 0 20px 40px;
+  scroll-margin-top: 105px;
+  margin: 0 20px 30px;
 `;
 
 export const TabWrapper2 = styled(TabWrapper)`
- scroll-margin-top: 140px;
+  scroll-margin-top: 125px;
+  padding-top: 20px;
 `;

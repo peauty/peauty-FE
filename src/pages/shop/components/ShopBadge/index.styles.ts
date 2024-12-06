@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { colors } from "../../../../style/color";
 import { Text } from "../../../../components";
+import theme from "../../../../style/theme";
 export const BadgeContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  scroll-margin-top: 140px;
+  height: calc(100vh - 125px - ${theme.size.gnbHeight});
 `;
 export const BadgeGrid = styled.div`
   padding: 15px 30px;
@@ -22,7 +25,7 @@ export const BadgeItem = styled.div`
 `;
 
 export const BadgeIcon = styled.div`
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   align-items: center;

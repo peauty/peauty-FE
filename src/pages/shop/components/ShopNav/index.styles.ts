@@ -8,6 +8,7 @@ export const NavWrapper = styled.nav`
   height: 55px;
   max-width: 200px; /* Nav의 크기를 제한 */
   padding: 0 20px;
+  /* border: 1px solid black; */
 `;
 
 export const NavItem = styled.div.withConfig({

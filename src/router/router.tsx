@@ -27,7 +27,13 @@ export const router = createBrowserRouter([
   },
   {
     path: "/shop",
-    element: <Layout style={{ padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`  }} />,
+    element: (
+      <Layout
+        style={{
+          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+        }}
+      />
+    ),
     children: [
       {
         path: "", // 기본 경로

@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect, forwardRef } from "react";
+import React, { useState, forwardRef } from "react";
 import { Text } from "../../../../components";
 import BottomSheet from "../../../../components/bottom-sheet/BottomSheet";
 import StarRating from "../../../../components/star-rating/StarRating";
 import ReviewPhotos from "./ReviewPhotos";
 import ReviewItem from "./ReviewItem";
 import { TabWrapper2 } from "../index.styles";
-import { CustomerRiverWrapper } from "./index.styles";
+import { CustomerRiverWrapper, MoreReview } from "./index.styles";
 import { IconContain } from "../ShopDetail/ShopInfo/index.styles";
+
 // 리뷰 데이터 타입 정의
 interface Review {
   id: number;
@@ -38,48 +39,18 @@ const ShopReview = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
-  const [reviews, setReviews] = useState<Review[]>(() =>
-    generateDummyReviews(0, 5),
-  ); // 초기 리뷰 데이터
+  const allReviews = generateDummyReviews(0, 25); // 전체 리뷰 데이터
+  const [visibleReviews, setVisibleReviews] = useState<Review[]>(
+    allReviews.slice(0, 3),
+  ); // 초기 5개만 표시
   const [page, setPage] = useState(1); // 현재 페이지
-  const [hasMore, setHasMore] = useState(true); // 추가 데이터 여부
 
-  const loaderRef = useRef<HTMLDivElement | null>(null); // 로더 요소
-  const observerRef = useRef<IntersectionObserver | null>(null); // Observer 관리
-
-  // 무한 스크롤 감지
-  useEffect(() => {
-    if (!loaderRef.current) return;
-
-    if (observerRef.current) observerRef.current.disconnect();
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const target = entries[0];
-        if (target.isIntersecting && hasMore) {
-          loadMoreReviews(); // 추가 데이터 로드
-        }
-      },
-      { threshold: 1.0 },
-    );
-
-    observerRef.current.observe(loaderRef.current);
-
-    return () => {
-      if (observerRef.current) observerRef.current.disconnect();
-    };
-  }, [hasMore]);
-
-  // 추가 리뷰 로드 함수
-  const loadMoreReviews = () => {
-    setTimeout(() => {
-      const newReviews = generateDummyReviews(page * 5, 5);
-      setReviews((prev) => [...prev, ...newReviews]);
-      setPage((prev) => prev + 1);
-
-      // 가상 데이터가 25개 이상이면 더 이상 데이터 없음
-      if ((page + 1) * 5 >= 5) setHasMore(false);
-    }, 1000);
+  // 리뷰 더보기 핸들러
+  const handleLoadMore = () => {
+    const nextPage = page + 1;
+    const nextReviews = allReviews.slice(0, nextPage * 3); // 다음 페이지의 리뷰 가져오기
+    setVisibleReviews(nextReviews);
+    setPage(nextPage);
   };
 
   return (
@@ -97,7 +68,7 @@ const ShopReview = forwardRef<
       </div>
 
       {/* 리뷰 리스트 */}
-      {reviews.map((review) => (
+      {visibleReviews.map((review) => (
         <ReviewItem
           key={review.id}
           rating={review.rating}
@@ -109,13 +80,13 @@ const ShopReview = forwardRef<
         />
       ))}
 
-      {/* 로더 */}
-      {hasMore && (
-        <div ref={loaderRef} style={{ textAlign: "center", padding: "20px" }}>
-          <Text typo="body200" color="gray200">
-            로딩 중...
+      {/* 리뷰 더보기 버튼 */}
+      {visibleReviews.length < allReviews.length && (
+        <MoreReview>
+          <Text typo="body200" color="blue100" onClick={handleLoadMore}>
+            리뷰 더보기
           </Text>
-        </div>
+        </MoreReview>
       )}
     </TabWrapper2>
   );
