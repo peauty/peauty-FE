@@ -50,5 +50,5 @@ export const MenuItem = styled.div<{ isActive: boolean }>`
 export const ContentWrapper = styled.div`
   display: flex;
   width: 100%;
-  padding: 20px 10px 10px;
+  padding: 20px;
 `;
