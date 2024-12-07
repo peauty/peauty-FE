@@ -29,12 +29,6 @@ export interface UploadProfileImageResponse {
   uploadedProfileImageUrl?: string;
 }
 
-export interface GetAroundWorkspacesResponse {
-  customerId?: number;
-  customerAddress?: string;
-  workspaces?: GetAroundWorkspaceResponse[];
-}
-
 export interface CheckCustomerNicknameDuplicatedResponse {
   message?: string;
 }
