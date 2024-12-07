@@ -7,7 +7,7 @@ const theme = {
     minWidth: "320px",
     maxWidth: "480px",
     appBarHeight: "65px",
-    gnbHeight: "70px",
+    gnbHeight: "75px",
   },
   zIndex: {
     overlay: 5,
