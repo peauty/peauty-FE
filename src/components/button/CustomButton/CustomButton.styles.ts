@@ -24,7 +24,6 @@ export const Button = styled.button<{
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  font-weight: 500;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   width: ${(props) => (props.fullwidth ? "100%" : "auto")};
@@ -58,7 +57,7 @@ export const Button = styled.button<{
         return css`
           /* padding: 12px 24px; */
           ${typography.subtitle200}
-          height: 60px;
+          height: 50px;
           width: 100%;
         `;
     }
