@@ -21,6 +21,6 @@ export const DisabledWrapper = styled.div`
 export const CustomButtonWrapper = styled.button`
   width: 67px;
   position: absolute;
-  bottom: 8px;
+  top: 36px;
   right: 12px;
 `;
