@@ -137,7 +137,7 @@ export default function CustomerSignUp() {
         socialId: formData.socialId || "",
         socialPlatform: formData.socialPlatform as 'KAKAO' | 'GOOGLE' | 'APPLE', 
         name: formData.name || "",
-        phoneNum: formData.phone || "",
+        phoneNumber: formData.phone || "",
         address: formData.location || "",
         nickname: inputValue || "",
         profileImageUrl: formData.profileImageUrl || "",
