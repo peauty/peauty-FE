@@ -5,7 +5,7 @@ import { RadioSelectButtonProps } from "../../../../components/button/RadioSelec
 import { Payment } from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
 import { Style } from "../index.styles";
 
-export function ShopInfoSection() {
+export function ShopInfoInputSection() {
   const handleHowToPaySelect = (selectedPayIndex: number) => {
     console.log("Selected Payment:", selectedPayIndex);
   };

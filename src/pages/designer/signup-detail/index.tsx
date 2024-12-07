@@ -7,7 +7,7 @@ import {
   Text,
 } from "../../../components";
 import { TitleContentInput } from "../../../components/input/TitleContentInput";
-import { ShopInfoSection } from "./components/ShopInfoInputSection";
+import { ShopInfoInputSection } from "./components/ShopInfoInputSection";
 import { Style } from "./index.styles";
 
 export default function DesignerSignUpDetail() {
@@ -45,7 +45,7 @@ export default function DesignerSignUpDetail() {
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
-          <ShopInfoSection />
+          <ShopInfoInputSection />
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
