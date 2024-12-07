@@ -54,4 +54,4 @@ function createAPI(baseURL: string) {
   return api
 }
 
-export const DesignerAPI = createAPI(import.meta.env.VITE_CUSTOMER_BASE_URL)
+export const DesignerAPI = createAPI(import.meta.env.VITE_DESIGNER_BACKEND_URL)
