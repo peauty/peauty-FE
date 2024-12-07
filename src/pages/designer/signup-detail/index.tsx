@@ -6,17 +6,11 @@ import {
   GNB,
   Text,
 } from "../../../components";
-import { LocationButton } from "../../../components/button/LocationButton";
-import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
-import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
-import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
 import { TitleContentInput } from "../../../components/input/TitleContentInput";
+import { ShopInfoSection } from "./components/ShopInfoInputSection";
 import { Style } from "./index.styles";
 
 export default function DesignerSignUpDetail() {
-  const handleHowToPaySelect = (selectedPayIndex: number) => {
-    console.log("Selected Payment:", selectedPayIndex);
-  };
   return (
     <>
       <AppBar prefix="backButton" title="추가 정보 등록" />
@@ -43,9 +37,6 @@ export default function DesignerSignUpDetail() {
             description="매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
           />
-        </Style.SectionWrapper>
-
-        <Style.SectionWrapper>
           <TitleContentInput
             title="이벤트"
             description="현재 진행 중인 이벤트가 있다면 등록해 주세요"
@@ -54,45 +45,7 @@ export default function DesignerSignUpDetail() {
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300"> 매장 정보 </Text>
-            <Text color="gray100" typo="body500">
-              고객님들이 쉽게 찾아갈 수 있도록 매장 정보를 정확하게 등록해
-              주세요
-            </Text>
-          </Style.TitleWrapper>
-
-          <CustomInput
-            label="매장 이름"
-            placeholder="매장 이름을 입력해주세요"
-            variant="outlined"
-          />
-
-          <LocationButton />
-
-          <CustomInput
-            label="영업 시간"
-            placeholder="영업 시간을 입력해주세요"
-            variant="outlined"
-          />
-
-          <CustomInput
-            label="대표 전화번호"
-            placeholder="대표 전화번호를 입력해주세요"
-            variant="outlined"
-          />
-
-          <Style.RadioWrapper>
-            <Text typo="subtitle300" color="gray100">
-              결제 방식
-            </Text>
-
-            <RadioSelectButton
-              {...(Payment.args as RadioSelectButtonProps)}
-              selectedIndex={0}
-              onSelect={handleHowToPaySelect}
-            />
-          </Style.RadioWrapper>
+          <ShopInfoSection />
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
