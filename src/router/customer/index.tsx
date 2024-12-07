@@ -3,17 +3,18 @@ import CustomerMyPageEdit from "../../pages/customer/mypage-edit";
 import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
 import CustomerHome from "../../pages/main";
+import Shop from "../../pages/shop";
 import { petPaths } from "./pet";
 import { requestPaths } from "./request";
 
 export const customerPaths = [
   {
     path: "mypage",
-    element: <CustomerMyPage/>
+    element: <CustomerMyPage />,
   },
   {
     path: "mypage-edit",
-    element: <CustomerMyPageEdit/>
+    element: <CustomerMyPageEdit />,
   },
   {
     path: "signup",
@@ -21,7 +22,7 @@ export const customerPaths = [
   },
   {
     path: "signup-complete",
-    element: <CustomerSignUpComplete/>
+    element: <CustomerSignUpComplete />,
   },
   {
     path: "pet",
@@ -30,5 +31,16 @@ export const customerPaths = [
   {
     path: "request",
     children: requestPaths,
+  },
+];
+
+export const customerPaths2 = [
+  {
+    path: "home",
+    element: <CustomerHome />,
+  },
+  {
+    path: "shop",
+    element: <Shop />,
   },
 ];

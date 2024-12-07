@@ -4,61 +4,31 @@ import NotFound from "../pages/not-found";
 import { customerPaths } from "./customer";
 import { designerPaths } from "./designer";
 import { rootPaths } from "./root";
-import Shop from "../pages/shop";
-import CustomerHome from "../pages/main";
 import theme from "../style/theme";
-
+import { customerPaths2 } from "./customer";
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Layout />,
-    children: rootPaths,
-    errorElement: <NotFound />,
-  },
-  {
     path: "/customer",
-    element: <Layout />,
-    children: customerPaths,
+    children: [
+      {
+        element: <Layout />,
+        children: customerPaths,
+      },
+      {
+        element:  <Layout
+        style={{
+          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+        }}
+      />,
+        children: customerPaths2,
+      },
+    ],
     errorElement: <NotFound />,
   },
   {
     path: "/designer",
     element: <Layout />,
     children: designerPaths,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/shop",
-    element: (
-      <Layout
-        style={{
-          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
-        }}
-      />
-    ),
-    children: [
-      {
-        path: "", // 기본 경로
-        element: <Shop />, // Shop 컴포넌트가 Outlet으로 렌더링됨
-      },
-    ],
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/home",
-    element: (
-      <Layout
-        style={{
-          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
-        }}
-      />
-    ),
-    children: [
-      {
-        path: "", // 기본 경로
-        element: <CustomerHome />,
-      },
-    ],
     errorElement: <NotFound />,
   },
 ]);
