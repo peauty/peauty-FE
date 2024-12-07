@@ -9,7 +9,7 @@ import {
   Title,
 } from "./index.styles";
 import { useLocation } from "../../../hooks/useLocation";
-import { useCheckNickname, useSignup } from "../../../hooks/useUser";
+import { useCheckNickname, useSignup } from "../../../apis/customer/hooks/useUser";
 import { AppBar } from "../../../components/layout/AppBar";
 import { ProgressBlock } from "../../../components/progress/ProgressBlock";
 import { CustomInput } from "../../../components/input/CustomInput";
@@ -137,7 +137,7 @@ export default function CustomerSignUp() {
         socialId: formData.socialId || "",
         socialPlatform: formData.socialPlatform as 'KAKAO' | 'GOOGLE' | 'APPLE', 
         name: formData.name || "",
-        phoneNum: formData.phone || "",
+        phoneNumber: formData.phone || "",
         address: formData.location || "",
         nickname: inputValue || "",
         profileImageUrl: formData.profileImageUrl || "",
