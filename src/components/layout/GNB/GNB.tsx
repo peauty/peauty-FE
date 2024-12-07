@@ -21,7 +21,12 @@ export interface GNBProps {
   disabled?: boolean;
 }
 
-export function GNB({ type, onLargeButtonClick, buttonText, disabled }: GNBProps) {
+export function GNB({
+  type,
+  onLargeButtonClick,
+  buttonText,
+  disabled,
+}: GNBProps) {
   const userMenuItems = [
     { icon: <Home />, label: "홈", path: ROUTE.customer.home },
     { icon: <Search />, label: "요청하기", path: ROUTE.shop },
@@ -74,7 +79,7 @@ export function GNB({ type, onLargeButtonClick, buttonText, disabled }: GNBProps
             onClick={onLargeButtonClick}
             disabled={disabled}
           >
-            <Text typo="body200" color="white">
+            <Text typo="body100" color="white">
               {buttonText}
             </Text>
           </CustomButton>

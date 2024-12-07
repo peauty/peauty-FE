@@ -21,6 +21,7 @@ export { default as RedSpeaker } from "./RedSpeaker";
 export { default as Right } from "./Right";
 export { default as ScissorsIcon } from "./ScissorsIcon";
 export { default as Search } from "./Search";
+export { default as SelectIcon } from "./SelectIcon";
 export { default as Shop } from "./Shop";
 export { default as ShopHome } from "./ShopHome";
 export { default as ShopMaker } from "./ShopMaker";
