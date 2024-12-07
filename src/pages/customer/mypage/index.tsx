@@ -92,7 +92,7 @@ export default function CustomerMyPage() {
                   name={puppy.name || ""}
                   age={puppy.age || 0}
                   gender={puppy.sex || ""}
-                  weight={`${puppy.weight}kg` || ""}
+                  weight={`${puppy.weight}` || ""}
                   breed={puppy.breed || ""}
                   tags={puppy.disease || []}
                 />

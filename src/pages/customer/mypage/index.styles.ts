@@ -12,7 +12,6 @@ export const ContentWrapper = styled.div`
     flex: 1; // 남은 공간 모두 사용
     display: flex;
     flex-direction: column;
-    padding: 0 24px; // 좌우 패딩
     gap: 20px;
 `;
 

@@ -151,7 +151,7 @@ export default function CustomerMyPageEdit() {
                 nickname: formData.nickname,
                 address: formData.address,
                 profileImageUrl: profileImage,
-                phoneNum: profileData.phoneNum // 기존 전화번호 유지
+                phoneNum: profileData.phoneNumber // 기존 전화번호 유지
             };
 
             await updateCustomerProfile(userId, updateData);
