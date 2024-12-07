@@ -35,7 +35,7 @@ export const DotStyle = styled.div<{ size: number; height: number }>`
   width: ${({ size }) => `${size}px`};
   height: ${({ height }) => `${height}px`};
   border-radius: 50%;
-  background-color: gray;
+  background-color: ${colors.gray300};
   cursor: pointer;
 `;
 

@@ -8,10 +8,6 @@ import { requestPaths } from "./request";
 
 export const customerPaths = [
   {
-    path: "home",
-    element: <CustomerHome/>,
-  },
-  {
     path: "mypage",
     element: <CustomerMyPage/>
   },
