@@ -5,12 +5,20 @@ export const Style = {
     display: flex;
     flex-direction: column;
     background-color: white;
+    padding-bottom: 100px;
   `,
   SectionWrapper: styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
     gap: 20px;
+  `,
+
+  TwoInputWrapper: styled.div`
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 30px; */
+    gap: 10px;
   `,
   TitleWrapper: styled.div`
     display: flex;

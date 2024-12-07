@@ -44,8 +44,13 @@ export default function DesignerSignUpDetail() {
             </Text>
           </Style.TitleWrapper>
 
-          <CustomInput placeholder="제목을 입력해주세요" />
-          <CustomInput placeholder="내용을 입력해주세요" inputType="textarea" />
+          <Style.TwoInputWrapper>
+            <CustomInput placeholder="제목을 입력해주세요" />
+            <CustomInput
+              placeholder="내용을 입력해주세요"
+              inputType="textarea"
+            />
+          </Style.TwoInputWrapper>
         </Style.SectionWrapper>
         <Style.SectionWrapper>
           <Style.TitleWrapper>
@@ -55,9 +60,13 @@ export default function DesignerSignUpDetail() {
               현재 진행 중인 이벤트가 있다면 등록해 주세요
             </Text>
           </Style.TitleWrapper>
-
-          <CustomInput placeholder="제목을 입력해주세요" />
-          <CustomInput placeholder="내용을 입력해주세요" inputType="textarea" />
+          <Style.TwoInputWrapper>
+            <CustomInput placeholder="제목을 입력해주세요" />
+            <CustomInput
+              placeholder="내용을 입력해주세요"
+              inputType="textarea"
+            />
+          </Style.TwoInputWrapper>
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
@@ -70,8 +79,6 @@ export default function DesignerSignUpDetail() {
           </Style.TitleWrapper>
 
           <CustomInput
-            error=""
-            hint=""
             label="매장 이름"
             placeholder="매장 이름을 입력해주세요"
             variant="outlined"
@@ -80,16 +87,12 @@ export default function DesignerSignUpDetail() {
           <LocationButton />
 
           <CustomInput
-            error=""
-            hint=""
             label="영업 시간"
             placeholder="영업 시간을 입력해주세요"
             variant="outlined"
           />
 
           <CustomInput
-            error=""
-            hint=""
             label="대표 전화번호"
             placeholder="대표 전화번호를 입력해주세요"
             variant="outlined"
@@ -116,13 +119,7 @@ export default function DesignerSignUpDetail() {
             </Text>
           </Style.TitleWrapper>
           <Style.RowWrapper>
-            <CustomInput
-              error=""
-              hint=""
-              label=""
-              placeholder="예) 22"
-              variant="outlined"
-            />
+            <CustomInput placeholder="예) 22" variant="outlined" />
             <Text color="gray100" typo="body100">
               년
             </Text>
