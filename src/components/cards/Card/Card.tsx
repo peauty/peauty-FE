@@ -1,7 +1,12 @@
 import { Tag } from "../../category/Tag";
 import { Text } from "../../texts/Text";
 import ProfileImg from "../../profile-img/ProfileImg";
-import { CardWrapper, DiseaseWrapper, InfoWrapper, ProfileImagWrapper, TagsWrapper } from "./Card.styles";
+import {
+  CardWrapper,
+  DiseaseWrapper,
+  InfoWrapper,
+  TagsWrapper,
+} from "./Card.styles";
 
 interface CardProps {
   imageSrc: string;
@@ -24,16 +29,20 @@ export default function Card({
 }: CardProps) {
   return (
     <CardWrapper>
-      <ProfileImagWrapper>
-        <ProfileImg src={imageSrc} alt={`${name}'s image`} width="80px" height="80px" />
-      </ProfileImagWrapper>
+      <div>
+        <ProfileImg
+          src={imageSrc}
+          alt={`${name}'s image`}
+          width="80px"
+          height="80px"
+        />
+      </div>
       <InfoWrapper>
-        <Text color={"black"} typo={"subtitle100"}>{name}</Text>
+        <Text typo={"subtitle200"}>{name}</Text>
         <Text color={"gray100"} typo={"body300"}>
-          {age}살 | {gender} | {weight} | {breed}
+          {age}살 | {gender} | {weight}kg | {breed}
         </Text>
         <DiseaseWrapper>
-          <Text typo={"subtitle300"}>질병</Text>
           <TagsWrapper>
           {tags.map((tag, index) => (
             <Tag key={index} text={tag} />

@@ -4,13 +4,14 @@ export interface GetCustomerProfileResponse {
   nickname?: string;
   profileImageUrl?: string;
   address?: string;
+  phoneNumber?: string;
 }
 
 export interface UpdateCustomerProfileResponse {
   customerId?: number;
   name?: string;
   nickname?: string;
-  phoneNum?: string;
+  phoneNumber?: string;
   address?: string;
   profileImageUrl?: string;
 }
@@ -18,7 +19,7 @@ export interface UpdateCustomerProfileResponse {
 export interface UpdateCustomerProfileRequest {
   name?: string;
   nickname?: string;
-  phoneNum?: string;
+  phoneNumber?: string;
   address?: string;
   profileImageUrl?: string;
 }

@@ -10,11 +10,11 @@ interface SocialLoginModalProps {
 
 export default function SocialLoginModal({ onClose }: SocialLoginModalProps) {
   const handleKakaoLogin = () => {
-    window.location.href = import.meta.env.VITE_KAKAO_SOCIAL_LOGIN_URL;
+    window.location.href = import.meta.env.VITE_KAKAO_CUSTOMER_SOCIAL_LOGIN_URL;
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = import.meta.env.VITE_GOOGLE_SOCIAL_LOGIN_URL;
+    window.location.href = import.meta.env.VITE_GOOGLE_CUSTOMER_SOCIAL_LOGIN_URL;
   }
 
   return (
