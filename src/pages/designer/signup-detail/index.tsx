@@ -56,10 +56,7 @@ export default function DesignerSignUpDetail() {
             </Text>
           </Style.TitleWrapper>
           <Style.RowWrapper>
-            <CustomInput placeholder="예) 22" variant="outlined" />
-            <Text color="gray100" typo="body100">
-              년
-            </Text>
+            <CustomInput placeholder="예) 22" extraText="년" />
           </Style.RowWrapper>
         </Style.SectionWrapper>
 

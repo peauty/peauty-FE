@@ -22,6 +22,7 @@ interface CustomInputProps
   suffix?: ReactNode;
   hasButton?: boolean;
   inputType?: "input" | "textarea"; // input인지 textarea인지 구분
+  extraText?: string; // 추가 텍스트를 위한 prop
 }
 
 export default function CustomInput({
@@ -35,6 +36,7 @@ export default function CustomInput({
   suffix,
   hasButton = false,
   inputType = "input", // 기본값 input
+  extraText, // 추가 텍스트 prop
   ...props
 }: CustomInputProps) {
   // focused 상태 관리
@@ -53,6 +55,7 @@ export default function CustomInput({
         disabled={disabled}
         onFocus={() => setFocused(true)} // 포커스 상태 설정
         onBlur={() => setFocused(false)} // 포커스 해제 시 상태 변경
+        hasExtraText={!!extraText} // 추가 텍스트가 있을 때 스타일 변경
       >
         {inputType === "input" ? (
           <StyledInput error={!!error} disabled={disabled} {...props} />
@@ -63,6 +66,12 @@ export default function CustomInput({
           <SuffixContainer variant={variant} error={!!error}>
             {suffix}
           </SuffixContainer>
+        )}
+        {/* 추가 텍스트 출력 */}
+        {extraText && (
+          <Text color="gray100" typo="body100">
+            {extraText}
+          </Text>
         )}
       </InputWrapper>
 
