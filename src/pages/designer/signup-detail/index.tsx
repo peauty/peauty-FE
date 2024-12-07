@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AddImage } from "../../../assets/svg";
 import {
   AppBar,
@@ -12,6 +13,23 @@ import { ShopInfoInputSection } from "./components/ShopInfoInputSection";
 import { Style } from "./index.styles";
 
 export default function DesignerSignUpDetail() {
+  const [inputValues, setInputValues] = useState<string[][]>([[], []]); // 각 TitleContentInput의 입력값을 관리
+
+  const handleInputChange = (
+    index: number,
+    subIndex: number,
+    value: string,
+  ) => {
+    const updatedValues = [...inputValues];
+    if (!updatedValues[index]) updatedValues[index] = [];
+    updatedValues[index][subIndex] = value;
+    setInputValues(updatedValues);
+  };
+
+  const handleSubmit = () => {
+    console.log(inputValues); // 전체 입력값을 콘솔에 출력
+  };
+
   return (
     <>
       <AppBar prefix="backButton" title="추가 정보 등록" />
@@ -37,11 +55,13 @@ export default function DesignerSignUpDetail() {
             title="공지사항"
             description="매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+            onChange={(index, value) => handleInputChange(0, index, value)} // 첫 번째 TitleContentInput의 값 변경 처리
           />
           <TitleContentInput
             title="이벤트"
             description="현재 진행 중인 이벤트가 있다면 등록해 주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+            onChange={(index, value) => handleInputChange(1, index, value)} // 두 번째 TitleContentInput의 값 변경 처리
           />
         </Style.SectionWrapper>
 
@@ -65,7 +85,8 @@ export default function DesignerSignUpDetail() {
           <CertificateInputSection />
         </Style.SectionWrapper>
       </Style.RegisterPageWrapper>
-      <GNB buttonText="확인" />
+
+      <GNB buttonText="확인" onLargeButtonClick={handleSubmit} />
     </>
   );
 }
