@@ -11,7 +11,7 @@ export const Nav = styled.nav`
   max-width: 480px;
   background: #ffffff;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: ${theme.zIndex.gnb};
 `;
 
 export const MenuItem = styled.div<{ isActive: boolean }>`

@@ -74,7 +74,7 @@ export function GNB({ type, onLargeButtonClick, buttonText, disabled }: GNBProps
             onClick={onLargeButtonClick}
             disabled={disabled}
           >
-            <Text typo="body200" color="white">
+            <Text typo="body100" color="white">
               {buttonText}
             </Text>
           </CustomButton>

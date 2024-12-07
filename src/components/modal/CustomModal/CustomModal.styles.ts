@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import theme from "../../../style/theme";
 
 // 슬라이드 애니메이션
 const slideUp = keyframes`
@@ -22,7 +23,7 @@ export const ModalBackdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  z-index: 1000;
+  z-index: ${theme.zIndex.bottomSheet};
 `;
 
 export const ModalWrapper = styled.div`
