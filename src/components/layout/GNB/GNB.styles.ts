@@ -8,7 +8,8 @@ export const Nav = styled.nav`
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
+  max-width: ${theme.size.maxWidth};
+  height: ${theme.size.gnbHeight};
   background: #ffffff;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
   z-index: ${theme.zIndex.gnb};
@@ -33,7 +34,7 @@ export const MenuItem = styled.div<{ isActive: boolean }>`
   span {
     font-weight: ${(props) => (props.isActive ? "semibold" : "normal")};
     color: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
-    height: 30px;
+    /* height: 30px; */
   }
 
   &:after {
@@ -50,5 +51,5 @@ export const MenuItem = styled.div<{ isActive: boolean }>`
 export const ContentWrapper = styled.div`
   display: flex;
   width: 100%;
-  padding: 20px;
+  padding: 20px 30px 10px;
 `;
