@@ -61,7 +61,7 @@ export const InputWrapper = styled.div<{
 
           &:focus-within {
             border-color: ${error ? colors.red200 : colors.blue200};
-            box-shadow: 0 0 0 1px ${error ? colors.red100 : colors.blue100};
+            /* box-shadow: 0 0 0 1px ${error ? colors.red100 : colors.blue100}; */
           }
         `
       : css`
