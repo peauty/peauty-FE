@@ -53,12 +53,10 @@ export const InputWrapper = styled.div<{
   ${({ variant, error, disabled }) =>
     variant === "outlined"
       ? css`
-          border-radius: 5px;
           border: ${disabled
             ? `1px solid ${colors.blue100}`
             : `1px solid ${error ? colors.red200 : colors.gray400}`};
           padding: 0px 10px;
-          height: 50px;
           border-radius: 10px;
 
           &:focus-within {
@@ -71,8 +69,6 @@ export const InputWrapper = styled.div<{
           border-bottom: 1px solid ${error ? colors.red200 : colors.gray300};
           border-radius: 0;
           padding: 5px 10px;
-          height: 50px;
-          border-radius: 10px;
 
           &:focus-within {
             border-bottom-color: ${error ? colors.red200 : colors.blue200};
@@ -85,7 +81,30 @@ export const StyledInput = styled.input<{ error: boolean }>`
   outline: none;
   background-color: transparent;
   font-size: 14px;
-  padding-left: 10px;
+  padding: 12px 10px;
+
+  &::placeholder {
+    color: #9ca3af;
+    font-size: ${typography.body100};
+  }
+
+  &:disabled {
+    color: ${colors.black};
+    cursor: not-allowed;
+    font-size: 12px;
+  }
+`;
+
+export const StyledTextarea = styled.textarea<{ error: boolean }>`
+  flex: 1;
+  outline: none;
+  background-color: transparent;
+  font-size: 14px;
+  padding: 10px;
+  min-height: 120px;
+  resize: none;
+  line-height: 1.6;
+  border: none;
 
   &::placeholder {
     color: #9ca3af;
