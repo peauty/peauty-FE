@@ -6,7 +6,7 @@ import { typography } from "../../../../style/typography";
 export const ProgressWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 20px 10px;
+
 `;
 
 export const SectionWrapper = styled.div`
@@ -70,12 +70,4 @@ export const ButtonWrapper = styled.div`
     bottom: 20px;
     width: 100%;
 `;
-
-
-export const ConfirmButtonWrapper = styled.div`
-    position: absolute;
-    bottom: 100px;
-    width: 100%;
-`;
-
 
