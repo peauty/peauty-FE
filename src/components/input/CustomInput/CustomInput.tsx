@@ -1,16 +1,17 @@
-import { InputHTMLAttributes, ReactNode, useState } from "react";
+import { InputHTMLAttributes, useState, ReactNode } from "react";
 import {
   Container,
   Label,
   InputWrapper,
   StyledInput,
+  StyledTextarea,
   SuffixContainer,
   Message,
 } from "./CustomInput.styles";
-import Text from "../../texts/Text/Text";
+import { Text } from "../../texts/Text";
 
 interface CustomInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+  extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   width?: string;
   label?: string;
   error?: string;
@@ -20,6 +21,7 @@ interface CustomInputProps
   variant?: "outlined" | "underlined";
   suffix?: ReactNode;
   hasButton?: boolean;
+  inputType?: "input" | "textarea"; // input인지 textarea인지 구분
 }
 
 export default function CustomInput({
@@ -32,6 +34,7 @@ export default function CustomInput({
   variant = "outlined",
   suffix,
   hasButton = false,
+  inputType = "input", // 기본값 input
   ...props
 }: CustomInputProps) {
   // focused 상태 관리
@@ -51,13 +54,18 @@ export default function CustomInput({
         onFocus={() => setFocused(true)} // 포커스 상태 설정
         onBlur={() => setFocused(false)} // 포커스 해제 시 상태 변경
       >
-        <StyledInput error={!!error} disabled={disabled} {...props} />
+        {inputType === "input" ? (
+          <StyledInput error={!!error} disabled={disabled} {...props} />
+        ) : (
+          <StyledTextarea error={!!error} disabled={disabled} {...props} />
+        )}
         {suffix && (
           <SuffixContainer variant={variant} error={!!error}>
             {suffix}
           </SuffixContainer>
         )}
       </InputWrapper>
+
       {(error || hint || success) && (
         <Message error={!!error}>
           <Text

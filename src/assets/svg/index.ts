@@ -33,3 +33,5 @@ export { default as ShopTel } from "./ShopTel";
 export { default as ShopTime } from "./ShopTime";
 export { default as Smile } from "./Smile";
 export { default as Warning } from "./Warning";
+export { default as Firework } from "./Firework";
+export { default as Medal } from "./Medal";

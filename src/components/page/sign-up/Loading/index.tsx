@@ -29,11 +29,13 @@ const LoadingImage = styled.img`
 `;
 
 interface LoaderProps {
-  imageUrl: string;
+  imageUrl?: string;
   size?: number;
 }
 
-export default function Loading({ imageUrl, size = 40 }: LoaderProps) {
+const LOADINGIMAGE = "https://avatars.githubusercontent.com/u/70759627?v=4" // TODO 퓨티 이미지로 변경
+
+export default function Loading({ imageUrl=LOADINGIMAGE, size=40 }: LoaderProps) {
   return (
       <LoaderContainer>
         <LoadingImage 
