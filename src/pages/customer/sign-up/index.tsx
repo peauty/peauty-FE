@@ -38,7 +38,12 @@ export default function CustomerSignUp() {
   const [success, setSuccess] = useState("");
   const [checkedNickname, setCheckedNickname] = useState("");
   const [isNickNameAvailable, setisNickNameAvailable] = useState(false);
-  const { location, error: locationError, locationLoading, fetchLocation } = useLocation();
+  const {
+    location,
+    error: locationError,
+    locationLoading,
+    fetchLocation,
+  } = useLocation();
   const { check } = useCheckNickname();
   const { signup } = useSignup();
   const navigate = useNavigate();
@@ -54,7 +59,8 @@ export default function CustomerSignUp() {
     // 첫 번째 Step이 name일 경우 초기값 설정
     if (currentStep === 0) {
       // 쿼리 파라미터에서 데이터 추출 및 초기 상태 설정
-      const { name, profileImageUrl, socialPlatform, socialId } = parseQueryParams();
+      const { name, profileImageUrl, socialPlatform, socialId } =
+        parseQueryParams();
 
       // username을 name에, profile_url을 profileImageUrl에 저장
       setFormData({
@@ -64,13 +70,13 @@ export default function CustomerSignUp() {
         socialId,
       });
       setInputValue(name);
-    } 
+    }
   }, [currentStep]);
 
   useEffect(() => {
     // 현재 위치가 업데이트되면 formData에 반영
     if (location) {
-      setInputValue(location)
+      setInputValue(location);
       setFormData((prev) => ({
         ...prev,
         location,
@@ -118,16 +124,16 @@ export default function CustomerSignUp() {
       setError(errorMessage);
       return;
     }
-  
+
     // 현재 Step의 데이터를 formData에 저장
     setFormData((prev) => ({
       ...prev,
       [key]: inputValue,
     }));
-  
+
     setError("");
     setInputValue("");
-  
+
     // 마지막 Step에서 회원가입 로직 실행
     if (currentStep < totalSteps - 1) {
       setCurrentStep((prevStep) => prevStep + 1);
@@ -135,14 +141,14 @@ export default function CustomerSignUp() {
       // formData를 UserSignupInput 형태로 매핑
       const signupData: SignUpRequest = {
         socialId: formData.socialId || "",
-        socialPlatform: formData.socialPlatform as 'KAKAO' | 'GOOGLE' | 'APPLE', 
+        socialPlatform: formData.socialPlatform as "KAKAO" | "GOOGLE" | "APPLE",
         name: formData.name || "",
-        phoneNum: formData.phone || "",
+        phoneNumber: formData.phone || "",
         address: formData.location || "",
         nickname: inputValue || "",
         profileImageUrl: formData.profileImageUrl || "",
       };
-  
+
       try {
         await signup(signupData);
         navigate(ROUTE.customer.signupComplete);
@@ -164,11 +170,15 @@ export default function CustomerSignUp() {
 
   return (
     <>
-      {locationLoading && <Loading/>}
+      {locationLoading && <Loading />}
       <AppBar prefix={"backButton"} onclick={handleBack} title="회원가입" />
       <PageWrapper>
         <ContentWrapper>
-          <ProgressBlock current={currentStep + 1} gap={10} total={totalSteps} />
+          <ProgressBlock
+            current={currentStep + 1}
+            gap={10}
+            total={totalSteps}
+          />
           <Title>{title}</Title>
           {subTitle && (
             <SubTitle>
@@ -183,15 +193,30 @@ export default function CustomerSignUp() {
               value={inputValue}
               onChange={handleInputChange}
               error={error}
-              success={currentStep === 3 ? checkedNickname === inputValue ? success : "" : ""}
+              success={
+                currentStep === 3
+                  ? checkedNickname === inputValue
+                    ? success
+                    : ""
+                  : ""
+              }
               height="40px"
               suffix={
                 currentStep === 2 ? (
-                  <CustomButton size="small" variant={error === "" ? "secondary" : "emergency"} onClick={handleGetLocation}>
+                  <CustomButton
+                    size="small"
+                    variant={error === "" ? "secondary" : "emergency"}
+                    onClick={handleGetLocation}
+                  >
                     현재 위치 가져오기
                   </CustomButton>
                 ) : currentStep === 3 ? (
-                  <CustomButton size="small" variant={error === "" ? "secondary" : "emergency"} onClick={handleNicknameCheck} disabled={inputValue==="" || error != ""}>
+                  <CustomButton
+                    size="small"
+                    variant={error === "" ? "secondary" : "emergency"}
+                    onClick={handleNicknameCheck}
+                    disabled={inputValue === "" || error != ""}
+                  >
                     중복 검사
                   </CustomButton>
                 ) : undefined
@@ -200,10 +225,15 @@ export default function CustomerSignUp() {
             />
           </InputSection>
         </ContentWrapper>
-        <GNB buttonText={currentStep === totalSteps - 1 ? "완료" : "다음"} onLargeButtonClick={handleNext} disabled={
-          currentStep === 3 ? (inputValue === "" || error !== "" || !isNickNameAvailable) :
-          inputValue === "" || error != "" }> 
-        </GNB>
+        <GNB
+          buttonText={currentStep === totalSteps - 1 ? "완료" : "다음"}
+          onLargeButtonClick={handleNext}
+          disabled={
+            currentStep === 3
+              ? inputValue === "" || error !== "" || !isNickNameAvailable
+              : inputValue === "" || error != ""
+          }
+        ></GNB>
       </PageWrapper>
     </>
   );
