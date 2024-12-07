@@ -4,19 +4,14 @@ import {
   CustomButtonWrapper,
   DisabledWrapper,
   LocationButtonWrapper,
-  Wrapper,
 } from "./LocationButton.styles";
 
-interface Props {}
-
-export default function LocationButton({}: Props) {
+export default function LocationButton() {
   return (
     <>
       <LocationButtonWrapper>
         <DisabledWrapper>
           <CustomInput
-            error=""
-            hint=""
             label="위치"
             placeholder="매장 위치를 검색해주세요"
             variant="outlined"
@@ -27,15 +22,11 @@ export default function LocationButton({}: Props) {
             검색
           </CustomButton>
         </CustomButtonWrapper>
+        <CustomInput
+          placeholder="상세 주소를 입력해주세요"
+          variant="outlined"
+        />
       </LocationButtonWrapper>
-
-      <CustomInput
-        error=""
-        hint=""
-        label=""
-        placeholder="상세 주소를 입력해주세요"
-        variant="outlined"
-      />
     </>
   );
 }

@@ -42,7 +42,6 @@ export default function CustomerSignUp() {
   const { check } = useCheckNickname();
   const { signup } = useSignup();
   const navigate = useNavigate();
-  const LOADINGIMAGE = "https://avatars.githubusercontent.com/u/70759627?v=4" // TODO 포켓 이미지로 변경
 
   // 각 Step별 데이터를 저장할 상태 추가
   const [formData, setFormData] = useState<Record<string, string>>({});
@@ -165,7 +164,7 @@ export default function CustomerSignUp() {
 
   return (
     <>
-      {locationLoading && <Loading imageUrl={LOADINGIMAGE}/>}
+      {locationLoading && <Loading/>}
       <AppBar prefix={"backButton"} onclick={handleBack} title="회원가입" />
       <PageWrapper>
         <ContentWrapper>

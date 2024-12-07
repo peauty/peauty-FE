@@ -35,7 +35,7 @@ export const Sheet = styled.div<{ isOpen: boolean }>`
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 20px 20px 0 0;
   padding: 10px 20px 0px;
-  z-index: 1100;
+  z-index: ${theme.zIndex.bottomSheet};
   animation: ${({ isOpen }) => (isOpen ? slideUp : slideDown)} 0.3s ease
     forwards;
 `;

@@ -2,8 +2,8 @@ import axios from 'axios';
 import * as fs from 'node:fs/promises';
 import path from 'path';
 
-const CUSTOMER_SERVER = 'http://customer-dev.peauty.click:8080/v3/api-docs';
-const DESIGNER_SERVER = 'http://designer-dev.peauty.click:8080/v3/api-docs';
+const CUSTOMER_SERVER = 'https://customer-dev.peauty.click/v3/api-docs';
+const DESIGNER_SERVER = 'http://designer-dev.peauty.click/v3/api-docs';
 
 const SERVERS = {
   customer: {

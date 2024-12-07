@@ -40,47 +40,33 @@ export default function DesignerSignUpDetail() {
           <Style.TitleWrapper>
             <Text typo="subtitle300">공지사항</Text>
             <Text color="gray100" typo="body500">
-              현재 진행 중인 이벤트가 있다면 등록해 주세요
-            </Text>
-          </Style.TitleWrapper>
-
-          <CustomInput
-            error=""
-            hint=""
-            label="제목"
-            placeholder="공지사항의 제목을 입력해주세요"
-            variant="outlined"
-          />
-          <CustomInput
-            error=""
-            hint=""
-            label="내용"
-            placeholder="공지사항의 내용을 입력해주세요"
-            variant="outlined"
-          />
-        </Style.SectionWrapper>
-        <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">이벤트</Text>
-            <Text color="gray100" typo="body500">
               매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요
             </Text>
           </Style.TitleWrapper>
 
-          <CustomInput
-            error=""
-            hint=""
-            label="제목"
-            placeholder="이벤트 제목을 입력해주세요"
-            variant="outlined"
-          />
-          <CustomInput
-            error=""
-            hint=""
-            label="내용"
-            placeholder="이벤트 내용을 입력해주세요"
-            variant="outlined"
-          />
+          <Style.TwoInputWrapper>
+            <CustomInput placeholder="제목을 입력해주세요" />
+            <CustomInput
+              placeholder="내용을 입력해주세요"
+              inputType="textarea"
+            />
+          </Style.TwoInputWrapper>
+        </Style.SectionWrapper>
+        <Style.SectionWrapper>
+          <Style.TitleWrapper>
+            <Text typo="subtitle300">이벤트</Text>
+
+            <Text color="gray100" typo="body500">
+              현재 진행 중인 이벤트가 있다면 등록해 주세요
+            </Text>
+          </Style.TitleWrapper>
+          <Style.TwoInputWrapper>
+            <CustomInput placeholder="제목을 입력해주세요" />
+            <CustomInput
+              placeholder="내용을 입력해주세요"
+              inputType="textarea"
+            />
+          </Style.TwoInputWrapper>
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
@@ -93,8 +79,6 @@ export default function DesignerSignUpDetail() {
           </Style.TitleWrapper>
 
           <CustomInput
-            error=""
-            hint=""
             label="매장 이름"
             placeholder="매장 이름을 입력해주세요"
             variant="outlined"
@@ -103,16 +87,12 @@ export default function DesignerSignUpDetail() {
           <LocationButton />
 
           <CustomInput
-            error=""
-            hint=""
             label="영업 시간"
             placeholder="영업 시간을 입력해주세요"
             variant="outlined"
           />
 
           <CustomInput
-            error=""
-            hint=""
             label="대표 전화번호"
             placeholder="대표 전화번호를 입력해주세요"
             variant="outlined"
@@ -139,13 +119,7 @@ export default function DesignerSignUpDetail() {
             </Text>
           </Style.TitleWrapper>
           <Style.RowWrapper>
-            <CustomInput
-              error=""
-              hint=""
-              label=""
-              placeholder="예) 22"
-              variant="outlined"
-            />
+            <CustomInput placeholder="예) 22" variant="outlined" />
             <Text color="gray100" typo="body100">
               년
             </Text>

@@ -2,7 +2,7 @@ name: React build
 on: 
   push:
     branches:
-      - develop # 개발서버 배포
+      - sprint/** # 개발서버 배포
 
 jobs:
   build:
@@ -22,6 +22,10 @@ jobs:
 
       - name: Install Dependencies # 의존성 설치
         run: yarn install
+
+      - name: Create .env.production file
+        run: |
+          echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
 
       - name: Build # React 빌드
         run: yarn build
