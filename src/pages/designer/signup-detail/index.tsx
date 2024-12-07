@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AddImage } from "../../../assets/svg";
 import {
   AppBar,
@@ -6,16 +7,29 @@ import {
   GNB,
   Text,
 } from "../../../components";
-import { LocationButton } from "../../../components/button/LocationButton";
-import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
-import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
-import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+import { TitleContentInput } from "../../../components/input/TitleContentInput";
+import { CertificateInputSection } from "./components/CertificateInputSection";
+import { ShopInfoInputSection } from "./components/ShopInfoInputSection";
 import { Style } from "./index.styles";
 
 export default function DesignerSignUpDetail() {
-  const handleHowToPaySelect = (selectedPayIndex: number) => {
-    console.log("Selected Payment:", selectedPayIndex);
+  const [inputValues, setInputValues] = useState<string[][]>([[], []]); // 각 TitleContentInput의 입력값을 관리
+
+  const handleInputChange = (
+    index: number,
+    subIndex: number,
+    value: string,
+  ) => {
+    const updatedValues = [...inputValues];
+    if (!updatedValues[index]) updatedValues[index] = [];
+    updatedValues[index][subIndex] = value;
+    setInputValues(updatedValues);
   };
+
+  const handleSubmit = () => {
+    console.log(inputValues); // 전체 입력값을 콘솔에 출력
+  };
+
   return (
     <>
       <AppBar prefix="backButton" title="추가 정보 등록" />
@@ -37,78 +51,22 @@ export default function DesignerSignUpDetail() {
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">공지사항</Text>
-            <Text color="gray100" typo="body500">
-              매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요
-            </Text>
-          </Style.TitleWrapper>
-
-          <Style.TwoInputWrapper>
-            <CustomInput placeholder="제목을 입력해주세요" />
-            <CustomInput
-              placeholder="내용을 입력해주세요"
-              inputType="textarea"
-            />
-          </Style.TwoInputWrapper>
-        </Style.SectionWrapper>
-        <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">이벤트</Text>
-
-            <Text color="gray100" typo="body500">
-              현재 진행 중인 이벤트가 있다면 등록해 주세요
-            </Text>
-          </Style.TitleWrapper>
-          <Style.TwoInputWrapper>
-            <CustomInput placeholder="제목을 입력해주세요" />
-            <CustomInput
-              placeholder="내용을 입력해주세요"
-              inputType="textarea"
-            />
-          </Style.TwoInputWrapper>
+          <TitleContentInput
+            title="공지사항"
+            description="매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요"
+            inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+            onChange={(index, value) => handleInputChange(0, index, value)} // 첫 번째 TitleContentInput의 값 변경 처리
+          />
+          <TitleContentInput
+            title="이벤트"
+            description="현재 진행 중인 이벤트가 있다면 등록해 주세요"
+            inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+            onChange={(index, value) => handleInputChange(1, index, value)} // 두 번째 TitleContentInput의 값 변경 처리
+          />
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300"> 매장 정보 </Text>
-            <Text color="gray100" typo="body500">
-              고객님들이 쉽게 찾아갈 수 있도록 매장 정보를 정확하게 등록해
-              주세요
-            </Text>
-          </Style.TitleWrapper>
-
-          <CustomInput
-            label="매장 이름"
-            placeholder="매장 이름을 입력해주세요"
-            variant="outlined"
-          />
-
-          <LocationButton />
-
-          <CustomInput
-            label="영업 시간"
-            placeholder="영업 시간을 입력해주세요"
-            variant="outlined"
-          />
-
-          <CustomInput
-            label="대표 전화번호"
-            placeholder="대표 전화번호를 입력해주세요"
-            variant="outlined"
-          />
-
-          <Style.RadioWrapper>
-            <Text typo="subtitle300" color="gray100">
-              결제 방식
-            </Text>
-
-            <RadioSelectButton
-              {...(Payment.args as RadioSelectButtonProps)}
-              selectedIndex={0}
-              onSelect={handleHowToPaySelect}
-            />
-          </Style.RadioWrapper>
+          <ShopInfoInputSection />
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
@@ -119,31 +77,16 @@ export default function DesignerSignUpDetail() {
             </Text>
           </Style.TitleWrapper>
           <Style.RowWrapper>
-            <CustomInput placeholder="예) 22" variant="outlined" />
-            <Text color="gray100" typo="body100">
-              년
-            </Text>
+            <CustomInput placeholder="예) 22" extraText="년" />
           </Style.RowWrapper>
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">자격증 및 기타서류</Text>
-            <Text color="gray100" typo="body500">
-              자격증을 등록하면 고객에게 신뢰를 줄 수 있어요
-            </Text>
-          </Style.TitleWrapper>
-          <CustomButton variant="outline">
-            <Style.ColumnWrapper>
-              <Text color="blue100" typo="body500">
-                증빙 사진을 업로드 해주세요
-              </Text>
-              <AddImage width={15} />
-            </Style.ColumnWrapper>
-          </CustomButton>
+          <CertificateInputSection />
         </Style.SectionWrapper>
       </Style.RegisterPageWrapper>
-      <GNB buttonText="확인" />
+
+      <GNB buttonText="확인" onLargeButtonClick={handleSubmit} />
     </>
   );
 }
