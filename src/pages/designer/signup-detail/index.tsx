@@ -10,6 +10,7 @@ import { LocationButton } from "../../../components/button/LocationButton";
 import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
 import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
 import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+import { TitleContentInput } from "../../../components/input/TitleContentInput";
 import { Style } from "./index.styles";
 
 export default function DesignerSignUpDetail() {
@@ -37,36 +38,19 @@ export default function DesignerSignUpDetail() {
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">공지사항</Text>
-            <Text color="gray100" typo="body500">
-              매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요
-            </Text>
-          </Style.TitleWrapper>
-
-          <Style.TwoInputWrapper>
-            <CustomInput placeholder="제목을 입력해주세요" />
-            <CustomInput
-              placeholder="내용을 입력해주세요"
-              inputType="textarea"
-            />
-          </Style.TwoInputWrapper>
+          <TitleContentInput
+            title="공지사항"
+            description="매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요"
+            inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+          />
         </Style.SectionWrapper>
-        <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">이벤트</Text>
 
-            <Text color="gray100" typo="body500">
-              현재 진행 중인 이벤트가 있다면 등록해 주세요
-            </Text>
-          </Style.TitleWrapper>
-          <Style.TwoInputWrapper>
-            <CustomInput placeholder="제목을 입력해주세요" />
-            <CustomInput
-              placeholder="내용을 입력해주세요"
-              inputType="textarea"
-            />
-          </Style.TwoInputWrapper>
+        <Style.SectionWrapper>
+          <TitleContentInput
+            title="이벤트"
+            description="현재 진행 중인 이벤트가 있다면 등록해 주세요"
+            inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+          />
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
