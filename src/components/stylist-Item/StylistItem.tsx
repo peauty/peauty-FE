@@ -65,7 +65,7 @@ export default function StylistItem({
           </Text>
         </div>
         <BadgeContainer>
-          {badges.map((badge, index) => (
+          {badges?.map((badge, index) => (
             <Badge
               key={index}
               type={badge.type}
