@@ -1,13 +1,12 @@
-import { CustomInput, Text } from "../../../../components";
+import { CustomInput, MultiSelectButton, Text } from "../../../../components";
 import { LocationButton } from "../../../../components/button/LocationButton";
-import { RadioSelectButton } from "../../../../components/button/RadioSelectButton";
-import { RadioSelectButtonProps } from "../../../../components/button/RadioSelectButton/RadioSelectButton";
-import { Payment } from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+import { MultiSelectButtonProps } from "../../../../components/button/MultiSelectButton/MultiSelectButton";
+import { Payment } from "../../../../components/button/MultiSelectButton/MultiSelectButton.stories";
 import { Style } from "../index.styles";
 
 export function ShopInfoInputSection() {
-  const handleHowToPaySelect = (selectedPayIndex: number) => {
-    console.log("Selected Payment:", selectedPayIndex);
+  const handleHowToPaySelect = (selectedPayIndexs: number[]) => {
+    console.log("Selected Payment:", selectedPayIndexs);
   };
 
   return (
@@ -29,10 +28,13 @@ export function ShopInfoInputSection() {
       <Style.RadioWrapper>
         <Text typo="subtitle300" color="gray100">
           결제 방식
+          <Text typo="body400" color="gray100">
+            (중복 선택도 가능해요)
+          </Text>
         </Text>
-        <RadioSelectButton
-          {...(Payment.args as RadioSelectButtonProps)}
-          selectedIndex={0}
+        <MultiSelectButton
+          {...(Payment.args as MultiSelectButtonProps)}
+          selectedIndexes={[]}
           onSelect={handleHowToPaySelect}
         />
       </Style.RadioWrapper>
