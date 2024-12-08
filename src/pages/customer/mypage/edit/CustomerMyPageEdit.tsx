@@ -8,8 +8,8 @@ import { getCustomerProfile, uploadProfileImage, updateCustomerProfile } from ".
 import { GetCustomerProfileResponse, UploadProfileImageResponse, UpdateCustomerProfileResponse } from "../../../../types/customer/customer";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
 import { useLocation } from "../../../../hooks/useLocation";
-import { useCheckNickname } from "../../../../hooks/useUser";
 import Loading from "../../../../components/page/sign-up/Loading";
+import { useCheckNickname } from "../../../../apis/customer/hooks/useUser";
 
 export default function CustomerMyPageEdit() {
     const navigate = useNavigate();
