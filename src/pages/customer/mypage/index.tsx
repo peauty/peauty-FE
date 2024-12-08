@@ -1,6 +1,5 @@
 import Card from "../../../components/cards/Card";
 import {
-  BoldText,
   CardWrapper,
   ContentWrapper,
   InfoWrapper,
