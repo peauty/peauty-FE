@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { AppBar, GNB, Text } from "../../../../components";
 import Card from "../../../../components/cards/Card";
-import { TextWrapper, Wrapper } from "./index.styles";
+import { CardWrapper, TextWrapper, Wrapper } from "./index.styles";
 
 export default function ChoosePetForGrooming() {
   const dummyPet = [
@@ -36,6 +37,13 @@ export default function ChoosePetForGrooming() {
     },
   ];
 
+  const [selectedPetId, setSelectedPetId] = useState<number | null>(null);
+
+  const handleChoosePet = (pet: (typeof dummyPet)[number]) => {
+    setSelectedPetId(pet.puppyId);
+    console.log("Clicked Pet:", pet);
+  };
+
   return (
     <>
       <AppBar prefix="backButton" />
@@ -49,16 +57,19 @@ export default function ChoosePetForGrooming() {
         </TextWrapper>
 
         {dummyPet.map((pet) => (
-          <Card
-            key={pet.puppyId}
-            imageSrc={pet.profileImageUrl}
-            name={pet.name}
-            age={pet.age}
-            gender={pet.sex}
-            weight={`${pet.weight}`}
-            breed={pet.breed}
-            tags={pet.disease}
-          />
+          <CardWrapper key={pet.puppyId}>
+            <Card
+              imageSrc={pet.profileImageUrl}
+              name={pet.name}
+              age={pet.age}
+              gender={pet.sex}
+              weight={`${pet.weight}`}
+              breed={pet.breed}
+              tags={pet.disease}
+              isSelected={selectedPetId === pet.puppyId}
+              onClick={() => handleChoosePet(pet)}
+            />
+          </CardWrapper>
         ))}
       </Wrapper>
       <GNB buttonText="확인" />
