@@ -1,5 +1,12 @@
-import { GetPuppyDetailResponse, UpdatePuppyDetailRequest, UpdatePuppyDetailResponse, DeletePuppyResponse, GetPuppyProfilesResponse, RegisterPuppyRequest, RegisterPuppyResponse, UploadPuppyImageResponse } from "../../../../types/customer/puppy";
 import { CustomerAPI } from "../../api";
+import { GetPuppyDetailResponse } from "../../../../types/customer/puppy";
+import { UpdatePuppyDetailResponse } from "../../../../types/customer/puppy";
+import { UpdatePuppyDetailRequest } from "../../../../types/customer/puppy";
+import { DeletePuppyResponse } from "../../../../types/customer/puppy";
+import { GetPuppyProfilesResponse } from "../../../../types/customer/puppy";
+import { RegisterPuppyResponse } from "../../../../types/customer/puppy";
+import { RegisterPuppyRequest } from "../../../../types/customer/puppy";
+import { UploadPuppyImageResponse } from "../../../../types/customer/puppy";
 import FormData from "form-data";
 
 export const getPuppyDetail = async (userId: number, puppyId: number): Promise<GetPuppyDetailResponse> => {

@@ -4,11 +4,14 @@ import { UpdateDesignerWorkspaceResponse } from "../../../../types/designer/desi
 import { UpdateDesignerWorkspaceRequest } from "../../../../types/designer/designer";
 import { CreateDesignerWorkspaceResponse } from "../../../../types/designer/designer";
 import { CreateDesignerWorkspaceRequest } from "../../../../types/designer/designer";
-import { GetDesignerProfileResponse } from "../../../../types/designer/designer";
-import { UpdateDesignerProfileResponse } from "../../../../types/designer/designer";
-import { UpdateDesignerProfileRequest } from "../../../../types/designer/designer";
+import { UpdateRepresentativeBadgeResponse } from "../../../../types/designer/designer";
+import { UpdateRepresentativeBadgeRequest } from "../../../../types/designer/designer";
+import { GetDesignerAccountResponse } from "../../../../types/designer/designer";
+import { UpdateDesignerAccountResponse } from "../../../../types/designer/designer";
+import { UpdateDesignerAccountRequest } from "../../../../types/designer/designer";
 import { UploadProfileImageResponse } from "../../../../types/designer/designer";
 import FormData from "form-data";
+import { GetDesignerBadgesResponse } from "../../../../types/designer/designer";
 import { CheckDesignerNicknameDuplicatedResponse } from "../../../../types/designer/designer";
 
 export const getDesignerWorkspace = async (userId: number): Promise<GetDesignerWorkspaceResponse> => {
@@ -26,13 +29,18 @@ export const createDesignerWorkspace = async (userId: number, data: CreateDesign
   return res.data;
 };
 
-export const getDesignerProfile = async (userId: number): Promise<GetDesignerProfileResponse> => {
-  const res = await DesignerAPI.get<GetDesignerProfileResponse>(`/v1/users/${userId}/profile`);
+export const updateRepresentativeBadge = async (userId: number, badgeId: number, data: UpdateRepresentativeBadgeRequest): Promise<UpdateRepresentativeBadgeResponse> => {
+  const res = await DesignerAPI.put<UpdateRepresentativeBadgeResponse>(`/v1/users/${userId}/badges/${badgeId}/representative`, data);
   return res.data;
 };
 
-export const updateDesignerProfile = async (userId: number, data: UpdateDesignerProfileRequest): Promise<UpdateDesignerProfileResponse> => {
-  const res = await DesignerAPI.put<UpdateDesignerProfileResponse>(`/v1/users/${userId}/profile`, data);
+export const getDesignerAccount = async (userId: number): Promise<GetDesignerAccountResponse> => {
+  const res = await DesignerAPI.get<GetDesignerAccountResponse>(`/v1/users/${userId}/account`);
+  return res.data;
+};
+
+export const updateDesignerAccount = async (userId: number, data: UpdateDesignerAccountRequest): Promise<UpdateDesignerAccountResponse> => {
+  const res = await DesignerAPI.put<UpdateDesignerAccountResponse>(`/v1/users/${userId}/account`, data);
   return res.data;
 };
 
@@ -44,6 +52,11 @@ export const uploadProfileImage = async (userId: number, image: File): Promise<U
       'Content-Type': 'multipart/form-data',
     },
   });
+  return res.data;
+};
+
+export const getDesignerBadges = async (userId: number): Promise<GetDesignerBadgesResponse> => {
+  const res = await DesignerAPI.get<GetDesignerBadgesResponse>(`/v1/users/${userId}/badges`);
   return res.data;
 };
 
