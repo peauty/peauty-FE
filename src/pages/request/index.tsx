@@ -87,10 +87,7 @@ export default function Request() {
           <BottomSheet options={["최신순", "평점 높은순"]} />
           <SelectWrapper>
             <SelectButton onClick={handleSelectClick}>
-              <SelectIcon
-                height={15}
-                color={isSelecting ? "blue100" : "gray300"}
-              />
+              <SelectIcon height={15} color="blue100" />
               <Text typo="subtitle300" color="blue100">
                 {isSelecting ? "완료" : "선택"}
               </Text>
