@@ -35,7 +35,7 @@ export function GNB({
   ];
 
   const stylistMenuItems = [
-    { icon: <Home />, label: "홈", path: ROUTE.designer.base },
+    { icon: <Home />, label: "홈", path: ROUTE.designer.home },
     { icon: <Calendar />, label: "스케줄", path: "/schedule" },
     { icon: <Check />, label: "견적 현황", path: "/propose" },
     { icon: <Smile />, label: "마이페이지", path: "/" },

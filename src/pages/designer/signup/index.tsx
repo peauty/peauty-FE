@@ -8,7 +8,10 @@ import {
   Title,
 } from "./index.styles";
 import { useLocation } from "../../../hooks/useLocation";
-import { useCheckNickname, useSignup } from "../../../apis/designer/hooks/useUser";
+import {
+  useCheckNickname,
+  useSignup,
+} from "../../../apis/designer/hooks/useUser";
 import { AppBar } from "../../../components/layout/AppBar";
 import { ProgressBlock } from "../../../components/progress/ProgressBlock";
 import { CustomInput } from "../../../components/input/CustomInput";
@@ -31,7 +34,8 @@ export const stepWords = [
   },
   {
     title: "이메일을 설정해주세요",
-    subTitle: "자격증 검토 결과는 입력하신 이메일로 발송되니, 정확한 이메일을 입력해주세요",
+    subTitle:
+      "자격증 검토 결과는 입력하신 이메일로 발송되니, 정확한 이메일을 입력해주세요",
     label: "이메일",
     placeholder: "이메일을 입력해주세요",
     regex: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
@@ -76,11 +80,11 @@ export default function DesignerSignUp() {
   const [success, setSuccess] = useState("");
   const [checkedNickname, setCheckedNickname] = useState("");
   const [isNickNameAvailable, setisNickNameAvailable] = useState(false);
-  const { location, error: locationError, locationLoading, fetchLocation } = useLocation();
+  const { location, error: locationError, locationLoading } = useLocation();
   const { check } = useCheckNickname();
   const { signup } = useSignup();
   const navigate = useNavigate();
-  const LOADINGIMAGE = "https://avatars.githubusercontent.com/u/70759627?v=4" // TODO: Change to your loading image
+  const LOADINGIMAGE = "https://avatars.githubusercontent.com/u/70759627?v=4"; // TODO: Change to your loading image
 
   const [formData, setFormData] = useState<Record<string, string>>({});
   const totalSteps = stepWords.length;
@@ -90,7 +94,8 @@ export default function DesignerSignUp() {
 
   useEffect(() => {
     if (currentStep === 0) {
-      const { name, profileImageUrl, socialPlatform, socialId } = parseQueryParams();
+      const { name, profileImageUrl, socialPlatform, socialId } =
+        parseQueryParams();
       setFormData({
         name: name,
         profileImageUrl: profileImageUrl,
@@ -158,14 +163,12 @@ export default function DesignerSignUp() {
     } else {
       const signupData: SignUpRequest = {
         socialId: formData.socialId || "",
-        socialPlatform: formData.socialPlatform as 'KAKAO' | 'GOOGLE' | 'APPLE',
+        socialPlatform: formData.socialPlatform as "KAKAO" | "GOOGLE" | "APPLE",
         name: formData.name || "",
-        phoneNum: formData.phone || "",
-        address: formData.location || "",
+        phoneNumber: formData.phone || "",
         nickname: inputValue || "",
         profileImageUrl: formData.profileImageUrl || "",
         email: formData.email || "", // Added email for designer signup
-        role: 'DESIGNER', // Added role specification for designer
       };
 
       try {
@@ -190,10 +193,18 @@ export default function DesignerSignUp() {
   return (
     <>
       {locationLoading && <Loading imageUrl={LOADINGIMAGE} />}
-      <AppBar prefix={"backButton"} onclick={handleBack} title="디자이너 회원가입" />
+      <AppBar
+        prefix={"backButton"}
+        onclick={handleBack}
+        title="디자이너 회원가입"
+      />
       <PageWrapper>
         <ContentWrapper>
-          <ProgressBlock current={currentStep + 1} gap={10} total={totalSteps} />
+          <ProgressBlock
+            current={currentStep + 1}
+            gap={10}
+            total={totalSteps}
+          />
           <Title>{title}</Title>
           {subTitle && (
             <SubTitle>
@@ -208,7 +219,13 @@ export default function DesignerSignUp() {
               value={inputValue}
               onChange={handleInputChange}
               error={error}
-              success={currentStep === 3 ? checkedNickname === inputValue ? success : "" : ""}
+              success={
+                currentStep === 3
+                  ? checkedNickname === inputValue
+                    ? success
+                    : ""
+                  : ""
+              }
               height="40px"
               suffix={
                 currentStep === 3 ? (
