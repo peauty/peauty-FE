@@ -26,7 +26,7 @@ export default function CustomerMyPageDetail() {
     };
 
     fetchProfile();
-  }, []);
+  }, [userId, isLoading]);
 
   const handleEditClick = () => {
     navigate(ROUTE.customer.mypage.edit);
@@ -64,7 +64,7 @@ export default function CustomerMyPageDetail() {
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">주소</Text>
+            <Text typo="subtitle300" color="gray100">지역</Text>
             <Text typo="body100" color="black">{profileData.address}</Text>
           </TextWrapper>
           <Divider />
