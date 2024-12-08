@@ -30,7 +30,7 @@ export interface UpdateDesignerWorkspaceResponse {
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
-  scissor?: 'NONE' | 'GOLD' | 'SILVER' | 'BRONZE';
+  scissors?: 'NONE' | 'GOLD' | 'SILVER' | 'BRONZE';
   introduceTitle?: string;
   introduce?: string;
   noticeTitle?: string;
@@ -74,7 +74,7 @@ export interface CreateDesignerWorkspaceResponse {
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
-  scissor?: 'NONE' | 'GOLD' | 'SILVER' | 'BRONZE';
+  scissors?: 'NONE' | 'GOLD' | 'SILVER' | 'BRONZE';
   introduceTitle?: string;
   introduce?: string;
   noticeTitle?: string;
@@ -111,28 +111,28 @@ export interface CreateDesignerWorkspaceRequest {
   phoneNumber?: string;
 }
 
-export interface GetDesignerProfileResponse {
+export interface GetDesignerAccountResponse {
   designerId?: number;
   name?: string;
   nickname?: string;
   profileImageUrl?: string;
   email?: string;
-  phoneNum?: string;
+  phoneNumber?: string;
 }
 
-export interface UpdateDesignerProfileResponse {
+export interface UpdateDesignerAccountResponse {
   designerId?: number;
   name?: string;
   nickname?: string;
-  phoneNum?: string;
+  phoneNumber?: string;
   profileImageUrl?: string;
   email?: string;
 }
 
-export interface UpdateDesignerProfileRequest {
+export interface UpdateDesignerAccountRequest {
   name?: string;
   nickname?: string;
-  phoneNum?: string;
+  phoneNumber?: string;
   address?: string;
   profileImageUrl?: string;
   email?: string;
