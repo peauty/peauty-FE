@@ -15,7 +15,7 @@ export default function DesignerMyPage() {
                     </ProfileImageWrapper>
                     <ProfileMenuWrapper>
                         <MyInfoWrapper>
-                            <Text typo={"subtitle100"} color={"blue100"} font-weight="bold">화난거아니다<Text typo={"subtitle100"}> 님</Text>
+                            <Text typo={"subtitle100"} color={"blue100"}>화난거아니다<Text typo={"subtitle100"}> 님</Text>
                             </Text>
                             <Text typo={"subtitle300"} color={"gray100"}>내 정보 수정하기</Text>
                         </MyInfoWrapper>

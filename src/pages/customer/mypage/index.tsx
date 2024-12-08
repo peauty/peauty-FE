@@ -69,7 +69,7 @@ export default function CustomerMyPage() {
             </ProfileImageWrapper>
             <ProfileMenuWrapper>
               <MyInfoWrapper>
-                <Text typo={"subtitle100"} color={"blue100"} font-weight="bold">
+                <Text typo={"subtitle100"} color={"blue100"}>
                   {profile?.customerNickname || "사용자"}<Text typo={"subtitle100"}> 님</Text>
                 </Text>
                 <Text typo={"subtitle300"} color={"gray100"}>
