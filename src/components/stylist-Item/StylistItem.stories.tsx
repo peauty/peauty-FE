@@ -45,7 +45,7 @@ export const Default: Story = {
     name: "수석실장 시언",
     imageUrl: "https://via.placeholder.com/65",
     location: "몽끄의 아틀리에 위례점",
-    star: 3,
+    star: "3.0",
     starCount: 12,
     career: 5,
     badges: [
@@ -60,7 +60,7 @@ export const NoBadges: Story = {
     name: "실장 민지",
     imageUrl: "https://via.placeholder.com/65",
     location: "헤어샵 강남점",
-    star: 3,
+    star: "3.0",
     starCount: 20,
     career: 3,
     badges: [],
@@ -72,7 +72,7 @@ export const ManyBadges: Story = {
     name: "디자이너 혜원",
     imageUrl: "https://via.placeholder.com/65",
     location: "프리미엄 헤어살롱",
-    star: 5,
+    star: "5.0",
     starCount: 50,
     career: 10,
     badges: [

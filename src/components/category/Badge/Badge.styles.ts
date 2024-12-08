@@ -5,7 +5,7 @@ export const BadgeWrapper = styled.div<{
   borderRadius: string;
   padding: string;
 }>`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: ${({ backgroundColor }) => backgroundColor};
