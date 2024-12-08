@@ -39,11 +39,6 @@ export const MyInfoWrapper = styled.div`
     flex-direction: column;
 `;
 
-export const BoldText = styled.div`
-    ${typography.subtitle200};
-    font-weight: bold;
-`
-
 export const InfoWrapper = styled.div`
     gap: 5px;
     display: flex;

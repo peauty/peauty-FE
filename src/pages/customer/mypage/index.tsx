@@ -101,15 +101,15 @@ export default function CustomerMyPage() {
           )}
           <Divider />
           <InfoWrapper>
-            <BoldText>미용내역</BoldText>
+            <Text typo="subtitle200">미용내역</Text>
             <InfoButton message={"미용내역스"} />
           </InfoWrapper>
           <SubMenuButton text="퓨티 미용 내역" to="/" />
           <Divider />
-          <BoldText>리뷰</BoldText>
+          <Text typo="subtitle200">리뷰</Text>
           <SubMenuButton text="리뷰 내역" to="/" />
           <Divider />
-          <BoldText>고객지원</BoldText>
+          <Text typo="subtitle200">고객지원</Text>
           <SubMenuButton text="공지사항" to="/" />
           <SubMenuButton text="이용약관" to="/" />
           <SubMenuButton text="퓨티안내" to="/" />
