@@ -8,7 +8,6 @@ export const MyPageEditWrapper = styled.div`
   height:100vh;
   margin-top: 30px;
 `;
-`;
 
 export const NicknameAvailabilityMessage = styled.div<{ isAvailable: boolean }>`
   color: ${({ isAvailable }) => (isAvailable ? 'green' : 'red')};
