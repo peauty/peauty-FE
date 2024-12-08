@@ -25,8 +25,11 @@ export default function CustomerSignUpComplete() {
                 <ContentWrapper>
                     <Text typo={"title200"}>회원가입이 완료됐어요!</Text>
                     <Text typo={"subtitle200"}>
-                        <Text typo={"subtitle200"} color={"blue100"}>추가정보</Text>
-                        를 등록하시겠어요?</Text>
+            <Text typo={"subtitle200"} color={"blue100"}>
+              반려견
+            </Text>
+            을 등록하시겠어요?
+          </Text>
                 </ContentWrapper>
                 <ButtonWrapper>
                     <CustomButton variant="outline" size="big" onClick={handleRegisterNow}>지금 등록할게요</CustomButton>
