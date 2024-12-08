@@ -2,10 +2,11 @@ export const ROUTE = {
   // Main routes
   intro: "/intro", // 인트로
   signIn: "/signin", // 로그인
-
+  
   // Customer routes
   customer: {
     home: "/customer/home",
+    shop: "/customer/shop",
     mypage: {
       home: "/customer/mypage",
       detail: "/customer/mypage/detail",
@@ -28,7 +29,6 @@ export const ROUTE = {
     mypageDetail: "/designer/mypage/detail", // 디자이너 마이페이지 회원 상세 정보 페이지
     mypageEdit: "/designer/mypage/edit", // 디자이너 마이페이지 수정
   },
-  shop: "/shop",
   // Error route
   notFound: "*",
 };
