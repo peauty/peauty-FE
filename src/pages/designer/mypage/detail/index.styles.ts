@@ -23,5 +23,4 @@ export const TextWrapper = styled.div`
 
 export const LeftAlignedText = styled.div`
   align-self: flex-end; 
-  //padding:0px 25px;
 `;
