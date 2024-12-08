@@ -6,6 +6,7 @@ import { designerPaths } from "./designer";
 import { rootPaths } from "./root";
 import Shop from "../pages/shop";
 import theme from "../style/theme";
+import Request from "../pages/request";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,23 @@ export const router = createBrowserRouter([
     path: "/designer",
     element: <Layout />,
     children: designerPaths,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/request",
+    element: (
+      <Layout
+        style={{
+          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+        }}
+      />
+    ),
+    children: [
+      {
+        path: "", // 기본 경로
+        element: <Request />,
+      },
+    ],
     errorElement: <NotFound />,
   },
   {
