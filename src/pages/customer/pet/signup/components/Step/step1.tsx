@@ -35,16 +35,7 @@ export default function Step1({
   onGenderSelect,
   selectedGenderIndex,
 }: Step1Props) {
-  const {  inputData,
-    handleChange,
-    updateDisease,
-    updateDiseaseDescription,
-    setPuppySize,
-    setBreed, } = signUpCustomHook();
-
-  // function setPuppySize(size: number): void {
-  //   throw new Error("Function not implemented.");
-  // }
+  const { inputData, handleChange, setPuppySize, setBreed } = signUpCustomHook();
 
   return (
     <div>
@@ -86,12 +77,12 @@ export default function Step1({
           value={inputData.name}
           onChange={(event) => handleChange(event, "name")}
         />
-
+        
         <DropButton
           label="견종"
           placeholder="견종을 선택해주세요"
           options={["말티즈", "푸들", "진돗개", "시츄"]}
-          onSelect={(value) => setBreed(value)} // 견종 값 설정
+          onSelect={(value) => setBreed(value as RegisterPuppyRequest['breed'])}
         />
 
         <Text typo="subtitle300">
@@ -99,8 +90,11 @@ export default function Step1({
           <RadioSelectButton
             col={3}
             buttonNames={["SMALL", "MEDIUM", "LARGE"]}
-            selectedIndex={parseInt(inputData.puppySize ?? "0")}
-            onSelect={(size) => setPuppySize(size)}
+            selectedIndex={["SMALL", "MEDIUM", "LARGE"].indexOf(inputData.puppySize || "MEDIUM")}
+            onSelect={(index) => {
+              const selectedSize = ["SMALL", "MEDIUM", "LARGE"][index];
+              setPuppySize(selectedSize as "SMALL" | "MEDIUM" | "LARGE");
+            }}
           />
         </Text>
 
@@ -110,7 +104,6 @@ export default function Step1({
             buttonNames={["남아", "여아"]}
             selectedIndex={selectedGenderIndex === "M" ? 0 : 1}
             onSelect={(value) => {
-              (value === 0 ? "M" : "F");
               onGenderSelect(value === 0 ? "M" : "F");
             }}
           />
