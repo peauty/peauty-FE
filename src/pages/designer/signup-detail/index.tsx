@@ -76,9 +76,8 @@ export default function DesignerSignUpDetail() {
               경력을 등록하면 고객에게 전문성을 어필할 수 있어요
             </Text>
           </Style.TitleWrapper>
-          <Style.RowWrapper>
+
             <CustomInput placeholder="예) 22" extraText="년" />
-          </Style.RowWrapper>
         </Style.SectionWrapper>
 
         <Style.SectionWrapper>
