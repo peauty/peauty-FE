@@ -13,9 +13,9 @@ import {
   InputWrapper,
   HalfWrapper,
 } from "../../index.styles";
-import { AddPuppyRequest } from "../../../../../../types/customer/puppy";
 
-import { signUpCustomHook } from "../../../../../../hooks/signUpCustomHook";
+import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCustomHook";
+import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 
 interface Step1Props {
   onNext: () => void;
@@ -25,7 +25,7 @@ interface Step1Props {
   onGenderSelect: (index: string) => void;
   selectedBreedIndex: string;
   selectedGenderIndex: string;
-  inputData: AddPuppyRequest;
+  inputData: RegisterPuppyRequest;
 }
 
 export default function Step1({

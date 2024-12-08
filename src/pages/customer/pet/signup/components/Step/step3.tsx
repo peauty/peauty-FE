@@ -2,7 +2,7 @@ import { CustomInput } from "../../../../../../components/input/CustomInput";
 import { CustomButton } from "../../../../../../components/button/CustomButton";
 import { SectionWrapper } from "../../index.styles";
 import { Text } from "../../../../../../components/texts/Text";
-import { signUpCustomHook } from "../../../../../../hooks/signUpCustomHook";
+import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCustomHook";
 
 interface Step3Props {
   onSubmit: () => void;

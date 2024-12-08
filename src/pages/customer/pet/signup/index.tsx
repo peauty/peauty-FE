@@ -4,7 +4,7 @@ import { ProgressWrapper, ProgressBlock } from "./index.styles";
 import Step1 from "./components/Step/step1";
 import Step2 from "./components/Step/step2";
 import Step3 from "./components/Step/step3";
-import { signUpCustomHook } from '../../../../hooks/signUpCustomHook';
+import { signUpCustomHook } from '../../../../apis/customer/hooks/signUpCustomHook';
 import axios from 'axios';
 import { useUserDetails } from "../../../../hooks/useUserDetails"; 
 

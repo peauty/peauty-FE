@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { AddPuppyRequest } from "../types/customer/puppy";
+import { RegisterPuppyRequest } from "../../../types/customer/puppy";
 
 export function signUpCustomHook() {
-  const [inputData, setInputData] = useState<AddPuppyRequest>({
+  const [inputData, setInputData] = useState<RegisterPuppyRequest>({
     name: "",
     breed: "TERRIER",
     weight: 0,
@@ -16,7 +16,7 @@ export function signUpCustomHook() {
     puppySize: "MEDIUM",
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: string) => {
     const value = event.target.value;
     console.log(`Key: ${key}, Value: ${value}`);
     setInputData((prev) => ({
@@ -50,7 +50,7 @@ export function signUpCustomHook() {
     setInputData((prev) => ({ ...prev, puppySize: size }));
   };
 
-  const setBreed = (breed: AddPuppyRequest['breed']) => {
+  const setBreed = (breed: RegisterPuppyRequest['breed']) => {
     setInputData((prev) => ({ ...prev, breed }));
   };
   

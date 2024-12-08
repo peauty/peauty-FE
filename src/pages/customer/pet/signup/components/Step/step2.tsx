@@ -1,15 +1,15 @@
-import { signUpCustomHook } from "../../../../../../hooks/signUpCustomHook";
+import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCustomHook";
 import { MultiSelectButton } from "../../../../../../components/button/MultiSelectButton";
 import { CustomInput } from "../../../../../../components/input/CustomInput";
 import { CustomButton } from "../../../../../../components/button/CustomButton";
 import {  SectionWrapper } from "../../index.styles";
 import { Text } from "../../../../../../components/texts/Text";
-import { AddPuppyRequest } from "../../../../../../types/customer/puppy";
+import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 
 
 interface Step2Props {
   onNext: () => void;
-  inputData: AddPuppyRequest;
+  inputData: RegisterPuppyRequest;
 }
 
 export default function Step2({ onNext }: Step2Props) {
