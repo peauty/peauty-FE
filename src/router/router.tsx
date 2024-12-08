@@ -8,6 +8,12 @@ import theme from "../style/theme";
 import { customerPaths2 } from "./customer";
 export const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Layout />,
+    children: rootPaths,
+    errorElement: <NotFound />,
+  },
+  {
     path: "/customer",
     children: [
       {
@@ -15,11 +21,13 @@ export const router = createBrowserRouter([
         children: customerPaths,
       },
       {
-        element:  <Layout
-        style={{
-          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
-        }}
-      />,
+        element: (
+          <Layout
+            style={{
+              padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+            }}
+          />
+        ),
         children: customerPaths2,
       },
     ],
