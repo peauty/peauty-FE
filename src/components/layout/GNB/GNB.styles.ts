@@ -11,7 +11,7 @@ export const Nav = styled.nav`
   max-width: 480px;
   background: #ffffff;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 900; // 모달보다는 낮은 위치에 존재해야하므로 수정
 `;
 
 export const MenuItem = styled.div<{ isActive: boolean }>`
