@@ -16,6 +16,8 @@ interface CardProps {
   weight: string;
   breed: string;
   tags: string[];
+  onClick?: () => void;
+  isSelected?: boolean;
 }
 
 export default function Card({
@@ -26,9 +28,11 @@ export default function Card({
   weight,
   breed,
   tags,
+  onClick,
+  isSelected = false,
 }: CardProps) {
   return (
-    <CardWrapper>
+    <CardWrapper onClick={onClick} isSelected={isSelected}>
       <div>
         <ProfileImg
           src={imageSrc}

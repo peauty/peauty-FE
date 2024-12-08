@@ -16,8 +16,9 @@ export const ROUTE = {
       pet: {
     },
     request: {
-      notice: "/customer/request/notice",
-      choosePet: "/customer/request/choose-pet-for-grooming", // 반려동물 정보 수정
+      notice: "/customer/request/notice", // 요청서 보내기 전 공지 확인
+      choosePet: "/customer/request/choose-pet-for-grooming", // 미용할 반려동물 선택
+      customizeGrooming: "/customer/request/customize-grooming", // 미용 방법 구체적으로 선택
       },
     },
     designer: {
