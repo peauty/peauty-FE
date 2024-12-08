@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Arrow } from "../../../assets/svg";
 import { CiCirclePlus } from "react-icons/ci";
-import { StyledSubMenuButton, Text } from "./SubMenuButton.styles";
-
+import { StyledSubMenuButton } from "./SubMenuButton.styles";
+import { Text } from "../../texts/Text";
 export interface SubMenuButtonProps {
   /**
    * 공지사항 텍스트
@@ -18,7 +18,11 @@ export interface SubMenuButtonProps {
   iconType?: "arrow" | "plus";
 }
 
-export default function SubMenuButton({ text, to, iconType = "arrow" }: SubMenuButtonProps) {
+export default function SubMenuButton({
+  text,
+  to,
+  iconType = "arrow",
+}: SubMenuButtonProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -38,7 +42,7 @@ export default function SubMenuButton({ text, to, iconType = "arrow" }: SubMenuB
 
   return (
     <StyledSubMenuButton onClick={handleClick}>
-      <Text>{text}</Text>
+      <Text typo="body100">{text}</Text>
       {renderIcon()}
     </StyledSubMenuButton>
   );
