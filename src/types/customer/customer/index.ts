@@ -58,8 +58,3 @@ export interface GetAroundWorkspacesResponse {
 export interface CheckCustomerNicknameDuplicatedResponse {
   message?: string;
 }
-
-export interface GetDesignerBadgesForCustomerResponse {
-  acquiredBadges?: BadgeResponse[];
-  representativeBadges?: BadgeResponse[];
-}

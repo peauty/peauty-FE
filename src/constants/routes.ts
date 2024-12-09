@@ -2,7 +2,7 @@ export const ROUTE = {
   // Main routes
   intro: "/intro", // 인트로
   signIn: "/signin", // 로그인
-  
+
   // Customer routes
   customer: {
     home: "/customer/home",
@@ -22,7 +22,7 @@ export const ROUTE = {
     },
   },
   designer: {
-    base: "/designer", // 디자이너 기본 경로
+    home: "/designer/home", // 디자이너 기본 경로
     signup: "/designer/signup", // 디자이너 회원가입
     signupComplete: "/designer/signup-complete", // 디자이너 회원가입 완료
     signupDetail: "/designer/signup-detail", // 디자이너 회원가입 상세

@@ -73,3 +73,8 @@ export const BadgeWrapper = styled.div`
   display: flex;
   gap: 5px;
 `;
+
+export const ContentsWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;

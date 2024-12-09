@@ -9,6 +9,7 @@ import {
   Details,
   RatingWrapper,
   Thumbnail,
+  ContentsWrapper,
 } from "./index.styles";
 
 interface DesignerItemProps {
@@ -37,40 +38,42 @@ export default function DesignerItem({
   onClick,
 }: DesignerItemProps) {
   return (
-    <Container onClick={onClick}>
+    <Container>
       {isSelecting && (
         <CheckboxWrapper>
           <Checkbox checked={isChecked} onChange={onCheckboxChange} />
         </CheckboxWrapper>
       )}
-      <Thumbnail src={thumbnailUrl} alt={`${name}의 섬네일`} />
-      <Details>
-        <Text typo="subtitle200">{name}</Text>
-        <Text typo="body600">{name}</Text>
-        <RatingWrapper>
-          <Rating
-            starSize="10"
-            score={score}
-            fontsize="body600"
-            color="gray100"
-          />
-          <Text typo="body600" color="gray100">
-            ({review}) | 경력 {experience}년
-          </Text>
-        </RatingWrapper>
-        <BadgeWrapper>
-          {badges.map((badge, idx) => (
-            <Badge
-              key={idx}
-              type="general"
-              text={badge.name}
-              // variant={badge.color}
-              variant="blue"
-              // color={badge.color}
+      <ContentsWrapper onClick={onClick}>
+        <Thumbnail src={thumbnailUrl} alt={`${name}의 섬네일`} />
+        <Details>
+          <Text typo="subtitle200">{name}</Text>
+          <Text typo="body600">{name}</Text>
+          <RatingWrapper>
+            <Rating
+              starSize="10"
+              score={score}
+              fontsize="body600"
+              color="gray100"
             />
-          ))}
-        </BadgeWrapper>
-      </Details>
+            <Text typo="body600" color="gray100">
+              ({review}) | 경력 {experience}년
+            </Text>
+          </RatingWrapper>
+          <BadgeWrapper>
+            {badges.map((badge, idx) => (
+              <Badge
+                key={idx}
+                type="general"
+                text={badge.name}
+                // variant={badge.color}
+                variant="blue"
+                // color={badge.color}
+              />
+            ))}
+          </BadgeWrapper>
+        </Details>
+      </ContentsWrapper>
     </Container>
   );
 }

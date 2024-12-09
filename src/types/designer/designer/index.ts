@@ -111,16 +111,6 @@ export interface CreateDesignerWorkspaceRequest {
   phoneNumber?: string;
 }
 
-export interface UpdateRepresentativeBadgeResponse {
-  badgeId?: number;
-  badgeName?: string;
-  isRepresentativeBadge?: boolean;
-}
-
-export interface UpdateRepresentativeBadgeRequest {
-  isRepresentativeBadge?: boolean;
-}
-
 export interface GetDesignerAccountResponse {
   designerId?: number;
   name?: string;
@@ -151,12 +141,6 @@ export interface UpdateDesignerAccountRequest {
 export interface UploadProfileImageResponse {
   designerId?: number;
   uploadedProfileImageUrl?: string;
-}
-
-export interface GetDesignerBadgesResponse {
-  acquiredBadges?: BadgeResponse[];
-  unacquiredBadges?: BadgeResponse[];
-  representativeBadges?: BadgeResponse[];
 }
 
 export interface CheckDesignerNicknameDuplicatedResponse {
