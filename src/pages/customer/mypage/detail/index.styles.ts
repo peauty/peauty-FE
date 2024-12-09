@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const PageWrapper = styled.div`
   display: flex;
@@ -17,10 +17,15 @@ export const FieldWrapper = styled.div`
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px; 
+  gap: 8px;
 `;
 
-
 export const LeftAlignedText = styled.div`
-  align-self: flex-end; 
+  align-self: flex-end;
+`;
+
+export const EndWrapper = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
 `;
