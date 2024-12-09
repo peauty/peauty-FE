@@ -3,14 +3,19 @@ import { CustomButton } from "../../../../../../components/button/CustomButton";
 import { SectionWrapper } from "../../index.styles";
 import { Text } from "../../../../../../components/texts/Text";
 import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCustomHook";
+import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 
 interface Step3Props {
   onSubmit: () => void;
+  inputData: RegisterPuppyRequest;
+  handleChange: (key: string, value: string) => void;
 }
 
-export default function Step3({ onSubmit }: Step3Props) {
-  const { inputData, handleChange } = signUpCustomHook();
-
+export default function Step3({
+  onSubmit,
+  inputData,
+  handleChange,
+}: Step3Props) {
   return (
     <div>
       <SectionWrapper>
@@ -26,8 +31,8 @@ export default function Step3({ onSubmit }: Step3Props) {
           placeholder="참고할 점을 알려주세요"
           fullwidth={true}
           variant="outlined"
-          value={inputData.detail}  
-          onChange={(event) => handleChange(event, "detail")} 
+          value={inputData.detail}
+          onChange={(event) => handleChange("detail", event.target.value)}
         />
 
         <CustomButton size="medium" onClick={onSubmit}>

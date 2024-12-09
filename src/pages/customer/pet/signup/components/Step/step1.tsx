@@ -14,28 +14,30 @@ import {
   HalfWrapper,
 } from "../../index.styles";
 
-import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCustomHook";
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
+import { ChangeEvent } from "react";
 
 interface Step1Props {
   onNext: () => void;
-  onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  profileImage: string | null;
-  onBreedSelect: (index: string) => void;
-  onGenderSelect: (index: string) => void;
-  selectedBreedIndex: string;
-  selectedGenderIndex: string;
   inputData: RegisterPuppyRequest;
+  handleChange: (key: string, value: string) => void;
 }
 
-export default function Step1({
-  onNext,
-  onImageUpload,
-  profileImage,
-  onGenderSelect,
-  selectedGenderIndex,
-}: Step1Props) {
-  const { inputData, handleChange, setPuppySize, setBreed } = signUpCustomHook();
+export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: string,
+  ) => {
+    handleChange(key, event.target.value);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      handleChange("profileImageUrl", imageUrl);
+    }
+  };
 
   return (
     <div>
@@ -48,13 +50,13 @@ export default function Step1({
               type="file"
               accept="image/*"
               style={{ display: "none" }}
-              onChange={onImageUpload}
+              onChange={handleFileChange}
             />
           </label>
         </CameraIcon>
-        {profileImage ? (
+        {inputData.profileImageUrl ? (
           <img
-            src={profileImage}
+            src={inputData.profileImageUrl}
             alt="Pet Profile"
             width="132"
             height="132"
@@ -75,14 +77,14 @@ export default function Step1({
           fullwidth={true}
           variant="outlined"
           value={inputData.name}
-          onChange={(event) => handleChange(event, "name")}
+          onChange={(event) => handleInputChange(event, "name")}
         />
-        
+
         <DropButton
           label="견종"
           placeholder="견종을 선택해주세요"
           options={["말티즈", "푸들", "진돗개", "시츄"]}
-          onSelect={(value) => setBreed(value as RegisterPuppyRequest['breed'])}
+          onSelect={(value) => handleChange("breed", value)}
         />
 
         <Text typo="subtitle300">
@@ -90,10 +92,12 @@ export default function Step1({
           <RadioSelectButton
             col={3}
             buttonNames={["SMALL", "MEDIUM", "LARGE"]}
-            selectedIndex={["SMALL", "MEDIUM", "LARGE"].indexOf(inputData.puppySize || "MEDIUM")}
+            selectedIndex={["SMALL", "MEDIUM", "LARGE"].indexOf(
+              inputData.puppySize || "MEDIUM",
+            )}
             onSelect={(index) => {
               const selectedSize = ["SMALL", "MEDIUM", "LARGE"][index];
-              setPuppySize(selectedSize as "SMALL" | "MEDIUM" | "LARGE");
+              handleChange("puppySize", selectedSize);
             }}
           />
         </Text>
@@ -102,10 +106,8 @@ export default function Step1({
           성별
           <RadioSelectButton
             buttonNames={["남아", "여아"]}
-            selectedIndex={selectedGenderIndex === "M" ? 0 : 1}
-            onSelect={(value) => {
-              onGenderSelect(value === 0 ? "M" : "F");
-            }}
+            selectedIndex={inputData.sex === "M" ? 0 : 1}
+            onSelect={(index) => handleChange("sex", index === 0 ? "M" : "F")}
           />
         </Text>
 
@@ -115,10 +117,12 @@ export default function Step1({
               label="나이"
               placeholder="예) 4"
               variant="outlined"
-              value={inputData.age}
-              onChange={(event) => handleChange(event, "age")}
+              value={String(inputData.age)}
+              onChange={(event) => handleInputChange(event, "age")}
             />
-            <Text color="gray100" typo="body100">살</Text>
+            <Text color="gray100" typo="body100">
+              살
+            </Text>
           </HalfWrapper>
 
           <HalfWrapper>
@@ -126,10 +130,12 @@ export default function Step1({
               label="몸무게"
               placeholder="예) 22"
               variant="outlined"
-              value={inputData.weight}
-              onChange={(event) => handleChange(event, "weight")}
+              value={String(inputData.weight)}
+              onChange={(event) => handleInputChange(event, "weight")}
             />
-            <Text color="gray100" typo="body100">kg</Text>
+            <Text color="gray100" typo="body100">
+              kg
+            </Text>
           </HalfWrapper>
         </InputWrapper>
 

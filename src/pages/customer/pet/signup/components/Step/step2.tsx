@@ -2,29 +2,42 @@ import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCu
 import { MultiSelectButton } from "../../../../../../components/button/MultiSelectButton";
 import { CustomInput } from "../../../../../../components/input/CustomInput";
 import { CustomButton } from "../../../../../../components/button/CustomButton";
-import {  SectionWrapper } from "../../index.styles";
+import { SectionWrapper } from "../../index.styles";
 import { Text } from "../../../../../../components/texts/Text";
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
-
 
 interface Step2Props {
   onNext: () => void;
   inputData: RegisterPuppyRequest;
+  handleChange: (key: string, value: string) => void;
+  handleDiseaseChange: (diseaseValue: string[]) => void;
 }
 
-export default function Step2({ onNext }: Step2Props) {
-  const { inputData, updateDisease, updateDiseaseDescription } = signUpCustomHook();
-
+export default function Step2({
+  onNext,
+  inputData,
+  handleChange,
+  handleDiseaseChange,
+}: Step2Props) {
   const handleDiseaseSelect = (selectedIndexes: number[]) => {
     const diseases = [
-      "없음", "외이염", "슬개골", "CANINE_INFLUENZA", "HEART_WORM", "PARVOVIRUS", "RABIES", "기타",
+      "없음",
+      "외이염",
+      "슬개골",
+      "CANINE_INFLUENZA",
+      "HEART_WORM",
+      "PARVOVIRUS",
+      "RABIES",
+      "기타",
     ];
     const selectedDiseases = selectedIndexes.map((index) => diseases[index]);
-    updateDisease(selectedDiseases);
+    handleDiseaseChange(selectedDiseases);
   };
 
-  const handleDiseaseDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateDiseaseDescription(event.target.value);
+  const handleDiseaseDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    handleChange("diseaseDescription", event.target.value);
   };
 
   return (
@@ -40,7 +53,16 @@ export default function Step2({ onNext }: Step2Props) {
       <MultiSelectButton
         row={3}
         col={3}
-        buttonNames={["없음", "슬개골", "KENNEL_COUGH", "CANINE_INFLUENZA", "HEART_WORM", "PARVOVIRUS", "RABIES", "기타"]}
+        buttonNames={[
+          "없음",
+          "슬개골",
+          "KENNEL_COUGH",
+          "CANINE_INFLUENZA",
+          "HEART_WORM",
+          "PARVOVIRUS",
+          "RABIES",
+          "기타",
+        ]}
         selectedIndexes={[]} // 선택된 질병 인덱스
         onSelect={handleDiseaseSelect}
       />

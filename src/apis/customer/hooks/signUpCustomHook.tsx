@@ -10,50 +10,26 @@ export function signUpCustomHook() {
     age: 0,
     birthdate: "",
     detail: "",
-    disease: [],
+    disease: [], // disease 초기값을 빈 배열로 설정
     diseaseDescription: "",
     profileImageUrl: "",
     puppySize: "MEDIUM",
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: string) => {
-    const value = event.target.value;
-    console.log(`Key: ${key}, Value: ${value}`);
+  const handleChange = (key: string, value: string) => {
     setInputData((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
 
-  const updateDisease = (diseases: string[]) => {
-    // diseases는 이제 string[] 타입을 받습니다.
-    console.log(diseases); // 질병 이력을 처리
-  };
-  
-
-
-  // const updateDisease = (diseases:[]) => {
-  //   setInputData((prev) => ({
-  //     ...prev,
-  //     disease: diseases,
-  //   }));
-  // };
-
-  const updateDiseaseDescription = (description: string) => {
+  const handleDiseaseChange = (diseaseValue: string[]) => {
     setInputData((prev) => ({
       ...prev,
-      diseaseDescription: description,
+      disease: diseaseValue, // disease 필드 업데이트
     }));
   };
 
-  const setPuppySize = (size: "SMALL" | "MEDIUM" | "LARGE") => {
-    setInputData((prev) => ({ ...prev, puppySize: size }));
-  };
-
-  const setBreed = (breed: RegisterPuppyRequest['breed']) => {
-    setInputData((prev) => ({ ...prev, breed }));
-  };
-  
   useEffect(() => {
     console.log("Updated inputData:", inputData);
   }, [inputData]);
@@ -61,9 +37,6 @@ export function signUpCustomHook() {
   return {
     inputData,
     handleChange,
-    updateDisease,
-    updateDiseaseDescription,
-    setPuppySize,
-    setBreed,
+    handleDiseaseChange, // 반환에 handleDiseaseChange 추가
   };
 }

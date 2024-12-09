@@ -4,61 +4,29 @@ import { ProgressWrapper, ProgressBlock } from "./index.styles";
 import Step1 from "./components/Step/step1";
 import Step2 from "./components/Step/step2";
 import Step3 from "./components/Step/step3";
-import { signUpCustomHook } from '../../../../apis/customer/hooks/signUpCustomHook';
-import axios from 'axios';
-import { useUserDetails } from "../../../../hooks/useUserDetails"; 
+import { signUpCustomHook } from "../../../../apis/customer/hooks/signUpCustomHook";
+import axios from "axios";
+import { useUserDetails } from "../../../../hooks/useUserDetails";
+import { registerPuppy } from "../../../../apis/customer/resources/puppy";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../../constants/routes";
 
 export default function PetSignUp() {
+  const navigate = useNavigate();
+
   const totalSteps = 3;
   const [currentStep, setCurrentStep] = useState(1);
 
   // Hook을 통해 받은 값들
-  const {  
-    inputData,
-    handleChange,
-    updateDisease,
-    updateDiseaseDescription,
-    setPuppySize,
-    setBreed, 
-  } = signUpCustomHook();
-
-  const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [selectedBreedIndex, setSelectedBreedIndex] = useState<string>("");
-  const [selectedGenderIndex, setSelectedGenderIndex] = useState<string>("");
+  const { inputData, handleChange, handleDiseaseChange } = signUpCustomHook();
 
   // useUserDetails 훅을 사용하여 userId 가져오기
-  const { userId, isLoading } = useUserDetails(); 
+  const { userId, isLoading } = useUserDetails();
 
   const handleNext = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
-  };
-
-  // 이미지 업로드 핸들러
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setProfileImage(URL.createObjectURL(file));
-    }
-  };
-
-  // 품종 선택 핸들러
-  const handleBreedSelect = (value: string) => {
-    setSelectedBreedIndex(value);
-    const event = {
-      target: { value }
-    } as React.ChangeEvent<HTMLInputElement>;  // { value }를 ChangeEvent 타입으로 형변환
-    handleChange(event, 'breed');
-  };
-  
-  // 성별 선택 핸들러
-  const handleGenderSelect = (index: string) => {
-    setSelectedGenderIndex(index);
-    const event = {
-      target: { value: index }
-    } as React.ChangeEvent<HTMLInputElement>;  // { value }를 ChangeEvent 타입으로 형변환
-    handleChange(event, 'sex');
   };
 
   // Step 렌더링 함수
@@ -68,19 +36,27 @@ export default function PetSignUp() {
         return (
           <Step1
             onNext={handleNext}
-            onImageUpload={handleImageUpload}
-            profileImage={profileImage}
-            onBreedSelect={handleBreedSelect}
-            onGenderSelect={handleGenderSelect}
-            selectedBreedIndex={selectedBreedIndex}
-            selectedGenderIndex={selectedGenderIndex}
-            inputData={inputData}   
+            inputData={inputData}
+            handleChange={handleChange}
           />
         );
       case 2:
-        return <Step2 onNext={handleNext} inputData={inputData} />;
+        return (
+          <Step2
+            onNext={handleNext}
+            inputData={inputData}
+            handleChange={handleChange}
+            handleDiseaseChange={handleDiseaseChange}
+          />
+        );
       case 3:
-        return <Step3 onSubmit={handleSubmit} />;
+        return (
+          <Step3
+            onSubmit={handleSubmit}
+            inputData={inputData}
+            handleChange={handleChange}
+          />
+        );
       default:
         return null;
     }
@@ -95,25 +71,24 @@ export default function PetSignUp() {
 
     try {
       const payload = {
-        puppyId: 0,  // 실제로는 생성된 반려견 ID를 사용해야 할 수 있음
+        puppyId: 0, // 실제로는 생성된 반려견 ID를 사용해야 할 수 있음
         name: inputData.name,
-        breed: selectedBreedIndex,
+        breed: inputData.breed,
         weight: inputData.weight,
-        sex: selectedGenderIndex,
+        sex: inputData.sex,
         age: inputData.age,
-        birthdate: inputData.birthdate,
+        birthdate: "2023-12-03", // TODO
         detail: inputData.detail,
-        disease: inputData.disease,
+        disease: [], // TODO
         diseaseDescription: inputData.diseaseDescription,
-        profileImageUrl: profileImage || '',
+        profileImageUrl: inputData.profileImageUrl || "",
         puppySize: inputData.puppySize,
       };
 
       // POST 요청
-      const response = await axios.post(`/v1/users/${userId}/puppies`, payload);  // userId를 URL에 포함
-      if (response.status === 200) {
-        alert("반려견 등록이 완료되었습니다!");
-      }
+      await registerPuppy(userId, payload);
+      alert("등록 완료");
+      navigate(ROUTE.customer.mypage.home);
     } catch (error) {
       console.error("반려견 등록 실패:", error);
       alert("반려견 등록에 실패했습니다.");
