@@ -32,14 +32,35 @@ export interface UploadProfileImageResponse {
 export interface GetAroundWorkspacesResponse {
   customerId?: number;
   customerAddress?: string;
-  workspaces?: GetAroundWorkspaceResponse[];
+  workspaces?: {
+    workspaceId?: number;
+    workspaceName?: string;
+    address?: string;
+    addressDetail?: string;
+    bannerImageUrl?: string;
+    reviewCount?: number;
+    reviewRating?: number;
+    designerName?: string;
+    yearOfExperience?: number;
+    representativeBadgesName?: string[];
+    scissorsRank?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
+  }[];
+}
+
+export interface GetAroundWorkspaceResponse {
+  workspaceId?: number;
+  workspaceName?: string;
+  address?: string;
+  addressDetail?: string;
+  bannerImageUrl?: string;
+  reviewCount?: number;
+  reviewRating?: number;
+  designerName?: string;
+  yearOfExperience?: number;
+  representativeBadgesName?: string[];
+  scissorsRank?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
 }
 
 export interface CheckCustomerNicknameDuplicatedResponse {
   message?: string;
-}
-
-export interface GetDesignerBadgesForCustomerResponse {
-  acquiredBadges?: BadgeResponse[];
-  representativeBadges?: BadgeResponse[];
 }
