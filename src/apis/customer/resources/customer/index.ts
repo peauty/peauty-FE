@@ -6,7 +6,6 @@ import { UploadProfileImageResponse } from "../../../../types/customer/customer"
 import FormData from "form-data";
 import { GetAroundWorkspacesResponse } from "../../../../types/customer/customer";
 import { CheckCustomerNicknameDuplicatedResponse } from "../../../../types/customer/customer";
-import { GetDesignerBadgesForCustomerResponse } from "../../../../types/customer/customer";
 
 export const getCustomerProfile = async (
   userId: number,
@@ -64,4 +63,3 @@ export const checkCustomerNicknameDuplicated = async (query: {
   );
   return res.data;
 };
-
