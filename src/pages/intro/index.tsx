@@ -9,9 +9,23 @@ import {
 import { CustomButton } from "../../components/button/CustomButton";
 import { Text } from "../../components";
 import { ROUTE } from "../../constants/routes";
+import { useUserDetails } from "../../hooks/useUserDetails";
+import { useEffect } from "react";
 
 const Intro = () => {
   const navigate = useNavigate();
+  const {role, isLoading } = useUserDetails();
+
+  useEffect(()=>{
+    if (!isLoading) {
+      if (role === "ROLE_CUSTOMER") {
+        navigate(ROUTE.customer.home)
+      } else if (role === "ROLE_DESIGNER") {
+        console.log() 
+        // navigate(ROUTE.designer.home) // TODO
+      }
+    }
+  }, [isLoading]) 
 
   const handleStartClick = () => {
     navigate(ROUTE.signIn);

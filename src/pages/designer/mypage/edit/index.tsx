@@ -1,8 +1,10 @@
-import { AppBar, CustomInput, CustomButton, GNB } from "../../../components";
-import ProfileImg from "../../../components/profile-img/ProfileImg";
-import { MyPageEditWrapper } from "./CustomerMyPageEdit.styles";
+import { AppBar, CustomInput, CustomButton, GNB } from "../../../../components";
+import ProfileImg from "../../../../components/profile-img/ProfileImg";
+import { MyPageEditWrapper } from "./index.styles";
 
-export default function CustomerMyPageEdit() {
+export default function DesignerMyPageEdit() {
+
+
     return (
         <>
             <MyPageEditWrapper>
@@ -10,8 +12,8 @@ export default function CustomerMyPageEdit() {
                 <ProfileImg 
                     src={"https://thumb.mt.co.kr/21/2024/11/2024110705371097800_2.jpg"}
                     alt={"profileImage"}
-                    width="198px"
-                    height="198px"
+                    width="176px"
+                    height="176px"
                     onClick={() => console.log("click")}
                 />
                 <CustomInput
@@ -39,20 +41,9 @@ export default function CustomerMyPageEdit() {
                     variant="outlined"
                 />
                 <CustomInput
-                    label="지역"
-                    placeholder="현재 위치 찾기를 클릭해주세요"
-                    variant="outlined"
-                    disabled={true}
-                    suffix={
-                        <CustomButton
-                            size="small"
-                            variant="primary"
-                            onClick={() => console.log("click")}
-                        >
-                            현재 위치 찾기
-                        </CustomButton>
-                    }
-                />
+                    label="이메일"
+                    placeholder="이메일을 입력해주세요"
+                    variant="outlined"  />
             </MyPageEditWrapper>
             <GNB buttonText="확인"/>
         </>

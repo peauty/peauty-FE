@@ -3,7 +3,7 @@ import SignIn from "../../pages/sign-in";
 
 export const rootPaths = [
     {
-      path: "intro",
+      path: "",
       element: <Intro/>
     },
     {

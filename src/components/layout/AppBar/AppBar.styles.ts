@@ -5,9 +5,9 @@ import theme from "../../../style/theme";
 export const StyledHeader = styled.header`
   position: fixed;
   top: 0;
-  z-index: 11;
+  z-index: ${theme.zIndex.appBar};
   width: 100%; /* 전체 너비를 차지 */
-  height: 70px;
+  height: ${theme.size.appBarHeight};
   background: white;
   display: flex;
   align-items: center;

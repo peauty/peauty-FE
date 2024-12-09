@@ -1,11 +1,11 @@
-import { signUp } from "../apis/customer/resources/auth";
-import { checkCustomerNicknameDuplicated } from "../apis/customer/resources/customer";
-import { SignUpRequest } from "../types/customer/auth";
+import { SignUpRequest } from "../../../types/designer/auth";
+import { signUp } from "../resources/auth";
+import { checkDesignerNicknameDuplicatedResponse } from "../resources/designer";
 
 export const useCheckNickname = () => {
   const check = async (nickname: string) => {
     try {
-      const result = await checkCustomerNicknameDuplicated({nickname});
+      const result = await checkDesignerNicknameDuplicatedResponse({nickname});
       if (result.message === "사용해도 좋은 닉네임입니다.") {
         return true;
       } else {
