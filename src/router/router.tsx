@@ -6,10 +6,11 @@ import { designerPaths } from "./designer";
 import { rootPaths } from "./root";
 import theme from "../style/theme";
 import { customerPaths2 } from "./customer";
+import { AuthRedirectLayout } from "../components/layout/AuthRedirectLayout";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <AuthRedirectLayout />,
     children: rootPaths,
     errorElement: <NotFound />,
   },
