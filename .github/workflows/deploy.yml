@@ -26,7 +26,6 @@ jobs:
       - name: Create .env.production file
         run: |
           echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
-          cat .env.production
 
       - name: Build # React 빌드
         run: yarn build
