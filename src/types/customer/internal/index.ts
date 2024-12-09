@@ -1,5 +1,5 @@
 export interface UploadImagesResponse {
-  uploadedImageUrl?: string[];
+  uploadedImageUrls?: string[];
 }
 
 export interface UploadImageResponse {

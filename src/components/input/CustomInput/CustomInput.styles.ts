@@ -45,6 +45,7 @@ export const InputWrapper = styled.div<{
   variant: string;
   error: boolean;
   disabled: boolean;
+  hasExtraText: boolean;
 }>`
   display: flex;
   align-items: center;

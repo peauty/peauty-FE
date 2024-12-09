@@ -30,12 +30,3 @@ export const Gender: Story = {
     onSelect: (index) => console.log("선택된 버튼 인덱스:", index),
   },
 };
-
-export const Payment: Story = {
-  args: {
-    buttonNames: ["카드 결제", "현급 결제", "계좌이체"],
-    selectedIndex: 1,
-    col: 3,
-    onSelect: (index) => console.log("선택된 버튼 인덱스:", index),
-  },
-};

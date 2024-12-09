@@ -13,13 +13,6 @@ export const Style = {
     margin-bottom: 30px;
     gap: 20px;
   `,
-
-  TwoInputWrapper: styled.div`
-    display: flex;
-    flex-direction: column;
-    /* margin-bottom: 30px; */
-    gap: 10px;
-  `,
   TitleWrapper: styled.div`
     display: flex;
     flex-direction: column;
@@ -28,7 +21,6 @@ export const Style = {
     display: flex;
     gap: 8px;
   `,
-
   ColumnWrapper: styled.div`
     display: flex;
     flex-direction: column;

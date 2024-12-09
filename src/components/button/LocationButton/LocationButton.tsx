@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CustomInput } from "../../input/CustomInput";
 import { CustomButton } from "../CustomButton";
 import {
@@ -5,8 +6,18 @@ import {
   DisabledWrapper,
   LocationButtonWrapper,
 } from "./LocationButton.styles";
+import SearchLocationModal from "../../../pages/designer/signup-detail/components/SearchLocationModal";
 
 export default function LocationButton() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleOpenSearchLocationModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCloseSearchLocationModal = () => {
+    setIsModalVisible(false);
+  };
   return (
     <>
       <LocationButtonWrapper>
@@ -18,7 +29,11 @@ export default function LocationButton() {
           />
         </DisabledWrapper>
         <CustomButtonWrapper>
-          <CustomButton variant="secondary" size="small">
+          <CustomButton
+            variant="secondary"
+            size="small"
+            onClick={handleOpenSearchLocationModal}
+          >
             검색
           </CustomButton>
         </CustomButtonWrapper>
@@ -27,6 +42,10 @@ export default function LocationButton() {
           variant="outlined"
         />
       </LocationButtonWrapper>
+
+      {isModalVisible && (
+        <SearchLocationModal onClose={handleCloseSearchLocationModal} />
+      )}
     </>
   );
 }
