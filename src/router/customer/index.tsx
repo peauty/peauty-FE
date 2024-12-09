@@ -4,29 +4,63 @@ import CustomerHome from "../../pages/main";
 import { petPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
+import theme from "../../style/theme";
+import { UserLayout } from "../../components/layout/UserLayout";
+import { AuthLayout } from "../../components/layout/AuthLayout";
+import Shop from "../../pages/shop";
 
 export const customerPaths = [
   {
-    path: "signup",
-    element: <CustomerSignUp />,
+    path: "",
+    children: [
+      {
+        path: "signup",
+        element: <CustomerSignUp />,
+      },
+      {
+        path: "signup-complete",
+        element: <CustomerSignUpComplete />,
+      },
+    ],
+    element: <AuthLayout />,
   },
   {
-    path: "signup-complete",
-    element: <CustomerSignUpComplete />,
+    path: "",
+    children: [
+      {
+        path: "mypage",
+        children: myPagePaths,
+      },
+      {
+        path: "pet",
+        children: petPaths,
+      },
+      {
+        path: "request",
+        children: requestPaths,
+      },
+    ],
+    element: <UserLayout userType="customer" />,
   },
   {
-    path: "mypage",
-    children: myPagePaths,
-  },
-  {
-    path: "pet",
-    children: petPaths,
-  },
-];
-
-export const customerPaths2 = [
-  {
-    path: "home",
-    element: <CustomerHome />,
+    path: "",
+    children: [
+      {
+        path: "home",
+        element: <CustomerHome />,
+      },
+      {
+        path: "shop",
+        element: <Shop />,
+      },
+    ],
+    element: (
+      <UserLayout
+        userType="customer"
+        style={{
+          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+        }}
+      />
+    ),
   },
 ];

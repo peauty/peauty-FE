@@ -7,43 +7,75 @@ import DesignerSignUpDetail from "../../pages/designer/signup-detail";
 import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
 import DesignerMyBadgesPage from "../../pages/designer/mypage/badges";
 import DesignerHome from "../../pages/designer/home";
+import { UserLayout } from "../../components/layout/UserLayout";
+import { AuthLayout } from "../../components/layout/AuthLayout";
 import Quote from "../../pages/designer/quote";
+import { Layout } from "../../components";
+import theme from "../../style/theme";
 
 export const designerPaths = [
   {
-    path: "mypage",
-    element: <DesignerMyPage />,
+    path: "",
+    children: [
+      {
+        path: "signup",
+        element: <DesignerSignUp />,
+      },
+      {
+        path: "signup-complete",
+        element: <DesignerSignUpComplete />,
+      },
+      {
+        path: "signup-detail",
+        element: <DesignerSignUpDetail />,
+      },
+      {
+        path: "signup-detail-complete",
+        element: <DesignerSignUpDetailComplete />,
+      },
+    ],
+    element: <AuthLayout />,
   },
   {
-    path: "signup",
-    element: <DesignerSignUp />,
+    path: "",
+    children: [
+      {
+        path: "home",
+        element: <DesignerHome />,
+      },
+      {
+        path: "mypage",
+        element: <DesignerMyPage />,
+      },
+      {
+        path: "mypage/badges",
+        element: <DesignerMyBadgesPage />,
+      },
+      {
+        path: "mypage/detail",
+        element: <DesignerMyPageDetail />,
+      },
+      {
+        path: "mypage/edit",
+        element: <DesignerMyPageEdit />,
+      },
+    ],
+    element: <UserLayout userType="designer" />,
   },
   {
-    path: "signup-complete",
-    element: <DesignerSignUpComplete />,
-  },
-  {
-    path: "signup-detail",
-    element: <DesignerSignUpDetail />,
-  },
-  {
-    path: "signup-detail-complete",
-    element: <DesignerSignUpDetailComplete />,
-  },
-  {
-    path: "mypage/badges",
-    element: <DesignerMyBadgesPage />,
-  },
-  {
-    path: "mypage/detail",
-    element: <DesignerMyPageDetail />,
-  },
-  {
-    path: "mypage/edit",
-    element: <DesignerMyPageEdit />,
-  },
-  {
-    path: "quote",
-    element: <Quote />,
+    path: "",
+    chideren: [
+      {
+        path: "quote",
+        element: <Quote />,
+      },
+    ],
+    element: (
+      <Layout
+        style={{
+          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+        }}
+      />
+    ),
   },
 ];
