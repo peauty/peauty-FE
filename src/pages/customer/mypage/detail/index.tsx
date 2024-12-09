@@ -1,6 +1,12 @@
 import { AppBar, Text, GNB, Divider } from "../../../../components";
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
-import { PageWrapper, FieldWrapper, TextWrapper, LeftAlignedText } from "./index.styles";
+import {
+  PageWrapper,
+  FieldWrapper,
+  TextWrapper,
+  LeftAlignedText,
+  EndWrapper,
+} from "./index.styles";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../../../constants/routes";
 import { useEffect, useState } from "react";
@@ -11,7 +17,9 @@ import { useUserDetails } from "../../../../hooks/useUserDetails";
 export default function CustomerMyPageDetail() {
   const navigate = useNavigate();
   const { userId, isLoading } = useUserDetails();
-  const [profileData, setProfileData] = useState<GetCustomerProfileResponse>({});
+  const [profileData, setProfileData] = useState<GetCustomerProfileResponse>(
+    {},
+  );
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -20,7 +28,7 @@ export default function CustomerMyPageDetail() {
           const data = await getCustomerProfile(userId); // Replace with actual userId
           setProfileData(data);
         } catch (error) {
-          console.error('Failed to fetch profile:', error);
+          console.error("Failed to fetch profile:", error);
         }
       }
     };
@@ -32,43 +40,72 @@ export default function CustomerMyPageDetail() {
     navigate(ROUTE.customer.mypage.edit);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate(ROUTE.signIn);
+  };
+
   return (
     <>
       <PageWrapper>
-        <AppBar prefix="backButton" title="회원 정보" onclick={() => navigate(ROUTE.customer.mypage.home)}/>
+        <AppBar
+          prefix="backButton"
+          title="회원 정보"
+          onclick={() => navigate(ROUTE.customer.mypage.home)}
+        />
         <ProfileImg
-          src={profileData.profileImageUrl || ""} 
+          src={profileData.profileImageUrl || ""}
           alt="profileImage"
           width="176px"
           height="176px"
         />
         <LeftAlignedText onClick={handleEditClick}>
-          <Text typo="subtitle300" color="blue100">수정</Text>
+          <Text typo="subtitle300" color="blue100">
+            수정
+          </Text>
         </LeftAlignedText>
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">닉네임</Text>
-            <Text typo="body100" color="black">{profileData.nickname}</Text>
+            <Text typo="subtitle300" color="gray100">
+              닉네임
+            </Text>
+            <Text typo="body100" color="black">
+              {profileData.nickname}
+            </Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">이름</Text>
-            <Text typo="body100" color="black">{profileData.name}</Text>
+            <Text typo="subtitle300" color="gray100">
+              이름
+            </Text>
+            <Text typo="body100" color="black">
+              {profileData.name}
+            </Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">지역</Text>
-            <Text typo="body100" color="black">{profileData.address}</Text>
+            <Text typo="subtitle300" color="gray100">
+              지역
+            </Text>
+            <Text typo="body100" color="black">
+              {profileData.address}
+            </Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
+        <EndWrapper onClick={handleLogout}>
+          <Text color="gray100" typo={"subtitle300"}>
+            로그아웃
+          </Text>
+        </EndWrapper>
       </PageWrapper>
       <GNB type="designer" />
     </>
