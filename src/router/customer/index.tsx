@@ -2,6 +2,7 @@ import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
 import CustomerHome from "../../pages/main";
 import Shop from "../../pages/shop";
+import Request from "../../pages/request";
 import { petPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
@@ -33,9 +34,5 @@ export const customerPaths2 = [
   {
     path: "home",
     element: <CustomerHome />,
-  },
-  {
-    path: "shop",
-    element: <Shop />,
   },
 ];
