@@ -111,6 +111,16 @@ export interface CreateDesignerWorkspaceRequest {
   phoneNumber?: string;
 }
 
+export interface UpdateRepresentativeBadgeResponse {
+  badgeId?: number;
+  badgeName?: string;
+  isRepresentativeBadge?: boolean;
+}
+
+export interface UpdateRepresentativeBadgeRequest {
+  isRepresentativeBadge?: boolean;
+}
+
 export interface GetDesignerAccountResponse {
   designerId?: number;
   name?: string;
@@ -141,6 +151,26 @@ export interface UpdateDesignerAccountRequest {
 export interface UploadProfileImageResponse {
   designerId?: number;
   uploadedProfileImageUrl?: string;
+}
+
+export interface GetDesignerBadgesResponse {
+  acquiredBadges?: {
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeImageUrl?: string;
+  badgeColor?: 'BLUE' | 'GREEN' | 'BRONZE' | 'SILVER' | 'GOLD';
+}[];
+  unacquiredBadges?: BadgeResponse[];
+  representativeBadges?: BadgeResponse[];
+}
+
+export interface BadgeResponse {
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeImageUrl?: string;
+  badgeColor?: 'BLUE' | 'GREEN' | 'BRONZE' | 'SILVER' | 'GOLD';
 }
 
 export interface CheckDesignerNicknameDuplicatedResponse {
