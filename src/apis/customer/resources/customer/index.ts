@@ -65,11 +65,3 @@ export const checkCustomerNicknameDuplicated = async (query: {
   return res.data;
 };
 
-export const getDesignerBadgesForCustomer = async (
-  designerId: number,
-): Promise<GetDesignerBadgesForCustomerResponse> => {
-  const res = await CustomerAPI.get<GetDesignerBadgesForCustomerResponse>(
-    `/v1/designers/${designerId}/badges`,
-  );
-  return res.data;
-};
