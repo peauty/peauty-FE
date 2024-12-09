@@ -1,18 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
-import { colors } from "../../../../../style/color";
+
 import {
   ReviewContain,
   ReviewHeader,
   ReviewImage,
   More,
   ImagesContainer,
-  ContentWrapper
+  ContentWrapper,
 } from "./index.styles";
 
 interface ReviewItemProps {
-  rating: string; // 평점
+  rating: number; // 평점
   content: string; // 리뷰 내용
   username: string; // 작성자 이름
   date: string; // 작성 날짜
@@ -78,9 +78,7 @@ export default function ReviewItem({
         </ImagesContainer>
       )}
 
-      <ContentWrapper
-      isExpanded={isExpanded}
-        ref={contentRef}>
+      <ContentWrapper isExpanded={isExpanded} ref={contentRef}>
         <Text typo="body400">{content}</Text>
       </ContentWrapper>
       {isTruncated && (

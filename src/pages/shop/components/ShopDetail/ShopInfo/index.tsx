@@ -6,9 +6,20 @@ import {
   ShopTel,
   ShopPay,
 } from "../../../../../assets/svg";
-import { ContentsWrapper ,ContentContain} from "../../index.styles";
+import { ContentsWrapper, ContentContain } from "../../index.styles";
 import { IconContain } from "./index.styles";
-export default function Shopinfo() {
+import { ShopDetailInfoProps } from "../../../../../types/customer/request";
+export default function Shopinfo({
+  workspaceName,
+  address,
+  addressDetail,
+  openHours,
+  closeHours,
+  openDay,
+  paymentOption,
+  phoneNumber,
+}: ShopDetailInfoProps) {
+  const payments = paymentOption.join(" ");
   return (
     <ContentsWrapper>
       <Text typo="subtitle300">매장 정보</Text>
@@ -16,31 +27,31 @@ export default function Shopinfo() {
         <IconContain>
           <ShopHome height={11} />
           <Text typo="body400" color="gray100">
-            몽크의 아뜰리에
+            {workspaceName}
           </Text>
         </IconContain>
         <IconContain>
           <ShopMaker height={11} />
           <Text typo="body400" color="gray100">
-            성남시 위례구 남위례역 3번 출구
+            {address} {addressDetail}
           </Text>
         </IconContain>
         <IconContain>
           <ShopTime height={11} />
           <Text typo="body400" color="gray100">
-            영업시간 | 11:00 ~ 20:00 (주말휴무)
+            영업시간 | {openHours} ~ {closeHours} {openDay}
           </Text>
         </IconContain>
         <IconContain>
           <ShopTel height={11} />
           <Text typo="body400" color="gray100">
-            02-1234-5678
+            {phoneNumber}
           </Text>
         </IconContain>
         <IconContain>
           <ShopPay width={12} />
           <Text typo="body400" color="gray100">
-            계좌이체, 현금 결제 , 카드 결제 가능
+            {payments}
           </Text>
         </IconContain>
       </ContentContain>

@@ -3,35 +3,49 @@ import { Shop } from "../../../../../assets/svg";
 import { Badge } from "../../../../../components/category/Badge";
 import ShopEvent from "../ShopEvent";
 import { Maker } from "../../../../../assets/svg";
-import { InfoWrapper,TextWrapper } from "./index.styles";
+import { InfoWrapper, TextWrapper } from "./index.styles";
 import { IconContain } from "../../ShopDetail/ShopInfo/index.styles";
-export default function OverviewInfo() {
+import { ShopOverviewinfoProps } from "../../../../../types/customer/request";
+import Rating from "../../../../../components/rating";
+
+export default function OverviewInfo({
+  workspaceName,
+  reviewRating,
+  reviewsCount,
+  introduceTitle,
+  introduce,
+  address,
+}: ShopOverviewinfoProps) {
   return (
     <InfoWrapper>
       <div>
-        <Text typo="subtitle100">까끌래뽀끌래</Text>
+        <div style={{ display: "flex", alignContent: "center", gap: "3px" }}>
+          <Text typo="subtitle100">{workspaceName}</Text>
+          <Rating score={reviewRating} />
+          <Text typo="body400" color="gray100">
+            ({reviewsCount})
+          </Text>
+        </div>
+
         <IconContain>
           <Maker height={12} />
           <Text typo="body400" color="gray100">
-            성남시 위례구
+            {address}
           </Text>
         </IconContain>
       </div>
-      <TextWrapper
-      >
+      <TextWrapper>
         {/* 아이콘과 첫 번째 줄 */}
-        <IconContain
-        >
+        <IconContain>
           <Shop height={10} style={{ marginRight: "5px" }} />
           <Text typo="body400" color="gray100">
-            말티즈 및 푸들 모발케어 전문
+            {introduceTitle}
           </Text>
         </IconContain>
 
         {/* 두 번째 줄 */}
         <Text typo="body400" color="gray100">
-          안녕하세요. 말티즈 및 푸들 모발 케어 전문 호키포키입니다.{"\n"}
-          보호자의 반려견을 정성을 다해서 케어해드립니다.
+          {introduce}
         </Text>
         <IconContain>
           <Badge type="general" text="사업자 등록 인증" variant="green" />
