@@ -6,7 +6,7 @@ export const petsPaths = [
     path: "",
   },
   {
-    path: ":id",
+    path: ":puppyId",
     children: [
       {
         path: "",
