@@ -79,7 +79,7 @@ export interface RegisterPuppyRequest {
   disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
-  puppySize?: 'SMALL' | 'MEDIUM' | 'LARGE';
+  puppySize?: '소형견' | '중형견' | '대형견';
 }
 
 export interface UploadPuppyImageResponse {

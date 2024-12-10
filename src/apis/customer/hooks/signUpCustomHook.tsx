@@ -13,7 +13,7 @@ export function signUpCustomHook() {
     disease: [], // disease 초기값을 빈 배열로 설정
     diseaseDescription: "",
     profileImageUrl: "",
-    puppySize: "MEDIUM",
+    puppySize: "소형견",
   });
 
   const handleChange = (key: string, value: string) => {
