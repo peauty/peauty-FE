@@ -71,15 +71,15 @@ export default function PetSignUp() {
 
     try {
       const payload = {
-        puppyId: 0, // 실제로는 생성된 반려견 ID를 사용해야 할 수 있음
+        //puppyId: 0, // 실제로는 생성된 반려견 ID를 사용해야 할 수 있음
         name: inputData.name,
         breed: inputData.breed,
         weight: inputData.weight,
         sex: inputData.sex,
         age: inputData.age,
-        birthdate: inputData.birthdate, // TODO
+        birthdate: inputData.birthdate, 
         detail: inputData.detail,
-        disease: [], // TODO
+        disease: inputData.disease ?? [], // TODO
         diseaseDescription: inputData.diseaseDescription,
         profileImageUrl: inputData.profileImageUrl || "",
         puppySize: inputData.puppySize,
