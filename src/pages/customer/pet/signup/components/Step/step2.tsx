@@ -22,12 +22,12 @@ export default function Step2({
   const handleDiseaseSelect = (selectedIndexes: number[]) => {
     const diseases = [
       "없음",
-      "외이염",
       "슬개골",
-      "CANINE_INFLUENZA",
-      "HEART_WORM",
-      "PARVOVIRUS",
-      "RABIES",
+      "외이염",
+      "피부염",
+      "눈질환",
+      "심장병",
+      "관절병",
       "기타",
     ];
     const selectedDiseases = selectedIndexes.map((index) => diseases[index]);
