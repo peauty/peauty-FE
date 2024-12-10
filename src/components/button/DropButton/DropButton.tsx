@@ -13,11 +13,10 @@ import { DropDown } from "../../../assets/svg";
 import { colors } from "../../../style/color";
 
 export interface DropButtonProps {
-  label?: string;
-  placeholder: string;
-  options: string[]; // 옵션 리스트 말티즈,푸들,말티푸 이런거
+  label?: string; // 라벨 텍스트 (optional)
+  placeholder: string; // 드롭다운 기본 텍스트
+  options: string[]; // 옵션 리스트 (말티즈, 푸들 등)
   onSelect: (value: string) => void; // 선택 시 실행할 함수
-  isActive?: boolean;
 }
 
 export default function DropButton({
@@ -37,7 +36,8 @@ export default function DropButton({
 
   return (
     <Wrapper>
-      <Label>{label}</Label>
+      {/* label이 있을 경우만 렌더링 */}
+      {label && <Label>{label}</Label>}
       <DropdownContainer
         isActive={isActive}
         onClick={() => setIsActive((prev) => !prev)}

@@ -39,53 +39,57 @@ export default function CustomizeGrooming() {
   return (
     <>
       <AppBar prefix="backButton" />
-      <Text typo="subtitle100">
-        <Text typo="subtitle100" color="blue100">
-          꼬미
+      <div
+        style={{ display: "flex", flexDirection: "column", padding: "30px 0",}}
+      >
+        <Text typo="subtitle100">
+          <Text typo="subtitle100" color="blue100">
+            꼬미
+          </Text>
+          의 구체적인 미용 시술정보와
+          <br />
+          원하는 사항을 알려주세요!
         </Text>
-        의 구체적인 미용 시술정보와
-        <br />
-        원하는 사항을 알려주세요!
-      </Text>
 
-      <ContentWrapper>
-        <SectionWrapper>
-          <Text typo="subtitle300" color="gray100">
-            미용 종류
-          </Text>
-          <RadioSelectButton
-            {...(GroomingType.args as RadioSelectButtonProps)}
-            selectedIndex={0}
-            onSelect={handleSelectGroomingType}
-          />
-        </SectionWrapper>
+        <ContentWrapper>
+          <SectionWrapper>
+            <Text typo="subtitle300" color="gray100">
+              미용 종류
+            </Text>
+            <RadioSelectButton
+              {...(GroomingType.args as RadioSelectButtonProps)}
+              selectedIndex={0}
+              onSelect={handleSelectGroomingType}
+            />
+          </SectionWrapper>
 
-        <SectionWrapper>
-          <DropButton
-            label="얼굴"
-            placeholder="스타일을 선택해주세요"
-            options={dummyFaceStyle}
-            onSelect={handleFaceStyleSelect}
-          />
-        </SectionWrapper>
+          <SectionWrapper>
+            <DropButton
+              label="얼굴"
+              placeholder="스타일을 선택해주세요"
+              options={dummyFaceStyle}
+              onSelect={handleFaceStyleSelect}
+            />
+          </SectionWrapper>
 
-        <SectionWrapper>
-          <Text typo="subtitle300" color="gray100">
-            몸
-          </Text>
-          <RadioSelectButton
-            {...(GroomingBodyType.args as RadioSelectButtonProps)}
-            selectedIndex={0}
-            onSelect={handleSelectGroomingBodyType}
-          />
-          <DropButton
-            label=""
-            placeholder="mm를 선택해주세요"
-            options={dummyLength}
-            onSelect={handleLengthSelect}
-          />
-        </SectionWrapper>
-      </ContentWrapper>
+          <SectionWrapper>
+            <Text typo="subtitle300" color="gray100">
+              몸
+            </Text>
+            <RadioSelectButton
+              {...(GroomingBodyType.args as RadioSelectButtonProps)}
+              selectedIndex={0}
+              onSelect={handleSelectGroomingBodyType}
+            />
+            <DropButton
+              label=""
+              placeholder="mm를 선택해주세요"
+              options={dummyLength}
+              onSelect={handleLengthSelect}
+            />
+          </SectionWrapper>
+        </ContentWrapper>
+      </div>
     </>
   );
 }
