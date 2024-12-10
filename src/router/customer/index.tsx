@@ -1,41 +1,59 @@
 import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
 import CustomerHome from "../../pages/main";
-import Shop from "../../pages/shop";
 import { petPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
+import { Layout } from "../../components/layout/Layout";
+import { AuthLayout } from "../../components/layout/AuthLayout";
+import Shop from "../../pages/shop";
+import { noPadding } from "../../style/layoutStyle";
 
 export const customerPaths = [
   {
-    path: "signup",
-    element: <CustomerSignUp />,
+    path: "",
+    children: [
+      {
+        path: "signup",
+        element: <CustomerSignUp />,
+      },
+      {
+        path: "signup-complete",
+        element: <CustomerSignUpComplete />,
+      },
+    ],
+    element: <Layout />,
   },
   {
-    path: "signup-complete",
-    element: <CustomerSignUpComplete />,
+    path: "",
+    children: [
+      {
+        path: "mypage",
+        children: myPagePaths,
+      },
+      {
+        path: "pet",
+        children: petPaths,
+      },
+      {
+        path: "request",
+        children: requestPaths,
+      },
+    ],
+    element: <AuthLayout userType="customer" />,
   },
   {
-    path: "mypage",
-    children: myPagePaths,
-  },
-  {
-    path: "pet",
-    children: petPaths,
-  },
-  {
-    path: "request",
-    children: requestPaths,
-  },
-];
-
-export const customerPaths2 = [
-  {
-    path: "home",
-    element: <CustomerHome />,
-  },
-  {
-    path: "shop",
-    element: <Shop />,
+    path: "",
+    children: [
+      {
+        path: "home",
+        element: <CustomerHome />,
+      },
+      {
+        path: "shop",
+        element: <Shop />,
+      },
+    ],
+    element: <AuthLayout userType="customer" style={noPadding} />,
   },
 ];

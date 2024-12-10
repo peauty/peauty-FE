@@ -1,29 +1,69 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppBar, Divider, GNB, Text } from "../../../../components";
 import SvgFirework from "../../../../assets/svg/Firework";
 import SvgMedal from "../../../../assets/svg/Medal";
 import { Badges } from "./components/Badges/Badges";
-import { PageWrapper, BannerWrapper, InfoWrapper, FlexRowWrapper, TextWrapper, BadgeGridWrapper } from "./index.styles";
+import {
+  PageWrapper,
+  BannerWrapper,
+  InfoWrapper,
+  FlexRowWrapper,
+  TextWrapper,
+  BadgeGridWrapper,
+} from "./index.styles";
+import { getDesignerBadges, updateRepresentativeBadge } from "../../../../apis/designer/resources/designer";
+import { BadgeResponse } from "../../../../types/designer/designer";
+import { useUserDetails } from "../../../../hooks/useUserDetails";
 
 export default function DesignerMyBadgesPage() {
-  const badgesData = [
-    { id: 1, src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785", title: "청결 최고" },
-    { id: 2, src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785", title: "말티즈 전문가" },
-    { id: 3, src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785", title: "푸들 전문가" },
-    { id: 4, src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785", title: "골드 시저" },
-    { id: 5, src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785", title: "실버 시저" },
-    { id: 6, src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785", title: "사업자 인증" },
-    { id: 7, src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785", title: "말티푸 전문가" },
-    { id: 8, src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785", title: "최고 최고" },
-  ];
+  const [allBadges, setAllBadges] = useState<BadgeResponse[]>([]);
+  const [representativeBadges, setRepresentativeBadges] = useState<BadgeResponse[]>([]);
+  const [error, setError] = useState<string | null>(null); 
+  const { userId } = useUserDetails(); 
 
-  const [selectedBadges, setSelectedBadges] = useState<Array<any>>([]);
+  useEffect(() => {
+    // 초기 데이터 로드
+    const fetchBadges = async () => {
+      if (!userId) return; 
+      try {
+        const data = await getDesignerBadges(userId);
+        console.log("Fetched badges data:", data); 
+        setAllBadges(data.acquiredBadges || []);
+        setRepresentativeBadges(data.representativeBadges || []);
+      } catch (error) {
+        console.error("Error fetching badges:", error);
+        setError("배지 데이터를 불러오는 중 오류가 발생했습니다.");
+      }
+    };
+
+
+    fetchBadges();
+  }, [userId]);
+  const handleBadgeClick = async (badge: BadgeResponse) => {
+    // userId가 null이 아닌지 확인
+    if (userId === null) {
+      console.error("User ID is null");
+      return; // userId가 없으면 함수 종료
+    }
   
-  const handleBadgeClick = (badge: any) => {
-    if (selectedBadges.length < 3) {
-      setSelectedBadges((prev) => [...prev, badge]);
+    // 대표 배지 추가/업데이트
+    if (representativeBadges.length < 3 || representativeBadges.some((b) => b.badgeId === badge.badgeId)) {
+      try {
+        const updatedBadge = await updateRepresentativeBadge(userId, badge.badgeId!, {
+          isRepresentativeBadge: !representativeBadges.some((b) => b.badgeId === badge.badgeId),
+        });
+        setRepresentativeBadges((prev) =>
+          prev.some((b) => b.badgeId === badge.badgeId)
+            ? prev.filter((b) => b.badgeId !== badge.badgeId)
+            : [...prev, badge]
+        );
+        console.log("Badge updated:", updatedBadge);
+      } catch (error) {
+        console.error("Error updating representative badge:", error);
+      }
     }
   };
+  
 
   return (
     <>
@@ -31,34 +71,54 @@ export default function DesignerMyBadgesPage() {
       <PageWrapper>
         <BannerWrapper>
           <TextWrapper>
-            <Text typo="subtitle200" color="gray200">축하해요</Text>
-            <Text typo="subtitle200" color="black">새로운 배지가 생겼어요!</Text>
+            <Text typo="subtitle200" color="gray200">
+              축하해요
+            </Text>
+            <Text typo="subtitle200" color="black">
+              새로운 배지가 생겼어요!
+            </Text>
           </TextWrapper>
           <SvgFirework width={40} />
         </BannerWrapper>
 
         <InfoWrapper>
-          <Text typo="subtitle200" color="black">활동 배지</Text>
+          <Text typo="subtitle200" color="black">
+            활동 배지
+          </Text>
           <FlexRowWrapper>
-            <Text typo="subtitle200" color="gray200">신뢰성을 위해 배지를 모아보세요</Text>
+            <Text typo="subtitle200" color="gray200">
+              신뢰성을 위해 배지를 모아보세요
+            </Text>
             <SvgMedal width={20} />
           </FlexRowWrapper>
         </InfoWrapper>
 
-        <Text typo="subtitle200" color="black">나의 대표 배지</Text>
-<BadgeGridWrapper>
-  {selectedBadges.map((badge, index) => (
-    <Badges key={index} src={badge.src} title={badge.title} />
-  ))}
-</BadgeGridWrapper>
-
+        <Text typo="subtitle200" color="black">
+          나의 대표 배지
+        </Text>
+        <BadgeGridWrapper>
+          {representativeBadges.map((badge) => (
+            <Badges
+              key={badge.badgeId}
+              src={badge.badgeImageUrl || ""}  // 기본값 처리
+              title={badge.badgeName || "기본 배지 이름"}  // 기본값 처리
+            />
+          ))}
+        </BadgeGridWrapper>
 
         <Divider />
 
-        <Text typo="subtitle200" color="black">모든 배지</Text>
+        <Text typo="subtitle200" color="black">
+          모든 배지
+        </Text>
         <BadgeGridWrapper>
-          {badgesData.map((badge) => (
-            <Badges key={badge.id} src={badge.src} title={badge.title} onClick={() => handleBadgeClick(badge)} />
+          {allBadges.map((badge) => (
+            <Badges
+              key={badge.badgeId}
+              src={badge.badgeImageUrl || ""}  // 기본값 처리
+              title={badge.badgeName || "기본 배지 이름"}  // 기본값 처리
+              onClick={() => handleBadgeClick(badge)}
+            />
           ))}
         </BadgeGridWrapper>
       </PageWrapper>

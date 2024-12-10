@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { ButtonWrapper, ContentWrapper, Wrapper } from "./index.styles";
 import { CustomButton } from "../../components/button/CustomButton";
 import { Text } from "../../components";
-import { useUserDetails } from "../../hooks/useUserDetails";
 import { ROUTE } from "../../constants/routes";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { CustomJwtPayload } from "../../types/types";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
@@ -18,16 +19,17 @@ function parseQueryParams() {
 export default function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [signinType, setSigninType] = useState("");
-  const { role, isLoading } = useUserDetails();
   const navigate = useNavigate();
 
+  // 토큰 저장 처리
   useEffect(() => {
-    if (isLoading) return;
-
     const { accessToken, refreshToken } = parseQueryParams();
+
     if (accessToken && refreshToken) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
+      const decoded = jwtDecode<CustomJwtPayload>(accessToken);
+      const role = decoded.user.role;
 
       if (role === "ROLE_CUSTOMER") {
         navigate(ROUTE.customer.home);
@@ -37,7 +39,7 @@ export default function SignIn() {
         navigate(ROUTE.signIn);
       }
     }
-  }, [isLoading, role, navigate]);
+  }, []);
 
   const handleCustomerSignUp = () => {
     setIsModalVisible(true);

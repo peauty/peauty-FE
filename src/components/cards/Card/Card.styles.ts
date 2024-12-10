@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors } from '../../../style/color';
+import styled from "styled-components";
+import { colors } from "../../../style/color";
 
 export const CardWrapper = styled.div`
   border: 1px solid ${colors.gray300};
@@ -18,16 +18,15 @@ export const TagsWrapper = styled.div`
 `;
 
 export const InfoWrapper = styled.div`
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 16px;
-    gap: 5px;
-`
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 16px;
+  gap: 5px;
+`;
 
 export const DiseaseWrapper = styled.div`
-    display: flex;
-    gap: 5px;
-
-`
+  display: flex;
+  gap: 5px;
+`;
