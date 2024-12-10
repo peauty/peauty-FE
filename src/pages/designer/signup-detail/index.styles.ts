@@ -36,4 +36,15 @@ export const Style = {
     width: 60px;
     margin-top: 10px;
   `,
+  ImageContainer: styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  `,
+
+  ImageUnit: styled.img`
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+  `,
 };
