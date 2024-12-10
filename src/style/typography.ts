@@ -30,7 +30,7 @@ export const typography = {
     font-size: 16px;
   `,
   body100: css`
-    font-weight: 500;
+    font-weight: 400;
     font-size: 14px;
   `,
   body200: css`

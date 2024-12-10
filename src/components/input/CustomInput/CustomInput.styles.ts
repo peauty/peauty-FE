@@ -85,7 +85,7 @@ export const StyledInput = styled.input<{ error: boolean }>`
 
   &::placeholder {
     color: #9ca3af;
-    font-size: ${typography.body100};
+    font-size: ${typography.body300};
   }
 
   &:disabled {

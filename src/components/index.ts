@@ -18,4 +18,4 @@ export * from "./layout/Wrpper";
 export * from "./layout/GNBLayout/GNBLayout";
 export * from "./texts/Text";
 export * from "./rating/Rating";
-export * from './layout/GNB'
+export * from "./cards/Card";

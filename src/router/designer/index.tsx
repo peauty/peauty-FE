@@ -7,12 +7,9 @@ import DesignerSignUpDetail from "../../pages/designer/signup-detail";
 import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
 import DesignerMyBadgesPage from "../../pages/designer/mypage/badges";
 import DesignerHome from "../../pages/designer/home";
+import Quote from "../../pages/designer/quote";
 
 export const designerPaths = [
-  {
-    path: "home",
-    element: <DesignerHome />,
-  },
   {
     path: "mypage",
     element: <DesignerMyPage />,
@@ -44,5 +41,9 @@ export const designerPaths = [
   {
     path: "mypage/edit",
     element: <DesignerMyPageEdit />,
+  },
+  {
+    path: "quote",
+    element: <Quote />,
   },
 ];
