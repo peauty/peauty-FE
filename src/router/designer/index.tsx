@@ -7,43 +7,74 @@ import DesignerSignUpDetail from "../../pages/designer/signup-detail";
 import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
 import DesignerMyBadgesPage from "../../pages/designer/mypage/badges";
 import DesignerHome from "../../pages/designer/home";
+import { Layout } from "../../components/layout/Layout";
+import { AuthLayout } from "../../components/layout/AuthLayout";
 import Quote from "../../pages/designer/quote";
+import theme from "../../style/theme";
 
 export const designerPaths = [
   {
-    path: "mypage",
-    element: <DesignerMyPage />,
+    path: "",
+    children: [
+      {
+        path: "signup",
+        element: <DesignerSignUp />,
+      },
+      {
+        path: "signup-complete",
+        element: <DesignerSignUpComplete />,
+      },
+      {
+        path: "signup-detail",
+        element: <DesignerSignUpDetail />,
+      },
+      {
+        path: "signup-detail-complete",
+        element: <DesignerSignUpDetailComplete />,
+      },
+    ],
+    element: <Layout />,
   },
   {
-    path: "signup",
-    element: <DesignerSignUp />,
+    path: "",
+    children: [
+      {
+        path: "home",
+        element: <DesignerHome />,
+      },
+      {
+        path: "mypage",
+        element: <DesignerMyPage />,
+      },
+      {
+        path: "mypage/badges",
+        element: <DesignerMyBadgesPage />,
+      },
+      {
+        path: "mypage/detail",
+        element: <DesignerMyPageDetail />,
+      },
+      {
+        path: "mypage/edit",
+        element: <DesignerMyPageEdit />,
+      },
+    ],
+    element: <AuthLayout userType="designer" />,
   },
   {
-    path: "signup-complete",
-    element: <DesignerSignUpComplete />,
-  },
-  {
-    path: "signup-detail",
-    element: <DesignerSignUpDetail />,
-  },
-  {
-    path: "signup-detail-complete",
-    element: <DesignerSignUpDetailComplete />,
-  },
-  {
-    path: "mypage/badges",
-    element: <DesignerMyBadgesPage />,
-  },
-  {
-    path: "mypage/detail",
-    element: <DesignerMyPageDetail />,
-  },
-  {
-    path: "mypage/edit",
-    element: <DesignerMyPageEdit />,
-  },
-  {
-    path: "quote",
-    element: <Quote />,
+    path: "",
+    chideren: [
+      {
+        path: "quote",
+        element: <Quote />,
+      },
+    ],
+    element: (
+      <Layout
+        style={{
+          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+        }}
+      />
+    ),
   },
 ];
