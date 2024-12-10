@@ -1,33 +1,82 @@
 import { useState } from "react";
-import { AddImage } from "../../../assets/svg";
-import {
-  AppBar,
-  CustomButton,
-  CustomInput,
-  GNB,
-  Text,
-} from "../../../components";
+import { AppBar, CustomInput, GNB, Text } from "../../../components";
 import { TitleContentInput } from "../../../components/input/TitleContentInput";
-import { CertificateInputSection } from "./components/CertificateInputSection";
-import { ShopInfoInputSection } from "./components/ShopInfoInputSection";
 import { Style } from "./index.styles";
+import CoverPhotoUploadSection from "./components/CoverPhotoUploadSection";
+import { useUserDetails } from "../../../hooks/useUserDetails";
+import { CreateDesignerWorkspaceRequest } from "../../../types/designer";
+import { createDesignerWorkspace } from "../../../apis/resources/designer";
+import ShopInfoInputSection from "./components/ShopInfoInputSection";
+import CertificateInputSection from "./components/CertificateInputSection";
+
+interface validateRulesType {
+  workspaceName: string;
+  address: string;
+  addressDetail: string;
+  openHours: string;
+  phoneNumber: string;
+  paymentOptions: string;
+}
 
 export default function DesignerSignUpDetail() {
-  const [inputValues, setInputValues] = useState<string[][]>([[], []]); // 각 TitleContentInput의 입력값을 관리
+  const { userId } = useUserDetails();
+
+  const [shopDetailInfo, setShopDetailInfo] =
+    useState<CreateDesignerWorkspaceRequest>({
+      bannerImageUrl: "",
+      workspaceName: "",
+      introduceTitle: "",
+      introduce: "",
+      noticeTitle: "",
+      notice: "",
+      address: "",
+      addressDetail: "",
+      yearOfExperience: undefined,
+      licenses: [],
+      paymentOptions: [],
+      openHours: "",
+      closeHours: "",
+      openDays: "",
+      directionGuide: "",
+      phoneNumber: "",
+    });
 
   const handleInputChange = (
-    index: number,
-    subIndex: number,
-    value: string,
+    field: keyof CreateDesignerWorkspaceRequest,
+    value: any,
   ) => {
-    const updatedValues = [...inputValues];
-    if (!updatedValues[index]) updatedValues[index] = [];
-    updatedValues[index][subIndex] = value;
-    setInputValues(updatedValues);
+    setShopDetailInfo((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
+  const handleSubmit = async () => {
+    const validationRules: {
+      key: keyof validateRulesType;
+      message: string;
+    }[] = [
+      { key: "workspaceName", message: "매장 이름을 입력해주세요." },
+      { key: "address", message: "매장 위치를 입력해주세요." },
+      { key: "addressDetail", message: "매장의 상세 위치를 입력해주세요." },
+      { key: "openHours", message: "매장 영업 시간을 입력해주세요." },
+      { key: "phoneNumber", message: "매장 대표 전화번호를 입력해주세요." },
+      { key: "paymentOptions", message: "결제 방식을 선택해주세요." },
+    ];
 
-  const handleSubmit = () => {
-    console.log(inputValues); // 전체 입력값을 콘솔에 출력
+    for (const { key, message } of validationRules) {
+      if (!shopDetailInfo[key]) {
+        alert(message);
+        return;
+      }
+    }
+
+    try {
+      await createDesignerWorkspace(Number(userId), shopDetailInfo);
+      alert("워크스페이스가 성공적으로 등록되었습니다.");
+    } catch (error) {
+      console.error("제출 실패", error);
+      alert("제출에 실패했습니다. 다시 시도해 주세요.");
+    }
   };
 
   return (
@@ -35,39 +84,34 @@ export default function DesignerSignUpDetail() {
       <AppBar prefix="backButton" title="추가 정보 등록" />
 
       <Style.RegisterPageWrapper>
-        <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">대표 사진</Text>
-            <Text color="gray100" typo="body500">
-              이미지 등록은 최대 3장까지 가능해요
-            </Text>
-
-            <Style.AddWrapper>
-              <CustomButton variant="secondary">
-                <AddImage width={15} />
-              </CustomButton>
-            </Style.AddWrapper>
-          </Style.TitleWrapper>
-        </Style.SectionWrapper>
+        <CoverPhotoUploadSection
+          onChange={(url) => handleInputChange("bannerImageUrl", url)}
+        />
 
         <Style.SectionWrapper>
           <TitleContentInput
             title="공지사항"
             description="매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
-            onChange={(index, value) => handleInputChange(0, index, value)} // 첫 번째 TitleContentInput의 값 변경 처리
+            onChange={(index, value) => {
+              const fieldName = index === 0 ? "noticeTitle" : "notice";
+              handleInputChange(fieldName, value);
+            }}
           />
           <TitleContentInput
             title="이벤트"
             description="현재 진행 중인 이벤트가 있다면 등록해 주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
-            onChange={(index, value) => handleInputChange(1, index, value)} // 두 번째 TitleContentInput의 값 변경 처리
+            onChange={(index, value) => {
+              const fieldName = index === 0 ? "introduceTitle" : "introduce";
+              handleInputChange(fieldName, value);
+            }}
           />
         </Style.SectionWrapper>
 
-        <Style.SectionWrapper>
-          <ShopInfoInputSection />
-        </Style.SectionWrapper>
+        <ShopInfoInputSection
+          onChange={(field, value) => handleInputChange(field, value)}
+        />
 
         <Style.SectionWrapper>
           <Style.TitleWrapper>
@@ -77,12 +121,18 @@ export default function DesignerSignUpDetail() {
             </Text>
           </Style.TitleWrapper>
 
-            <CustomInput placeholder="예) 22" extraText="년" />
+          <CustomInput
+            placeholder="예) 22"
+            extraText="년"
+            onChange={(e) =>
+              handleInputChange("yearOfExperience", Number(e.target.value))
+            }
+          />
         </Style.SectionWrapper>
 
-        <Style.SectionWrapper>
-          <CertificateInputSection />
-        </Style.SectionWrapper>
+        <CertificateInputSection
+          onChange={(licenses) => handleInputChange("licenses", licenses)}
+        />
       </Style.RegisterPageWrapper>
 
       <GNB buttonText="확인" onLargeButtonClick={handleSubmit} />

@@ -1,8 +1,24 @@
+import { useState } from "react";
+import { Style } from "../index.styles";
 import { CustomButton, Text } from "../../../../components";
 import { AddImage } from "../../../../assets/svg";
-import { Style } from "../index.styles";
 
-export function CertificateInputSection() {
+interface CertificateInputSectionProps {
+  onChange: (licenses: string[]) => void;
+}
+
+export default function CertificateInputSection({
+  onChange,
+}: CertificateInputSectionProps) {
+  const [licenseImages, setLicenseImages] = useState<string[]>([]);
+
+  const handleImageUpload = async () => {
+    const uploadedUrl = "/logo.svg";
+    const updatedLicenses = [...licenseImages, uploadedUrl];
+    setLicenseImages(updatedLicenses);
+    onChange(updatedLicenses);
+  };
+
   return (
     <Style.SectionWrapper>
       <Style.TitleWrapper>
@@ -12,7 +28,7 @@ export function CertificateInputSection() {
         </Text>
       </Style.TitleWrapper>
 
-      <CustomButton variant="outline">
+      <CustomButton variant="outline" onClick={handleImageUpload}>
         <Style.ColumnWrapper>
           <Text color="blue100" typo="body500">
             증빙 사진을 업로드 해주세요
