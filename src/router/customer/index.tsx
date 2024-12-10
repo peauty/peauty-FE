@@ -22,10 +22,6 @@ export const customerPaths = [
     path: "pet",
     children: petPaths,
   },
-  {
-    path: "request",
-    children: requestPaths,
-  },
 ];
 
 export const customerPaths2 = [

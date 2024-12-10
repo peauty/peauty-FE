@@ -9,6 +9,7 @@ import { customerPaths2 } from "./customer";
 import Request from "../pages/request";
 import { requestPaths2 } from "./customer/request";
 import Shop from "../pages/shop";
+import Quote from "../pages/designer/quote";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -59,6 +60,23 @@ export const router = createBrowserRouter([
       {
         path: ":workId", // 상세 경로 추가
         element: <Shop />,
+      },
+    ],
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/designer/quote",
+    element: (
+      <Layout
+        style={{
+          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+        }}
+      />
+    ),
+    children: [
+      {
+        path: "", // 기본 경로
+        element: <Quote />, // Shop 컴포넌트가 Outlet으로 렌더링됨
       },
     ],
     errorElement: <NotFound />,
