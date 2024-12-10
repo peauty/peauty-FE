@@ -8,7 +8,7 @@ import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-com
 import DesignerMyBadgesPage from "../../pages/designer/mypage/badges";
 import DesignerHome from "../../pages/designer/home";
 import { UserLayout } from "../../components/layout/UserLayout";
-import { AuthLayout } from "../../components/layout/AuthLayout";
+import { Layout } from "../../components/layout/Layout";
 
 export const designerPaths = [
   {
@@ -31,7 +31,7 @@ export const designerPaths = [
         element: <DesignerSignUpDetailComplete />,
       },
     ],
-    element: <AuthLayout />,
+    element: <Layout />,
   },
   {
     path: "",
