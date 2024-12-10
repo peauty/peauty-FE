@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { CustomJwtPayload } from "../types/\btypes";
+import { CustomJwtPayload } from "../types/types";
 
 export function useUserDetails() {
   const [userDetails, setUserDetails] = useState<{
