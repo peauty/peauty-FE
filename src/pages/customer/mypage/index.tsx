@@ -16,7 +16,10 @@ import ProfileImg from "../../../components/profile-img/ProfileImg";
 import { useUserDetails } from "../../../hooks/useUserDetails";
 import { useEffect, useState } from "react";
 import { getPuppyProfiles } from "../../../apis/customer/resources/puppy";
-import { GetPuppyProfilesResponse, GetPuppyDetailResponse } from "../../../types/customer/puppy";
+import {
+  GetPuppyProfilesResponse,
+  GetPuppyDetailResponse,
+} from "../../../types/customer/puppy";
 import { ROUTE } from "../../../constants/routes";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/page/sign-up/Loading";
@@ -51,10 +54,18 @@ export default function CustomerMyPage() {
     fetchPuppyProfiles();
   }, [userId]);
 
+  const handleCard = (puppyId?: number) => {
+    navigate(`${ROUTE.customer.pets}/${puppyId}`);
+  };
+
   return (
     <>
-      {isLoading && <Loading imageUrl={"https://avatars.githubusercontent.com/u/70759627?v=4"} />}
-      <AppBar prefix="backButton" title="회원정보" onclick={() => navigate(ROUTE.customer.home)} />
+      {isLoading && <Loading />}
+      <AppBar
+        prefix="backButton"
+        title="회원정보"
+        onclick={() => navigate(ROUTE.customer.home)}
+      />
       <PageWrapper>
         <ContentWrapper>
           <ProfileWrapper>
@@ -69,7 +80,8 @@ export default function CustomerMyPage() {
             <ProfileMenuWrapper>
               <MyInfoWrapper>
                 <Text typo={"subtitle100"} color={"blue100"}>
-                  {profile?.customerNickname || "사용자"}<Text typo={"subtitle100"}> 님</Text>
+                  {profile?.customerNickname || "사용자"}
+                  <Text typo={"subtitle100"}> 님</Text>
                 </Text>
                 <Text typo={"subtitle300"} color={"gray100"}>
                   내 정보 수정하기
@@ -81,7 +93,9 @@ export default function CustomerMyPage() {
           <Divider thickness={2} />
           <SubMenuButton text="우리집 퓨티들" iconType="plus" to="/" />
           {puppies.length === 0 ? (
-            <NoPuppyPlaceholder>아직 등록된 반려견이 없어요!</NoPuppyPlaceholder>
+            <NoPuppyPlaceholder>
+              아직 등록된 반려견이 없어요!
+            </NoPuppyPlaceholder>
           ) : (
             <CardWrapper>
               {puppies.map((puppy) => (
@@ -94,6 +108,7 @@ export default function CustomerMyPage() {
                   weight={`${puppy.weight}` || ""}
                   breed={puppy.breed || ""}
                   tags={puppy.disease || []}
+                  onClick={() => handleCard(puppy.puppyId)}
                 />
               ))}
             </CardWrapper>
