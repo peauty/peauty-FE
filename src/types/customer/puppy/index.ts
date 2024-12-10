@@ -18,7 +18,7 @@ export interface UpdatePuppyDetailResponse {
   name?: string;
   breed?: string;
   weight?: number;
-  sex?: 'M' | 'F';
+  sex?: "M" | "F";
   age?: number;
   birthdate?: string;
   detail?: string;
@@ -32,7 +32,7 @@ export interface UpdatePuppyDetailRequest {
   name?: string;
   breed?: string;
   weight?: number;
-  sex?: 'M' | 'F';
+  sex?: "M" | "F";
   age?: number;
   birthdate?: string;
   detail?: string;
@@ -50,16 +50,7 @@ export interface GetPuppyProfilesResponse {
   customerId?: number;
   customerNickname?: string;
   customerImageUrl?: string;
-  puppies?: {
-  puppyId?: number;
-  name?: string;
-  breed?: string;
-  weight?: number;
-  sex?: string;
-  age?: number;
-  disease?: string[];
-  puppyProfileImageUrl?: string;
-}[];
+  puppies?: GetPuppyProfileResponse[];
 }
 
 export interface GetPuppyProfileResponse {
@@ -92,7 +83,7 @@ export interface RegisterPuppyRequest {
   name: string;
   breed: string;
   weight: number;
-  sex: 'M' | 'F';
+  sex: "M" | "F";
   age: number;
   birthdate: string;
   detail?: string;
