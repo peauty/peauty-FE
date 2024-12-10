@@ -35,12 +35,17 @@ export const customerPaths = [
         path: "pet",
         children: petPaths,
       },
+    ],
+    element: <AuthLayout userType="customer" />,
+  },
+  {
+    path: "",
+    children: [
       {
         path: "request",
         children: requestPaths,
       },
     ],
-    element: <AuthLayout userType="customer" />,
   },
   {
     path: "",
