@@ -5,8 +5,8 @@ import { petPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
 import theme from "../../style/theme";
-import { UserLayout } from "../../components/layout/UserLayout";
 import { Layout } from "../../components/layout/Layout";
+import { AuthLayout } from "../../components/layout/AuthLayout";
 import Shop from "../../pages/shop";
 
 export const customerPaths = [
@@ -40,7 +40,7 @@ export const customerPaths = [
         children: requestPaths,
       },
     ],
-    element: <UserLayout userType="customer" />,
+    element: <AuthLayout userType="customer" />,
   },
   {
     path: "",
@@ -55,7 +55,7 @@ export const customerPaths = [
       },
     ],
     element: (
-      <UserLayout
+      <AuthLayout
         userType="customer"
         style={{
           padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,

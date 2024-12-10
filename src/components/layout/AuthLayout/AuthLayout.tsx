@@ -13,7 +13,7 @@ interface LayoutProps {
   style?: CSSProperties;
 }
 
-export default function UserLayout({ userType, style }: LayoutProps) {
+export default function AuthLayout({ userType, style }: LayoutProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
