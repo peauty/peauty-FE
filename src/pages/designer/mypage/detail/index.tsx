@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Text, GNB, Divider } from "../../../../components";
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
-import { PageWrapper, FieldWrapper, TextWrapper, LeftAlignedText } from "./index.styles";
+import {
+  PageWrapper,
+  FieldWrapper,
+  TextWrapper,
+  LeftAlignedText,
+  EndWrapper,
+} from "./index.styles";
 import { ROUTE } from "../../../../constants/routes";
 import { getDesignerAccount } from "../../../../apis/designer/resources/designer";
 import { GetDesignerAccountResponse } from "../../../../types/designer/designer";
@@ -11,7 +17,9 @@ import { useUserDetails } from "../../../../hooks/useUserDetails";
 export default function DesignerMyPageDetail() {
   const navigate = useNavigate();
   const { userId } = useUserDetails();
-  const [profile, setProfile] = useState<GetDesignerAccountResponse | null>(null);
+  const [profile, setProfile] = useState<GetDesignerAccountResponse | null>(
+    null,
+  );
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -32,6 +40,12 @@ export default function DesignerMyPageDetail() {
     navigate(ROUTE.designer.mypageEdit);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate(ROUTE.signIn);
+  };
+
   return (
     <>
       <PageWrapper>
@@ -43,40 +57,63 @@ export default function DesignerMyPageDetail() {
           height="176px"
         />
         <LeftAlignedText onClick={handleEditClick}>
-          <Text typo="subtitle300" color="blue100">수정</Text>
+          <Text typo="subtitle300" color="blue100">
+            수정
+          </Text>
         </LeftAlignedText>
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">닉네임</Text>
-            <Text typo="body100" color="black">{profile?.nickname || ""}</Text> 
+            <Text typo="subtitle300" color="gray100">
+              닉네임
+            </Text>
+            <Text typo="body100" color="black">
+              {profile?.nickname || ""}
+            </Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">이름</Text>
-            <Text typo="body100" color="black">{profile?.name || ""}</Text>
+            <Text typo="subtitle300" color="gray100">
+              이름
+            </Text>
+            <Text typo="body100" color="black">
+              {profile?.name || ""}
+            </Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">휴대전화 번호</Text>
-            <Text typo="body100" color="black">{profile?.phoneNumber || ""}</Text>
+            <Text typo="subtitle300" color="gray100">
+              휴대전화 번호
+            </Text>
+            <Text typo="body100" color="black">
+              {profile?.phoneNumber || ""}
+            </Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
 
         <FieldWrapper>
           <TextWrapper>
-            <Text typo="subtitle300" color="gray100">이메일 주소</Text>
-            <Text typo="body100" color="black">{profile?.email || ""}</Text>
+            <Text typo="subtitle300" color="gray100">
+              이메일 주소
+            </Text>
+            <Text typo="body100" color="black">
+              {profile?.email || ""}
+            </Text>
           </TextWrapper>
           <Divider />
         </FieldWrapper>
+        <EndWrapper onClick={handleLogout}>
+          <Text color="gray100" typo={"subtitle300"}>
+            로그아웃
+          </Text>
+        </EndWrapper>
       </PageWrapper>
       <GNB type="designer" />
     </>
