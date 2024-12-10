@@ -79,11 +79,10 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           value={inputData.name}
           onChange={(event) => handleInputChange(event, "name")}
         />
-
         <DropButton
           label="견종"
           placeholder="견종을 선택해주세요"
-          options={["말티즈", "푸들", "진돗개", "시츄"]}
+          options={["아펜핀셔", "테리어", "비글", "비숑","치와와","말티즈","포메라니안","퍼그"]}
           onSelect={(value) => handleChange("breed", value)}
         />
 

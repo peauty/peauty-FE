@@ -56,11 +56,11 @@ export default function Step2({
         buttonNames={[
           "없음",
           "슬개골",
-          "KENNEL_COUGH",
-          "CANINE_INFLUENZA",
-          "HEART_WORM",
-          "PARVOVIRUS",
-          "RABIES",
+          "외이염",
+          "피부염",
+          "눈질환",
+          "심장병",
+          "관절병",
           "기타",
         ]}
         selectedIndexes={[]} // 선택된 질병 인덱스
