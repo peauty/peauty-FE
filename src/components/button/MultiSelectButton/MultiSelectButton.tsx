@@ -6,7 +6,7 @@ import { colors } from "../../../style/color";
 export interface MultiSelectButtonProps {
   row?: number;
   col?: number;
-  buttonNames?: string[]; // 버튼 이름 배열
+  buttonNames?: (string | undefined)[]; // 버튼 이름 배열
   selectedIndexes: number[]; // 선택된 버튼 인덱스 배열
   onSelect?: (indexes: number[]) => void; // 선택 이벤트
 }
