@@ -23,7 +23,7 @@ interface Review {
 const generateDummyReviews = (start: number, count: number): Review[] =>
   Array.from({ length: count }, (_, i) => ({
     id: start + i,
-    rating: parseInt((Math.random() * 2 + 3).toFixed(1)), // 3.0 ~ 5.0 사이의 평점
+    rating: Math.random() * 2 + 3, // 3.0 ~ 5.0 사이의 평점
     content: `리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용 ${start + i + 1}`,
     username: `사용자 ${start + i + 1}`,
     service: `가위컷 + 곰돌이컷 ${start + i + 1}`,

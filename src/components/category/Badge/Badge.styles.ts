@@ -12,6 +12,8 @@ export const BadgeWrapper = styled.div<{
   border-radius: ${({ borderRadius }) => borderRadius};
   padding: ${({ padding }) => padding || "0px 7px"};
   gap: 3px;
+  margin: 2px 0;
+  line-height: 1.1;
 `;
 
 export const IconWrapper = styled.div`
