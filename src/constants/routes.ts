@@ -16,6 +16,7 @@ export const ROUTE = {
     signupComplete: "/customer/signup-complete", // 회원가입 완료
     pet: {},
     request: {
+      base:"/request",
       notice: "/customer/request/notice",
       choosePet: "/customer/request/choose-pet-for-grooming", // 반려동물 정보 수정
     },
