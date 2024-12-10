@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppBar, GNB, Text } from "../../components";
 import { Maker, Warning } from "../../assets/svg";
 import { SelectIcon } from "../../assets/svg";
@@ -14,49 +14,50 @@ import {
   SelectButton,
   SelectWrapper,
   VerificationWrapper,
+  ShopWrapper,
 } from "./index.styles";
-
-const dummyData = [
-  {
-    id: 1,
-    name: "너는 작은 솔씨 하나지만",
-    experience: "5년",
-    score: "4.32",
-    badges: ["네 안에는 아름드리", "금강송이 들어있다"],
-  },
-  {
-    id: 2,
-    name: "너는 작은 도토리알이지만",
-    experience: "7년",
-    score: "4.75",
-    badges: ["네 안에는 우람한", "참나무가 들어있다"],
-  },
-  {
-    id: 3,
-    name: "너는 지금 작지만 이미 크다",
-    experience: "3년",
-    score: "4.15",
-    badges: ["너는 지금 모르지만", "너의 때가 오고 있다"],
-  },
-  {
-    id: 4,
-    name: "믿음직한 손길",
-    experience: "6년",
-    score: "4.50",
-    badges: ["중형견 전문가", "털 관리 전문가"],
-  },
-];
+import { getAroundWorkspaces } from "../../apis/customer/resources/customer";
+import { Workspace } from "../../types/customer/customer";
+import { useUserDetails } from "../../hooks/useUserDetails";
+import { useNavigate } from "react-router-dom";
 
 export default function Request() {
   const [isSelecting, setIsSelecting] = useState(false);
-  const [checkedItems, setCheckedItems] = useState<boolean[]>(
-    Array(dummyData.length).fill(false),
-  );
+  const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([]); // 작업 공간 데이터
+  const [customerAddress, setCustomerAddress] = useState<string>(""); // 고객 주소
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const user = useUserDetails(); // 로그인한 유저 정보 가져오기
+  const [isFetched, setIsFetched] = useState(false); // 요청 여부를 제어하는 상태
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!user || !user.userId || isFetched) {
+        return; // 이미 요청한 경우 실행하지 않음
+      }
+
+      try {
+        setLoading(true);
+        const response = await getAroundWorkspaces(user.userId);
+        console.log("API 응답 데이터:", response);
+        setCustomerAddress(response.customerAddress || "알 수 없음");
+        setWorkspaces(response.workspaces || []);
+        setIsFetched(true); // 요청 완료 플래그 설정
+      } catch (error) {
+        console.error("데이터 로드 실패:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [user, isFetched]);
 
   const handleSelectClick = () => {
     setIsSelecting(!isSelecting);
     if (!isSelecting) {
-      setCheckedItems(Array(dummyData.length).fill(false)); // 초기화
+      setCheckedItems(Array(workspaces.length).fill(false)); // 초기화
     }
   };
 
@@ -66,6 +67,17 @@ export default function Request() {
     );
   };
 
+  if (!user || !user.userId) {
+    return <Text typo="body100">로그인 정보가 없습니다.</Text>;
+  }
+
+  if (loading) {
+    return <Text typo="body100">로딩 중...</Text>;
+  }
+
+  const handleDesignerClick = (workspaceId: number) => {
+    navigate(`${workspaceId}`); // 이동 경로 설정
+  };
   return (
     <>
       <AppBar prefix="backButton" title="요청하기" />
@@ -74,7 +86,7 @@ export default function Request() {
         <LocationWrapper>
           <LocationInfo>
             <Maker height={15} />
-            <Text typo="body100">강남구 대치동</Text>
+            <Text typo="body100">{customerAddress}</Text>
           </LocationInfo>
           <VerificationWrapper>
             <Text typo="body600" color="gray100">
@@ -95,18 +107,32 @@ export default function Request() {
           </SelectWrapper>
         </FilterWrapper>
         <DesignerList>
-          {dummyData.map((data, idx) => (
-            <DesignerItem
-              key={data.id}
-              isSelecting={isSelecting}
-              isChecked={checkedItems[idx]}
-              onCheckboxChange={() => handleCheckboxChange(idx)}
-              name={data.name}
-              experience={data.experience}
-              score={data.score}
-              badges={data.badges}
-            />
-          ))}
+          {workspaces.length > 0 ? (
+            workspaces.map((workspace, idx) => (
+              <DesignerItem
+                onClick={() => handleDesignerClick(workspace.workspaceId)}
+                thumbnailUrl={workspace.bannerImageUrl}
+                key={workspace.workspaceId}
+                isSelecting={isSelecting}
+                isChecked={checkedItems[idx]}
+                onCheckboxChange={() => handleCheckboxChange(idx)}
+                name={workspace.workspaceName}
+                experience={workspace.yearOfExperience}
+                review={workspace.reviewCount}
+                score={workspace.reviewRating}
+                badges={workspace.representativeBadges.map((badge) => ({
+                  name: badge.badgeName,
+                  color: badge.badgeColor,
+                }))}
+              />
+            ))
+          ) : (
+            <ShopWrapper>
+              <Text typo="body100" color="gray100">
+                주변에 가게가 없어요.
+              </Text>
+            </ShopWrapper>
+          )}
         </DesignerList>
       </ContentWrapper>
       {isSelecting ? (

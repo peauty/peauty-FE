@@ -7,6 +7,7 @@ export const Container = styled.div`
   gap: 20px;
   padding: 20px 0;
   border-top: 2px solid ${colors.gray400};
+  cursor: pointer;
 `;
 
 export const CheckboxWrapper = styled.div`
@@ -50,7 +51,7 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
   }
 `;
 
-export const Thumbnail = styled.div`
+export const Thumbnail = styled.img`
   background-color: ${colors.gray400};
   width: 90px;
   height: 90px;
@@ -71,4 +72,9 @@ export const RatingWrapper = styled.div`
 export const BadgeWrapper = styled.div`
   display: flex;
   gap: 5px;
+`;
+
+export const ContentsWrapper = styled.div`
+  display: flex;
+  gap: 20px;
 `;

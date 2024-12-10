@@ -5,8 +5,10 @@ import { customerPaths } from "./customer";
 import { designerPaths } from "./designer";
 import { rootPaths } from "./root";
 import theme from "../style/theme";
-import Request from "../pages/request";
 import { customerPaths2 } from "./customer";
+import Request from "../pages/request";
+import { requestPaths2 } from "./customer/request";
+import Shop from "../pages/shop";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -53,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "", // 기본 경로
         element: <Request />,
+      },
+      {
+        path: ":workId", // 상세 경로 추가
+        element: <Shop />,
       },
     ],
     errorElement: <NotFound />,

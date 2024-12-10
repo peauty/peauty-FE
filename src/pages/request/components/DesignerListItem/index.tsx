@@ -9,6 +9,7 @@ import {
   Details,
   RatingWrapper,
   Thumbnail,
+  ContentsWrapper,
 } from "./index.styles";
 
 interface DesignerItemProps {
@@ -16,9 +17,12 @@ interface DesignerItemProps {
   isChecked: boolean;
   onCheckboxChange: () => void;
   name: string;
-  experience: string;
-  score: string;
-  badges: string[];
+  experience: number;
+  score: number;
+  review: number;
+  badges: { name: string; color: string }[];
+  thumbnailUrl: string;
+  onClick: () => void;
 }
 
 export default function DesignerItem({
@@ -28,7 +32,10 @@ export default function DesignerItem({
   name,
   experience,
   score,
+  review,
   badges,
+  thumbnailUrl,
+  onClick,
 }: DesignerItemProps) {
   return (
     <Container>
@@ -37,22 +44,36 @@ export default function DesignerItem({
           <Checkbox checked={isChecked} onChange={onCheckboxChange} />
         </CheckboxWrapper>
       )}
-      <Thumbnail />
-      <Details>
-        <Text typo="subtitle200">{name}</Text>
-        <Text typo="body600">{name}</Text>
-        <RatingWrapper>
-          <Rating starSize="10" score={score} fontsize="body600" color="gray100" />
-          <Text typo="body600" color="gray100">
-            | 경력 {experience}
-          </Text>
-        </RatingWrapper>
-        <BadgeWrapper>
-          {badges.map((badge, idx) => (
-            <Badge key={idx} type="general" text={badge} />
-          ))}
-        </BadgeWrapper>
-      </Details>
+      <ContentsWrapper onClick={onClick}>
+        <Thumbnail src={thumbnailUrl} alt={`${name}의 섬네일`} />
+        <Details>
+          <Text typo="subtitle200">{name}</Text>
+          <Text typo="body600">{name}</Text>
+          <RatingWrapper>
+            <Rating
+              starSize="10"
+              score={score}
+              fontsize="body600"
+              color="gray100"
+            />
+            <Text typo="body600" color="gray100">
+              ({review}) | 경력 {experience}년
+            </Text>
+          </RatingWrapper>
+          <BadgeWrapper>
+            {badges.map((badge, idx) => (
+              <Badge
+                key={idx}
+                type="general"
+                text={badge.name}
+                // variant={badge.color}
+                variant="blue"
+                // color={badge.color}
+              />
+            ))}
+          </BadgeWrapper>
+        </Details>
+      </ContentsWrapper>
     </Container>
   );
 }

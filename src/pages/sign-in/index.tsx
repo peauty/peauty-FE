@@ -6,7 +6,7 @@ import { Text } from "../../components";
 import { ROUTE } from "../../constants/routes";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { CustomJwtPayload } from "../../types/\btypes";
+import { CustomJwtPayload } from "../../types/types";
 
 function parseQueryParams() {
   const params = new URLSearchParams(window.location.search);
