@@ -1,27 +1,28 @@
-import { AppBar, Wrapper } from "../../components";
-import EstimateStauts from "./components/EstimateStatus";
+import { AppBar, GNB, Divider } from "../../components";
+//import EstimateStauts from "./components/EstimateStatus";
 import Carousel from "../../components/carousel/Carousel";
-import BottomSheet from "../../components/bottom-sheet/BottomSheet";
-
+import ProposalItem from "./components/ProposalItem";
+import Temp from "../../assets/images/배너.png";
+import AD from "./components/AD";
+import PopularStore from "./components/PopularStore";
+import NewStore from "./components/NewStore";
+import { HomeWrapper } from "./index.styles";
+import { useUserDetails } from "../../hooks/useUserDetails";
+const images = [Temp, Temp, Temp];
 export default function CustomerHome() {
-  const images = [
-    "assets/images/main/temp.png",
-    "assets/images/main/temp.png",
-    "assets/images/main/temp.png",
-  ];
+  const user = useUserDetails();
+  console.log(user.userId);
   return (
     <>
       <AppBar prefix="logo" />
-      <Wrapper>
-        <EstimateStauts />
-        <Carousel
-          fullWidth={true}
-          autoPlay={false}
-          images={images}
-          height={300}
-        />
-        <BottomSheet options={["1", "2"]} />
-      </Wrapper>
+      <HomeWrapper>
+        <ProposalItem />
+        <Carousel images={images} />
+        <AD />
+        <PopularStore />
+        <NewStore />
+      </HomeWrapper>
+      <GNB type="customer" />
     </>
   );
 }

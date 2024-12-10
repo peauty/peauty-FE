@@ -18,28 +18,30 @@ export interface UpdatePuppyDetailResponse {
   name?: string;
   breed?: string;
   weight?: number;
-  sex?: 'M' | 'F';
+  sex?: "M" | "F";
   age?: number;
   birthdate?: string;
   detail?: string;
+
   disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
-  puppySize?: 'SMALL' | 'MEDIUM' | 'LARGE';
+  puppySize?: "SMALL" | "MEDIUM" | "LARGE";
 }
 
 export interface UpdatePuppyDetailRequest {
   name?: string;
   breed?: string;
   weight?: number;
-  sex?: 'M' | 'F';
+  sex?: "M" | "F";
   age?: number;
   birthdate?: string;
   detail?: string;
+
   disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
-  puppySize?: 'SMALL' | 'MEDIUM' | 'LARGE';
+  puppySize?: "SMALL" | "MEDIUM" | "LARGE";
 }
 
 export interface DeletePuppyResponse {
@@ -70,16 +72,17 @@ export interface RegisterPuppyResponse {
 
 export interface RegisterPuppyRequest {
   name: string;
-  breed: string;
   weight: number;
-  sex: 'M' | 'F';
+  sex: "M" | "F";
   age: number;
   birthdate: string;
   detail?: string;
+
   disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
   puppySize?: '소형견' | '중형견' | '대형견';
+
 }
 
 export interface UploadPuppyImageResponse {

@@ -1,4 +1,9 @@
-import { ItemWrapper } from "./StylistItem.styles";
+import {
+  ItemWrapper,
+  ContentsWrapper,
+  ItemImg,
+  TextWrapper,
+} from "./StylistItem.styles";
 import { Text } from "../texts/Text";
 import { colors } from "../../style/color";
 import { Star } from "../../assets/svg";
@@ -20,10 +25,10 @@ interface StyledItemProps {
   name: string;
   imageUrl: string;
   location: string;
-  star: number;
+  star: string;
   starCount: number;
   career: number;
-  badges: StyledBadgeProps[];
+  badges?: StyledBadgeProps[];
 }
 
 export default function StylistItem({
@@ -37,34 +42,38 @@ export default function StylistItem({
 }: StyledItemProps) {
   return (
     <ItemWrapper>
-      <div
-        style={{
-          width: "65px",
-          height: "65px",
-          borderRadius: "10px",
-          border: `1px solid ${colors.gray200}`,
-        }}
-      ></div>
+      <ItemImg></ItemImg>
       <div>
-        <Text typo="subtitle200">{name}</Text>
-        <div>
-          <Text typo="body500" color="gray100">
+        <ContentsWrapper>
+          <Text typo="subtitle200" color="black">
+            {name}
+          </Text>
+          <Text typo="body700" color="black">
             {location}
           </Text>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-          <Star width={14}/>{" "}
+        </ContentsWrapper>
+
+        <TextWrapper>
+          <Star width={14} />{" "}
           <Text typo="body600" color="gray100">
-            <div style={{ display: "flex", gap: "5px" }}>
-              <span>{star}({starCount})</span>
+            <TextWrapper>
+              <span>
+                {star}({starCount})
+              </span>
               <span>|</span>
               <span>경력 {career}년</span>
-            </div>
+            </TextWrapper>
           </Text>
-        </div>
+        </TextWrapper>
         <BadgeContainer>
-          {badges.map((badge, index) => (
-            <Badge key={index} type={badge.type} variant={badge.variant} text={badge.text} typo={badge.typo}/>
+          {badges?.map((badge, index) => (
+            <Badge
+              key={index}
+              type={badge.type}
+              variant={badge.variant}
+              text={badge.text}
+              typo={badge.typo}
+            />
           ))}
         </BadgeContainer>
       </div>

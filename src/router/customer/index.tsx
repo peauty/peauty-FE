@@ -7,16 +7,12 @@ import { myPagePaths } from "./mypage";
 
 export const customerPaths = [
   {
-    path: "home",
-    element: <CustomerHome/>,
-  },
-  {
     path: "signup",
     element: <CustomerSignUp />,
   },
   {
     path: "signup-complete",
-    element: <CustomerSignUpComplete/>
+    element: <CustomerSignUpComplete />,
   },
   {
     path: "mypage",
@@ -29,5 +25,12 @@ export const customerPaths = [
   {
     path: "request",
     children: requestPaths,
+  },
+];
+
+export const customerPaths2 = [
+  {
+    path: "home",
+    element: <CustomerHome />,
   },
 ];

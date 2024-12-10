@@ -4,8 +4,11 @@ import NotFound from "../pages/not-found";
 import { customerPaths } from "./customer";
 import { designerPaths } from "./designer";
 import { rootPaths } from "./root";
-import Shop from "../pages/shop";
 import theme from "../style/theme";
+import { customerPaths2 } from "./customer";
+import Request from "../pages/request";
+import { requestPaths2 } from "./customer/request";
+import Shop from "../pages/shop";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -15,8 +18,22 @@ export const router = createBrowserRouter([
   },
   {
     path: "/customer",
-    element: <Layout />,
-    children: customerPaths,
+    children: [
+      {
+        element: <Layout />,
+        children: customerPaths,
+      },
+      {
+        element: (
+          <Layout
+            style={{
+              padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
+            }}
+          />
+        ),
+        children: customerPaths2,
+      },
+    ],
     errorElement: <NotFound />,
   },
   {
@@ -26,7 +43,7 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: "/shop",
+    path: "/request",
     element: (
       <Layout
         style={{
@@ -37,7 +54,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "", // 기본 경로
-        element: <Shop />, // Shop 컴포넌트가 Outlet으로 렌더링됨
+        element: <Request />,
+      },
+      {
+        path: ":workId", // 상세 경로 추가
+        element: <Shop />,
       },
     ],
     errorElement: <NotFound />,

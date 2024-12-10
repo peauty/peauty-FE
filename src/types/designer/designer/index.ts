@@ -5,7 +5,7 @@ export interface GetDesignerWorkspaceResponse {
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
-  scissors?: 'NONE' | 'GOLD' | 'SILVER' | 'BRONZE';
+  scissors?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
   introduceTitle?: string;
   introduce?: string;
   noticeTitle?: string;
@@ -19,7 +19,7 @@ export interface GetDesignerWorkspaceResponse {
   openDay?: string;
   directionGuide?: string;
   licenses?: string[];
-  paymentOptions?: 'CARD' | 'CASH' | 'ACCOUNT'[];
+  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
   representativeBadgeNames?: string[];
 }
 
@@ -30,7 +30,7 @@ export interface UpdateDesignerWorkspaceResponse {
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
-  scissor?: 'NONE' | 'GOLD' | 'SILVER' | 'BRONZE';
+  scissors?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
   introduceTitle?: string;
   introduce?: string;
   noticeTitle?: string;
@@ -44,7 +44,7 @@ export interface UpdateDesignerWorkspaceResponse {
   openDay?: string;
   directionGuide?: string;
   licenses?: string[];
-  paymentOptions?: 'CARD' | 'CASH' | 'ACCOUNT'[];
+  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
   representativeBadgeNames?: string[];
 }
 
@@ -59,7 +59,7 @@ export interface UpdateDesignerWorkspaceRequest {
   addressDetail?: string;
   yearOfExperience?: number;
   licenses?: string[];
-  paymentOptions?: 'CARD' | 'CASH' | 'ACCOUNT'[];
+  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
   openHours?: string;
   closeHours?: string;
   openDays?: string;
@@ -74,7 +74,7 @@ export interface CreateDesignerWorkspaceResponse {
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
-  scissor?: 'NONE' | 'GOLD' | 'SILVER' | 'BRONZE';
+  scissors?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
   introduceTitle?: string;
   introduce?: string;
   noticeTitle?: string;
@@ -88,7 +88,7 @@ export interface CreateDesignerWorkspaceResponse {
   openDay?: string;
   directionGuide?: string;
   licenses?: string[];
-  paymentOptions?: 'CARD' | 'CASH' | 'ACCOUNT'[];
+  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
   representativeBadgeNames?: string[];
 }
 
@@ -103,7 +103,7 @@ export interface CreateDesignerWorkspaceRequest {
   addressDetail?: string;
   yearOfExperience?: number;
   licenses?: string[];
-  paymentOptions?: 'CARD' | 'CASH' | 'ACCOUNT'[];
+  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
   openHours?: string;
   closeHours?: string;
   openDays?: string;
@@ -111,28 +111,38 @@ export interface CreateDesignerWorkspaceRequest {
   phoneNumber?: string;
 }
 
-export interface GetDesignerProfileResponse {
+export interface UpdateRepresentativeBadgeResponse {
+  badgeId?: number;
+  badgeName?: string;
+  isRepresentativeBadge?: boolean;
+}
+
+export interface UpdateRepresentativeBadgeRequest {
+  isRepresentativeBadge?: boolean;
+}
+
+export interface GetDesignerAccountResponse {
   designerId?: number;
   name?: string;
   nickname?: string;
   profileImageUrl?: string;
   email?: string;
-  phoneNum?: string;
+  phoneNumber?: string;
 }
 
-export interface UpdateDesignerProfileResponse {
+export interface UpdateDesignerAccountResponse {
   designerId?: number;
   name?: string;
   nickname?: string;
-  phoneNum?: string;
+  phoneNumber?: string;
   profileImageUrl?: string;
   email?: string;
 }
 
-export interface UpdateDesignerProfileRequest {
+export interface UpdateDesignerAccountRequest {
   name?: string;
   nickname?: string;
-  phoneNum?: string;
+  phoneNumber?: string;
   address?: string;
   profileImageUrl?: string;
   email?: string;
@@ -141,6 +151,26 @@ export interface UpdateDesignerProfileRequest {
 export interface UploadProfileImageResponse {
   designerId?: number;
   uploadedProfileImageUrl?: string;
+}
+
+export interface GetDesignerBadgesResponse {
+  acquiredBadges?: {
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeImageUrl?: string;
+  badgeColor?: 'BLUE' | 'GREEN' | 'BRONZE' | 'SILVER' | 'GOLD';
+}[];
+  unacquiredBadges?: BadgeResponse[];
+  representativeBadges?: BadgeResponse[];
+}
+
+export interface BadgeResponse {
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeImageUrl?: string;
+  badgeColor?: 'BLUE' | 'GREEN' | 'BRONZE' | 'SILVER' | 'GOLD';
 }
 
 export interface CheckDesignerNicknameDuplicatedResponse {
