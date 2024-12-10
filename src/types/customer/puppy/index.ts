@@ -77,7 +77,7 @@ export interface RegisterPuppyRequest {
   age: number;
   birthdate: string;
   detail?: string;
-
+  breed: string;
   disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;

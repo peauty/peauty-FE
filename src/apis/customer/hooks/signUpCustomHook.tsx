@@ -4,7 +4,7 @@ import { RegisterPuppyRequest } from "../../../types/customer/puppy";
 export function signUpCustomHook() {
   const [inputData, setInputData] = useState<RegisterPuppyRequest>({
     name: "",
-    breed: "TERRIER",
+    breed: "리트리버",
     weight: 0,
     sex: "M",
     age: 0,
