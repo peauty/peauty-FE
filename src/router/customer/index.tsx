@@ -6,7 +6,7 @@ import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
 import theme from "../../style/theme";
 import { UserLayout } from "../../components/layout/UserLayout";
-import { AuthLayout } from "../../components/layout/AuthLayout";
+import { Layout } from "../../components/layout/Layout";
 import Shop from "../../pages/shop";
 
 export const customerPaths = [
@@ -22,7 +22,7 @@ export const customerPaths = [
         element: <CustomerSignUpComplete />,
       },
     ],
-    element: <AuthLayout />,
+    element: <Layout />,
   },
   {
     path: "",

@@ -2,14 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import { customerPaths } from "./customer";
 import { designerPaths } from "./designer";
 import { rootPaths } from "./root";
-import { AuthLayout } from "../components/layout/AuthLayout";
+import { Layout } from "../components/layout/Layout";
 export const router = createBrowserRouter([
   {
     path: "",
     children: [
       {
         path: "",
-        element: <AuthLayout />,
+        element: <Layout />,
         children: rootPaths,
       },
       {
@@ -21,6 +21,6 @@ export const router = createBrowserRouter([
         children: designerPaths,
       },
     ],
-    errorElement: <AuthLayout />,
+    errorElement: <Layout />,
   },
 ]);
