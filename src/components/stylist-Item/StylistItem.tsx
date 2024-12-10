@@ -1,4 +1,9 @@
-import { ItemWrapper } from "./StylistItem.styles";
+import {
+  ItemWrapper,
+  ContentsWrapper,
+  ItemImg,
+  TextWrapper,
+} from "./StylistItem.styles";
 import { Text } from "../texts/Text";
 import { colors } from "../../style/color";
 import { Star } from "../../assets/svg";
@@ -37,36 +42,29 @@ export default function StylistItem({
 }: StyledItemProps) {
   return (
     <ItemWrapper>
-      <div
-        style={{
-          width: "75px",
-          // height: "70px",
-          borderRadius: "10px",
-          border: `1px solid ${colors.gray300}`,
-        }}
-      ></div>
+      <ItemImg></ItemImg>
       <div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <ContentsWrapper>
           <Text typo="subtitle200" color="black">
             {name}
           </Text>
           <Text typo="body700" color="black">
             {location}
           </Text>
-        </div>
+        </ContentsWrapper>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <TextWrapper>
           <Star width={14} />{" "}
           <Text typo="body600" color="gray100">
-            <div style={{ display: "flex", gap: "5px" }}>
+            <TextWrapper>
               <span>
                 {star}({starCount})
               </span>
               <span>|</span>
               <span>경력 {career}년</span>
-            </div>
+            </TextWrapper>
           </Text>
-        </div>
+        </TextWrapper>
         <BadgeContainer>
           {badges?.map((badge, index) => (
             <Badge
