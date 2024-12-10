@@ -91,12 +91,12 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           분류
           <RadioSelectButton
             col={3}
-            buttonNames={["SMALL", "MEDIUM", "LARGE"]}
-            selectedIndex={["SMALL", "MEDIUM", "LARGE"].indexOf(
-              inputData.puppySize || "MEDIUM",
+            buttonNames={["소형견", "중형견", "대형견"]}
+            selectedIndex={["소형견", "중형견", "대형견"].indexOf(
+              inputData.puppySize || "중형견",
             )}
             onSelect={(index) => {
-              const selectedSize = ["SMALL", "MEDIUM", "LARGE"][index];
+              const selectedSize = ["소형견", "중형견", "대형견"][index];
               handleChange("puppySize", selectedSize);
             }}
           />
@@ -137,7 +137,15 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
               kg
             </Text>
           </HalfWrapper>
-        </InputWrapper>
+          </InputWrapper>
+
+        <CustomInput
+            label="생일"
+            placeholder="예) 2024-12-10"
+            variant="outlined"
+            value={inputData.birthdate}
+            onChange={(event) => handleInputChange(event, "birthdate")}
+          />
 
         <ButtonWrapper>
           <CustomButton fullwidth variant="primary" onClick={onNext}>

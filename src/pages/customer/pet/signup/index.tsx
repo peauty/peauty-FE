@@ -77,7 +77,7 @@ export default function PetSignUp() {
         weight: inputData.weight,
         sex: inputData.sex,
         age: inputData.age,
-        birthdate: "2023-12-03", // TODO
+        birthdate: inputData.birthdate, // TODO
         detail: inputData.detail,
         disease: [], // TODO
         diseaseDescription: inputData.diseaseDescription,
