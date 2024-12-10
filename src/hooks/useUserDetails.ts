@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
-import {jwtDecode} from "jwt-decode";
-
-interface CustomJwtPayload {
-  user: {
-    userId: number;
-    role: string;
-  };
-  exp: number;
-}
+import { jwtDecode } from "jwt-decode";
+import { CustomJwtPayload } from "../types/\btypes";
 
 export function useUserDetails() {
   const [userDetails, setUserDetails] = useState<{
@@ -39,4 +32,3 @@ export function useUserDetails() {
 
   return { ...userDetails, isLoading };
 }
-
