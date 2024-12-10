@@ -5,7 +5,7 @@ import { Style } from "../index.styles";
 import { uploadImage } from "../../../../apis/designer/resources/internal";
 
 interface CoverPhotoUploadSectionProps {
-  onChange: (url: string) => void;
+  onChange: (url: string[]) => void; // 여러 이미지 URL을 전달하도록 수정
 }
 
 export default function CoverPhotoUploadSection({
@@ -19,7 +19,7 @@ export default function CoverPhotoUploadSection({
       if (response.uploadedImageUrl) {
         const updatedImageUrls = [...imageUrls, response.uploadedImageUrl];
         setImageUrls(updatedImageUrls);
-        onChange(response.uploadedImageUrl); // 상위 컴포넌트에 최신 이미지 URL 전달
+        onChange(updatedImageUrls); // 상위 컴포넌트에 전체 이미지 URL 목록 전달
       }
     } catch (error) {
       console.error("Image upload failed:", error);
@@ -31,6 +31,12 @@ export default function CoverPhotoUploadSection({
     if (file) {
       handleImageUpload(file);
     }
+  };
+
+  const handleImageDelete = (url: string) => {
+    const updatedImageUrls = imageUrls.filter((imageUrl) => imageUrl !== url);
+    setImageUrls(updatedImageUrls);
+    onChange(updatedImageUrls); // 상위 컴포넌트에 삭제된 목록 전달
   };
 
   return (
@@ -61,8 +67,12 @@ export default function CoverPhotoUploadSection({
           )}
           {/* 업로드된 이미지 */}
           {imageUrls.map((url, index) => (
-            <Style.AddWrapper key={index}>
+            <Style.AddWrapper key={index} style={{ position: "relative" }}>
               <Style.ImageUnit src={url} alt={`Uploaded image ${index + 1}`} />
+              {/* 삭제 버튼 */}
+              <Style.DeleteButton onClick={() => handleImageDelete(url)}>
+                &minus;
+              </Style.DeleteButton>
             </Style.AddWrapper>
           ))}
         </Style.ImageContainer>

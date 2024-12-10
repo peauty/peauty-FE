@@ -47,4 +47,21 @@ export const Style = {
     height: 50px;
     border-radius: 10px;
   `,
+
+  DeleteButton: styled.button`
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+  `,
 };
