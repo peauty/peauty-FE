@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   min-width: ${theme.size.minWidth};
   max-width: ${theme.size.maxWidth};
   margin: 0 auto;
+  padding: 0;
   overscroll-behavior-y: contain;
   box-sizing: border-box;
   position: relative;
