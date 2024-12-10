@@ -1,80 +1,29 @@
-import DesignerMyPage from "../../pages/designer/mypage";
-import DesignerMyPageDetail from "../../pages/designer/mypage/detail";
-import DesignerMyPageEdit from "../../pages/designer/mypage/edit";
-import DesignerSignUp from "../../pages/designer/signup";
-import DesignerSignUpComplete from "../../pages/designer/signup-complete";
-import DesignerSignUpDetail from "../../pages/designer/signup-detail";
-import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
-import DesignerMyBadgesPage from "../../pages/designer/mypage/badges";
-import DesignerHome from "../../pages/designer/home";
 import { Layout } from "../../components/layout/Layout";
 import { AuthLayout } from "../../components/layout/AuthLayout";
-import Quote from "../../pages/designer/quote";
-import theme from "../../style/theme";
+import { designerMypagePaths } from "./mypage";
+import { signupPaths } from "./signup";
+import { homePaths } from "./home";
+import { quotePaths } from "./quote";
+import { noPadding } from "../../style/layoutStyle";
 
 export const designerPaths = [
   {
     path: "",
-    children: [
-      {
-        path: "signup",
-        element: <DesignerSignUp />,
-      },
-      {
-        path: "signup-complete",
-        element: <DesignerSignUpComplete />,
-      },
-      {
-        path: "signup-detail",
-        element: <DesignerSignUpDetail />,
-      },
-      {
-        path: "signup-detail-complete",
-        element: <DesignerSignUpDetailComplete />,
-      },
-    ],
+    children: signupPaths,
     element: <Layout />,
   },
   {
     path: "",
-    children: [
-      {
-        path: "home",
-        element: <DesignerHome />,
-      },
-      {
-        path: "mypage",
-        element: <DesignerMyPage />,
-      },
-      {
-        path: "mypage/badges",
-        element: <DesignerMyBadgesPage />,
-      },
-      {
-        path: "mypage/detail",
-        element: <DesignerMyPageDetail />,
-      },
-      {
-        path: "mypage/edit",
-        element: <DesignerMyPageEdit />,
-      },
-    ],
-    element: <AuthLayout userType="designer" />,
+    children: quotePaths,
+    element: <Layout style={noPadding} />,
   },
   {
-    path: "",
-    chideren: [
-      {
-        path: "quote",
-        element: <Quote />,
-      },
-    ],
-    element: (
-      <Layout
-        style={{
-          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
-        }}
-      />
-    ),
+    path: "home",
+    children: homePaths,
+    element: <AuthLayout userType={"designer"} />,
+  },
+  {
+    path: "mypage",
+    children: designerMypagePaths,
   },
 ];

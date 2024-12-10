@@ -4,10 +4,10 @@ import CustomerHome from "../../pages/main";
 import { petPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
-import theme from "../../style/theme";
 import { Layout } from "../../components/layout/Layout";
 import { AuthLayout } from "../../components/layout/AuthLayout";
 import Shop from "../../pages/shop";
+import { noPadding } from "../../style/layoutStyle";
 
 export const customerPaths = [
   {
@@ -54,13 +54,6 @@ export const customerPaths = [
         element: <Shop />,
       },
     ],
-    element: (
-      <AuthLayout
-        userType="customer"
-        style={{
-          padding: `${theme.size.appBarHeight} 0 ${theme.size.gnbHeight}`,
-        }}
-      />
-    ),
+    element: <AuthLayout userType="customer" style={noPadding} />,
   },
 ];
