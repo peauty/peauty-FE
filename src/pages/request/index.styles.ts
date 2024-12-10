@@ -52,3 +52,10 @@ export const SelectButton = styled.div`
 export const DesignerList = styled.div`
   padding: 0 0 20px;
 `;
+
+export const ShopWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+`;

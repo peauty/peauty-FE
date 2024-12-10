@@ -14,6 +14,7 @@ import {
   SelectButton,
   SelectWrapper,
   VerificationWrapper,
+  ShopWrapper,
 } from "./index.styles";
 import { getAroundWorkspaces } from "../../apis/customer/resources/customer";
 import { Workspace } from "../../types/customer/customer";
@@ -117,7 +118,7 @@ export default function Request() {
                 onCheckboxChange={() => handleCheckboxChange(idx)}
                 name={workspace.workspaceName}
                 experience={workspace.yearOfExperience}
-                review = {workspace.reviewCount}
+                review={workspace.reviewCount}
                 score={workspace.reviewRating}
                 badges={workspace.representativeBadges.map((badge) => ({
                   name: badge.badgeName,
@@ -126,18 +127,11 @@ export default function Request() {
               />
             ))
           ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                height: "300px",
-              }}
-            >
+            <ShopWrapper>
               <Text typo="body100" color="gray100">
                 주변에 가게가 없어요.
               </Text>
-            </div>
+            </ShopWrapper>
           )}
         </DesignerList>
       </ContentWrapper>
