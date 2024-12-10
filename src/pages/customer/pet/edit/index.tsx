@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  AppBar,
   CustomInput,
   DropButton,
   GNB,
@@ -86,6 +87,8 @@ export default function PetEdit() {
 
   return (
     <>
+      <AppBar prefix="backButton" title="반려견 정보 수정" />
+
       <ProfileImg
         width="120px"
         height="120px"
