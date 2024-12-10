@@ -11,6 +11,6 @@ type Story = StoryObj<typeof Rating>;
 
 export const Default: Story = {
   args: {
-    score: "4.0",
+    score: 4.0,
   },
 };

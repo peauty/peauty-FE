@@ -29,7 +29,7 @@ export function GNB({
 }: GNBProps) {
   const userMenuItems = [
     { icon: <Home />, label: "홈", path: ROUTE.customer.home },
-    { icon: <Search />, label: "요청하기", path: ROUTE.customer.shop },
+    { icon: <Search />, label: "요청하기", path: ROUTE.customer.request.base },
     { icon: <Bookmark />, label: "요청 현황", path: "/requests" },
     { icon: <Smile />, label: "마이페이지", path: "/mypage" },
   ];
