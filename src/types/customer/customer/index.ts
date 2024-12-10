@@ -29,6 +29,38 @@ export interface UploadProfileImageResponse {
   uploadedProfileImageUrl?: string;
 }
 
+export interface GetAroundWorkspacesResponse {
+  customerId?: number;
+  customerAddress?: string;
+  workspaces?: {
+    workspaceId?: number;
+    workspaceName?: string;
+    address?: string;
+    addressDetail?: string;
+    bannerImageUrl?: string;
+    reviewCount?: number;
+    reviewRating?: number;
+    designerName?: string;
+    yearOfExperience?: number;
+    representativeBadgesName?: string[];
+    scissorsRank?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
+  }[];
+}
+
+export interface GetAroundWorkspaceResponse {
+  workspaceId?: number;
+  workspaceName?: string;
+  address?: string;
+  addressDetail?: string;
+  bannerImageUrl?: string;
+  reviewCount?: number;
+  reviewRating?: number;
+  designerName?: string;
+  yearOfExperience?: number;
+  representativeBadgesName?: string[];
+  scissorsRank?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
+}
+
 export interface CheckCustomerNicknameDuplicatedResponse {
   message?: string;
 }

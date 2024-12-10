@@ -17,29 +17,36 @@ function parseQueryParams() {
 
 export default function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const {userId, role, isLoading} = useUserDetails();
-  const navigate = useNavigate()
+  const [signinType, setSigninType] = useState("");
+  const { role, isLoading } = useUserDetails();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoading) return;
-  
+
     const { accessToken, refreshToken } = parseQueryParams();
     if (accessToken && refreshToken) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-  
+
       if (role === "ROLE_CUSTOMER") {
         navigate(ROUTE.customer.home);
       } else if (role === "ROLE_DESIGNER") {
-        navigate(ROUTE.signIn);
+        navigate(ROUTE.designer.home);
       } else {
         navigate(ROUTE.signIn);
       }
     }
   }, [isLoading, role, navigate]);
 
-  const handleGeneralSignUp = () => {
+  const handleCustomerSignUp = () => {
     setIsModalVisible(true);
+    setSigninType("customer");
+  };
+
+  const handleDesignerSignUp = () => {
+    setIsModalVisible(true);
+    setSigninType("designer");
   };
 
   const handleCloseModal = () => {
@@ -69,15 +76,25 @@ export default function SignIn() {
             size="large"
             variant="outline"
             fullwidth={true}
-            onClick={handleGeneralSignUp}
+            onClick={handleCustomerSignUp}
           >
             일반 회원 가입
           </CustomButton>
-          <CustomButton size="large" variant="outline" fullwidth={true}>
+          <CustomButton
+            size="large"
+            variant="outline"
+            fullwidth={true}
+            onClick={handleDesignerSignUp}
+          >
             미용사 회원 가입
           </CustomButton>
         </ButtonWrapper>
-        {isModalVisible && <SocialLoginModal onClose={handleCloseModal} />}
+        {isModalVisible && (
+          <SocialLoginModal
+            signinType={signinType}
+            onClose={handleCloseModal}
+          />
+        )}
       </Wrapper>
     </>
   );

@@ -20,7 +20,7 @@ interface StyledItemProps {
   name: string;
   imageUrl: string;
   location: string;
-  star: number;
+  star: string;
   starCount: number;
   career: number;
   badges?: StyledBadgeProps[];
@@ -39,19 +39,22 @@ export default function StylistItem({
     <ItemWrapper>
       <div
         style={{
-          width: "65px",
-          height: "65px",
+          width: "75px",
+          // height: "70px",
           borderRadius: "10px",
-          border: `1px solid ${colors.gray200}`,
+          border: `1px solid ${colors.gray300}`,
         }}
       ></div>
       <div>
-        <Text typo="subtitle200">{name}</Text>
-        <div>
-          <Text typo="body500" color="gray100">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Text typo="subtitle200" color="black">
+            {name}
+          </Text>
+          <Text typo="body700" color="black">
             {location}
           </Text>
         </div>
+
         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
           <Star width={14} />{" "}
           <Text typo="body600" color="gray100">

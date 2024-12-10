@@ -10,4 +10,6 @@ export const requestPaths = [
     path: "choose-pet-for-grooming",
     element: <ChoosePetForGrooming />,
   },
+  
 ];
+
