@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { colors } from "../../../../style/color";
 
+export const ImgUploadWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+`;
+
 export const ReviewableServiceWrapper = styled.div`
   display: flex;
   flex-direction: column;
