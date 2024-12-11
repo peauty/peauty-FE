@@ -27,7 +27,7 @@ export const SecondQuestionBox = styled.div`
 export const WriteReviewBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const ReviewableServiceWrapper = styled.div`
@@ -51,12 +51,26 @@ export const SelectTagWrapper = styled.div`
   padding: 10px 0;
 `;
 
-export const TagWrapper = styled.div`
+export const TagWrapper = styled.div<{ selected?: boolean }>`
   display: flex;
+  align-items: center;
   gap: 10px;
-  border: 1px solid ${colors.gray200};
+  border: 1px solid
+    ${(props) => (props.selected ? colors.blue100 : colors.gray200)};
+  background-color: ${(props) =>
+    props.selected ? colors.blue300 : "transparent"};
   border-radius: 10px;
   padding: 7px;
+  cursor: pointer;
+
+  div + div {
+    color: ${(props) => (props.selected ? colors.blue100 : colors.gray200)};
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const BackgroundImg = styled.img`
