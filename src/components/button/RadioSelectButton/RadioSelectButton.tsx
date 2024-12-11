@@ -12,7 +12,7 @@ export interface RadioSelectButtonProps {
 
 export default function RadioSelectButton({
   col,
-  buttonNames,
+  buttonNames = [],
   selectedIndex,
   onSelect,
 }: RadioSelectButtonProps) {
