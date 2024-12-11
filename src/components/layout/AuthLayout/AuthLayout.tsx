@@ -4,15 +4,16 @@ import { CSSProperties } from "react";
 import { Outlet } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { ROUTE } from "../../../constants/routes";
-import { Main } from "./Layout.styles";
-import { Wrapper } from "./Layout.styles";
+import { Main } from "../Layout/Layout.styles";
+import { Wrapper } from "../Wrpper";
 import { CustomJwtPayload } from "../../../types/types";
 
 interface LayoutProps {
+  userType: "customer" | "designer";
   style?: CSSProperties;
 }
 
-export default function Layout({ style }: LayoutProps) {
+export default function AuthLayout({ userType, style }: LayoutProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,12 +25,10 @@ export default function Layout({ style }: LayoutProps) {
         const decoded = jwtDecode<CustomJwtPayload>(accessToken);
         const role = decoded.user.role;
 
-        if (role === "ROLE_CUSTOMER") {
-          navigate(ROUTE.customer.home);
-        } else if (role === "ROLE_DESIGNER") {
+        if (userType === "customer" && role === "ROLE_DESIGNER") {
           navigate(ROUTE.designer.home);
-        } else {
-          navigate(ROUTE.signIn);
+        } else if (userType === "designer" && role === "ROLE_CUSTOMER") {
+          navigate(ROUTE.customer.home);
         }
       } catch (error) {
         console.error("Invalid token", error);

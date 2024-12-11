@@ -45,6 +45,7 @@ export const InputWrapper = styled.div<{
   variant: string;
   error: boolean;
   disabled: boolean;
+  hasExtraText: boolean;
 }>`
   display: flex;
   align-items: center;
@@ -53,15 +54,15 @@ export const InputWrapper = styled.div<{
   ${({ variant, error, disabled }) =>
     variant === "outlined"
       ? css`
-          border: ${disabled
-            ? `1px solid ${colors.blue100}`
-            : `1px solid ${error ? colors.red200 : colors.gray400}`};
+          border: ${error
+            ? `1px solid ${colors.red200}`
+            : `1px solid ${colors.gray400}`};
+
           padding: 0px 10px;
           border-radius: 10px;
 
           &:focus-within {
             border-color: ${error ? colors.red200 : colors.blue200};
-            /* box-shadow: 0 0 0 1px ${error ? colors.red100 : colors.blue100}; */
           }
         `
       : css`
@@ -82,17 +83,6 @@ export const StyledInput = styled.input<{ error: boolean }>`
   background-color: transparent;
   font-size: 14px;
   padding: 12px 10px;
-
-  &::placeholder {
-    color: #9ca3af;
-    font-size: ${typography.body100};
-  }
-
-  &:disabled {
-    color: ${colors.black};
-    cursor: not-allowed;
-    font-size: 12px;
-  }
 `;
 
 export const StyledTextarea = styled.textarea<{ error: boolean }>`
@@ -105,17 +95,6 @@ export const StyledTextarea = styled.textarea<{ error: boolean }>`
   resize: none;
   line-height: 1.6;
   border: none;
-
-  &::placeholder {
-    color: #9ca3af;
-    font-size: ${typography.body100};
-  }
-
-  &:disabled {
-    color: ${colors.black};
-    cursor: not-allowed;
-    font-size: 12px;
-  }
 `;
 
 export const SuffixContainer = styled.div<{
@@ -152,4 +131,12 @@ export const Message = styled.p<{ error?: boolean }>`
   margin-top: 4px;
   color: ${(props) => (props.error ? colors.red300 : "#6b7280")};
   animation: ${fadeIn} 0.3s ease-in-out;
+`;
+
+export const NoticeContainer = styled.div<{ hasError: boolean }>`
+  display: flex;
+  justify-content: ${({ hasError }) =>
+    hasError ? "space-between" : "flex-end"};
+  align-items: center;
+  width: 100%;
 `;

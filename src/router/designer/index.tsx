@@ -1,48 +1,28 @@
-import DesignerMyPage from "../../pages/designer/mypage";
-import DesignerMyPageDetail from "../../pages/designer/mypage/detail";
-import DesignerMyPageEdit from "../../pages/designer/mypage/edit";
-import DesignerSignUp from "../../pages/designer/signup";
-import DesignerSignUpComplete from "../../pages/designer/signup-complete";
-import DesignerSignUpDetail from "../../pages/designer/signup-detail";
-import DesignerSignUpDetailComplete from "../../pages/designer/signup-detail-complete";
-import DesignerMyBadgesPage from "../../pages/designer/mypage/badges";
-import DesignerHome from "../../pages/designer/home";
+import { Layout } from "../../components/layout/Layout";
+import { AuthLayout } from "../../components/layout/AuthLayout";
+import { designerMypagePaths } from "./mypage";
+import { signupPaths } from "./signup";
+import { homePaths } from "./home";
+import { quotePaths } from "./quote";
+import { noPadding } from "../../style/layoutStyle";
 
 export const designerPaths = [
   {
+    path: "",
+    children: signupPaths,
+  },
+  {
+    path: "",
+    children: quotePaths,
+    element: <Layout style={noPadding} />,
+  },
+  {
     path: "home",
-    element: <DesignerHome />,
+    children: homePaths,
+    element: <AuthLayout userType={"designer"} />,
   },
   {
     path: "mypage",
-    element: <DesignerMyPage />,
-  },
-  {
-    path: "signup",
-    element: <DesignerSignUp />,
-  },
-  {
-    path: "signup-complete",
-    element: <DesignerSignUpComplete />,
-  },
-  {
-    path: "signup-detail",
-    element: <DesignerSignUpDetail />,
-  },
-  {
-    path: "signup-detail-complete",
-    element: <DesignerSignUpDetailComplete />,
-  },
-  {
-    path: "mypage/badges",
-    element: <DesignerMyBadgesPage />,
-  },
-  {
-    path: "mypage/detail",
-    element: <DesignerMyPageDetail />,
-  },
-  {
-    path: "mypage/edit",
-    element: <DesignerMyPageEdit />,
+    children: designerMypagePaths,
   },
 ];

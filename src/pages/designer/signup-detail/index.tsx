@@ -1,115 +1,117 @@
-import { AddImage } from "../../../assets/svg";
-import {
-  AppBar,
-  CustomButton,
-  CustomInput,
-  GNB,
-  Text,
-} from "../../../components";
-import { LocationButton } from "../../../components/button/LocationButton";
-import { RadioSelectButton } from "../../../components/button/RadioSelectButton";
-import { RadioSelectButtonProps } from "../../../components/button/RadioSelectButton/RadioSelectButton";
-import { Payment } from "../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+import { useState } from "react";
+import { AppBar, CustomInput, GNB, Text } from "../../../components";
+import { TitleContentInput } from "../../../components/input/TitleContentInput";
 import { Style } from "./index.styles";
+import CoverPhotoUploadSection from "./components/CoverPhotoUploadSection";
+import { useUserDetails } from "../../../hooks/useUserDetails";
+import { CreateDesignerWorkspaceRequest } from "../../../types/designer";
+import { createDesignerWorkspace } from "../../../apis/resources/designer";
+import ShopInfoInputSection from "./components/ShopInfoInputSection";
+import CertificateInputSection from "./components/CertificateInputSection";
+
+interface validateRulesType {
+  workspaceName: string;
+  address: string;
+  addressDetail: string;
+  openHours: string;
+  phoneNumber: string;
+  paymentOptions: string;
+}
 
 export default function DesignerSignUpDetail() {
-  const handleHowToPaySelect = (selectedPayIndex: number) => {
-    console.log("Selected Payment:", selectedPayIndex);
+  const { userId } = useUserDetails();
+
+  const [shopDetailInfo, setShopDetailInfo] =
+    useState<CreateDesignerWorkspaceRequest>({
+      bannerImageUrl: "",
+      workspaceName: "",
+      introduceTitle: "",
+      introduce: "",
+      noticeTitle: "",
+      notice: "",
+      address: "",
+      addressDetail: "",
+      yearOfExperience: undefined,
+      licenses: [],
+      paymentOptions: [],
+      openHours: "",
+      closeHours: "",
+      openDays: "",
+      directionGuide: "",
+      phoneNumber: "",
+    });
+
+  const handleInputChange = (
+    field: keyof CreateDesignerWorkspaceRequest,
+    value: any,
+  ) => {
+    setShopDetailInfo((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
+  const handleSubmit = async () => {
+    const validationRules: {
+      key: keyof validateRulesType;
+      message: string;
+    }[] = [
+      { key: "workspaceName", message: "매장 이름을 입력해주세요." },
+      { key: "address", message: "매장 위치를 입력해주세요." },
+      { key: "addressDetail", message: "매장의 상세 위치를 입력해주세요." },
+      { key: "openHours", message: "매장 영업 시간을 입력해주세요." },
+      { key: "phoneNumber", message: "매장 대표 전화번호를 입력해주세요." },
+      { key: "paymentOptions", message: "결제 방식을 선택해주세요." },
+    ];
+
+    for (const { key, message } of validationRules) {
+      if (!shopDetailInfo[key]) {
+        alert(message);
+        return;
+      }
+    }
+
+    try {
+      await createDesignerWorkspace(Number(userId), shopDetailInfo);
+      alert("워크스페이스가 성공적으로 등록되었습니다.");
+    } catch (error) {
+      console.error("제출 실패", error);
+      alert("제출에 실패했습니다. 다시 시도해 주세요.");
+    }
+  };
+
   return (
     <>
       <AppBar prefix="backButton" title="추가 정보 등록" />
 
       <Style.RegisterPageWrapper>
-        <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">대표 사진</Text>
-            <Text color="gray100" typo="body500">
-              이미지 등록은 최대 3장까지 가능해요
-            </Text>
-
-            <Style.AddWrapper>
-              <CustomButton variant="secondary">
-                <AddImage width={15} />
-              </CustomButton>
-            </Style.AddWrapper>
-          </Style.TitleWrapper>
-        </Style.SectionWrapper>
+        <CoverPhotoUploadSection
+          onChange={(url) => handleInputChange("bannerImageUrl", url)}
+        />
 
         <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">공지사항</Text>
-            <Text color="gray100" typo="body500">
-              매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요
-            </Text>
-          </Style.TitleWrapper>
-
-          <Style.TwoInputWrapper>
-            <CustomInput placeholder="제목을 입력해주세요" />
-            <CustomInput
-              placeholder="내용을 입력해주세요"
-              inputType="textarea"
-            />
-          </Style.TwoInputWrapper>
-        </Style.SectionWrapper>
-        <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">이벤트</Text>
-
-            <Text color="gray100" typo="body500">
-              현재 진행 중인 이벤트가 있다면 등록해 주세요
-            </Text>
-          </Style.TitleWrapper>
-          <Style.TwoInputWrapper>
-            <CustomInput placeholder="제목을 입력해주세요" />
-            <CustomInput
-              placeholder="내용을 입력해주세요"
-              inputType="textarea"
-            />
-          </Style.TwoInputWrapper>
-        </Style.SectionWrapper>
-
-        <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300"> 매장 정보 </Text>
-            <Text color="gray100" typo="body500">
-              고객님들이 쉽게 찾아갈 수 있도록 매장 정보를 정확하게 등록해
-              주세요
-            </Text>
-          </Style.TitleWrapper>
-
-          <CustomInput
-            label="매장 이름"
-            placeholder="매장 이름을 입력해주세요"
-            variant="outlined"
+          <TitleContentInput
+            title="공지사항"
+            description="매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요"
+            inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+            onChange={(index, value) => {
+              const fieldName = index === 0 ? "noticeTitle" : "notice";
+              handleInputChange(fieldName, value);
+            }}
           />
-
-          <LocationButton />
-
-          <CustomInput
-            label="영업 시간"
-            placeholder="영업 시간을 입력해주세요"
-            variant="outlined"
+          <TitleContentInput
+            title="이벤트"
+            description="현재 진행 중인 이벤트가 있다면 등록해 주세요"
+            inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+            onChange={(index, value) => {
+              const fieldName = index === 0 ? "introduceTitle" : "introduce";
+              handleInputChange(fieldName, value);
+            }}
           />
-
-          <CustomInput
-            label="대표 전화번호"
-            placeholder="대표 전화번호를 입력해주세요"
-            variant="outlined"
-          />
-
-          <Style.RadioWrapper>
-            <Text typo="subtitle300" color="gray100">
-              결제 방식
-            </Text>
-
-            <RadioSelectButton
-              {...(Payment.args as RadioSelectButtonProps)}
-              selectedIndex={0}
-              onSelect={handleHowToPaySelect}
-            />
-          </Style.RadioWrapper>
         </Style.SectionWrapper>
+
+        <ShopInfoInputSection
+          onChange={(field, value) => handleInputChange(field, value)}
+        />
 
         <Style.SectionWrapper>
           <Style.TitleWrapper>
@@ -118,32 +120,22 @@ export default function DesignerSignUpDetail() {
               경력을 등록하면 고객에게 전문성을 어필할 수 있어요
             </Text>
           </Style.TitleWrapper>
-          <Style.RowWrapper>
-            <CustomInput placeholder="예) 22" variant="outlined" />
-            <Text color="gray100" typo="body100">
-              년
-            </Text>
-          </Style.RowWrapper>
+
+          <CustomInput
+            placeholder="예) 22"
+            extraText="년"
+            onChange={(e) =>
+              handleInputChange("yearOfExperience", Number(e.target.value))
+            }
+          />
         </Style.SectionWrapper>
 
-        <Style.SectionWrapper>
-          <Style.TitleWrapper>
-            <Text typo="subtitle300">자격증 및 기타서류</Text>
-            <Text color="gray100" typo="body500">
-              자격증을 등록하면 고객에게 신뢰를 줄 수 있어요
-            </Text>
-          </Style.TitleWrapper>
-          <CustomButton variant="outline">
-            <Style.ColumnWrapper>
-              <Text color="blue100" typo="body500">
-                증빙 사진을 업로드 해주세요
-              </Text>
-              <AddImage width={15} />
-            </Style.ColumnWrapper>
-          </CustomButton>
-        </Style.SectionWrapper>
+        <CertificateInputSection
+          onChange={(licenses) => handleInputChange("licenses", licenses)}
+        />
       </Style.RegisterPageWrapper>
-      <GNB buttonText="확인" />
+
+      <GNB buttonText="확인" onLargeButtonClick={handleSubmit} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Nav, MenuItem, ContentWrapper } from "./GNB.styles";
 import {
   Home,
@@ -12,6 +12,12 @@ import { CustomButton } from "../../button/CustomButton";
 import { Text } from "../../texts/Text";
 import { ROUTE } from "../../../constants/routes";
 import { useNavigate, useLocation } from "react-router-dom";
+
+interface item {
+  icon: ReactNode;
+  label: string;
+  path: string;
+}
 
 export interface GNBProps {
   type?: "customer" | "designer"; // GNB 타입 (회원/미용사)
@@ -27,11 +33,11 @@ export function GNB({
   buttonText,
   disabled,
 }: GNBProps) {
-  const userMenuItems = [
+  const userMenuItems: item[] = [
     { icon: <Home />, label: "홈", path: ROUTE.customer.home },
     { icon: <Search />, label: "요청하기", path: ROUTE.customer.request.base },
     { icon: <Bookmark />, label: "요청 현황", path: "/requests" },
-    { icon: <Smile />, label: "마이페이지", path: "/mypage" },
+    { icon: <Smile />, label: "마이페이지", path: ROUTE.customer.mypage.home },
   ];
 
   const stylistMenuItems = [
