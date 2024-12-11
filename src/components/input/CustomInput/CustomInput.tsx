@@ -3,9 +3,9 @@ import {
   Container,
   Label,
   InputWrapper,
+  StyledInputWrapper,
   StyledInput,
   StyledTextarea,
-  SuffixContainer,
   Message,
 } from "./CustomInput.styles";
 import { Text } from "../../texts/Text";
@@ -19,9 +19,9 @@ interface CustomInputProps
   hint?: string;
   fullwidth?: boolean;
   variant?: "outlined" | "underlined";
-  suffix?: ReactNode;
   hasButton?: boolean;
   inputType?: "input" | "textarea"; // input인지 textarea인지 구분
+  unit?: string; // 단위 추가
 }
 
 export default function CustomInput({
@@ -33,13 +33,19 @@ export default function CustomInput({
   fullwidth = true,
   disabled = false,
   variant = "outlined",
-  suffix,
   hasButton = false,
   inputType = "input", // 기본값 input
+  unit,
   ...props
 }: CustomInputProps) {
-  // focused 상태 관리
   const [focused, setFocused] = useState(false);
+
+  // 색상 결정 함수
+  const getColor = () => {
+    if (error) return "red100";
+    if (success) return "blue100";
+    return "black100";
+  };
 
   return (
     <Container fullwidth={fullwidth} hasButton={hasButton} width={width}>
@@ -56,23 +62,23 @@ export default function CustomInput({
         onBlur={() => setFocused(false)} // 포커스 해제 시 상태 변경
       >
         {inputType === "input" ? (
-          <StyledInput error={!!error} disabled={disabled} {...props} />
+          <StyledInputWrapper>
+            <StyledInput
+              error={!!error}
+              disabled={disabled}
+              hasUnit={!!unit}
+              {...props}
+            />
+            {unit && <span className="unit">{unit}</span>} {/* 단위 추가 */}
+          </StyledInputWrapper>
         ) : (
           <StyledTextarea error={!!error} disabled={disabled} {...props} />
-        )}
-        {suffix && (
-          <SuffixContainer variant={variant} error={!!error}>
-            {suffix}
-          </SuffixContainer>
         )}
       </InputWrapper>
 
       {(error || hint || success) && (
         <Message error={!!error}>
-          <Text
-            color={error ? "red100" : success ? "blue100" : undefined}
-            typo="body500"
-          >
+          <Text color={getColor()} typo="body600">
             {error || hint || success}
           </Text>
         </Message>

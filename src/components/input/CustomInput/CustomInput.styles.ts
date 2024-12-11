@@ -46,6 +46,7 @@ export const InputWrapper = styled.div<{
   disabled: boolean;
 }>`
   display: flex;
+  flex: 1;
   align-items: center;
   background-color: ${colors.gray400};
   ${({ variant, error, disabled }) =>
@@ -76,18 +77,16 @@ export const InputWrapper = styled.div<{
         `}
 `;
 
-export const StyledInput = styled.input<{ error: boolean }>`
-  flex: 1;
+export const StyledInput = styled.input<{ error: boolean; hasUnit: boolean }>`
   outline: none;
   background-color: transparent;
   font-size: 14px;
   padding: 12px 10px;
-
+  width: ${({ hasUnit }) => (hasUnit ? "calc(100% - 20px)" : "100%")};
   &::placeholder {
     color: #9ca3af;
     font-size: ${typography.body200};
   }
-
   &:disabled {
     color: ${colors.black};
     cursor: not-allowed;
@@ -151,4 +150,24 @@ export const Message = styled.p<{ error?: boolean }>`
   margin: 0 0 0 5px;
   color: ${(props) => (props.error ? colors.red300 : "#6b7280")};
   animation: ${fadeIn} 0.3s ease-in-out;
+`;
+
+export const UnitContainer = styled.div`
+  align-self: center; /* 가운데 정렬 */
+  pointer-events: none; /* 클릭 방지 */
+`;
+export const StyledInputWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  position: relative;
+
+  .unit {
+    position: absolute;
+    right: 10px; /* 입력 필드 내부에서 위치 조정 */
+    color: ${colors.gray100};
+    font-weight: 500;
+    font-size: 14px;
+    pointer-events: none; /* 단위를 클릭할 수 없게 설정 */
+  }
 `;

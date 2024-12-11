@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaRegQuestionCircle } from "react-icons/fa";
-import { IconButton, Tooltip } from "./InfoButton.styles";
+import { IconButton, Tooltip, IconContainItem } from "./InfoButton.styles";
 import { Text } from "../../texts/Text";
 
 interface InfoButtonProps {
@@ -22,10 +22,12 @@ function InfoButton({ message, title }: InfoButtonProps) {
       onMouseLeave={() => setIsTooltipVisible(false)}
     >
       <IconButton>
-        <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <IconContainItem>
           <FaRegQuestionCircle style={{ width: "13px" }} />
-          <Text typo="body200">{title}</Text>
-        </div>
+          <Text typo="body300" color="gray100">
+            {title}
+          </Text>
+        </IconContainItem>
       </IconButton>
       {isTooltipVisible && (
         <Tooltip>

@@ -5,7 +5,7 @@ import { ButtonStyle, GridWrapper } from "./RadioSelectButton.style";
 
 export interface RadioSelectButtonProps {
   col?: number;
-  buttonNames: string[];
+  buttonNames?: string[];
   selectedIndex: number;
   onSelect?: (index: number) => void;
 }

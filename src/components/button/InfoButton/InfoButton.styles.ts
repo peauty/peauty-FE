@@ -23,8 +23,14 @@ export const IconButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  color: #333;
+  color: ${colors.gray100};
   &:hover {
     scale: calc(1.1);
   }
+`;
+
+export const IconContainItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;

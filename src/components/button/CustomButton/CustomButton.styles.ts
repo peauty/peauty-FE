@@ -25,6 +25,7 @@ export const Button = styled.button<{
   justify-content: center;
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
+  margin-bottom: 30px;
   cursor: pointer;
   width: ${(props) => (props.fullwidth ? "100%" : "auto")};
   color: ${colors.white};

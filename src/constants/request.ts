@@ -6,11 +6,10 @@ export const HAIRSTYLES = [
   "곰돌이컷",
   "물개컷",
   "라이언컷",
-  "하이바",
+  "하이바컷",
   "귀툭튀",
 ];
 
 export const CUTTING = ["3mm", "6mm", "9mm"];
 
 export const SUMMERCUT = ["스포팅", "판타롱", "나팔컷"];
-
