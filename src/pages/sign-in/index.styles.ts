@@ -22,10 +22,9 @@ export const Wrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 100%;
   padding-bottom: 50px;
   background: white;
   display: flex; /* 플렉스 컨테이너로 설정 */
   flex-direction: column; /* 버튼들이 세로로 나열되도록 설정 */
-  gap: 10px; /* 버튼들 간의 간격 설정 */
+  gap: 5px; /* 버튼들 간의 간격 설정 */
 `;

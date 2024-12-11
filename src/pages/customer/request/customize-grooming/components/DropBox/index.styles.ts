@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { colors } from "../../../style/color";
-import { typography } from "../../../style/typography";
-
+import { colors } from "../../../../../../style/color";
+import { typography } from "../../../../../../style/typography";
 export const Wrapper = styled.div`
   position: relative;
   width: 100%;
@@ -52,7 +51,7 @@ export const DropdownIcon = styled.div`
 
 export const DropdownList = styled.ul`
   position: absolute;
-  top: calc(100% + 8px);
+  bottom: calc(65%);
   left: 0;
   width: 100%;
   border: 1px solid ${colors.gray300};

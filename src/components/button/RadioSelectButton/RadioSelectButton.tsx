@@ -5,14 +5,14 @@ import { ButtonStyle, GridWrapper } from "./RadioSelectButton.style";
 
 export interface RadioSelectButtonProps {
   col?: number;
-  buttonNames: string[];
+  buttonNames?: string[];
   selectedIndex: number;
   onSelect?: (index: number) => void;
 }
 
 export default function RadioSelectButton({
   col,
-  buttonNames,
+  buttonNames = [],
   selectedIndex,
   onSelect,
 }: RadioSelectButtonProps) {
@@ -32,7 +32,7 @@ export default function RadioSelectButton({
           onClick={() => handleSelect(index)}
         >
           <Text
-            color={selected === index ? "blue100" : "gray200"}
+            color={selected === index ? "blue100" : "gray100"}
             typo="body100"
           >
             {name}

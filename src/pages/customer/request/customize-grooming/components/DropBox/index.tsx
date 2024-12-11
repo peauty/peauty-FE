@@ -1,3 +1,4 @@
+// DropButton.tsx
 import React, { useState, useEffect, useRef } from "react";
 import {
   Wrapper,
@@ -8,24 +9,22 @@ import {
   DropdownIcon,
   DropdownList,
   DropdownListItem,
-} from "./DropButton.styles";
-import { DropDown } from "../../../assets/svg";
-import { colors } from "../../../style/color";
-
-export interface DropButtonProps {
-  label?: string; // 라벨 텍스트 (optional)
-  placeholder: string; // 드롭다운 기본 텍스트
-  options: string[]; // 옵션 리스트 (말티즈, 푸들 등)
-  onSelect: (value: string) => void; 
-  isActive?: boolean;
+} from "./index.styles";
+import { DropDown } from "../../../../../../assets/svg";
+import { colors } from "../../../../../../style/color";
+export interface DropBoxProps {
+  label?: string; // Optional label text
+  placeholder: string; // Default text for the dropdown
+  options: string[]; // List of options (e.g., "Maltese", "Poodle")
+  onSelect: (value: string) => void; // Callback for when an option is selected
 }
 
-export default function DropButton({
+const DropBox: React.FC<DropBoxProps> = ({
   label,
   placeholder,
   options,
   onSelect,
-}: DropButtonProps) {
+}) => {
   const [isActive, setIsActive] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -54,7 +53,6 @@ export default function DropButton({
 
   return (
     <Wrapper ref={dropdownRef}>
-      {/* label이 있을 경우만 렌더링 */}
       {label && <Label>{label}</Label>}
       <DropdownContainer
         isActive={isActive}
@@ -85,4 +83,6 @@ export default function DropButton({
       )}
     </Wrapper>
   );
-}
+};
+
+export default DropBox;

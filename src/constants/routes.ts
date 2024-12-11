@@ -16,9 +16,10 @@ export const ROUTE = {
     signupComplete: "/customer/signup-complete", // 회원가입 완료
     pet: {},
     request: {
-      base:"/request",
+      base: "/customer/request",
       notice: "/customer/request/notice",
       choosePet: "/customer/request/choose-pet-for-grooming", // 반려동물 정보 수정
+      customizeGrooming: "/customer/request/customize-grooming", // 미용 방법 구체적으로 선택
     },
   },
   designer: {
