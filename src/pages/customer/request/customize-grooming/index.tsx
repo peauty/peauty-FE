@@ -28,19 +28,15 @@ import {
 } from "../../../../assets/svg";
 
 export default function CustomizeGrooming() {
-  const handleSelectGroomingType = (selectedGroomingType: number) => {
-    console.log("Selected GroomingType:", selectedGroomingType);
-  };
-  const handleSelectGroomingBodyType = (selectedGroomingBodyType: number) => {
-    console.log("Selected GroomingBodyType:", selectedGroomingBodyType);
-  };
-
+  const [selectedGroomingType, setSelectedGroomingType] = useState<number>(0); // selectedIndex 값 관리
   const [selectedFaceStyle, setSelectedFaceStyle] = useState<string>("");
   const [selectedLength, setSelectedLength] = useState<string>("");
+  const [selectedBodyType, setSelectedBodyType] = useState<number>(-1); // 기본값 -1로 설정
   const [description, setDescription] = useState<string>("");
   const maxCharLimit = 300;
 
   const dummyFaceStyle = [
+    "선택 없음",
     "말머리컷",
     "베이비컷",
     "여신머리",
@@ -66,9 +62,20 @@ export default function CustomizeGrooming() {
 
   const dummyLength = ["3mm", "6mm", "9mm"];
 
+  const handleGroomingTypeSelect = (selectedIndex: number) => {
+    setSelectedGroomingType(selectedIndex); // selectedIndex 값 업데이트
+    console.log("Selected Grooming Type:", selectedIndex);
+  };
+
   const handleFaceStyleSelect = (value: string) => {
     setSelectedFaceStyle(value);
     console.log("Selected FaceStyle:", value);
+  };
+
+  const handleBodyTypeSelect = (selectedGroomingBodyType: number) => {
+    console.log("Selected GroomingBodyType:", selectedGroomingBodyType);
+    setSelectedBodyType(selectedGroomingBodyType);
+    setSelectedLength(""); // DropButton 값 초기화
   };
 
   const handleLengthSelect = (value: string) => {
@@ -104,45 +111,63 @@ export default function CustomizeGrooming() {
             </Text>
             <RadioSelectButton
               {...(GroomingType.args as RadioSelectButtonProps)}
-              selectedIndex={0}
-              onSelect={handleSelectGroomingType}
+              selectedIndex={selectedGroomingType}
+              onSelect={handleGroomingTypeSelect}
             />
           </SectionWrapper>
+          {selectedGroomingType === 0 && (
+            <>
+              <SectionWrapper>
+                <DropButton
+                  label="얼굴"
+                  placeholder="스타일을 선택해주세요"
+                  options={dummyFaceStyle}
+                  onSelect={handleFaceStyleSelect}
+                />
+                {selectedFaceStyle && selectedFaceStyle !== "선택 없음" && (
+                  <div
+                    style={{
+                      width: "120px", // 고정된 width 설정
+                      height: "140px",
+                      border: `1px solid ${colors.blue100}`,
+                      borderRadius: "10px",
+                      margin: "10px auto",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {/* SVG의 width를 고정값으로 설정 */}
+                    {faceStyleImg[selectedFaceStyle] &&
+                      faceStyleImg[selectedFaceStyle]({
+                        width: "100px", // 또는 원하는 고정 값 (예: "100px", "120px")
+                        height: "auto", // 자동으로 높이 조정
+                      })}
+                  </div>
+                )}
+              </SectionWrapper>
+
+              <SectionWrapper>
+                <Text typo="subtitle300" color="gray100">
+                  몸
+                </Text>
+                <RadioSelectButton
+                  {...(GroomingBodyType.args as RadioSelectButtonProps)}
+                  selectedIndex={selectedBodyType}
+                  onSelect={handleBodyTypeSelect}
+                />
+                <DropButton
+                  label=""
+                  placeholder="mm를 선택해주세요"
+                  options={dummyLength}
+                  onSelect={handleLengthSelect}
+                  key={selectedBodyType} // DropButton 강제 리렌더링
+                />
+              </SectionWrapper>
+            </>
+          )}
 
           <SectionWrapper>
-            <DropButton
-              label="얼굴"
-              placeholder="스타일을 선택해주세요"
-              options={dummyFaceStyle}
-              onSelect={handleFaceStyleSelect}
-            />
-            {selectedFaceStyle && (
-              <div
-                style={{
-                  width: "120px", // 고정된 width 설정
-                  height: "140px",
-                  border: `1px solid ${colors.blue100}`,
-                  borderRadius: "10px",
-                  margin: "10px auto",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {/* SVG의 width를 고정값으로 설정 */}
-                {faceStyleImg[selectedFaceStyle] &&
-                  faceStyleImg[selectedFaceStyle]({
-                    width: "100px", // 또는 원하는 고정 값 (예: "100px", "120px")
-                    height: "auto", // 자동으로 높이 조정
-                  })}
-              </div>
-            )}
-          </SectionWrapper>
-
-          <SectionWrapper>
-            <Text typo="subtitle300" color="gray100">
-              상세설명
-            </Text>
             <CustomInput
               label="상세설명"
               inputType="textarea"

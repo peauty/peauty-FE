@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Wrapper,
   Label,
@@ -27,6 +27,7 @@ export default function DropButton({
 }: DropButtonProps) {
   const [isActive, setIsActive] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (value: string) => {
     setSelectedValue(value);
@@ -34,8 +35,24 @@ export default function DropButton({
     onSelect(value);
   };
 
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsActive(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper ref={dropdownRef}>
       {/* label이 있을 경우만 렌더링 */}
       {label && <Label>{label}</Label>}
       <DropdownContainer
