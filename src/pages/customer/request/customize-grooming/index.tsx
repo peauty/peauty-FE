@@ -26,6 +26,7 @@ import {
   하이바컷,
   귀툭튀,
 } from "../../../../assets/svg";
+import InfoButton from "../../../../components/button/InfoButton";
 
 export default function CustomizeGrooming() {
   const [selectedGroomingType, setSelectedGroomingType] = useState<number>(0); // selectedIndex 값 관리
@@ -140,7 +141,7 @@ export default function CustomizeGrooming() {
                     {/* SVG의 width를 고정값으로 설정 */}
                     {faceStyleImg[selectedFaceStyle] &&
                       faceStyleImg[selectedFaceStyle]({
-                        width: "100px", // 또는 원하는 고정 값 (예: "100px", "120px")
+                        width: "100px", // 또는 원하는 고정 값
                         height: "auto", // 자동으로 높이 조정
                       })}
                   </div>
@@ -166,7 +167,15 @@ export default function CustomizeGrooming() {
               </SectionWrapper>
             </>
           )}
-
+          {selectedGroomingType === 1 && (
+            <div style={{ boxSizing: "border-box" }}>
+              <InfoButton
+                title="위생미용이란?"
+                message="반려견의 건강을 위해 발바닥 털, 발톱, 항문주변 털, 눈주변, 귀털,
+                귀청소, 생식기 털 정리, 항문낭 제거 등을 미용하는것을 말해요"
+              />
+            </div>
+          )}
           <SectionWrapper>
             <CustomInput
               label="상세설명"
