@@ -57,6 +57,7 @@ export default function ProposalStautsNav({ firstNav, secendNav }: HomeProps) {
               name="수석실장 시언"
               star={"3.0"}
               starCount={12}
+              showButton="내 요청보기"
             />
           </div>
         ) : (
@@ -80,6 +81,7 @@ export default function ProposalStautsNav({ firstNav, secendNav }: HomeProps) {
               name="까끌래 뽀끌래"
               star={"4.0"}
               starCount={2453}
+              showButton="견적서 보기"
             />
           </div>
         )}
