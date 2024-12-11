@@ -48,6 +48,7 @@ export const ProfileWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  overflow: hidden; 
 `;
 
 export const CameraIcon = styled.div`

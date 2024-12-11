@@ -21,14 +21,15 @@ export default function Step2({
 }: Step2Props) {
   const handleDiseaseSelect = (selectedIndexes: number[]) => {
     const diseases = [
-      "없음",
-      "슬개골",
-      "외이염",
-      "피부염",
-      "눈질환",
-      "심장병",
-      "관절병",
-      "기타",
+        "NONE",
+        "PATELLA",
+        "EAR_INFECTION",
+        "DERMATITIS",
+        "EYE_DISEASE",
+        "HEART_DISEASE",
+        "ARTHRITIS",
+        "ETC",
+
     ];
     const selectedDiseases = selectedIndexes.map((index) => diseases[index]);
     handleDiseaseChange(selectedDiseases);
