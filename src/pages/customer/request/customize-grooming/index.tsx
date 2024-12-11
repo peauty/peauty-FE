@@ -17,7 +17,7 @@ import {
 } from "../../../designer/quote/index.styles";
 import { colors } from "../../../../style/color";
 import {
-  말머리컷,
+  알머리컷,
   베이비컷,
   여신머리,
   곰돌이컷,
@@ -27,31 +27,24 @@ import {
   귀툭튀,
 } from "../../../../assets/svg";
 import InfoButton from "../../../../components/button/InfoButton";
+import { HAIRSTYLES, CUTTING, SUMMERCUT } from "../../../../constants/request";
 
 export default function CustomizeGrooming() {
   const [selectedGroomingType, setSelectedGroomingType] = useState<number>(0); // selectedIndex 값 관리
+  const [selectedBodyGroomingType, setSelectedBodyGroomingType] =
+    useState<number>(0); // selectedIndex 값 관리
   const [selectedFaceStyle, setSelectedFaceStyle] = useState<string>("");
   const [selectedLength, setSelectedLength] = useState<string>("");
   const [selectedBodyType, setSelectedBodyType] = useState<number>(-1); // 기본값 -1로 설정
   const [description, setDescription] = useState<string>("");
+  const [desiredCost, setDesiredCost] = useState<string>(""); // 희망 비용 관리
+  const [desiredDateTime, setDesiredDateTime] = useState<string>(""); // 희망 날짜 및 시간 관리
   const maxCharLimit = 300;
-
-  const dummyFaceStyle = [
-    "선택 없음",
-    "말머리컷",
-    "베이비컷",
-    "여신머리",
-    "곰돌이컷",
-    "물개컷",
-    "라이언컷",
-    "하이바",
-    "귀툭튀",
-  ];
 
   const faceStyleImg: {
     [key: string]: React.FC<React.SVGProps<SVGSVGElement>>;
   } = {
-    말머리컷,
+    알머리컷,
     베이비컷,
     여신머리,
     곰돌이컷,
@@ -61,10 +54,14 @@ export default function CustomizeGrooming() {
     귀툭튀,
   };
 
-  const dummyLength = ["3mm", "6mm", "9mm"];
-
   const handleGroomingTypeSelect = (selectedIndex: number) => {
     setSelectedGroomingType(selectedIndex); // selectedIndex 값 업데이트
+    setSelectedFaceStyle(""); // Reset face style
+    setSelectedBodyType(-1); // Reset body type
+    setSelectedLength(""); // Reset length
+    setDescription(""); // Reset description
+    setDesiredCost(""); // Reset desired cost
+    setDesiredDateTime(""); // Reset desired date and time
     console.log("Selected Grooming Type:", selectedIndex);
   };
 
@@ -73,15 +70,15 @@ export default function CustomizeGrooming() {
     console.log("Selected FaceStyle:", value);
   };
 
-  const handleBodyTypeSelect = (selectedGroomingBodyType: number) => {
-    console.log("Selected GroomingBodyType:", selectedGroomingBodyType);
-    setSelectedBodyType(selectedGroomingBodyType);
+  const handleBodyTypeSelect = (selectedBodyType: number) => {
+    setSelectedBodyType(selectedBodyType);
     setSelectedLength(""); // DropButton 값 초기화
+    console.log("Selected Grooming Body Type:", selectedBodyType);
   };
 
   const handleLengthSelect = (value: string) => {
     setSelectedLength(value);
-    console.log("Selected Length:", selectedLength);
+    console.log("Selected Length:", value);
   };
 
   const handleDescriptionChange = (value: string) => {
@@ -107,9 +104,7 @@ export default function CustomizeGrooming() {
 
         <ContentWrapper>
           <SectionWrapper>
-            <Text typo="subtitle300" color="gray100">
-              미용 종류
-            </Text>
+            <Text typo="subtitle300">미용 종류</Text>
             <RadioSelectButton
               {...(GroomingType.args as RadioSelectButtonProps)}
               selectedIndex={selectedGroomingType}
@@ -122,7 +117,7 @@ export default function CustomizeGrooming() {
                 <DropButton
                   label="얼굴"
                   placeholder="스타일을 선택해주세요"
-                  options={dummyFaceStyle}
+                  options={HAIRSTYLES}
                   onSelect={handleFaceStyleSelect}
                 />
                 {selectedFaceStyle && selectedFaceStyle !== "선택 없음" && (
@@ -149,21 +144,36 @@ export default function CustomizeGrooming() {
               </SectionWrapper>
 
               <SectionWrapper>
-                <Text typo="subtitle300" color="gray100">
-                  몸
-                </Text>
+                <Text typo="subtitle300">몸</Text>
                 <RadioSelectButton
                   {...(GroomingBodyType.args as RadioSelectButtonProps)}
                   selectedIndex={selectedBodyType}
                   onSelect={handleBodyTypeSelect}
                 />
-                <DropButton
-                  label=""
-                  placeholder="mm를 선택해주세요"
-                  options={dummyLength}
-                  onSelect={handleLengthSelect}
-                  key={selectedBodyType} // DropButton 강제 리렌더링
-                />
+                {selectedBodyType === 0 && (
+                  <DropButton
+                    label=""
+                    placeholder="mm를 선택해주세요"
+                    options={CUTTING}
+                    onSelect={handleLengthSelect}
+                  />
+                )}
+                {selectedBodyType === 1 && (
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    <DropButton
+                      label=""
+                      placeholder="미용을 선택해주세요"
+                      options={SUMMERCUT}
+                      onSelect={handleLengthSelect}
+                    />
+                    <DropButton
+                      label=""
+                      placeholder="mm를 선택해주세요"
+                      options={CUTTING}
+                      onSelect={handleLengthSelect}
+                    />
+                  </div>
+                )}
               </SectionWrapper>
             </>
           )}
@@ -196,7 +206,7 @@ export default function CustomizeGrooming() {
           <SectionWrapper>
             <PhotoAttachment>
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <Text typo="body100">사진첨부</Text>
+                <Text typo="subtitle300">사진첨부</Text>
                 <Text typo="body400" color="gray100">
                   상세 설명에 대한 이해를 돕기 위해 사진을 첨부하면 좋아요
                 </Text>
@@ -205,9 +215,16 @@ export default function CustomizeGrooming() {
             </PhotoAttachment>
           </SectionWrapper>
           <SectionWrapper2>
-            <CustomInput label="희망비용" width="215px" />
+            <CustomInput
+              label="희망비용"
+              value={desiredCost}
+              onChange={(e) => setDesiredCost(e.target.value)}
+              width="215px"
+            />
             <CustomInput
               label="희망날짜 및 시간"
+              value={desiredDateTime}
+              onChange={(e) => setDesiredDateTime(e.target.value)}
               width="215px"
               placeholder="날짜와 시간을 입력하세요"
               hint="ex) 12월 24일 오전 6시"

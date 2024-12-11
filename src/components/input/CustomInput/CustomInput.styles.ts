@@ -36,7 +36,7 @@ export const Label = styled.label<{ focused: boolean; error: boolean }>`
       ? colors.red100 // 에러 상태일 때 색상
       : focused
         ? colors.blue100 // 포커스 상태일 때 색상
-        : colors.gray100}; // 기본 상태일 때 색상
+        : colors.black}; // 기본 상태일 때 색상
   margin-bottom: 10px;
   transition: color 0.2s ease;
 `;
@@ -85,13 +85,13 @@ export const StyledInput = styled.input<{ error: boolean }>`
 
   &::placeholder {
     color: #9ca3af;
-    font-size: ${typography.body300};
+    font-size: ${typography.body200};
   }
 
   &:disabled {
     color: ${colors.black};
     cursor: not-allowed;
-    font-size: 12px;
+    font-size: ${typography.body200};
   }
 `;
 
@@ -107,8 +107,8 @@ export const StyledTextarea = styled.textarea<{ error: boolean }>`
   border: none;
 
   &::placeholder {
-    color: ${colors.gray200};
-    font-size: ${typography.body100};
+    color: #9ca3af;
+    font-size: ${typography.body200};
   }
 
   &:disabled {

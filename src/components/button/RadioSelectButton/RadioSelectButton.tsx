@@ -32,7 +32,7 @@ export default function RadioSelectButton({
           onClick={() => handleSelect(index)}
         >
           <Text
-            color={selected === index ? "blue100" : "gray200"}
+            color={selected === index ? "blue100" : "gray100"}
             typo="body100"
           >
             {name}

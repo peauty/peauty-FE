@@ -39,7 +39,7 @@ export { default as Warning } from "./Warning";
 export { default as 곰돌이컷 } from "./곰돌이컷";
 export { default as 귀툭튀 } from "./귀툭튀";
 export { default as 라이언컷 } from "./라이언컷";
-export { default as 말머리컷 } from "./말머리컷";
+export { default as 알머리컷 } from "./알머리컷";
 export { default as 물개컷 } from "./물개컷";
 export { default as 베이비컷 } from "./베이비컷";
 export { default as 여신머리 } from "./여신머리";
