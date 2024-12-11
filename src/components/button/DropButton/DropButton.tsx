@@ -17,6 +17,7 @@ export interface DropButtonProps {
   placeholder: string; // 드롭다운 기본 텍스트
   options: string[]; // 옵션 리스트 (말티즈, 푸들 등)
   onSelect: (value: string) => void; 
+  isActive?: boolean;
 }
 
 export default function DropButton({
