@@ -1,5 +1,6 @@
 import { AuthLayout } from "../../../components/layout/AuthLayout";
 import ChoosePetForGrooming from "../../../pages/customer/request/choose-pet";
+import CustomizeGrooming from "../../../pages/customer/request/customize-grooming";
 import CustomerRequestNotice from "../../../pages/customer/request/notice";
 import Request from "../../../pages/request";
 import Shop from "../../../pages/shop";
@@ -34,5 +35,9 @@ export const requestPaths = [
       },
     ],
     elemnent: <AuthLayout userType="customer" style={noPadding} />,
+  },
+  {
+    path: "customize-grooming",
+    element: <CustomizeGrooming />,
   },
 ];

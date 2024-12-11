@@ -3,8 +3,10 @@ import {
   Container,
   Label,
   InputWrapper,
+  StyledInputWrapper,
   StyledInput,
   StyledTextarea,
+  Message,
   SuffixContainer,
   NoticeContainer,
 } from "./CustomInput.styles";
@@ -22,6 +24,7 @@ interface CustomInputProps
   suffix?: ReactNode;
   hasButton?: boolean;
   inputType?: "input" | "textarea"; // input인지 textarea인지 구분
+  unit?: string; // 단위 추가
   extraText?: string; // 추가 텍스트를 위한 prop
 }
 
@@ -29,6 +32,7 @@ export default function CustomInput({
   label,
   error,
   success,
+  width,
   hint,
   fullwidth = true,
   disabled = false,
@@ -36,10 +40,10 @@ export default function CustomInput({
   suffix,
   hasButton = false,
   inputType = "input", // 기본값 input
+  unit,
   extraText, // 추가 텍스트 prop
   ...props
 }: CustomInputProps) {
-  // focused 상태 관리
   const [focused, setFocused] = useState(false);
   const [inputLength, setInputLength] = useState(0);
 
@@ -70,8 +74,15 @@ export default function CustomInput({
     props.onChange?.(e);
   };
 
+  // 색상 결정 함수
+  const getColor = () => {
+    if (error) return "red100";
+    if (success) return "blue100";
+    return "black100";
+  };
+
   return (
-    <Container fullwidth={fullwidth} hasButton={hasButton}>
+    <Container fullwidth={fullwidth} hasButton={hasButton} width={width}>
       {label && (
         <Label focused={focused} error={!!error}>
           {label}
@@ -86,12 +97,16 @@ export default function CustomInput({
         hasExtraText={!!extraText} // 추가 텍스트가 있을 때 스타일 변경
       >
         {inputType === "input" ? (
-          <StyledInput
-            error={showError}
-            disabled={disabled}
-            {...props}
-            onChange={handleChange}
-          />
+          <StyledInputWrapper>
+            <StyledInput
+              error={showError}
+              disabled={disabled}
+              hasUnit={!!unit}
+              {...props}
+              onChange={handleChange}
+            />
+            {unit && <span className="unit">{unit}</span>} {/* 단위 추가 */}
+          </StyledInputWrapper>
         ) : (
           <StyledTextarea
             error={showError}

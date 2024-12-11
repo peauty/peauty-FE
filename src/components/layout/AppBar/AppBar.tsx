@@ -30,7 +30,7 @@ export default function AppBar({ prefix, title, onclick }: Props) {
       ) : null}
       {title && (
         <Title>
-          <Text typo="title300">{title}</Text>
+          <Text typo="subtitle400">{title}</Text>
         </Title>
       )}
     </StyledHeader>

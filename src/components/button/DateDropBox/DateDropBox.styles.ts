@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../../../style/color";
 import { typography } from "../../../style/typography";
-import { DownArrow, UpArrow } from "../../../assets/svg";
 
 export const Wrapper = styled.div`
   position: relative;
