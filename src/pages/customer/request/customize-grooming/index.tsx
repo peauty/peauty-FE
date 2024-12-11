@@ -22,14 +22,14 @@ import {
   PhotoAttachmentContainer,
 } from "../../../designer/quote/index.styles";
 import {
-  알머리컷,
-  베이비컷,
-  여신머리,
-  곰돌이컷,
-  물개컷,
-  라이언컷,
-  하이바컷,
-  귀툭튀,
+  EggHead,
+  BabyCut,
+  Goddess,
+  TeddyCut,
+  SealCut,
+  LionCut,
+  Helmet,
+  EarsPop,
 } from "../../../../assets/svg";
 import {
   HAIRSTYLES,
@@ -59,14 +59,14 @@ export default function CustomizeGrooming() {
     string,
     React.FC<React.SVGProps<SVGSVGElement>>
   > = {
-    알머리컷,
-    베이비컷,
-    여신머리,
-    곰돌이컷,
-    물개컷,
-    라이언컷,
-    하이바컷,
-    귀툭튀,
+    EggHead,
+    BabyCut,
+    Goddess,
+    TeddyCut,
+    SealCut,
+    LionCut,
+    Helmet,
+    EarsPop,
   };
 
   const handleGroomingTypeSelect = (index: number) => {
