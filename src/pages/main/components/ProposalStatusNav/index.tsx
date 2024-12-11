@@ -2,7 +2,12 @@ import { Text } from "../../../../components";
 import { NavigationWrapper, Tab, ContentWrapper } from "./index.stlyes";
 import { useState } from "react";
 import StylistItem from "../../../../components/stylist-Item/StylistItem";
-export default function ProposalStautsNav() {
+
+interface HomeProps {
+  firstNav: string;
+  secendNav: string;
+}
+export default function ProposalStautsNav({ firstNav, secendNav }: HomeProps) {
   const [activeTab, setActiveTab] = useState<"received" | "waiting">("waiting");
   return (
     <div>
@@ -15,7 +20,7 @@ export default function ProposalStautsNav() {
             typo="body300"
             color={activeTab === "waiting" ? "black" : "gray100"}
           >
-            견적 받는중
+            {firstNav}
           </Text>
         </Tab>
         <Tab
@@ -26,7 +31,7 @@ export default function ProposalStautsNav() {
             typo="body300"
             color={activeTab === "received" ? "black" : "gray100"}
           >
-            받은 견적
+            {secendNav}
           </Text>
         </Tab>
       </NavigationWrapper>

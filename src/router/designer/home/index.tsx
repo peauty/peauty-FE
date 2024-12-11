@@ -1,4 +1,4 @@
-import DesignerHome from "../../../pages/designer/home";
+import DesignerHome from "../../../pages/main/designer";
 
 export const homePaths = [
   {
