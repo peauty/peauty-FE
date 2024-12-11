@@ -103,7 +103,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
                   <SelectedValue>{selected}</SelectedValue>
                 ) : (
                   <Placeholder>
-                    {type === "year" ? "연도" : type === "month" ? "월" : "일"}
+                    {type === "year" ? "년" : type === "month" ? "월" : "일"}
                   </Placeholder>
                 )}
                 {activeDropdown === type ? (
