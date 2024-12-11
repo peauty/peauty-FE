@@ -3,11 +3,8 @@ import {
   ContentsWrapper,
   ItemImg,
   TextWrapper,
-} from "./StylistItem.styles";
+} from "./PetlistItem.styles";
 import { Text } from "../texts/Text";
-import { Star } from "../../assets/svg";
-import Badge from "../category/Badge/Badge";
-import { BadgeContainer } from "../category/Badge/Badge.styles";
 import { typography } from "../../style/typography";
 import { useNavigate } from "react-router-dom";
 type GeneralVariant = "blue" | "green" | "disease";
@@ -20,27 +17,27 @@ interface StyledBadgeProps {
   typo?: keyof typeof typography;
 }
 
-interface StyledItemProps {
+interface PetlistItemProps {
   name: string;
   imageUrl: string;
-  location: string;
-  star: string;
-  starCount: number;
-  career: number;
-  badges?: StyledBadgeProps[];
+  birth: string;
+  weight: number;
+  gender: string;
+  breed: string;
+  diseases: string[];
   showButton?: string;
 }
 
-export default function StylistItem({
+export default function PetlistItem({
   name,
   imageUrl,
-  location,
-  star,
-  starCount,
-  career,
-  badges,
+  birth,
+  weight,
+  gender,
+  breed,
   showButton,
-}: StyledItemProps) {
+  diseases = [],
+}: PetlistItemProps) {
   const navigate = useNavigate();
   const handleWorkspaceClick = () => {
     // 스타일리스트의 workspace 페이지로 이동
@@ -48,7 +45,7 @@ export default function StylistItem({
   };
 
   const handleRequestClick = () => {
-    if (showButton === "내 요청보기") {
+    if (showButton === "요청서 보기") {
       // 요청서 페이지로 이동
       navigate("/request");
     } else if (showButton === "견적서 보기") {
@@ -56,11 +53,27 @@ export default function StylistItem({
       navigate("/estimate");
     }
   };
+  // 나이 계산 함수
+  const calculateAge = (birth: string): number => {
+    const birthDate = new Date(birth); // "YYYY.MM.DD" 형식의 문자열을 Date로 변환
+    const currentDate = new Date(); // 현재 날짜
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+    const monthDifference = currentDate.getMonth() - birthDate.getMonth();
 
+    // 현재 날짜가 생일보다 이전이면 나이 -1
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && currentDate.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+  const age = calculateAge(birth); // 생일을 기준으로 나이 계산
   return (
     <ItemWrapper>
       <div
-        style={{ display: "flex", gap: "15px", cursor: "pointer" }}
+        style={{ display: "flex", gap: "20px", cursor: "pointer" }}
         onClick={handleWorkspaceClick}
       >
         <ItemImg></ItemImg>
@@ -69,34 +82,28 @@ export default function StylistItem({
             <Text typo="subtitle200" color="black">
               {name}
             </Text>
-            <Text typo="body700" color="black">
-              {location}
-            </Text>
           </ContentsWrapper>
-
-          <TextWrapper>
-            <Star width={14} />{" "}
-            <Text typo="body600" color="gray100">
+          <div>
+            <Text typo="body400" color="gray100">
               <TextWrapper>
-                <span>
-                  {star}({starCount})
-                </span>
-                <span>|</span>
-                <span>경력 {career}년</span>
+                <span>{birth}</span>
+                <span>({age}살)</span>
               </TextWrapper>
             </Text>
-          </TextWrapper>
-          <BadgeContainer>
-            {badges?.map((badge, index) => (
-              <Badge
-                key={index}
-                type={badge.type}
-                variant={badge.variant}
-                text={badge.text}
-                typo={badge.typo}
-              />
-            ))}
-          </BadgeContainer>
+            <Text typo="body400" color="gray100">
+              <TextWrapper>
+                <span>{gender}</span>
+                <span>| {weight}kg </span>
+                <span>| {breed} </span>
+              </TextWrapper>
+            </Text>
+
+            <Text typo="body400" color="gray100">
+              <TextWrapper>
+                {diseases?.map((disease, index) => <span>{disease}</span>)}
+              </TextWrapper>
+            </Text>
+          </div>
         </div>
       </div>
       {showButton && (

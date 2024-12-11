@@ -28,6 +28,7 @@ export default function ProposalItem({ type }: ProposalItemProps) {
           을 확인해보세요
         </Text>
         <ProposalStautsNav
+          title={type.title}
           firstNav={type.firstNav}
           secendNav={type.secendNav}
         />
