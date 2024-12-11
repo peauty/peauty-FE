@@ -1,12 +1,31 @@
 import { useState } from "react";
-import { AppBar, DropButton, Text } from "../../../../components";
+import { AppBar, DropButton, Text, CustomInput } from "../../../../components";
 import { RadioSelectButton } from "../../../../components/button/RadioSelectButton";
 import { RadioSelectButtonProps } from "../../../../components/button/RadioSelectButton/RadioSelectButton";
 import {
   GroomingBodyType,
   GroomingType,
 } from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
-import { ContentWrapper, SectionWrapper } from "./index.styles";
+import {
+  ContentWrapper,
+  SectionWrapper,
+  SectionWrapper2,
+} from "./index.styles";
+import {
+  PhotoAttachment,
+  PhotoAttachmentContainer,
+} from "../../../designer/quote/index.styles";
+import { colors } from "../../../../style/color";
+import {
+  말머리컷,
+  베이비컷,
+  여신머리,
+  곰돌이컷,
+  물개컷,
+  라이언컷,
+  하이바컷,
+  귀툭튀,
+} from "../../../../assets/svg";
 
 export default function CustomizeGrooming() {
   const handleSelectGroomingType = (selectedGroomingType: number) => {
@@ -18,29 +37,56 @@ export default function CustomizeGrooming() {
 
   const [selectedFaceStyle, setSelectedFaceStyle] = useState<string>("");
   const [selectedLength, setSelectedLength] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const maxCharLimit = 300;
 
   const dummyFaceStyle = [
+    "말머리컷",
+    "베이비컷",
+    "여신머리",
     "곰돌이컷",
-    "스포츠컷",
-    "팬시컷",
-    "스포티컷",
-    "전체 밀기",
+    "물개컷",
+    "라이언컷",
+    "하이바",
+    "귀툭튀",
   ];
+
+  const faceStyleImg: {
+    [key: string]: React.FC<React.SVGProps<SVGSVGElement>>;
+  } = {
+    말머리컷,
+    베이비컷,
+    여신머리,
+    곰돌이컷,
+    물개컷,
+    라이언컷,
+    하이바컷,
+    귀툭튀,
+  };
+
   const dummyLength = ["3mm", "6mm", "9mm"];
+
   const handleFaceStyleSelect = (value: string) => {
     setSelectedFaceStyle(value);
-    console.log("Selected FaceStyle:", selectedFaceStyle);
+    console.log("Selected FaceStyle:", value);
   };
+
   const handleLengthSelect = (value: string) => {
     setSelectedLength(value);
     console.log("Selected Length:", selectedLength);
+  };
+
+  const handleDescriptionChange = (value: string) => {
+    if (value.length <= maxCharLimit) {
+      setDescription(value);
+    }
   };
 
   return (
     <>
       <AppBar prefix="backButton" />
       <div
-        style={{ display: "flex", flexDirection: "column", padding: "30px 0",}}
+        style={{ display: "flex", flexDirection: "column", padding: "30px 0" }}
       >
         <Text typo="subtitle100">
           <Text typo="subtitle100" color="blue100">
@@ -70,24 +116,69 @@ export default function CustomizeGrooming() {
               options={dummyFaceStyle}
               onSelect={handleFaceStyleSelect}
             />
+            {selectedFaceStyle && (
+              <div
+                style={{
+                  width: "120px", // 고정된 width 설정
+                  height: "140px",
+                  border: `1px solid ${colors.blue100}`,
+                  borderRadius: "10px",
+                  margin: "10px auto",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {/* SVG의 width를 고정값으로 설정 */}
+                {faceStyleImg[selectedFaceStyle] &&
+                  faceStyleImg[selectedFaceStyle]({
+                    width: "100px", // 또는 원하는 고정 값 (예: "100px", "120px")
+                    height: "auto", // 자동으로 높이 조정
+                  })}
+              </div>
+            )}
           </SectionWrapper>
 
           <SectionWrapper>
             <Text typo="subtitle300" color="gray100">
-              몸
+              상세설명
             </Text>
-            <RadioSelectButton
-              {...(GroomingBodyType.args as RadioSelectButtonProps)}
-              selectedIndex={0}
-              onSelect={handleSelectGroomingBodyType}
+            <CustomInput
+              label="상세설명"
+              inputType="textarea"
+              value={description}
+              onChange={(e) => handleDescriptionChange(e.target.value)}
+              placeholder="강아지의 특이사항이나 요청사항을 작성해주세요"
             />
-            <DropButton
-              label=""
-              placeholder="mm를 선택해주세요"
-              options={dummyLength}
-              onSelect={handleLengthSelect}
-            />
+            <Text
+              style={{ textAlign: "right" }}
+              typo="body400"
+              color={description.length === maxCharLimit ? "red100" : "gray100"}
+            >
+              {description.length}/{maxCharLimit}
+            </Text>
           </SectionWrapper>
+
+          <SectionWrapper>
+            <PhotoAttachment>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <Text typo="body100">사진첨부</Text>
+                <Text typo="body400" color="gray100">
+                  상세 설명에 대한 이해를 돕기 위해 사진을 첨부하면 좋아요
+                </Text>
+              </div>
+              <PhotoAttachmentContainer>+</PhotoAttachmentContainer>
+            </PhotoAttachment>
+          </SectionWrapper>
+          <SectionWrapper2>
+            <CustomInput label="희망비용" width="215px" />
+            <CustomInput
+              label="희망날짜 및 시간"
+              width="215px"
+              placeholder="날짜와 시간을 입력하세요"
+              hint="ex) 12월 24일 오전 6시"
+            />
+          </SectionWrapper2>
         </ContentWrapper>
       </div>
     </>

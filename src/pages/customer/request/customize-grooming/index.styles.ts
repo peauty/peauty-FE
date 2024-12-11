@@ -12,3 +12,12 @@ export const SectionWrapper = styled.div`
   flex-direction: column;
   gap: 10px;
 `;
+export const SectionWrapper2 = styled(SectionWrapper)`
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+`;
+
+export const TwoInputItem = styled.div`
+  flex: 1;
+`;

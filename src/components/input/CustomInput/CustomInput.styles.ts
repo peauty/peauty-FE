@@ -20,7 +20,6 @@ export const Container = styled.div<{
 }>`
   display: flex;
   flex-direction: column;
-  gap: 8px;
   width: ${({ fullwidth, width }) =>
     width ? width : fullwidth ? "100%" : "auto"};
   ${({ hasButton }) =>
@@ -38,7 +37,7 @@ export const Label = styled.label<{ focused: boolean; error: boolean }>`
       : focused
         ? colors.blue100 // 포커스 상태일 때 색상
         : colors.gray100}; // 기본 상태일 때 색상
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   transition: color 0.2s ease;
 `;
 export const InputWrapper = styled.div<{
@@ -48,7 +47,6 @@ export const InputWrapper = styled.div<{
 }>`
   display: flex;
   align-items: center;
-  width: 100%;
   background-color: ${colors.gray400};
   ${({ variant, error, disabled }) =>
     variant === "outlined"
@@ -61,7 +59,9 @@ export const InputWrapper = styled.div<{
 
           &:focus-within {
             border-color: ${error ? colors.red200 : colors.blue200};
-            /* box-shadow: 0 0 0 1px ${error ? colors.red100 : colors.blue100}; */
+            /* box-shadow: 0 0 0 1px ${error
+              ? colors.red100
+              : colors.blue100}; */
           }
         `
       : css`
@@ -107,7 +107,7 @@ export const StyledTextarea = styled.textarea<{ error: boolean }>`
   border: none;
 
   &::placeholder {
-    color: #9ca3af;
+    color: ${colors.gray200};
     font-size: ${typography.body100};
   }
 
@@ -129,7 +129,6 @@ export const SuffixContainer = styled.div<{
     variant === "outlined"
       ? css`
           height: 32px;
-
           &:focus {
             border-color: ${error ? colors.red300 : colors.blue200};
             box-shadow: 0 0 0 1px
@@ -140,7 +139,7 @@ export const SuffixContainer = styled.div<{
           border: none;
           border-bottom: 2px solid ${error ? colors.red300 : colors.gray200};
           border-radius: 0;
-          padding: 4px 0;
+          padding: 2px 0;
           height: 24px;
           &:focus {
             border-bottom-color: ${error ? colors.red300 : colors.blue200};
@@ -149,7 +148,7 @@ export const SuffixContainer = styled.div<{
 `;
 
 export const Message = styled.p<{ error?: boolean }>`
-  margin-top: 4px;
+  margin: 0 0 0 5px;
   color: ${(props) => (props.error ? colors.red300 : "#6b7280")};
   animation: ${fadeIn} 0.3s ease-in-out;
 `;

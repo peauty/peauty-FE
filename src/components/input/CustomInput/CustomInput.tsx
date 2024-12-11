@@ -28,6 +28,7 @@ export default function CustomInput({
   label,
   error,
   success,
+  width,
   hint,
   fullwidth = true,
   disabled = false,
@@ -41,7 +42,7 @@ export default function CustomInput({
   const [focused, setFocused] = useState(false);
 
   return (
-    <Container fullwidth={fullwidth} hasButton={hasButton}>
+    <Container fullwidth={fullwidth} hasButton={hasButton} width={width}>
       {label && (
         <Label focused={focused} error={!!error}>
           {label}
