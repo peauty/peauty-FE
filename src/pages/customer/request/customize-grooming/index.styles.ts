@@ -6,18 +6,13 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 30px 0 calc(${theme.size.gnbHeight} + 30px);
+  padding: 30px 20px calc(${theme.size.gnbHeight} + 30px);
 `;
 
 export const SectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`;
-export const SectionWrapper2 = styled(SectionWrapper)`
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
 `;
 
 export const SelectedHair = styled.div`

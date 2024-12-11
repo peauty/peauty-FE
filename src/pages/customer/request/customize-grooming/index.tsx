@@ -14,7 +14,6 @@ import {
 import {
   ContentWrapper,
   SectionWrapper,
-  SectionWrapper2,
   SelectedHair,
   TwoItemsWrapper,
 } from "./index.styles";
@@ -32,8 +31,15 @@ import {
   하이바컷,
   귀툭튀,
 } from "../../../../assets/svg";
-import { HAIRSTYLES, CUTTING, SUMMERCUT } from "../../../../constants/request";
+import {
+  HAIRSTYLES,
+  CUTTING,
+  SUMMERCUT,
+  TIME,
+} from "../../../../constants/request";
 import InfoButton from "../../../../components/button/InfoButton";
+import DropBox from "./components/DropBox";
+import { DateDropBox } from "../../../../components/button/DateDropBox";
 
 export default function CustomizeGrooming() {
   const [selectedGroomingType, setSelectedGroomingType] = useState(0);
@@ -45,6 +51,7 @@ export default function CustomizeGrooming() {
   const [desiredDateTime, setDesiredDateTime] = useState("");
   const [desiredCostError, setDesiredCostError] = useState("");
   const [desiredDateTimeError, setDesiredDateTimeError] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
   const maxCharLimit = 300;
 
@@ -64,6 +71,10 @@ export default function CustomizeGrooming() {
 
   const handleGroomingTypeSelect = (index: number) => {
     setSelectedGroomingType(index);
+    resetFields(); // Reset fields when grooming type changes
+  };
+
+  const resetFields = () => {
     setSelectedFaceStyle("");
     setSelectedBodyType(-1);
     setSelectedLength("");
@@ -87,47 +98,14 @@ export default function CustomizeGrooming() {
       setDesiredCostError(""); // 에러 메시지 초기화
     }
 
-    const formattedValue = numericValue
-      ? `${Number(numericValue).toLocaleString()}`
-      : "";
-
-    setDesiredCost(formattedValue); // 상태 업데이트
+    setDesiredCost(
+      numericValue ? `${Number(numericValue).toLocaleString()}` : "",
+    ); // 상태 업데이트
   };
 
-  const handleDateTimeChange = (value: string) => {
-    // 유효성 검사 및 포맷팅
-    const dateTimePattern =
-      /^(\d{1,2})월\s+(\d{1,2})일\s+(오전|오후)\s+(\d{1,2})시$/;
-    const match = value.match(dateTimePattern);
-
-    if (match) {
-      const [_, month, day, meridiem, hour] = match;
-
-      let formattedHour = parseInt(hour, 10);
-      if (meridiem === "오후" && formattedHour < 12) {
-        formattedHour += 12;
-      } else if (meridiem === "오전" && formattedHour === 12) {
-        formattedHour = 0;
-      }
-
-      const date = new Date();
-      date.setMonth(parseInt(month, 10) - 1);
-      date.setDate(parseInt(day, 10));
-      date.setHours(formattedHour, 0, 0, 0);
-
-      if (!isNaN(date.getTime())) {
-        setDesiredDateTime(date.toISOString()); // ISO 형식으로 저장
-        setDesiredDateTimeError("");
-      } else {
-        setDesiredDateTimeError("올바른 날짜와 시간을 입력해주세요.");
-      }
-    } else {
-      setDesiredDateTimeError(
-        "형식에 맞게 입력해주세요. 예: 12월 24일 오전 6시",
-      );
-    }
-
-    setDesiredDateTime(value); // 상태 업데이트
+  const handleDateChange = (date: string) => {
+    setSelectedDate(date);
+    console.log("선택된 날짜:", date);
   };
 
   return (
@@ -236,15 +214,19 @@ export default function CustomizeGrooming() {
           unit="원"
         />
 
-        <CustomInput
-          label="희망날짜 및 시간"
-          value={desiredDateTime}
-          onChange={(e) => handleDateTimeChange(e.target.value)}
-          // width="215px"
-          placeholder="날짜와 시간을 입력하세요"
-          hint="ex) 12월 24일 오전 6시"
-          error={desiredDateTimeError}
-        />
+        <SectionWrapper>
+          <DateDropBox
+            type="reservation"
+            label="날짜"
+            onChange={handleDateChange}
+          />
+          <DropBox
+            label="시간"
+            placeholder="시간을 선택해주세요"
+            options={TIME}
+            onSelect={handleLengthSelect}
+          />
+        </SectionWrapper>
       </ContentWrapper>
       <GNB buttonText="견적 요청하기" />
     </>

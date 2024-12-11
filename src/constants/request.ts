@@ -13,3 +13,5 @@ export const HAIRSTYLES = [
 export const CUTTING = ["3mm", "6mm", "9mm"];
 
 export const SUMMERCUT = ["스포팅", "판타롱", "나팔컷"];
+
+export const TIME = Array.from({ length: 24 }, (_, i) => `${i}:00`);

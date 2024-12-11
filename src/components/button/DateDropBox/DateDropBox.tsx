@@ -9,16 +9,18 @@ import {
   DropdownListItem,
 } from "./DateDropBox.styles";
 import { DownArrow, UpArrow } from "../../../assets/svg";
-interface CustomDatePickerProps {
+
+interface DateDropBoxProps {
   label?: string;
   type: "birthday" | "reservation";
   onChange?: (date: string) => void;
 }
-export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
+
+export default function DateDropBox({
   label,
   type,
   onChange = () => {},
-}) => {
+}: DateDropBoxProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
@@ -57,7 +59,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   const handleDateChange = () => {
     if (selectedYear && selectedMonth && selectedDay) {
       const formattedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
-      onChange(formattedDate);
+      onChange(formattedDate); // 호출
     }
   };
 
@@ -76,6 +78,11 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
       document.removeEventListener("mousedown", closeDropdowns);
     };
   }, []);
+
+  // 상태 변경 시 날짜가 모두 설정되면 날짜 업데이트
+  useEffect(() => {
+    handleDateChange();
+  }, [selectedYear, selectedMonth, selectedDay]);
 
   return (
     <Wrapper ref={dropdownRef}>
@@ -131,7 +138,6 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
                             option === "선택 없음" ? null : option,
                           );
                         setActiveDropdown(null);
-                        handleDateChange();
                       }}
                     >
                       {option}
@@ -145,4 +151,4 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
       </div>
     </Wrapper>
   );
-};
+}

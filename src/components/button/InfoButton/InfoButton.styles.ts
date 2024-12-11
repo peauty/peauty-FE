@@ -3,7 +3,7 @@ import { colors } from "../../../style/color";
 
 export const Tooltip = styled.div`
   position: absolute;
-  bottom: -40px; // 버튼 위에 정보가 뜨도록 위치 조정
+  bottom: -45px; // 버튼 위에 정보가 뜨도록 위치 조정
   left: 0;
   background-color: ${colors.white};
   padding: 10px 15px;
