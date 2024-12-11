@@ -1,11 +1,11 @@
 import { useState } from "react";
 import {
+  AppBar,
   CustomInput,
   DropButton,
   GNB,
   MultiSelectButton,
   Text,
-  Wrapper,
 } from "../../../../components";
 import { LargeGrid } from "../../../../components/button/MultiSelectButton/MultiSelectButton.stories";
 import { Style } from "./index.styles";
@@ -87,6 +87,8 @@ export default function PetEdit() {
 
   return (
     <>
+      <AppBar prefix="backButton" title="반려견 정보 수정" />
+
       <ProfileImg
         width="120px"
         height="120px"
@@ -97,13 +99,7 @@ export default function PetEdit() {
 
       <Style.EditPageWrapper>
         <Style.Wrapper>
-          <CustomInput
-            error=""
-            hint=""
-            label="이름"
-            placeholder="이름을 입력해주세요"
-            variant="outlined"
-          />
+          <CustomInput label="이름" placeholder="이름을 입력해주세요" />
         </Style.Wrapper>
 
         <DropButton
@@ -123,7 +119,7 @@ export default function PetEdit() {
           />
         </Style.SelectWrapper>
         <Style.SelectWrapper>
-          <Text typo="subtitle300">분류</Text>{" "}
+          <Text typo="subtitle300">분류</Text>
           <RadioSelectButton
             {...(Default.args as RadioSelectButtonProps)}
             selectedIndex={0}
@@ -132,16 +128,7 @@ export default function PetEdit() {
         </Style.SelectWrapper>
 
         <Style.Wrapper>
-          <CustomInput
-            error=""
-            hint=""
-            label="몸무게"
-            placeholder="예) 22"
-            variant="outlined"
-          />
-          <Text color="gray100" typo="body100">
-            kg
-          </Text>
+          <CustomInput label="몸무게" placeholder="예) 22" extraText="kg" />
         </Style.Wrapper>
 
         <DatePicker
@@ -167,20 +154,11 @@ export default function PetEdit() {
           />
         </Style.SelectWrapper>
 
-        <CustomInput
-          error=""
-          hint=""
-          label="기타"
-          placeholder="기타 건강상태를 알려주세요"
-          variant="outlined"
-        />
+        <CustomInput label="기타" placeholder="기타 건강상태를 알려주세요" />
 
         <CustomInput
-          error=""
-          hint=""
           label="참고"
           placeholder="미용 시 참고해야 할 내용이 있다면 알려주세요"
-          variant="outlined"
         />
       </Style.EditPageWrapper>
 

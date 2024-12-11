@@ -44,6 +44,7 @@ export const InputWrapper = styled.div<{
   variant: string;
   error: boolean;
   disabled: boolean;
+  hasExtraText: boolean;
 }>`
   display: flex;
   flex: 1;
@@ -52,17 +53,15 @@ export const InputWrapper = styled.div<{
   ${({ variant, error, disabled }) =>
     variant === "outlined"
       ? css`
-          border: ${disabled
-            ? `1px solid ${colors.blue100}`
-            : `1px solid ${error ? colors.red200 : colors.gray400}`};
+          border: ${
+            error ? `1px solid ${colors.red200}` : `1px solid ${colors.gray400}`
+          };
+
           padding: 0px 10px;
           border-radius: 10px;
 
           &:focus-within {
             border-color: ${error ? colors.red200 : colors.blue200};
-            /* box-shadow: 0 0 0 1px ${error
-              ? colors.red100
-              : colors.blue100}; */
           }
         `
       : css`
@@ -170,4 +169,12 @@ export const StyledInputWrapper = styled.div`
     font-size: 14px;
     pointer-events: none; /* 단위를 클릭할 수 없게 설정 */
   }
+`;
+
+export const NoticeContainer = styled.div<{ hasError: boolean }>`
+  display: flex;
+  justify-content: ${({ hasError }) =>
+    hasError ? "space-between" : "flex-end"};
+  align-items: center;
+  width: 100%;
 `;

@@ -1,7 +1,7 @@
 import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
 import CustomerHome from "../../pages/main";
-import { petPaths } from "./pet";
+import { petsPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
 import { Layout } from "../../components/layout/Layout";
@@ -32,15 +32,20 @@ export const customerPaths = [
         children: myPagePaths,
       },
       {
-        path: "pet",
-        children: petPaths,
+        path: "pets",
+        children: petsPaths,
       },
+    ],
+    element: <AuthLayout userType="customer" />,
+  },
+  {
+    path: "",
+    children: [
       {
         path: "request",
         children: requestPaths,
       },
     ],
-    element: <AuthLayout userType="customer" />,
   },
   {
     path: "",

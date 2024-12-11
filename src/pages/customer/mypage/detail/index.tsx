@@ -49,11 +49,7 @@ export default function CustomerMyPageDetail() {
   return (
     <>
       <PageWrapper>
-        <AppBar
-          prefix="backButton"
-          title="회원 정보"
-          onclick={() => navigate(ROUTE.customer.mypage.home)}
-        />
+        <AppBar prefix="backButton" title="회원 정보" />
         <ProfileImg
           src={profileData.profileImageUrl || ""}
           alt="profileImage"

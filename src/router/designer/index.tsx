@@ -10,7 +10,6 @@ export const designerPaths = [
   {
     path: "",
     children: signupPaths,
-    element: <Layout />,
   },
   {
     path: "",
