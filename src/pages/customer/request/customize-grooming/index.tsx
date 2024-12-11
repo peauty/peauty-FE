@@ -218,13 +218,6 @@ export default function CustomizeGrooming() {
             onChange={(e) => handleDescriptionChange(e.target.value)}
             placeholder="강아지의 특이사항이나 요청사항을 작성해주세요"
           />
-          <Text
-            style={{ textAlign: "right" }}
-            typo="body400"
-            color={description.length === maxCharLimit ? "red100" : "gray100"}
-          >
-            {description.length}/{maxCharLimit}
-          </Text>
         </SectionWrapper>
 
         <SectionWrapper>

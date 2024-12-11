@@ -53,9 +53,9 @@ export const InputWrapper = styled.div<{
   ${({ variant, error, disabled }) =>
     variant === "outlined"
       ? css`
-          border: ${
-            error ? `1px solid ${colors.red200}` : `1px solid ${colors.gray400}`
-          };
+          border: ${error
+            ? `1px solid ${colors.red200}`
+            : `1px solid ${colors.gray400}`};
 
           padding: 0px 10px;
           border-radius: 10px;
@@ -97,7 +97,7 @@ export const StyledTextarea = styled.textarea<{ error: boolean }>`
   flex: 1;
   outline: none;
   background-color: transparent;
-  font-size: 14px;
+  font-size: 12px;
   padding: 10px;
   min-height: 120px;
   resize: none;
