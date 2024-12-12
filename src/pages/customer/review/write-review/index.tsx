@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { AddImage } from "../../../../assets/svg";
 import SvgPen from "../../../../assets/svg/Pen";
 import {
@@ -19,12 +20,18 @@ import {
   Wrapper,
   WriteReviewBox,
 } from "./index.styles";
+import { ROUTE } from "../../../../constants/routes";
 
 export default function WriteReview() {
+  const navigate = useNavigate();
   const handleImageUpload = () => {};
 
   const handleStarChange = (score: number) => {
     console.log("고정된 별점: ", score);
+  };
+
+  const handleSubmit = () => {
+    navigate(ROUTE.customer.mypage.reviewHistory);
   };
 
   return (
@@ -68,7 +75,7 @@ export default function WriteReview() {
           />
         </WriteReviewBox>
       </Wrapper>
-      <GNB buttonText="등록하기" />
+      <GNB buttonText="등록하기" onLargeButtonClick={handleSubmit} />
     </>
   );
 }
