@@ -2,12 +2,11 @@ import { CustomButton } from "../../../../../components/button/CustomButton";
 import {
   ModalOverlay,
   ModalContent,
-  ModalTitle,
   ModalMessage,
   ModalButtons,
   ModalButton,
 } from "./Modal.styles";
-
+import { Text } from "../../../../../components";
 interface ModalProps {
   title: string;
   message: string;
@@ -24,11 +23,13 @@ export default function Modal({
   return (
     <ModalOverlay>
       <ModalContent>
-        <ModalTitle>{title}</ModalTitle>
-        <ModalMessage>{message}</ModalMessage>
+        <ModalMessage>
+          <Text typo="subtitle200">{title}</Text>
+          <Text typo="body400">{message}</Text>
+        </ModalMessage>
         <ModalButtons>
-          <CustomButton onClick={onCancel}>아니요</CustomButton>
-          <CustomButton onClick={onConfirm}>예</CustomButton>
+          <ModalButton onClick={onConfirm}>예</ModalButton>
+          <ModalButton onClick={onCancel}>아니오</ModalButton>
         </ModalButtons>
       </ModalContent>
     </ModalOverlay>

@@ -171,7 +171,7 @@ export default function PetInfoPage() {
       {isModalOpen && (
         <Modal
           title="정말 삭제하시겠습니까?"
-          message="삭제한 뒤에는 복구할 수 없습니다."
+          message="삭제한 뒤에는 복구할 수 없어요"
           onConfirm={handleDelete} // 예 버튼 클릭 시 삭제
           onCancel={() => setIsModalOpen(false)} // 아니요 버튼 클릭 시 모달 닫기
         />
