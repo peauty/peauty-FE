@@ -66,9 +66,7 @@ export default function DesignerItem({
                 key={idx}
                 type="general"
                 text={badge.name}
-                // variant={badge.color}
                 variant="blue"
-                // color={badge.color}
               />
             ))}
           </BadgeWrapper>

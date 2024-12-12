@@ -1,18 +1,21 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import { colors } from "../../../style/color";
 
 export const Tooltip = styled.div`
   position: absolute;
-  top: -40px; // 버튼 위에 정보가 뜨도록 위치 조정
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-  color: #fff;
-  padding: 8px 12px;
+  bottom: -45px; // 버튼 위에 정보가 뜨도록 위치 조정
+  left: 0;
+  background-color: ${colors.white};
+  padding: 10px 15px;
   border-radius: 4px;
   font-size: 14px;
-  white-space: nowrap;
+  white-space: normal;
+  word-wrap: break-word;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  line-height: 1.1;
+  width: 400px;
+  height: auto;
 `;
 
 export const IconButton = styled.button`
@@ -20,9 +23,14 @@ export const IconButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 15px;
-  color: #333;
+  color: ${colors.gray100};
   &:hover {
-    color: #555;
+    scale: calc(1.1);
   }
+`;
+
+export const IconContainItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;

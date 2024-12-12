@@ -30,3 +30,30 @@ export const Gender: Story = {
     onSelect: (index) => console.log("선택된 버튼 인덱스:", index),
   },
 };
+
+export const Payment: Story = {
+  args: {
+    buttonNames: ["카드 결제", "현금 결제", "계좌이체"],
+    selectedIndex: 1,
+    col: 3,
+    onSelect: (index) => console.log("선택된 버튼 인덱스:", index),
+  },
+};
+
+export const GroomingType: Story = {
+  args: {
+    buttonNames: ["전체", "위생 미용"],
+    selectedIndex: 1,
+    col: 2,
+    onSelect: (index) => console.log("선택된 버튼 인덱스:", index),
+  },
+};
+
+export const GroomingBodyType: Story = {
+  args: {
+    buttonNames: ["클리핑", "썸머컷", "가위컷"],
+    selectedIndex: 1,
+    col: 3,
+    onSelect: (index) => console.log("선택된 버튼 인덱스:", index),
+  },
+};

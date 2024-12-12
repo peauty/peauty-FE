@@ -16,40 +16,14 @@ export interface GetPuppyDetailResponse {
 export interface UpdatePuppyDetailResponse {
   puppyId?: number;
   name?: string;
-  breed?:
-    | "AFFENPINSCHER"
-    | "TERRIER"
-    | "BEAGLE"
-    | "BICHON_FRISE"
-    | "CHIHUAHUA"
-    | "DACHSHUND"
-    | "MALTESE"
-    | "POMERANIAN"
-    | "PUG"
-    | "SHIHTZU"
-    | "SHEPHERD"
-    | "BORDER_COLLIE"
-    | "BULLDOG"
-    | "DALMATIAN"
-    | "POODLE"
-    | "RETRIEVER"
-    | "SAINT_BERNARD"
-    | "SAMOYED";
+  breed?: string;
   weight?: number;
   sex?: "M" | "F";
   age?: number;
   birthdate?: string;
   detail?: string;
-  disease?:
-    | "KENNEL_COUGH"
-    | "CANINE_INFLUENZA"
-    | "HEART_WORM"
-    | "PARVOVIRUS"
-    | "RABIES"
-    | "EAR_INFECTION"
-    | "CANINE_DISTEMPER"
-    | "FLEAS"
-    | "PARASITES"[];
+
+  disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
   puppySize?: "SMALL" | "MEDIUM" | "LARGE";
@@ -57,40 +31,14 @@ export interface UpdatePuppyDetailResponse {
 
 export interface UpdatePuppyDetailRequest {
   name?: string;
-  breed?:
-    | "AFFENPINSCHER"
-    | "TERRIER"
-    | "BEAGLE"
-    | "BICHON_FRISE"
-    | "CHIHUAHUA"
-    | "DACHSHUND"
-    | "MALTESE"
-    | "POMERANIAN"
-    | "PUG"
-    | "SHIHTZU"
-    | "SHEPHERD"
-    | "BORDER_COLLIE"
-    | "BULLDOG"
-    | "DALMATIAN"
-    | "POODLE"
-    | "RETRIEVER"
-    | "SAINT_BERNARD"
-    | "SAMOYED";
+  breed?: string;
   weight?: number;
   sex?: "M" | "F";
   age?: number;
   birthdate?: string;
   detail?: string;
-  disease?:
-    | "KENNEL_COUGH"
-    | "CANINE_INFLUENZA"
-    | "HEART_WORM"
-    | "PARVOVIRUS"
-    | "RABIES"
-    | "EAR_INFECTION"
-    | "CANINE_DISTEMPER"
-    | "FLEAS"
-    | "PARASITES"[];
+
+  disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
   puppySize?: "SMALL" | "MEDIUM" | "LARGE";
@@ -124,43 +72,17 @@ export interface RegisterPuppyResponse {
 
 export interface RegisterPuppyRequest {
   name: string;
-  breed:
-    | "AFFENPINSCHER"
-    | "TERRIER"
-    | "BEAGLE"
-    | "BICHON_FRISE"
-    | "CHIHUAHUA"
-    | "DACHSHUND"
-    | "MALTESE"
-    | "POMERANIAN"
-    | "PUG"
-    | "SHIHTZU"
-    | "SHEPHERD"
-    | "BORDER_COLLIE"
-    | "BULLDOG"
-    | "DALMATIAN"
-    | "POODLE"
-    | "RETRIEVER"
-    | "SAINT_BERNARD"
-    | "SAMOYED";
   weight: number;
   sex: "M" | "F";
   age: number;
   birthdate: string;
   detail?: string;
-  disease?:
-    | "KENNEL_COUGH"
-    | "CANINE_INFLUENZA"
-    | "HEART_WORM"
-    | "PARVOVIRUS"
-    | "RABIES"
-    | "EAR_INFECTION"
-    | "CANINE_DISTEMPER"
-    | "FLEAS"
-    | "PARASITES"[];
+  breed: string;
+  disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
   puppySize?: "SMALL" | "MEDIUM" | "LARGE";
+
 }
 
 export interface UploadPuppyImageResponse {

@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 
 export const Label = styled.label`
   ${typography.subtitle300};
-  color: ${colors.gray100};
+  /* color: ${colors.gray100}; */
   margin-bottom: 8px;
   display: inline-block;
 `;
@@ -35,7 +35,7 @@ export const DropdownContainer = styled.div<{ isActive: boolean }>`
 
 export const Placeholder = styled.span`
   ${typography.body100};
-  color: ${colors.gray200};
+  color: ${colors.gray100};
 `;
 
 export const SelectedValue = styled.span`

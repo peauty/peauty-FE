@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Wrapper,
   Label,
@@ -13,10 +13,10 @@ import { DropDown } from "../../../assets/svg";
 import { colors } from "../../../style/color";
 
 export interface DropButtonProps {
-  label?: string;
-  placeholder: string;
-  options: string[]; // 옵션 리스트 말티즈,푸들,말티푸 이런거
-  onSelect: (value: string) => void; // 선택 시 실행할 함수
+  label?: string; // 라벨 텍스트 (optional)
+  placeholder: string; // 드롭다운 기본 텍스트
+  options: string[]; // 옵션 리스트 (말티즈, 푸들 등)
+  onSelect: (value: string) => void; 
   isActive?: boolean;
 }
 
@@ -28,6 +28,7 @@ export default function DropButton({
 }: DropButtonProps) {
   const [isActive, setIsActive] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (value: string) => {
     setSelectedValue(value);
@@ -35,9 +36,26 @@ export default function DropButton({
     onSelect(value);
   };
 
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsActive(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
   return (
-    <Wrapper>
-      <Label>{label}</Label>
+    <Wrapper ref={dropdownRef}>
+      {/* label이 있을 경우만 렌더링 */}
+      {label && <Label>{label}</Label>}
       <DropdownContainer
         isActive={isActive}
         onClick={() => setIsActive((prev) => !prev)}

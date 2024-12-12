@@ -1,6 +1,6 @@
 import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
-import CustomerHome from "../../pages/main";
+import CustomerHome from "../../pages/main/customer";
 import { petsPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
@@ -9,7 +9,7 @@ import { AuthLayout } from "../../components/layout/AuthLayout";
 import Shop from "../../pages/shop";
 import { noPadding } from "../../style/layoutStyle";
 import { statusPaths } from "./status";
-
+import QuoteDetail from "../../pages/customer/quote-detail";
 
 export const customerPaths = [
   {
@@ -59,6 +59,10 @@ export const customerPaths = [
       {
         path: "shop",
         element: <Shop />,
+      },
+      {
+        path: "quote-detail",
+        element: <QuoteDetail />,
       },
     ],
     element: <AuthLayout userType="customer" style={noPadding} />,

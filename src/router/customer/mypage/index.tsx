@@ -1,6 +1,7 @@
 import CustomerMyPage from "../../../pages/customer/mypage";
 import CustomerMyPageDetail from "../../../pages/customer/mypage/detail";
 import CustomerMyPageEdit from "../../../pages/customer/mypage/edit";
+import WriteReview from "../../../pages/customer/review/write-review";
 
 export const myPagePaths = [
     {
@@ -14,5 +15,9 @@ export const myPagePaths = [
       {
         path: "edit",
         element: <CustomerMyPageEdit/>
+      },
+      {
+        path: "reviews-new",
+        element: <WriteReview />,
       },
 ]
