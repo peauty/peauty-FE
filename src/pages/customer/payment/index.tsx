@@ -69,10 +69,12 @@ export default function Payment() {
       </InfoWrapper>
 
       <ButtonWrapper>
-        <CustomButton fullwidth>
-          다음
-        </CustomButton>
-      </ButtonWrapper>
+  <CustomButton 
+    fullwidth 
+    onClick={() => { console.log("버튼 클릭!"); }}>
+    다음
+  </CustomButton>
+</ButtonWrapper>
     </>
   );
 }
