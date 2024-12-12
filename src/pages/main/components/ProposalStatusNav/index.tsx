@@ -50,7 +50,7 @@ export default function ProposalStautsNav({
             {title === "견적" ? (
               // title이 "견적"일 때 보여줄 내용
               <StylistItem
-                name="수석실장 시언"
+                name="몽끄의 아틀리에 위례점"
                 imageUrl="https://via.placeholder.com/65"
                 location="몽끄의 아틀리에 위례점"
                 star={"3.0"}
