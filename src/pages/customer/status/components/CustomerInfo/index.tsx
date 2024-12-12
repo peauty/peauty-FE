@@ -4,12 +4,15 @@ import {
   Thumbnail, 
   InfoWrapper, 
   NameWrapper, 
+  DateWrapper,
   RatingWrapper, 
   ButtonWrapper, 
-  StyledButton 
+  StyledButton ,
+  StoreReservationWrapper
 } from "./index.styles";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
+import{ Divider} from "../../../../../components";
 
 interface ButtonProps {
   width: string;
@@ -21,9 +24,11 @@ interface ButtonProps {
 }
 
 interface CustomerInfoProps {
+  date?: number;
   name: string;
   store: string;
   score: number;
+  reservation?: string;
   review: number;
   status?: string;
   payment: number;
@@ -33,6 +38,7 @@ interface CustomerInfoProps {
 
 export default function CustomerInfo({
   name,
+  date,
   store,
   score,
   review,
@@ -40,13 +46,28 @@ export default function CustomerInfo({
   buttons,
   status,
   payment,
+  reservation,
+  
 }: CustomerInfoProps) {
   return (
     <CardContainer>
-      <CardWrapper>
+      {date && (
+            <>
+         
+              <DateWrapper>{date}</DateWrapper>
+              <Divider thickness={1} />
+            </>
+          )}
+     <CardWrapper>
+      
         <Thumbnail src={thumbnailUrl} alt={name} />
         <InfoWrapper>
-          <Text typo="subtitle200">{store}</Text>
+          
+          <StoreReservationWrapper>
+    <Text typo="subtitle200">{store}</Text>
+    <Text typo="subtitle200" color={"blue100"}>{reservation}</Text>
+  </StoreReservationWrapper>
+          
           <NameWrapper>
             <Text typo={"body500"}>{name}</Text>
             {status && <Text typo={"body500"} color={"blue100"}>{status}</Text>}
