@@ -14,7 +14,7 @@ export const ROUTE = {
     },
     signup: "/customer/signup", // 회원가입
     signupComplete: "/customer/signup-complete", // 회원가입 완료
-    pet: {},
+    pets: "/customer/pets",
     request: {
       base: "/customer/request",
       notice: "/customer/request/notice",

@@ -11,6 +11,7 @@ export const CardWrapper = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   text-align: center;
+  cursor: pointer;
 `;
 
 export const TagsWrapper = styled.div`
