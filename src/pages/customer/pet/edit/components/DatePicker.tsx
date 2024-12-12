@@ -1,51 +1,83 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { DropButton } from "../../../../../components";
 import { Style } from "../index.styles";
-import { DropButton } from "../../../../../components/button/DropButton";
 
 interface DatePickerProps {
   yearOptions: string[];
   monthOptions: string[];
   dayOptions: string[];
-  selectedYear: number | null;
-  selectedMonth: number | null;
-  selectedDay: number | null;
+  selectedYear?: number | null;
+  selectedMonth?: number | null;
+  selectedDay?: number | null;
   onYearSelect: (year: number) => void;
   onMonthSelect: (month: number) => void;
   onDaySelect: (day: number) => void;
 }
 
-const DatePicker: React.FC<DatePickerProps> = ({
+function DatePicker({
   yearOptions,
   monthOptions,
   dayOptions,
+  selectedYear,
+  selectedMonth,
+  selectedDay,
   onYearSelect,
   onMonthSelect,
   onDaySelect,
-}) => {
+}: DatePickerProps) {
+  const [year, setYear] = useState<string>(selectedYear?.toString() || "");
+  const [month, setMonth] = useState<string>(selectedMonth?.toString() || "");
+  const [day, setDay] = useState<string>(selectedDay?.toString() || "");
+
+  // 부모로부터 전달된 초기값 반영
+  useEffect(() => {
+    if (selectedYear) setYear(selectedYear.toString());
+    if (selectedMonth) setMonth(selectedMonth.toString());
+    if (selectedDay) setDay(selectedDay.toString());
+  }, [selectedYear, selectedMonth, selectedDay]);
+
+  const handleYearChange = (value: string) => {
+    setYear(value);
+    onYearSelect(Number(value));
+  };
+
+  const handleMonthChange = (value: string) => {
+    setMonth(value);
+    onMonthSelect(Number(value));
+  };
+
+  const handleDayChange = (value: string) => {
+    setDay(value);
+    onDaySelect(Number(value));
+  };
+
   return (
     <Style.Wrapper>
       <DropButton
         label="생년월일"
         placeholder="년"
         options={yearOptions}
-        onSelect={(value) => onYearSelect(Number(value))}
+        selected={year}
+        onSelect={handleYearChange}
       />
 
       <DropButton
         label=""
         placeholder="월"
         options={monthOptions}
-        onSelect={(value) => onMonthSelect(Number(value))}
+        selected={month}
+        onSelect={handleMonthChange}
       />
 
       <DropButton
         label=""
         placeholder="일"
         options={dayOptions}
-        onSelect={(value) => onDaySelect(Number(value))}
+        selected={day}
+        onSelect={handleDayChange}
       />
     </Style.Wrapper>
   );
-};
+}
 
 export default DatePicker;
