@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { getPuppyProfiles } from "../../../apis/customer/resources/puppy";
 import {
   GetPuppyProfilesResponse,
-  GetPuppyDetailResponse,
+  GetPuppyProfileResponse,
 } from "../../../types/customer/puppy";
 import { ROUTE } from "../../../constants/routes";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ export default function CustomerMyPage() {
   const navigate = useNavigate();
   const { userId } = useUserDetails();
   const [profile, setProfile] = useState<GetPuppyProfilesResponse | null>(null);
-  const [puppies, setPuppies] = useState<GetPuppyDetailResponse[]>([]);
+  const [puppies, setPuppies] = useState<GetPuppyProfileResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
@@ -101,7 +101,7 @@ export default function CustomerMyPage() {
               {puppies.map((puppy) => (
                 <Card
                   key={puppy.puppyId}
-                  imageSrc={puppy.profileImageUrl || ""}
+                  imageSrc={puppy.puppyProfileImageUrl || ""}
                   name={puppy.name || ""}
                   age={puppy.age || 0}
                   gender={puppy.sex || ""}

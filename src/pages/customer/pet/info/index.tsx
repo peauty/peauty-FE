@@ -11,18 +11,23 @@ import ProfileImg from "../../../../components/profile-img/ProfileImg";
 import OptionButton from "./components/OptionButton";
 import SvgBirthDay from "../../../../assets/svg/BirthDay";
 import SvgMale from "../../../../assets/svg/Male";
-import { getPuppyDetail } from "../../../../apis/customer/resources/puppy";
+import {
+  getPuppyDetail,
+  deletePuppy,
+} from "../../../../apis/customer/resources/puppy";
 import { GetPuppyDetailResponse } from "../../../../types/customer/puppy";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
 import Loading from "../../../../components/page/sign-up/Loading";
 import { ROUTE } from "../../../../constants/routes";
+import Modal from "./components/Modal";
 
 export default function PetInfoPage() {
   const [puppyData, setPuppyData] = useState<GetPuppyDetailResponse | null>(
     null,
   );
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { userId } = useUserDetails();
   const params = useParams();
   const puppyId = params.puppyId;
@@ -45,11 +50,24 @@ export default function PetInfoPage() {
     }
   }, [userId, puppyId]);
 
+  const handleDelete = async () => {
+    if (!userId || !params.puppyId) return;
+    try {
+      await deletePuppy(userId, Number(params.puppyId));
+      alert("강아지가 삭제되었습니다.");
+      navigate(ROUTE.customer.mypage.home); // 성공 시 mypage로 이동
+    } catch (error) {
+      console.error("Failed to delete puppy:", error);
+      alert("삭제 중 문제가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
   const handleSelect = (index: number) => {
     if (index === 0) {
       console.log("삭제하기 클릭");
     } else if (index === 1 && puppyId) {
       navigate(ROUTE.customer.pets.edit(puppyId));
+      setIsModalOpen(true); // 삭제하기 클릭 시 모달 열기
     }
   };
 
@@ -58,10 +76,9 @@ export default function PetInfoPage() {
   }
 
   if (!puppyData) {
-    // Alert와 navigate를 사용
     alert("강아지 데이터를 불러올 수 없습니다.");
-    navigate(ROUTE.customer.mypage.home); // mypage로 이동
-    return null; // 아무것도 렌더링하지 않음
+    navigate(ROUTE.customer.mypage.home);
+    return null;
   }
 
   return (
@@ -127,6 +144,15 @@ export default function PetInfoPage() {
           />
         </ButtonWrapper>
       </ContentWrapper>
+
+      {isModalOpen && (
+        <Modal
+          title="정말 삭제하시겠습니까?"
+          message="삭제한 뒤에는 복구할 수 없습니다."
+          onConfirm={handleDelete} // 예 버튼 클릭 시 삭제
+          onCancel={() => setIsModalOpen(false)} // 아니요 버튼 클릭 시 모달 닫기
+        />
+      )}
     </PageWrapper>
   );
 }
