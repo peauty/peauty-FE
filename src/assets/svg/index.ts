@@ -47,6 +47,7 @@ export { default as Favicon } from "./Favicon";
 export { default as Home } from "./Home";
 export { default as Letter } from "./Letter";
 export { default as Logo } from "./Logo";
+export { default as Pen } from "./Pen";
 export { default as Pin } from "./Pin";
 export { default as Search } from "./Search";
 export { default as Smile } from "./Smile";

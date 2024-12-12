@@ -1,4 +1,5 @@
 import { AddImage } from "../../../../assets/svg";
+import SvgPen from "../../../../assets/svg/Pen";
 import {
   AppBar,
   CustomButton,
@@ -11,6 +12,7 @@ import StarChanger from "./components/Star/StarChanger";
 import TagList from "./components/TagList";
 import {
   FirstQuestionBox,
+  HintWrapper,
   ImgUploadWrapper,
   SecondQuestionBox,
   Wrapper,
@@ -44,7 +46,10 @@ export default function WriteReview() {
         </SecondQuestionBox>
 
         <WriteReviewBox>
-          <Text typo="subtitle300">리뷰를 작성해 주세요</Text>
+          <HintWrapper>
+            <SvgPen width={14} />
+            <Text typo="subtitle300">리뷰를 작성해 주세요</Text>
+          </HintWrapper>
           <CustomButton variant="outline" onClick={handleImageUpload}>
             <ImgUploadWrapper>
               <Text color="gray200" typo="body500">

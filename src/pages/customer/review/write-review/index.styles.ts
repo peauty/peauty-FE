@@ -31,6 +31,12 @@ export const WriteReviewBox = styled.div`
   gap: 20px;
 `;
 
+export const HintWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
 export const ReviewableServiceWrapper = styled.div`
   display: flex;
   flex-direction: column;
