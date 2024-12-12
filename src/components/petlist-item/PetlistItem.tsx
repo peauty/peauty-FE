@@ -5,17 +5,11 @@ import {
   TextWrapper,
 } from "./PetlistItem.styles";
 import { Text } from "../texts/Text";
-import { typography } from "../../style/typography";
 import { useNavigate } from "react-router-dom";
 type GeneralVariant = "blue" | "green" | "disease";
 type ScissorsVariant = "gold" | "silver" | "bronze";
 
-interface StyledBadgeProps {
-  type: "general" | "scissors" | "normal";
-  variant: GeneralVariant | ScissorsVariant;
-  text: string;
-  typo?: keyof typeof typography;
-}
+
 
 interface PetlistItemProps {
   name: string;
