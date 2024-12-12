@@ -1,7 +1,7 @@
 import { Text } from "../../../../components";
 import { NavigationWrapper, Tab, ContentWrapper } from "./index.styles";
 import { useState } from "react";
-import StylistItem from "../../../../components/stylist-Item/StylistItem";
+import StylistItem from "../../../../components/stylist-item/StylistItem";
 import PetlistItem from "../../../../components/petlist-item/PetlistItem";
 
 interface HomeProps {
