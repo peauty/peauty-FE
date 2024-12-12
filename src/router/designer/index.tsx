@@ -5,6 +5,7 @@ import { signupPaths } from "./signup";
 import { homePaths } from "./home";
 import { quotePaths } from "./quote";
 import { noPadding } from "../../style/layoutStyle";
+import{statusPaths} from "./status";
 
 export const designerPaths = [
   {
@@ -19,10 +20,15 @@ export const designerPaths = [
   {
     path: "home",
     children: homePaths,
-    element: <AuthLayout userType={"designer"} />,
+    element: <AuthLayout userType={"designer"} style={noPadding} />,
   },
   {
     path: "mypage",
     children: designerMypagePaths,
+  },
+  {
+    path: "",
+    children: statusPaths,
+    element: <Layout style={noPadding} />,
   },
 ];

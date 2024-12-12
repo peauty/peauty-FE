@@ -33,6 +33,7 @@ export const ROUTE = {
     signupDetailComplete: "/designer/signup-detail-complete", // 디자이너 회원가입 상세 완료
     mypageDetail: "/designer/mypage/detail", // 디자이너 마이페이지 회원 상세 정보 페이지
     mypageEdit: "/designer/mypage/edit", // 디자이너 마이페이지 수정
+    schedule: "/designer/schedule",
   },
   // Error route
   notFound: "*",
