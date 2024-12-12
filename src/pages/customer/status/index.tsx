@@ -6,8 +6,8 @@ import StatusListItem from "./components/StatusListItem";
 import { TabWrapper } from "./index.styles";
 import Info from "./components/Info";
 import { colors } from "../../../style/color";
-import CustomerInfo from "./components/CustomerInfo";  
-
+import CustomerInfo from "./components/CustomerInfo";
+import { useNavigate } from "react-router-dom";
 export default function Status() {
   const statusItemData = {
     name: "수석실장 시언",
@@ -20,17 +20,23 @@ export default function Status() {
       { name: "전문성", color: "green" },
       { name: "전문성", color: "green" },
     ],
-    thumbnailUrl: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785",
+    thumbnailUrl:
+      "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785",
     onCheckboxChange: () => console.log("Checkbox changed"),
-    onClick: () => console.log("StatusListItem clicked"),
+    onClick: () => handleWorkspace(),
   };
 
-  const [activeTab, setActiveTab] = useState<"received" | "sent" | "confirmed">("received");
-
+  const [activeTab, setActiveTab] = useState<"received" | "sent" | "confirmed">(
+    "received",
+  );
+  const navigate = useNavigate();
   const handleTabClick = (tab: "received" | "sent" | "confirmed") => {
     setActiveTab(tab);
   };
 
+  const handleWorkspace = () => {
+    navigate("/customer/request/2");
+  };
   return (
     <>
       <AppBar prefix="backButton" />
@@ -85,14 +91,10 @@ export default function Status() {
             />
           </>
         )}
-        
-        {activeTab === "confirmed" && (
-          <>
-            {/* 확정 견적에 해당하는 컴포넌트들 */}
-          
-          </>
-        )}
 
+        {activeTab === "confirmed" && (
+          <>{/* 확정 견적에 해당하는 컴포넌트들 */}</>
+        )}
       </TabWrapper>
       <GNB type="customer" />
     </>

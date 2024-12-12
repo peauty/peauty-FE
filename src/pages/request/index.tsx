@@ -60,6 +60,9 @@ export default function Request() {
       setCheckedItems(Array(workspaces.length).fill(false)); // 초기화
     }
   };
+  const handleQuote = () => {
+    navigate("/customer/request/form");
+  };
 
   const handleCheckboxChange = (index: number) => {
     setCheckedItems((prev) =>
@@ -120,6 +123,7 @@ export default function Request() {
                 experience={workspace.yearOfExperience}
                 review={workspace.reviewCount}
                 score={workspace.reviewRating}
+                address={workspace.address}
                 badges={workspace.representativeBadges.map((badge) => ({
                   name: badge.badgeName,
                   color: badge.badgeColor,
@@ -137,7 +141,7 @@ export default function Request() {
       </ContentWrapper>
       {isSelecting ? (
         <GNB
-          onLargeButtonClick={() => console.log("견적서 작성하기 클릭")}
+          onLargeButtonClick={() => handleQuote()}
           buttonText="견적서 작성하기"
         />
       ) : (

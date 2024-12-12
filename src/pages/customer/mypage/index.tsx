@@ -16,7 +16,10 @@ import ProfileImg from "../../../components/profile-img/ProfileImg";
 import { useUserDetails } from "../../../hooks/useUserDetails";
 import { useEffect, useState } from "react";
 import { getPuppyProfiles } from "../../../apis/customer/resources/puppy";
-import { GetPuppyProfilesResponse, GetPuppyDetailResponse } from "../../../types/customer/puppy";
+import {
+  GetPuppyProfilesResponse,
+  GetPuppyDetailResponse,
+} from "../../../types/customer/puppy";
 import { ROUTE } from "../../../constants/routes";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/page/sign-up/Loading";
@@ -50,11 +53,21 @@ export default function CustomerMyPage() {
 
     fetchPuppyProfiles();
   }, [userId]);
-
+  const handlePet = () => {
+    navigate(`/customer/pets/:${puppy.puppyId}`);
+  };
   return (
     <>
-      {isLoading && <Loading imageUrl={"https://avatars.githubusercontent.com/u/70759627?v=4"} />}
-      <AppBar prefix="backButton" title="회원정보" onclick={() => navigate(ROUTE.customer.home)} />
+      {isLoading && (
+        <Loading
+          imageUrl={"https://avatars.githubusercontent.com/u/70759627?v=4"}
+        />
+      )}
+      <AppBar
+        prefix="backButton"
+        title="회원정보"
+        onclick={() => navigate(ROUTE.customer.home)}
+      />
       <PageWrapper>
         <ContentWrapper>
           <ProfileWrapper>
@@ -69,7 +82,8 @@ export default function CustomerMyPage() {
             <ProfileMenuWrapper>
               <MyInfoWrapper>
                 <Text typo={"subtitle100"} color={"blue100"}>
-                  {profile?.customerNickname || "사용자"}<Text typo={"subtitle100"}> 님</Text>
+                  {profile?.customerNickname || "사용자"}
+                  <Text typo={"subtitle100"}> 님</Text>
                 </Text>
                 <Text typo={"subtitle300"} color={"gray100"}>
                   내 정보 수정하기
@@ -79,9 +93,15 @@ export default function CustomerMyPage() {
             </ProfileMenuWrapper>
           </ProfileWrapper>
           <Divider thickness={2} />
-          <SubMenuButton text="우리집 퓨티들" iconType="plus" to="/" />
+          <SubMenuButton
+            text="우리집 퓨티들"
+            iconType="plus"
+            to="/customer/pets/regist"
+          />
           {puppies.length === 0 ? (
-            <NoPuppyPlaceholder>아직 등록된 반려견이 없어요!</NoPuppyPlaceholder>
+            <NoPuppyPlaceholder>
+              아직 등록된 반려견이 없어요!
+            </NoPuppyPlaceholder>
           ) : (
             <CardWrapper>
               {puppies.map((puppy) => (
@@ -94,6 +114,7 @@ export default function CustomerMyPage() {
                   weight={`${puppy.weight}` || ""}
                   breed={puppy.breed || ""}
                   tags={puppy.disease || []}
+                  onClick={() => navigate(`/customer/pets/${puppy.puppyId}`)}
                 />
               ))}
             </CardWrapper>
@@ -103,7 +124,7 @@ export default function CustomerMyPage() {
             <Text typo="subtitle200">미용내역</Text>
             <InfoButton message={"미용내역스"} />
           </InfoWrapper>
-          <SubMenuButton text="퓨티 미용 내역" to="/" />
+          <SubMenuButton text="퓨티 미용 내역" to="/customer/status" />
           <Divider />
           <Text typo="subtitle200">리뷰</Text>
           <SubMenuButton text="리뷰 내역" to="/" />

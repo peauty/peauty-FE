@@ -40,7 +40,7 @@ import {
 import InfoButton from "../../../../components/button/InfoButton";
 import DropBox from "./components/DropBox";
 import { DateDropBox } from "../../../../components/button/DateDropBox";
-
+import { useNavigate } from "react-router-dom";
 export default function CustomizeGrooming() {
   const [selectedGroomingType, setSelectedGroomingType] = useState(0);
   const [selectedBodyType, setSelectedBodyType] = useState(-1);
@@ -71,6 +71,7 @@ export default function CustomizeGrooming() {
     resetFields(); // Reset fields when grooming type changes
   };
 
+  const navigate = useNavigate();
   const resetFields = () => {
     setSelectedFaceStyle("");
     setSelectedBodyType(-1);
@@ -105,6 +106,9 @@ export default function CustomizeGrooming() {
     console.log("선택된 날짜:", date);
   };
 
+  const handleComplete = () => {
+    navigate("/customer/request");
+  };
   return (
     <>
       <AppBar prefix="backButton" title="견적서 요청하기" />
@@ -220,7 +224,10 @@ export default function CustomizeGrooming() {
           />
         </SectionWrapper>
       </ContentWrapper>
-      <GNB buttonText="견적 요청하기" />
+      <GNB
+        buttonText="견적 요청하기"
+        onLargeButtonClick={() => handleComplete()}
+      />
     </>
   );
 }

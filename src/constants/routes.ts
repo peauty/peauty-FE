@@ -21,6 +21,7 @@ export const ROUTE = {
       choosePet: "/customer/request/choose-pet-for-grooming", // 반려동물 정보 수정
       customizeGrooming: "/customer/request/customize-grooming", // 미용 방법 구체적으로 선택
     },
+    status: "/customer/status",
   },
   designer: {
     home: "/designer/home", // 디자이너 기본 경로

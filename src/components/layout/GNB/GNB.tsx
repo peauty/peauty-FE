@@ -29,7 +29,7 @@ export function GNB({
   const userMenuItems: item[] = [
     { icon: <Home />, label: "홈", path: ROUTE.customer.home },
     { icon: <Request />, label: "요청하기", path: ROUTE.customer.request.base },
-    { icon: <Status />, label: "요청 현황", path: "/requests" },
+    { icon: <Status />, label: "요청 현황", path: ROUTE.customer.status },
     { icon: <Mypage />, label: "마이페이지", path: ROUTE.customer.mypage.home },
   ];
 
@@ -46,6 +46,8 @@ export function GNB({
   const location = useLocation();
 
   const [activePath, setActivePath] = useState(location.pathname);
+
+ 
 
   useEffect(() => {
     setActivePath(location.pathname);
