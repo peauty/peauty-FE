@@ -36,8 +36,8 @@ export function GNB({
   const stylistMenuItems = [
     { icon: <Home />, label: "홈", path: ROUTE.designer.home },
     { icon: <Schedule />, label: "스케줄", path: ROUTE.designer.schedule },
-    { icon: <Status />, label: "견적 현황", path: "/propose" },
-    { icon: <Mypage />, label: "마이페이지", path: "/" },
+    { icon: <Status />, label: "견적 현황", path: ROUTE.designer.status },
+    { icon: <Mypage />, label: "마이페이지", path: ROUTE.designer.mypage.home },
   ];
 
   const menuItems = type === "customer" ? userMenuItems : stylistMenuItems;
@@ -46,8 +46,6 @@ export function GNB({
   const location = useLocation();
 
   const [activePath, setActivePath] = useState(location.pathname);
-
- 
 
   useEffect(() => {
     setActivePath(location.pathname);

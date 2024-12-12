@@ -8,6 +8,7 @@ import Info from "./components/Info";
 import { colors } from "../../../style/color";
 import CustomerInfo from "./components/CustomerInfo";
 import { useNavigate } from "react-router-dom";
+
 export default function Status() {
   const statusItemData = {
     name: "수석실장 시언",
@@ -30,6 +31,7 @@ export default function Status() {
     "received",
   );
   const navigate = useNavigate();
+
   const handleTabClick = (tab: "received" | "sent" | "confirmed") => {
     setActiveTab(tab);
   };
@@ -37,6 +39,11 @@ export default function Status() {
   const handleWorkspace = () => {
     navigate("/customer/request/2");
   };
+
+  const handleQuoteDetail = () => {
+    navigate("/customer/quote-detail");
+  };
+
   return (
     <>
       <AppBar prefix="backButton" />
@@ -76,7 +83,7 @@ export default function Status() {
                   bgColor: colors.blue300,
                   color: colors.blue100,
                   width: "100%",
-                  onClick: () => console.log("견적서 보기 클릭"),
+                  onClick: () => handleQuoteDetail(), // 수정된 부분
                 },
                 {
                   title: "더 이상 보지 않기",
