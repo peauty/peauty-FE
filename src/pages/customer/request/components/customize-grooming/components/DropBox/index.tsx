@@ -10,8 +10,8 @@ import {
   DropdownList,
   DropdownListItem,
 } from "./index.styles";
-import { DropDown } from "../../../../../../assets/svg";
-import { colors } from "../../../../../../style/color";
+import { DropDown } from "../../../../../../../assets/svg";
+import { colors } from "../../../../../../../style/color";
 export interface DropBoxProps {
   label?: string; // Optional label text
   placeholder: string; // Default text for the dropdown

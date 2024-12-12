@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { RegisterPuppyRequest } from "../../../types/customer/puppy";
 
 export function signUpCustomHook() {

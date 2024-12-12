@@ -1,8 +1,5 @@
 import { AuthLayout } from "../../../components/layout/AuthLayout";
-import ChoosePetForGrooming from "../../../pages/customer/request/choose-pet";
-import CustomizeGrooming from "../../../pages/customer/request/customize-grooming";
-import CustomerRequestNotice from "../../../pages/customer/request/notice";
-import Request from "../../../pages/request";
+import Request from "../../../pages/customer/request";
 import Shop from "../../../pages/shop";
 import { noPadding } from "../../../style/layoutStyle";
 
@@ -14,20 +11,11 @@ export const requestPaths = [
         path: "",
         element: <Request />,
       },
-
-      {
-        path: "notice",
-        element: <CustomerRequestNotice />,
-      },
-      {
-        path: "choose-pet-for-grooming",
-        element: <ChoosePetForGrooming />,
-      },
     ],
     elemnent: <AuthLayout userType="customer" />,
   },
   {
-    path: "",
+    path: "shops",
     children: [
       {
         path: ":workspaceId",
@@ -35,9 +23,5 @@ export const requestPaths = [
       },
     ],
     elemnent: <AuthLayout userType="customer" style={noPadding} />,
-  },
-  {
-    path: "customize-grooming",
-    element: <CustomizeGrooming />,
   },
 ];

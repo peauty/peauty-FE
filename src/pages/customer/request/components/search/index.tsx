@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { AppBar, GNB, Text } from "../../components";
-import { Maker, Warning } from "../../assets/svg";
-import { SelectIcon } from "../../assets/svg";
-import BottomSheet from "../../components/bottom-sheet/BottomSheet";
+import { AppBar, GNB, Text } from "../../../../../components";
+import { Maker, Warning } from "../../../../../assets/svg";
+import { SelectIcon } from "../../../../../assets/svg";
+import BottomSheet from "../../../../../components/bottom-sheet/BottomSheet";
 import DesignerItem from "./components/DesignerListItem";
 import {
   ContentWrapper,
@@ -16,12 +16,23 @@ import {
   VerificationWrapper,
   ShopWrapper,
 } from "./index.styles";
-import { getAroundWorkspaces } from "../../apis/customer/resources/customer";
-import { Workspace } from "../../types/customer/customer";
-import { useUserDetails } from "../../hooks/useUserDetails";
+import { getAroundWorkspaces } from "../../../../../apis/customer/resources/customer";
+import { Workspace } from "../../../../../types/customer/customer";
+import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import { useNavigate } from "react-router-dom";
+import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
 
-export default function Request() {
+interface SearchStepProps {
+  onNext: () => void;
+  inputData: SendEstimateProposalRequest;
+  handleChange: (key: keyof SendEstimateProposalRequest, value: any) => void;
+}
+
+export default function Search({
+  onNext,
+  inputData,
+  handleChange,
+}: SearchStepProps) {
   const [isSelecting, setIsSelecting] = useState(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]); // 작업 공간 데이터
@@ -136,10 +147,7 @@ export default function Request() {
         </DesignerList>
       </ContentWrapper>
       {isSelecting ? (
-        <GNB
-          onLargeButtonClick={() => console.log("견적서 작성하기 클릭")}
-          buttonText="견적서 작성하기"
-        />
+        <GNB onLargeButtonClick={onNext} buttonText="견적서 작성하기" />
       ) : (
         <GNB type="customer" />
       )}
