@@ -17,10 +17,10 @@ export default function Info() {
     <Container>
       <InnerBox>
         <Text typo="body300" color="blue100">
-          20024.12.24
+          2024.12.24 12:30
         </Text>
         <CutTextWrapper>
-          <Text typo="subtitle200" color="black">
+          <Text typo="subtitle300" color="black">
             곰돌이컷+가위컷
           </Text>
           <RequestButton onClick={handleButtonClick}>

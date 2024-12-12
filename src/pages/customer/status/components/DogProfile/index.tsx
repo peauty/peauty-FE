@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { DogListWrapper, DogProfileWrapper, RoundImg, DogName } from "./index.styles";
-
+import {
+  DogListWrapper,
+  DogProfileWrapper,
+  RoundImg,
+  DogName,
+} from "./index.styles";
 
 interface DogProfileProps {
   src: string;
@@ -10,8 +14,13 @@ interface DogProfileProps {
   active: boolean;
 }
 
-
-const DogProfile = ({ src, name, borderRadius = "50%", onClick, active }: DogProfileProps) => (
+const DogProfile = ({
+  src,
+  name,
+  borderRadius = "50%",
+  onClick,
+  active,
+}: DogProfileProps) => (
   <DogProfileWrapper onClick={onClick}>
     <RoundImg src={src} alt={name} borderRadius={borderRadius} />
     <DogName active={active}>{name}</DogName>
@@ -24,7 +33,7 @@ const DogList = () => {
     {
       src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785",
       name: "꼬미",
-      active: false,
+      active: true,
     },
     {
       src: "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785",
@@ -38,10 +47,10 @@ const DogList = () => {
     },
   ]);
 
-  const [selectedDog, setSelectedDog] = useState<string | null>(null);
+  const [selectedDog, setSelectedDog] = useState<string>(dogs[0].name); // 초기값을 첫 번째 dog의 name으로 설정
 
   const handleDogClick = (name: string) => {
-    setSelectedDog(name === selectedDog ? null : name); // 선택/해제 토글
+    setSelectedDog(name === selectedDog ? "" : name); // 선택/해제 토글
   };
 
   return (

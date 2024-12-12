@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Status() {
   const statusItemData = {
-    name: "수석실장 시언",
     store: "몽뜨의 아틀리네 위례점",
+    location: "서울특별시 강남구 대치동",
     score: 4.5,
     review: 120,
     payment: 35000,
@@ -56,7 +56,7 @@ export default function Status() {
             <DogList />
             <Info />
             <StatusListItem
-              name={statusItemData.name}
+              location={statusItemData.location}
               store={statusItemData.store}
               score={statusItemData.score}
               review={statusItemData.review}
@@ -72,11 +72,12 @@ export default function Status() {
             <DogList />
             <Info />
             <CustomerInfo
-              name={statusItemData.name}
+              location={statusItemData.location}
               store={statusItemData.store}
               score={statusItemData.score}
               review={statusItemData.review}
               thumbnailUrl={statusItemData.thumbnailUrl}
+              onClick={statusItemData.onClick}
               buttons={[
                 {
                   title: "견적서 보기",

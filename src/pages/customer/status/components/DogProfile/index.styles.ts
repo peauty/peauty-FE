@@ -1,11 +1,11 @@
-
 import styled from "styled-components";
+import { colors } from "../../../../../style/color";
 
 // DogListWrapper 스타일
 export const DogListWrapper = styled.div`
   display: flex;
-  gap: 30px;
-  padding: 0 20px;
+  gap: 20px;
+  padding: 20px 30px 10px;
 `;
 
 // DogProfileWrapper 스타일
@@ -25,8 +25,9 @@ export const RoundImg = styled.img<{ borderRadius?: string }>`
 
 // DogName 스타일
 export const DogName = styled.p<{ active: boolean }>`
-  margin-top: 7px;
-  font-size: 14px;
-  color: ${({ active }) => (active ? "#000000" : "#A0A0A0")};
+  margin-top: 5px;
+  font-size: 12px;
+  font-weight: ${({ active }) => (active ? `600` : `400`)};
+  color: ${({ active }) => (active ? `${colors.black}` : `${colors.gray200}`)};
   text-align: center;
 `;
