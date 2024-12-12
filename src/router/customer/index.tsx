@@ -1,6 +1,6 @@
 import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
-import CustomerHome from "../../pages/main";
+import CustomerHome from "../../pages/main/customer";
 import { petsPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
