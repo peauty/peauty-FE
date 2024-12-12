@@ -34,7 +34,7 @@ export default function SubMenuButton({
       case "arrow":
         return <Arrow width="15px" height="27px" />;
       case "plus":
-        return <CiCirclePlus size="24px" />;
+        return <CiCirclePlus size="20px" />;
       default:
         return null;
     }
@@ -42,7 +42,7 @@ export default function SubMenuButton({
 
   return (
     <StyledSubMenuButton onClick={handleClick}>
-      <Text typo="body100">{text}</Text>
+      <Text typo="subtitle300">{text}</Text>
       {renderIcon()}
     </StyledSubMenuButton>
   );
