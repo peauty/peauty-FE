@@ -1,5 +1,5 @@
-import { Letter, Pin } from "../../../../assets/svg";
-import { AppBar, GNB, Text } from "../../../../components";
+import { Letter, Pin } from "../../../../../assets/svg";
+import { AppBar, GNB, Text } from "../../../../../components";
 import {
   IconBox,
   NoticeBox,
@@ -54,7 +54,11 @@ const notices: Notice[] = [
   },
 ];
 
-export default function CustomerRequestNotice() {
+interface NoticeStepProps {
+  onNext: () => void;
+}
+
+export default function CustomerRequestNotice({ onNext }: NoticeStepProps) {
   return (
     <>
       <AppBar prefix="backButton" />
@@ -83,7 +87,7 @@ export default function CustomerRequestNotice() {
         </NoticeBox>
       </Wrapper>
 
-      <GNB buttonText="이해했어요" />
+      <GNB buttonText="이해했어요" onLargeButtonClick={onNext} />
     </>
   );
 }

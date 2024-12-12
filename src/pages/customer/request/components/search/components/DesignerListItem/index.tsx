@@ -1,6 +1,6 @@
-import { Text } from "../../../../components";
-import { Badge } from "../../../../components/category/Badge";
-import Rating from "../../../../components/rating";
+import { Text } from "../../../../../../../components";
+import { Badge } from "../../../../../../../components/category/Badge";
+import Rating from "../../../../../../../components/rating";
 import {
   Container,
   BadgeWrapper,

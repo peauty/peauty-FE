@@ -1,9 +1,22 @@
 import { useState } from "react";
-import { AppBar, GNB, Text } from "../../../../components";
-import Card from "../../../../components/cards/Card";
+import { AppBar, GNB, Text } from "../../../../../components";
+import Card from "../../../../../components/cards/Card";
 import { CardWrapper, TextWrapper, Wrapper } from "./index.styles";
+import { ROUTE } from "../../../../../constants/routes";
+import { useNavigate } from "react-router-dom";
+import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
 
-export default function ChoosePetForGrooming() {
+interface ChoosePetProps {
+  onNext: () => void;
+  inputData: SendEstimateProposalRequest;
+  handleChange: (key: keyof SendEstimateProposalRequest, value: any) => void;
+}
+
+export default function ChoosePetForGrooming({
+  onNext,
+  inputData,
+  handleChange,
+}: ChoosePetProps) {
   const dummyPet = [
     {
       puppyId: 1,
@@ -38,10 +51,10 @@ export default function ChoosePetForGrooming() {
   ];
 
   const [selectedPetId, setSelectedPetId] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const handleChoosePet = (pet: (typeof dummyPet)[number]) => {
     setSelectedPetId(pet.puppyId);
-    console.log("Clicked Pet:", pet);
   };
 
   return (
@@ -72,7 +85,7 @@ export default function ChoosePetForGrooming() {
           </CardWrapper>
         ))}
       </Wrapper>
-      <GNB buttonText="확인" />
+      <GNB buttonText="확인" onLargeButtonClick={onNext} />
     </>
   );
 }

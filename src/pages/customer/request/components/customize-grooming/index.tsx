@@ -5,12 +5,12 @@ import {
   Text,
   CustomInput,
   GNB,
-} from "../../../../components";
-import { RadioSelectButton } from "../../../../components/button/RadioSelectButton";
+} from "../../../../../components";
+import { RadioSelectButton } from "../../../../../components/button/RadioSelectButton";
 import {
   GroomingBodyType,
   GroomingType,
-} from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+} from "../../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
 import {
   ContentWrapper,
   SectionWrapper,
@@ -20,7 +20,7 @@ import {
 import {
   PhotoAttachment,
   PhotoAttachmentContainer,
-} from "../../../designer/quote/index.styles";
+} from "../../../../designer/quote/index.styles";
 import {
   EggHead,
   BabyCut,
@@ -30,18 +30,30 @@ import {
   LionCut,
   Helmet,
   EarsPop,
-} from "../../../../assets/svg";
+} from "../../../../../assets/svg";
 import {
   HAIRSTYLES,
   CUTTING,
   SUMMERCUT,
   TIME,
-} from "../../../../constants/request";
-import InfoButton from "../../../../components/button/InfoButton";
+} from "../../../../../constants/request";
+import InfoButton from "../../../../../components/button/InfoButton";
 import DropBox from "./components/DropBox";
-import { DateDropBox } from "../../../../components/button/DateDropBox";
 import { useNavigate } from "react-router-dom";
-export default function CustomizeGrooming() {
+import { DateDropBox } from "../../../../../components/button/DateDropBox";
+import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
+
+interface LastStepProps {
+  onSubmit: () => void;
+  inputData: SendEstimateProposalRequest;
+  handleChange: (key: keyof SendEstimateProposalRequest, value: any) => void;
+}
+
+export default function CustomizeGrooming({
+  onSubmit,
+  inputData,
+  handleChange,
+}: LastStepProps) {
   const [selectedGroomingType, setSelectedGroomingType] = useState(0);
   const [selectedBodyType, setSelectedBodyType] = useState(-1);
   const [selectedFaceStyle, setSelectedFaceStyle] = useState("");
@@ -224,10 +236,7 @@ export default function CustomizeGrooming() {
           />
         </SectionWrapper>
       </ContentWrapper>
-      <GNB
-        buttonText="견적 요청하기"
-        onLargeButtonClick={() => handleComplete()}
-      />
+      <GNB buttonText="견적 요청하기" onLargeButtonClick={onSubmit} />
     </>
   );
 }

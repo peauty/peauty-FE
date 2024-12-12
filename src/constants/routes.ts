@@ -22,10 +22,8 @@ export const ROUTE = {
       edit: (petId: string) => `/customer/pets/${petId}/edit`, // ROUTE.customer.pets.edit(123)
     },
     request: {
-      base: "/customer/request",
-      notice: "/customer/request/notice",
-      choosePet: "/customer/request/choose-pet-for-grooming", // 반려동물 정보 수정
-      customizeGrooming: "/customer/request/customize-grooming", // 미용 방법 구체적으로 선택
+      home: "/customer/request",
+      shop: (shopId: string) => `/customer/request/shop/${shopId}`,
     },
     status: "/customer/status",
   },
