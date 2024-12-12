@@ -65,6 +65,7 @@ export default function Status() {
               store={statusItemData.store}
               score={statusItemData.score}
               review={statusItemData.review}
+
               reservation={statusItemData.reservation}
               thumbnailUrl={statusItemData.thumbnailUrl}
               buttons={[

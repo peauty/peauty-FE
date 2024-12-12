@@ -14,7 +14,11 @@ export const ROUTE = {
     },
     signup: "/customer/signup", // 회원가입
     signupComplete: "/customer/signup-complete", // 회원가입 완료
-    pet: {},
+    pets: {
+      signup: "/customer/pets/signup",
+      detail: (petId: string) => `/customer/pets/${petId}`, // ROUTE.customer.pets.detail(123)
+      edit: (petId: string) => `/customer/pets/${petId}/edit`, // ROUTE.customer.pets.edit(123)
+    },
     request: {
       base: "/customer/request",
       notice: "/customer/request/notice",

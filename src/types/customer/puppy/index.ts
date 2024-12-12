@@ -22,11 +22,10 @@ export interface UpdatePuppyDetailResponse {
   age?: number;
   birthdate?: string;
   detail?: string;
-
   disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
-  puppySize?: "SMALL" | "MEDIUM" | "LARGE";
+  puppySize?: string;
 }
 
 export interface UpdatePuppyDetailRequest {
@@ -37,11 +36,10 @@ export interface UpdatePuppyDetailRequest {
   age?: number;
   birthdate?: string;
   detail?: string;
-
   disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
-  puppySize?: "SMALL" | "MEDIUM" | "LARGE";
+  puppySize?: string;
 }
 
 export interface DeletePuppyResponse {
@@ -52,7 +50,18 @@ export interface GetPuppyProfilesResponse {
   customerId?: number;
   customerNickname?: string;
   customerImageUrl?: string;
-  puppies?: GetPuppyDetailResponse[];
+  puppies?: GetPuppyProfileResponse[];
+}
+
+export interface GetPuppyProfileResponse {
+  puppyId?: number;
+  name?: string;
+  breed?: string;
+  weight?: number;
+  sex?: string;
+  age?: number;
+  disease?: string[];
+  puppyProfileImageUrl?: string;
 }
 
 export interface RegisterPuppyResponse {
@@ -72,17 +81,16 @@ export interface RegisterPuppyResponse {
 
 export interface RegisterPuppyRequest {
   name: string;
+  breed: string;
   weight: number;
   sex: "M" | "F";
   age: number;
   birthdate: string;
   detail?: string;
-  breed: string;
   disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
-  puppySize?: "SMALL" | "MEDIUM" | "LARGE";
-
+  puppySize?: string;
 }
 
 export interface UploadPuppyImageResponse {
