@@ -9,6 +9,7 @@ export { default as Calendar } from "./Calendar";
 export { default as Camera } from "./Camera";
 export { default as CareerIcon } from "./CareerIcon";
 export { default as Check } from "./Check";
+export { default as CheckIcon2 } from "./CheckIcon2";
 export { default as Clean } from "./Clean";
 export { default as DefaultProfile } from "./DefaultProfile";
 export { default as DownArrow } from "./DownArrow";

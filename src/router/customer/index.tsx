@@ -8,6 +8,7 @@ import { Layout } from "../../components/layout/Layout";
 import { AuthLayout } from "../../components/layout/AuthLayout";
 import Shop from "../../pages/shop";
 import { noPadding } from "../../style/layoutStyle";
+import QuoteDetail from "../../pages/customer/quote-detail";
 
 export const customerPaths = [
   {
@@ -57,6 +58,10 @@ export const customerPaths = [
       {
         path: "shop",
         element: <Shop />,
+      },
+      {
+        path: "quote-detail",
+        element: <QuoteDetail />,
       },
     ],
     element: <AuthLayout userType="customer" style={noPadding} />,
