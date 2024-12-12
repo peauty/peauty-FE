@@ -47,6 +47,7 @@ export const ServiceInfoWrapper = styled.div`
 
 export const SelectTagWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
   padding: 10px 0;
 `;
@@ -60,7 +61,7 @@ export const TagWrapper = styled.div<{ selected?: boolean }>`
   background-color: ${(props) =>
     props.selected ? colors.blue300 : "transparent"};
   border-radius: 10px;
-  padding: 7px;
+  padding: 8px 15px;
   cursor: pointer;
 
   div + div {
