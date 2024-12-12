@@ -55,7 +55,9 @@ export default function CustomerMyPage() {
   }, [userId]);
 
   const handleCard = (puppyId?: number) => {
-    navigate(`${ROUTE.customer.pets}/${puppyId}`);
+    if (puppyId) {
+      navigate(ROUTE.customer.pets.detail(String(puppyId)));
+    }
   };
 
   return (
@@ -91,7 +93,11 @@ export default function CustomerMyPage() {
             </ProfileMenuWrapper>
           </ProfileWrapper>
           <Divider thickness={2} />
-          <SubMenuButton text="우리집 퓨티들" iconType="plus" to="/" />
+          <SubMenuButton
+            text="우리집 퓨티들"
+            iconType="plus"
+            to={ROUTE.customer.pets.signup}
+          />
           {puppies.length === 0 ? (
             <NoPuppyPlaceholder>
               아직 등록된 반려견이 없어요!

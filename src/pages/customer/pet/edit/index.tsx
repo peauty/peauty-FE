@@ -157,21 +157,6 @@ export default function PetEdit() {
   };
 
   const handleSubmit = async () => {
-    console.log({
-      puppyName,
-      puppyWeight,
-      puppyDetail,
-      diseaseDescription,
-      selectedProfileImage,
-      selectedBreed,
-      selectedGender,
-      selectedSize,
-      selectedYear,
-      selectedMonth,
-      selectedDay,
-    });
-    // 제출 로직 구현
-
     if (!userId || !puppyId) return;
     try {
       const birthdate =

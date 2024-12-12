@@ -30,10 +30,6 @@ export function signUpCustomHook() {
     }));
   };
 
-  useEffect(() => {
-    console.log("Updated inputData:", inputData);
-  }, [inputData]);
-
   return {
     inputData,
     handleChange,

@@ -17,7 +17,6 @@ export { default as Goddess } from "./Goddess";
 export { default as Helmet } from "./Helmet";
 export { default as LionCut } from "./LionCut";
 export { default as Maker } from "./Maker";
-export { default as Male } from "./Male";
 export { default as Medal } from "./Medal";
 export { default as Mypage } from "./Mypage";
 export { default as Pin } from "./Pin";

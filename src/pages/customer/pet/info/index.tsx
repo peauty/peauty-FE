@@ -7,10 +7,10 @@ import {
   ButtonWrapper,
   MyInfoWrapper,
 } from "./index.styles";
+import { IoIosMale, IoIosFemale } from "react-icons/io";
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
 import OptionButton from "./components/OptionButton";
 import SvgBirthDay from "../../../../assets/svg/BirthDay";
-import SvgMale from "../../../../assets/svg/Male";
 import {
   getPuppyDetail,
   deletePuppy,
@@ -21,6 +21,7 @@ import { useUserDetails } from "../../../../hooks/useUserDetails";
 import Loading from "../../../../components/page/sign-up/Loading";
 import { ROUTE } from "../../../../constants/routes";
 import Modal from "./components/Modal";
+import Gender from "./components/Gender";
 
 export default function PetInfoPage() {
   const [puppyData, setPuppyData] = useState<GetPuppyDetailResponse | null>(
@@ -64,11 +65,14 @@ export default function PetInfoPage() {
 
   const handleSelect = (index: number) => {
     if (index === 0) {
-      console.log("삭제하기 클릭");
+      setIsModalOpen(true); // 삭제하기 클릭 시 모달 열기
     } else if (index === 1 && puppyId) {
       navigate(ROUTE.customer.pets.edit(puppyId));
-      setIsModalOpen(true); // 삭제하기 클릭 시 모달 열기
     }
+  };
+
+  const handleBack = () => {
+    navigate(ROUTE.customer.mypage.home);
   };
 
   if (loading) {
@@ -83,12 +87,12 @@ export default function PetInfoPage() {
 
   return (
     <PageWrapper>
-      <AppBar prefix="backButton" />
+      <AppBar prefix="backButton" onclick={handleBack} />
       <ContentWrapper>
         <Text typo="body100" color="gray100">
           {"태어난지 "}
           <Text typo="body100" color="blue100">
-            {puppyData.age}
+            {puppyData.age}년
           </Text>
         </Text>
 
@@ -103,7 +107,7 @@ export default function PetInfoPage() {
           <Text typo="title100" color="black">
             {puppyData.name}
           </Text>
-          <SvgMale width={15} />
+          <Gender gender={puppyData.sex || ""} />
         </MyInfoWrapper>
 
         <Text typo="body300" color="blue100">
@@ -118,21 +122,34 @@ export default function PetInfoPage() {
           <Text typo="body300" color="gray100">
             {puppyData.birthdate}
             <Text typo="body300" color="blue100">
-              {puppyData.age} 살
+              ㅤ{puppyData.age}살
             </Text>
           </Text>
         </MyInfoWrapper>
 
         {puppyData.disease && puppyData.disease.length > 0 && (
           <InfoWrapper>
-            <Text typo="body100" color="blue100">
-              {puppyData.disease.join(", ")}
-              <Text typo="body100" color="black">
-                {puppyData.diseaseDescription
-                  ? ` - ${puppyData.diseaseDescription}`
-                  : "이 있어요"}
+            {puppyData.detail && (
+              <Text typo="body100" color="blue100">
+                {puppyData.disease.join(", ")}
+                <Text typo="body100" color="black">
+                  이 있어요
+                </Text>
               </Text>
-            </Text>
+            )}
+            {puppyData.diseaseDescription && (
+              <Text typo="body100" color="black">
+                {puppyData.diseaseDescription}
+              </Text>
+            )}
+            {puppyData.detail && (
+              <Text typo="body100" color="black">
+                {puppyData.name}는ㅤ
+                <Text typo="body100" color="blue100">
+                  {puppyData.detail}
+                </Text>
+              </Text>
+            )}
           </InfoWrapper>
         )}
 
