@@ -2,7 +2,7 @@ import { Text } from "../../../../components";
 import { NavigationWrapper, Tab, ContentWrapper } from "./index.stlyes";
 import { useState } from "react";
 import StylistItem from "../../../../components/stylist-item";
-import { PetlistItem } from "../../../../components/petlist-item";
+import PetlistItem from "../../../../components/petlist-item";
 
 interface HomeProps {
   title: string;
