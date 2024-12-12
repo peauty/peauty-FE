@@ -1,1 +1,1 @@
-export { default as StylistItem } from "./StylistItem";
+export { default } from "./StylistItem";
