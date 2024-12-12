@@ -26,6 +26,7 @@ interface CustomInputProps
   inputType?: "input" | "textarea"; // input인지 textarea인지 구분
   unit?: string; // 단위 추가
   extraText?: string; // 추가 텍스트를 위한 prop
+  maxLength?: number; // 최대 글자수 prop 추가
 }
 
 export default function CustomInput({
@@ -42,16 +43,14 @@ export default function CustomInput({
   inputType = "input", // 기본값 input
   unit,
   extraText, // 추가 텍스트 prop
+  maxLength = 200, // 기본값 200
   ...props
 }: CustomInputProps) {
   const [focused, setFocused] = useState(false);
   const [inputLength, setInputLength] = useState(0);
 
-  // textarea의 글자 수 제한
-  const MAX_LENGTH = 200;
-
   // 조건 변수 추출
-  const isTextOverLimit = inputLength > MAX_LENGTH; // 글자 수 초과 조건
+  const isTextOverLimit = inputLength > maxLength; // 글자 수 초과 조건
   const showError = !!error || isTextOverLimit; // 에러 메시지 표시 조건
   const charCountColor = isTextOverLimit
     ? "red100"
@@ -66,7 +65,7 @@ export default function CustomInput({
     const { value } = e.target;
     setInputLength(value.length);
 
-    if (inputType === "textarea" && value.length > MAX_LENGTH) {
+    if (inputType === "textarea" && value.length > maxLength) {
       props.onChange?.(e);
       return;
     }
@@ -111,7 +110,7 @@ export default function CustomInput({
           <StyledTextarea
             error={showError}
             disabled={disabled}
-            maxLength={MAX_LENGTH + 1}
+            maxLength={maxLength + 1} // maxLength + 1로 텍스트박스에 허용 가능한 길이 설정
             {...props}
             onChange={handleChange}
           />
@@ -131,12 +130,12 @@ export default function CustomInput({
 
       <NoticeContainer
         hasError={
-          !!error || (inputType === "textarea" && inputLength > MAX_LENGTH)
+          !!error || (inputType === "textarea" && inputLength > maxLength)
         }
       >
         <Text
           color={
-            error || (inputType === "textarea" && inputLength > MAX_LENGTH)
+            error || (inputType === "textarea" && inputLength > maxLength)
               ? "red100"
               : success
                 ? "blue100"
@@ -144,7 +143,7 @@ export default function CustomInput({
           }
           typo="body500"
         >
-          {inputLength > MAX_LENGTH
+          {inputLength > maxLength
             ? "작성 가능한 글자 수를 초과했어요"
             : error || hint || success}
         </Text>
@@ -152,7 +151,7 @@ export default function CustomInput({
         {inputType === "textarea" && (
           <Text
             color={
-              inputLength > MAX_LENGTH
+              inputLength > maxLength
                 ? "red100"
                 : focused
                   ? "blue100"
@@ -160,7 +159,7 @@ export default function CustomInput({
             }
             typo="body100"
           >
-            {inputLength}/{MAX_LENGTH}
+            {inputLength}/{maxLength}
           </Text>
         )}
       </NoticeContainer>
