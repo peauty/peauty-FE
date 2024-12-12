@@ -13,7 +13,7 @@ export default function CustomerHome() {
   const user = useUserDetails();
   console.log(user.userId);
   const type = {
-    title: "견젹", // 예시로 "요청"을 넣었으나, 이 값을 조건에 맞게 변경 가능
+    title: "견적", // 예시로 "요청"을 넣었으나, 이 값을 조건에 맞게 변경 가능
     firstNav: "견적 받는중",
     secendNav: "받은 견적",
   };

@@ -1,5 +1,5 @@
 import { Text } from "../../../../components";
-import { NavigationWrapper, Tab, ContentWrapper } from "./index.stlyes";
+import { NavigationWrapper, Tab, ContentWrapper } from "./index.styles";
 import { useState } from "react";
 import StylistItem from "../../../../components/stylist-item/StylistItem";
 import PetlistItem from "../../../../components/petlist-item/PetlistItem";
@@ -43,12 +43,10 @@ export default function ProposalStautsNav({
           </Text>
         </Tab>
       </NavigationWrapper>
-
       <ContentWrapper>
         {activeTab === "waiting" ? (
           <div>
             {title === "견적" ? (
-              // title이 "견적"일 때 보여줄 내용
               <StylistItem
                 name="몽끄의 아틀리에 위례점"
                 imageUrl="https://via.placeholder.com/65"
@@ -63,10 +61,9 @@ export default function ProposalStautsNav({
                 showButton="내 요청보기"
               />
             ) : (
-              // title이 "요청"일 때 보여줄 내용
               <PetlistItem
-                imageUrl="https://via.placeholder.com/65"
                 name="꼬미"
+                imageUrl="https://via.placeholder.com/65"
                 birth="2020.03.01"
                 weight={3.45}
                 gender="여자"

@@ -6,10 +6,6 @@ import {
 } from "./PetlistItem.styles";
 import { Text } from "../texts/Text";
 import { useNavigate } from "react-router-dom";
-type GeneralVariant = "blue" | "green" | "disease";
-type ScissorsVariant = "gold" | "silver" | "bronze";
-
-
 
 interface PetlistItemProps {
   name: string;
@@ -29,8 +25,8 @@ export default function PetlistItem({
   weight,
   gender,
   breed,
-  showButton,
   diseases = [],
+  showButton,
 }: PetlistItemProps) {
   const navigate = useNavigate();
   const handleWorkspaceClick = () => {
@@ -67,7 +63,7 @@ export default function PetlistItem({
   return (
     <ItemWrapper>
       <div
-        style={{ display: "flex", gap: "20px", cursor: "pointer" }}
+        style={{ display: "flex", gap: "15px", cursor: "pointer" }}
         onClick={handleWorkspaceClick}
       >
         <ItemImg></ItemImg>

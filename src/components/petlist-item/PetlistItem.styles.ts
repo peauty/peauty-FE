@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colors } from "../../style/color";
 
 export const ItemWrapper = styled.div`
-  padding: 25px 20px 20px;
+  padding: 15px;
   border-radius: 13px 20px;
   display: flex;
   display: flex;
