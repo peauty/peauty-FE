@@ -19,21 +19,25 @@ export default function Step3({
   return (
     <div>
       <SectionWrapper>
-        <Text color="black100" typo="subtitle100">
-          미용 시 주의할 점이 있다면 알려주세요
-        </Text>
-        <Text color="blue100" typo="body400">
-          성격, 싫어하는 행동, 평소 미용 스트레스 정도 등
-        </Text>
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Text color="black100" typo="subtitle100">
+              미용 시 주의할 점이 있다면 알려주세요
+            </Text>
+            <Text color="gray100" typo="body400">
+              성격, 싫어하는 행동, 평소 미용 스트레스 정도 등
+            </Text>
+          </div>
 
-        <CustomInput
-          label="참고"
-          placeholder="참고할 점을 알려주세요"
-          fullwidth={true}
-          variant="outlined"
-          value={inputData.detail}
-          onChange={(event) => handleChange("detail", event.target.value)}
-        />
+          <CustomInput
+            label="참고"
+            placeholder="참고할 점을 알려주세요"
+            fullwidth={true}
+            variant="outlined"
+            value={inputData.detail}
+            onChange={(event) => handleChange("detail", event.target.value)}
+          />
+        </div>
 
         <CustomButton size="medium" onClick={onSubmit}>
           확인

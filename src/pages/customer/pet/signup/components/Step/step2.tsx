@@ -21,15 +21,14 @@ export default function Step2({
 }: Step2Props) {
   const handleDiseaseSelect = (selectedIndexes: number[]) => {
     const diseases = [
-        "NONE",
-        "PATELLA",
-        "EAR_INFECTION",
-        "DERMATITIS",
-        "EYE_DISEASE",
-        "HEART_DISEASE",
-        "ARTHRITIS",
-        "ETC",
-
+      "NONE",
+      "PATELLA",
+      "EAR_INFECTION",
+      "DERMATITIS",
+      "EYE_DISEASE",
+      "HEART_DISEASE",
+      "ARTHRITIS",
+      "ETC",
     ];
     const selectedDiseases = selectedIndexes.map((index) => diseases[index]);
     handleDiseaseChange(selectedDiseases);
@@ -43,40 +42,41 @@ export default function Step2({
 
   return (
     <SectionWrapper>
-      <Text color="black100" typo="subtitle100">
-        반려견의 건강상태를 알려주세요
-      </Text>
+      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Text color="black100" typo="subtitle100">
+            반려견의 건강상태를 알려주세요
+          </Text>
+          <Text color="gray100" typo="body100">
+            질병 이력 (중복 선택도 가능해요)
+          </Text>
+        </div>
+        <MultiSelectButton
+          row={3}
+          col={3}
+          buttonNames={[
+            "없음",
+            "슬개골",
+            "외이염",
+            "피부염",
+            "눈질환",
+            "심장병",
+            "관절병",
+            "기타",
+          ]}
+          selectedIndexes={[]} // 선택된 질병 인덱스
+          onSelect={handleDiseaseSelect}
+        />
 
-      <Text color="blue100" typo="body100">
-        질병 이력 (중복 선택도 가능해요)
-      </Text>
-
-      <MultiSelectButton
-        row={3}
-        col={3}
-        buttonNames={[
-          "없음",
-          "슬개골",
-          "외이염",
-          "피부염",
-          "눈질환",
-          "심장병",
-          "관절병",
-          "기타",
-        ]}
-        selectedIndexes={[]} // 선택된 질병 인덱스
-        onSelect={handleDiseaseSelect}
-      />
-
-      <CustomInput
-        label="기타"
-        placeholder="기타 건강상태를 알려주세요"
-        fullwidth={true}
-        variant="outlined"
-        value={inputData.diseaseDescription}
-        onChange={handleDiseaseDescriptionChange}
-      />
-
+        <CustomInput
+          label="기타"
+          placeholder="기타 건강상태를 알려주세요"
+          fullwidth={true}
+          variant="outlined"
+          value={inputData.diseaseDescription}
+          onChange={handleDiseaseDescriptionChange}
+        />
+      </div>
       <CustomButton fullwidth onClick={onNext}>
         다음
       </CustomButton>
