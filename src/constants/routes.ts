@@ -11,6 +11,8 @@ export const ROUTE = {
       home: "/customer/mypage",
       detail: "/customer/mypage/detail",
       edit: "/customer/mypage/edit",
+      writeReview: "/customer/mypage/reviews-new",
+      reviewHistory: "/customer/mypage/reviews-history",
     },
     signup: "/customer/signup", // 회원가입
     signupComplete: "/customer/signup-complete", // 회원가입 완료

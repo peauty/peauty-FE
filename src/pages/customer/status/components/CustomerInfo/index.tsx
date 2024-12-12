@@ -1,18 +1,19 @@
-import { 
-  CardContainer, 
-  CardWrapper, 
-  Thumbnail, 
-  InfoWrapper, 
-  NameWrapper, 
+import {
+  CardContainer,
+  CardWrapper,
+  Thumbnail,
+  InfoWrapper,
+  NameWrapper,
   DateWrapper,
-  RatingWrapper, 
-  ButtonWrapper, 
-  StyledButton ,
-  StoreReservationWrapper
+  RatingWrapper,
+  ButtonWrapper,
+  StyledButton,
+  StoreReservationWrapper,
+  RatingAndReviewWrapper,
 } from "./index.styles";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
-import{ Divider} from "../../../../../components";
+import { Divider } from "../../../../../components";
 
 interface ButtonProps {
   width: string;
@@ -47,35 +48,50 @@ export default function CustomerInfo({
   status,
   payment,
   reservation,
-  
 }: CustomerInfoProps) {
   return (
     <CardContainer>
       {date && (
-            <>
-         
-              <DateWrapper>{date}</DateWrapper>
-              <Divider thickness={1} />
-            </>
-          )}
-     <CardWrapper>
-      
+        <>
+          <DateWrapper>{date}</DateWrapper>
+          <Divider thickness={1} />
+        </>
+      )}
+      <CardWrapper>
         <Thumbnail src={thumbnailUrl} alt={name} />
         <InfoWrapper>
-          
           <StoreReservationWrapper>
-    <Text typo="subtitle200">{store}</Text>
-    <Text typo="subtitle200" color={"blue100"}>{reservation}</Text>
-  </StoreReservationWrapper>
-          
+            <Text typo="subtitle200">{store}</Text>
+            <Text typo="subtitle200" color={"blue100"}>
+              {reservation}
+            </Text>
+          </StoreReservationWrapper>
+
           <NameWrapper>
             <Text typo={"body500"}>{name}</Text>
-            {status && <Text typo={"body500"} color={"blue100"}>{status}</Text>}
+            {status && (
+              <Text typo={"body500"} color={"blue100"}>
+                {status}
+              </Text>
+            )}
           </NameWrapper>
           <RatingWrapper>
-            <Rating starSize="10" score={score} fontsize="body600" color="gray100" />
-            <Text typo="body600" color="gray100">({review})</Text>
-            {payment && <Text typo={"subtitle200"} color={"black"}>{payment}</Text>}
+            <RatingAndReviewWrapper>
+              <Rating
+                starSize="10"
+                score={score}
+                fontsize="body600"
+                color="gray100"
+              />
+              <Text typo="body600" color="gray100">
+                ({review})
+              </Text>
+            </RatingAndReviewWrapper>
+            {payment && (
+              <Text typo={"subtitle200"} color={"black"}>
+                {payment}
+              </Text>
+            )}
           </RatingWrapper>
         </InfoWrapper>
       </CardWrapper>
