@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AppBar, GNB } from "../../../components";
-
+import { useNavigate } from "react-router-dom";
 import Info from "../../../components/petInfo/Info";
 import { colors } from "../../../style/color";
 import { TabWrapper } from "./index.styles";
@@ -10,7 +10,10 @@ type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
   const [activeTab, setActiveTab] = useState<Tab>("received");
-
+  const navigate = useNavigate();
+  const handleWorkspace = () => {
+    navigate("/designer/quote-detail");
+  };
   const renderContent = () => {
     if (activeTab === "received") {
       return (
@@ -28,7 +31,7 @@ export default function Status() {
               title: "요청 보기",
               bgColor: colors.blue300,
               color: colors.blue100,
-              onClick: () => alert("요청 보기 클릭"),
+              onClick: () => handleWorkspace(),
             },
           ]}
         />

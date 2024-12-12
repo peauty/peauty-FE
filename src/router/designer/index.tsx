@@ -5,7 +5,7 @@ import { signupPaths } from "./signup";
 import { homePaths } from "./home";
 import { quotePaths } from "./quote";
 import { noPadding } from "../../style/layoutStyle";
-import{statusPaths} from "./status";
+import { statusPaths } from "./status";
 
 export const designerPaths = [
   {
@@ -28,7 +28,12 @@ export const designerPaths = [
   },
   {
     path: "",
-    children: statusPaths,
-    element: <Layout style={noPadding} />,
+    children: [
+      {
+        path: "status",
+        children: statusPaths,
+      },
+    ],
+    element: <AuthLayout userType="designer" style={noPadding} />,
   },
 ];

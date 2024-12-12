@@ -4,12 +4,13 @@ import {
   CutTextWrapper,
   RequestButton,
 } from "./index.styles";
-
+import { useNavigate } from "react-router-dom";
 import { Text } from "../../../../../components";
 
 export default function Info() {
+  const navigate = useNavigate();
   const handleButtonClick = () => {
-    console.log("내 요청 보기 버튼이 클릭되었습니다.");
+    navigate("/customer/request/view");
   };
 
   return (

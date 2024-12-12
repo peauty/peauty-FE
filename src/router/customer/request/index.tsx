@@ -37,7 +37,7 @@ export const requestPaths = [
     elemnent: <AuthLayout userType="customer" style={noPadding} />,
   },
   {
-    path: "customize-grooming",
+    path: "form",
     element: <CustomizeGrooming />,
   },
 ];
