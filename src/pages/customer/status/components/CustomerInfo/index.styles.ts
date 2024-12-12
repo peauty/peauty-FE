@@ -7,7 +7,6 @@ export const CardContainer = styled.div`
   width: 100%;
   height: auto;
   padding: 20px;
-  border-top: 2px solid ${colors.gray400};
   cursor: pointer;
 `;
 
@@ -34,7 +33,7 @@ export const InfoWrapper = styled.div`
 export const NameWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 190px; // name과 status 사이 간격
+  gap: 225px; // name과 status 사이 간격
 `;
 
 export const RatingWrapper = styled.div`
@@ -48,9 +47,28 @@ export const RatingWrapper = styled.div`
 
   // review와 payment 사이 간격을 200px로 설정
   & > :nth-child(2) {
-    margin-right: 200px;
+    margin-right: 230px;
   }
 `;
+export const StoreReservationWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 150px; 
+`;
+export const DateWrapper = styled.div`
+  font-size: 15px;
+  color: ${colors.gray100};
+  //padding: 0 30px;
+ // margin: 5px 0; // 상하 간격을 약간 추가
+`;
+
+const DividerWrapper = styled.div`
+  padding: 0; /* 내부 간격 제거 */
+  margin: 0; /* 외부 간격 제거 */
+`;
+
+
+
 
 export const ButtonWrapper = styled.div`
   display: flex;
