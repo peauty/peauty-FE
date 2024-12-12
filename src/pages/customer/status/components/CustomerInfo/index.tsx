@@ -4,9 +4,12 @@ import {
   Thumbnail,
   InfoWrapper,
   NameWrapper,
+  DateWrapper,
   RatingWrapper,
   ButtonWrapper,
   StyledButton,
+  RatingAndReviewWrapper,
+  ContentsWrapper,
 } from "./index.styles";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
@@ -20,9 +23,11 @@ interface ButtonProps {
 }
 
 interface CustomerInfoProps {
+  date?: number;
   location: string;
   store: string;
   score: number;
+  reservation?: string;
   review: number;
   status?: string;
   payment: number;
@@ -33,6 +38,7 @@ interface CustomerInfoProps {
 
 export default function CustomerInfo({
   location,
+  date,
   store,
   score,
   review,
@@ -41,61 +47,67 @@ export default function CustomerInfo({
   status,
   payment,
   onClick,
+  reservation,
 }: CustomerInfoProps) {
   const pay = payment.toLocaleString();
   return (
-    <CardContainer>
-      <CardWrapper onClick={onClick}>
-        <Thumbnail src={thumbnailUrl} alt={location} />
-        <InfoWrapper>
-          <div style={{ display: "flex", gap: "5px" }}>
-            <Text typo="subtitle200">{store}</Text>
-            <div style={{ display: "flex", gap: "3px" }}>
-              <Rating
-                starSize="13"
-                score={score}
-                fontsize="body400"
-                color="gray100"
-              />
-              <Text typo="body400" color="gray100">
-                ({review})
-              </Text>
-            </div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <NameWrapper>
-              <Text typo={"body400"}>{location}</Text>
-              {status && (
-                <Text typo={"body500"} color={"blue100"}>
-                  {status}
-                </Text>
-              )}
-            </NameWrapper>
-            <RatingWrapper>
-              {payment && (
-                <Text typo={"subtitle200"} color={"black"}>
-                  {pay}원
-                </Text>
-              )}
-            </RatingWrapper>
-          </div>
-        </InfoWrapper>
-      </CardWrapper>
-      {buttons.length > 0 && (
-        <ButtonWrapper>
-          {buttons.map((button, index) => (
-            <StyledButton
-              key={index}
-              bgColor={button.bgColor}
-              color={button.color}
-              width={button.width}
-              onClick={button.onClick}
-            >
-              {button.title}
-            </StyledButton>
-          ))}
-        </ButtonWrapper>
+    <>
+      {date && (
+        <>
+          <DateWrapper>{date}</DateWrapper>
+        </>
       )}
-    </CardContainer>
+      <CardContainer>
+        <CardWrapper onClick={onClick}>
+          <Thumbnail src={thumbnailUrl} alt={store} />
+          <InfoWrapper>
+            <NameWrapper>
+              <Text typo="subtitle200">{store}</Text>
+              <Text typo="subtitle200" color={"blue100"}>
+                {reservation}
+              </Text>
+            </NameWrapper>
+            <ContentsWrapper>
+              <RatingAndReviewWrapper>
+                <>
+                  <Rating starSize="13" score={score} fontsize="body400" />
+                  <Text typo="body400">({review}) |</Text>
+                </>
+                <Text typo={"body400"}>{location}</Text>
+              </RatingAndReviewWrapper>
+              <RatingWrapper>
+                {status && (
+                  <Text typo={"body600"} color={"blue100"}>
+                    {status}
+                  </Text>
+                )}
+              </RatingWrapper>
+              <RatingWrapper>
+                {payment && (
+                  <Text typo={"subtitle200"} color={"black"}>
+                    {pay}원
+                  </Text>
+                )}
+              </RatingWrapper>
+            </ContentsWrapper>
+          </InfoWrapper>
+        </CardWrapper>
+        {buttons.length > 0 && (
+          <ButtonWrapper>
+            {buttons.map((button, index) => (
+              <StyledButton
+                key={index}
+                bgColor={button.bgColor}
+                color={button.color}
+                width={button.width}
+                onClick={button.onClick}
+              >
+                {button.title}
+              </StyledButton>
+            ))}
+          </ButtonWrapper>
+        )}
+      </CardContainer>
+    </>
   );
 }

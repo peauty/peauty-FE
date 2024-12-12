@@ -3,11 +3,11 @@ import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCu
 import { MultiSelectButton } from "../../../../../../components/button/MultiSelectButton";
 import { CustomInput } from "../../../../../../components/input/CustomInput";
 import { CustomButton } from "../../../../../../components/button/CustomButton";
-import { SectionWrapper } from "../../index.styles";
+import { ColumnWrapper, SectionWrapper } from "../../index.styles";
 import { Text } from "../../../../../../components/texts/Text";
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { diseaseMap } from "../../../../../../constants/puppy";
-
+import { ContentsWrapper } from "../../index.styles";
 interface Step2Props {
   onNext: () => void;
   inputData: RegisterPuppyRequest;
@@ -51,23 +51,16 @@ export default function Step2({
 
   return (
     <SectionWrapper>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-          justifyContent: "center",
-        }}
-      >
+      <ContentsWrapper>
         <Text typo="subtitle100">반려견의 건강상태를 알려주세요</Text>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+        <ColumnWrapper style={{ gap: "10px" }}>
+          <ColumnWrapper>
             <Text typo="subtitle300">질병 이력</Text>
             <Text typo="body400" color="blue100">
               중복 선택 가능해요
             </Text>
-          </div>
+          </ColumnWrapper>
           <MultiSelectButton
             row={3}
             col={3}
@@ -75,7 +68,7 @@ export default function Step2({
             selectedIndexes={selectedDiseases} // 상태로 관리된 선택된 인덱스
             onSelect={handleDiseaseSelect}
           />
-        </div>
+        </ColumnWrapper>
 
         <CustomInput
           label="기타"
@@ -85,7 +78,7 @@ export default function Step2({
           value={inputData.diseaseDescription}
           onChange={handleDiseaseDescriptionChange}
         />
-      </div>
+      </ContentsWrapper>
 
       <CustomButton fullwidth onClick={onNext}>
         다음

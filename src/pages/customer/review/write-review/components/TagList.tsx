@@ -36,7 +36,7 @@ export default function TagList() {
           selected={selectedTagIds.includes(item.id)}
           onClick={() => handleTagClick(item.id)}
         >
-          <div>{item.icon}</div>
+          {item.icon}
           <Text
             typo="body500"
             color={selectedTagIds.includes(item.id) ? "blue100" : "gray200"}

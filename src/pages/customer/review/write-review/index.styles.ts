@@ -17,6 +17,7 @@ export const ImgUploadWrapper = styled.div`
 export const FirstQuestionBox = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
 `;
 
 export const SecondQuestionBox = styled.div`
@@ -28,6 +29,12 @@ export const WriteReviewBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+`;
+
+export const HintWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
 `;
 
 export const ReviewableServiceWrapper = styled.div`
@@ -48,7 +55,7 @@ export const ServiceInfoWrapper = styled.div`
 export const SelectTagWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
   padding: 10px 0;
 `;
 

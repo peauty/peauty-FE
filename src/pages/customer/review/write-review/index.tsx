@@ -1,36 +1,49 @@
+import { useNavigate } from "react-router-dom";
 import { AddImage } from "../../../../assets/svg";
+import SvgPen from "../../../../assets/svg/Pen";
 import {
   AppBar,
   CustomButton,
   CustomInput,
+  Divider,
   GNB,
   Text,
 } from "../../../../components";
-import StarRating from "../../../../components/star-rating/StarRating";
 import ReviewableService from "./components/ReviewableService";
+import StarChanger from "./components/Star/StarChanger";
 import TagList from "./components/TagList";
 import {
   FirstQuestionBox,
+  HintWrapper,
   ImgUploadWrapper,
   SecondQuestionBox,
   Wrapper,
   WriteReviewBox,
 } from "./index.styles";
+import { ROUTE } from "../../../../constants/routes";
 
 export default function WriteReview() {
-  const initialRating = 3;
-
+  const navigate = useNavigate();
   const handleImageUpload = () => {};
+
+  const handleStarChange = (score: number) => {
+    console.log("고정된 별점: ", score);
+  };
+
+  const handleSubmit = () => {
+    navigate(ROUTE.customer.mypage.reviewHistory);
+  };
 
   return (
     <>
       <AppBar prefix="backButton" title="리뷰 작성" />
       <Wrapper>
         <ReviewableService />
+        <Divider />
 
         <FirstQuestionBox>
           <Text typo="subtitle300">서비스에 만족하셨나요?</Text>
-          <StarRating rating={initialRating} />
+          <StarChanger onChange={handleStarChange} />
         </FirstQuestionBox>
 
         <SecondQuestionBox>
@@ -40,9 +53,13 @@ export default function WriteReview() {
           </Text>
           <TagList />
         </SecondQuestionBox>
+        <Divider />
 
         <WriteReviewBox>
-          <Text typo="subtitle300">리뷰를 작성해 주세요</Text>
+          <HintWrapper>
+            <SvgPen width={14} />
+            <Text typo="subtitle300">리뷰를 작성해 주세요</Text>
+          </HintWrapper>
           <CustomButton variant="outline" onClick={handleImageUpload}>
             <ImgUploadWrapper>
               <Text color="gray200" typo="body500">
@@ -58,7 +75,7 @@ export default function WriteReview() {
           />
         </WriteReviewBox>
       </Wrapper>
-      <GNB buttonText="등록하기" />
+      <GNB buttonText="등록하기" onLargeButtonClick={handleSubmit} />
     </>
   );
 }

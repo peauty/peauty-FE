@@ -60,3 +60,9 @@ export const NoPuppyPlaceholder = styled.div`
   color: ${colors.gray200};
   height: 150px;
 `;
+
+export const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+`;

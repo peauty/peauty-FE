@@ -20,8 +20,7 @@ export const Thumbnail = styled.img`
 export const Details = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 1.3;
-  gap: 3px;
+  gap: 2px;
 `;
 
 export const RatingWrapper = styled.div`

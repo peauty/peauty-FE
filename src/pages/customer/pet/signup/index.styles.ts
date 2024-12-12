@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { colors } from "../../../../style/color";
-import { typography } from "../../../../style/typography";
 import theme from "../../../../style/theme";
 
 export const ProgressWrapper = styled.div`
@@ -71,3 +70,15 @@ export const ButtonWrapper = styled.div`
   bottom: 20px;
   width: 100%;
 `;
+
+export const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+`;
+
+export const ColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`

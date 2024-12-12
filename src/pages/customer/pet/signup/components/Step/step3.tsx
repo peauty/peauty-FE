@@ -31,7 +31,7 @@ export default function Step3({
 
           <CustomInput
             label="참고"
-            placeholder="참고할 점을 알려주세요"
+            placeholder="참고 할 점을 알려주세요"
             fullwidth={true}
             variant="outlined"
             value={inputData.detail}

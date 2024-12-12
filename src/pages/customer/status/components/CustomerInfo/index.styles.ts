@@ -31,6 +31,7 @@ export const InfoWrapper = styled.div`
   flex-direction: column;
   line-height: 1.3;
   gap: 3px; // 내부 요소들 사이의 간격
+  width: 100%;
 `;
 
 export const NameWrapper = styled.div`
@@ -46,10 +47,29 @@ export const RatingWrapper = styled.div`
   align-items: center;
 `;
 
+export const RatingAndReviewWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
+export const StoreReservationWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+export const DateWrapper = styled.div`
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 25px;
+  border-width: 2px 0;
+  border-style: solid;
+  border-color: ${colors.background};
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
   gap: 5px;
-  justify-content: center;
   margin-top: 10px;
 `;
 
@@ -57,6 +77,7 @@ export const StyledButton = styled.button<{
   bgColor: string;
   color: string;
   width: string;
+  height?: string;
 }>`
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.color};
@@ -67,4 +88,9 @@ export const StyledButton = styled.button<{
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
+`;
+
+export const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
