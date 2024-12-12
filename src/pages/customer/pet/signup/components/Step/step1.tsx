@@ -183,7 +183,7 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
             value={inputData.birthdate}
             onChange={(event) => handleInputChange(event, "birthdate")}
           />
-          <DateDropBox label="생일" type="birthday" />
+          {/* <DateDropBox label="생일" type="birthday" /> */}
         </div>
 
         <ButtonWrapper>

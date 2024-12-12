@@ -88,7 +88,7 @@ export default function Status() {
                 },
                 {
                   title: "더 이상 보지 않기",
-                  bgColor: colors.gray300,
+                  bgColor: colors.background,
                   color: colors.gray100,
                   width: "100%",
                   onClick: () => console.log("더이상 보지 않기"),

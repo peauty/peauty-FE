@@ -93,7 +93,7 @@ export default function PetInfoPage() {
         title={`${puppyData.name} 프로필 보기`}
       />
       <ContentWrapper>
-        <Text typo="subtitle300" color="gray100">
+        <Text typo="subtitle300">
           {"태어난지 "}
           <Text typo="subtitle300" color="blue100">
             {puppyData.age}년

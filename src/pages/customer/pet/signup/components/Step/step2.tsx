@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCustomHook";
 import { MultiSelectButton } from "../../../../../../components/button/MultiSelectButton";
 import { CustomInput } from "../../../../../../components/input/CustomInput";
@@ -5,6 +6,7 @@ import { CustomButton } from "../../../../../../components/button/CustomButton";
 import { SectionWrapper } from "../../index.styles";
 import { Text } from "../../../../../../components/texts/Text";
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
+import { diseaseMap } from "../../../../../../constants/puppy";
 
 interface Step2Props {
   onNext: () => void;
@@ -19,7 +21,13 @@ export default function Step2({
   handleChange,
   handleDiseaseChange,
 }: Step2Props) {
+  // 선택된 질병을 상태로 관리
+  const [selectedDiseases, setSelectedDiseases] = useState<number[]>([]);
+  const dieseases = Object.keys(diseaseMap);
   const handleDiseaseSelect = (selectedIndexes: number[]) => {
+    // 선택된 질병 상태 업데이트
+    setSelectedDiseases(selectedIndexes);
+
     const diseases = [
       "NONE",
       "PATELLA",
@@ -30,6 +38,7 @@ export default function Step2({
       "ARTHRITIS",
       "ETC",
     ];
+
     const selectedDiseases = selectedIndexes.map((index) => diseases[index]);
     handleDiseaseChange(selectedDiseases);
   };
@@ -42,31 +51,31 @@ export default function Step2({
 
   return (
     <SectionWrapper>
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <Text color="black100" typo="subtitle100">
-            반려견의 건강상태를 알려주세요
-          </Text>
-          <Text color="gray100" typo="body100">
-            질병 이력 (중복 선택도 가능해요)
-          </Text>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          justifyContent: "center",
+        }}
+      >
+        <Text typo="subtitle100">반려견의 건강상태를 알려주세요</Text>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Text typo="subtitle300">질병 이력</Text>
+            <Text typo="body400" color="blue100">
+              중복 선택 가능해요
+            </Text>
+          </div>
+          <MultiSelectButton
+            row={3}
+            col={3}
+            buttonNames={dieseases}
+            selectedIndexes={selectedDiseases} // 상태로 관리된 선택된 인덱스
+            onSelect={handleDiseaseSelect}
+          />
         </div>
-        <MultiSelectButton
-          row={3}
-          col={3}
-          buttonNames={[
-            "없음",
-            "슬개골",
-            "외이염",
-            "피부염",
-            "눈질환",
-            "심장병",
-            "관절병",
-            "기타",
-          ]}
-          selectedIndexes={[]} // 선택된 질병 인덱스
-          onSelect={handleDiseaseSelect}
-        />
 
         <CustomInput
           label="기타"
@@ -77,6 +86,7 @@ export default function Step2({
           onChange={handleDiseaseDescriptionChange}
         />
       </div>
+
       <CustomButton fullwidth onClick={onNext}>
         다음
       </CustomButton>

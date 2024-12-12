@@ -50,15 +50,15 @@ export default function DesignerItem({
         <Thumbnail src={thumbnailUrl} alt={`${name}의 섬네일`} />
         <Details>
           <Text typo="subtitle200">{name}</Text>
-          <Text typo="body600">{address}</Text>
+          <Text typo="body400">{address}</Text>
           <RatingWrapper>
             <Rating
               starSize="10"
               score={score}
-              fontsize="body600"
+              fontsize="body400"
               color="gray100"
             />
-            <Text typo="body600" color="gray100">
+            <Text typo="body400" color="gray100">
               ({review}) | 경력 {experience}년
             </Text>
           </RatingWrapper>

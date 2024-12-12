@@ -15,7 +15,7 @@ export const ButtonStyle = styled.button<{ selected: boolean }>`
   border: 1px solid
     ${({ selected }) => (selected ? `${colors.white}` : `${colors.gray300}`)};
   background-color: ${({ selected }) =>
-    selected ? `${colors.gray300}` : `${colors.blue100}`};
+    selected ? `${colors.background}` : `${colors.blue100}`};
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s;

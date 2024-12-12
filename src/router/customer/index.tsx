@@ -49,6 +49,7 @@ export const customerPaths = [
         children: requestPaths,
       },
     ],
+    element: <AuthLayout userType="customer" style={noPadding} />,
   },
   {
     path: "",

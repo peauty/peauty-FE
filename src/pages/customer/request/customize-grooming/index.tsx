@@ -118,7 +118,7 @@ export default function CustomizeGrooming() {
             꼬미
           </Text>
           의 구체적인 미용 시술정보와
-          <br />
+          {"\n"}
           원하는 사항을 알려주세요!
         </Text>
 

@@ -53,7 +53,7 @@ export default function MultiSelectButton({
           onClick={() => handleSelect(index)}
         >
           <Text
-            color={selected.includes(index) ? "blue100" : "gray200"}
+            color={selected.includes(index) ? "blue100" : "gray100"}
             typo="body100"
           >
             {name}
