@@ -8,6 +8,8 @@ import { Layout } from "../../components/layout/Layout";
 import { AuthLayout } from "../../components/layout/AuthLayout";
 import Shop from "../../pages/shop";
 import { noPadding } from "../../style/layoutStyle";
+import { statusPaths } from "./status";
+
 
 export const customerPaths = [
   {
@@ -60,5 +62,10 @@ export const customerPaths = [
       },
     ],
     element: <AuthLayout userType="customer" style={noPadding} />,
+  },
+  {
+    path: "",
+    children: statusPaths,
+    element: <Layout style={noPadding} />,
   },
 ];
