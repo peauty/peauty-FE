@@ -43,69 +43,62 @@ export default function DesignerMyPage() {
 
   return (
     <>
-      {/* {isLoading && (
-        <Loading
-          imageUrl={"https://avatars.githubusercontent.com/u/70759627?v=4"}
-        />
-      )} */}
       <AppBar prefix="backButton" title="회원정보" />
       <PageWrapper>
-        <ContentWrapper>
-          <ProfileWrapper>
-            <ProfileImageWrapper>
-              <ProfileImg
-                src={profile?.profileImageUrl || " "}
-                alt="프로필사진"
-                width={"75"}
-                height={"75"}
-              />
-            </ProfileImageWrapper>
-            <ProfileMenuWrapper>
-              <MyInfoWrapper>
-                <Text typo={"subtitle100"} color={"blue100"}>
-                  {profile?.nickname || ""}
-                  <Text typo={"subtitle100"}> 님</Text>
-                </Text>
-                <Text typo={"body300"} color={"gray100"}>
-                  내 정보 수정하기
-                </Text>
-              </MyInfoWrapper>
-              <SubMenuButton text="" to="/designer/mypage/detail" />
-            </ProfileMenuWrapper>
-          </ProfileWrapper>
-          <Divider thickness={2} />
-          <ContentWrapper>
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-            >
-              <InfoWrapper>
-                <Text typo="subtitle200" color="black">
-                  나의 매장 정보
-                </Text>
-              </InfoWrapper>
-              <SubMenuButton text="매장 정보 수정/인증" to="/" />
-            </div>
-            <Divider />
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-            >
-              <Text typo="subtitle200" color="black">
-                나의 뱃지
+        <ProfileWrapper>
+          <ProfileImageWrapper>
+            <ProfileImg
+              src={profile?.profileImageUrl || " "}
+              alt="프로필사진"
+              width={"75"}
+              height={"75"}
+            />
+          </ProfileImageWrapper>
+          <ProfileMenuWrapper>
+            <MyInfoWrapper>
+              <Text typo={"subtitle100"} color={"blue100"}>
+                {profile?.nickname || ""}
+                <Text typo={"subtitle100"}> 님</Text>
               </Text>
-              <SubMenuButton text="뱃지 내역" to="/designer/mypage/badges" />
+              <Text typo={"body300"} color={"gray100"}>
+                내 정보 수정하기
+              </Text>
+            </MyInfoWrapper>
+            <SubMenuButton text="" to="/designer/mypage/detail" />
+          </ProfileMenuWrapper>
+        </ProfileWrapper>
+        <Divider thickness={2} />
+        <ContentWrapper>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+          >
+            <InfoWrapper>
+              <Text typo="subtitle200" color="black">
+                나의 매장 정보
+              </Text>
+            </InfoWrapper>
+            <SubMenuButton text="매장 정보 수정/인증" to="/" />
+          </div>
+          <Divider />
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+          >
+            <Text typo="subtitle200" color="black">
+              나의 뱃지
+            </Text>
+            <SubMenuButton text="뱃지 내역" to="/designer/mypage/badges" />
+          </div>
+          <Divider />
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+          >
+            <Text typo="subtitle200">고객지원</Text>
+            <div>
+              <SubMenuButton text="공지사항" to="/" />
+              <SubMenuButton text="이용약관" to="/" />
+              <SubMenuButton text="퓨티안내" to="/" />
             </div>
-            <Divider />
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-            >
-              <Text typo="subtitle200">고객지원</Text>
-              <div>
-                <SubMenuButton text="공지사항" to="/" />
-                <SubMenuButton text="이용약관" to="/" />
-                <SubMenuButton text="퓨티안내" to="/" />
-              </div>
-            </div>
-          </ContentWrapper>
+          </div>
         </ContentWrapper>
       </PageWrapper>
       <GNB type={"designer"} />

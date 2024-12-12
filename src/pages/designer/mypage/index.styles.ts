@@ -6,8 +6,7 @@ import theme from "../../../style/theme";
 export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: calc(${theme.size.gnbHeight} + 30px);
-  /* height: calc(100vh +); // 전체 높이 사용 */
+  height: 100%;
 `;
 
 export const ContentWrapper = styled.div`
@@ -45,6 +44,7 @@ export const InfoWrapper = styled.div`
   display: flex;
   gap: 5px;
   align-items: center;
+  margin-top: 10px;
 `;
 
 export const CardWrapper = styled.div`

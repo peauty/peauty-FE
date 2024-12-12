@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { getPuppyProfiles } from "../../../apis/customer/resources/puppy";
 import {
   GetPuppyProfilesResponse,
-  GetPuppyDetailResponse,
+  GetPuppyProfileResponse,
 } from "../../../types/customer/puppy";
 import { ROUTE } from "../../../constants/routes";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ export default function CustomerMyPage() {
   const navigate = useNavigate();
   const { userId } = useUserDetails();
   const [profile, setProfile] = useState<GetPuppyProfilesResponse | null>(null);
-  const [puppies, setPuppies] = useState<GetPuppyDetailResponse[]>([]);
+  const [puppies, setPuppies] = useState<GetPuppyProfileResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
@@ -54,13 +54,15 @@ export default function CustomerMyPage() {
     fetchPuppyProfiles();
   }, [userId]);
 
+  const handleCard = (puppyId?: number) => {
+    if (puppyId) {
+      navigate(ROUTE.customer.pets.detail(String(puppyId)));
+    }
+  };
+
   return (
     <>
-      {isLoading && (
-        <Loading
-          imageUrl={"https://avatars.githubusercontent.com/u/70759627?v=4"}
-        />
-      )}
+      {isLoading && <Loading />}
       <AppBar
         prefix="backButton"
         title="회원정보"
@@ -91,11 +93,13 @@ export default function CustomerMyPage() {
         </ProfileWrapper>
         <Divider thickness={2} />
         <ContentWrapper>
-          <div>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+          >
             <SubMenuButton
               text="우리집 퓨티들"
               iconType="plus"
-              to="/customer/pets/regist"
+              to={ROUTE.customer.pets.signup}
             />
             {puppies.length === 0 ? (
               <NoPuppyPlaceholder>
@@ -106,14 +110,14 @@ export default function CustomerMyPage() {
                 {puppies.map((puppy) => (
                   <Card
                     key={puppy.puppyId}
-                    imageSrc={puppy.profileImageUrl || ""}
+                    imageSrc={puppy.puppyProfileImageUrl || ""}
                     name={puppy.name || ""}
                     age={puppy.age || 0}
                     gender={puppy.sex || ""}
                     weight={`${puppy.weight}` || ""}
                     breed={puppy.breed || ""}
                     tags={puppy.disease || []}
-                    onClick={() => navigate(`/customer/pets/${puppy.puppyId}`)} // 클릭 시 handlePet 호출
+                    onClick={() => handleCard(puppy.puppyId)}
                   />
                 ))}
               </CardWrapper>

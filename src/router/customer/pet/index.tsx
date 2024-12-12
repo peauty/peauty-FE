@@ -4,10 +4,11 @@ import PetSignUp from "../../../pages/customer/pet/signup";
 
 export const petsPaths = [
   {
-    path: "",
+    path: "signup",
+    element: <PetSignUp />,
   },
   {
-    path: ":id",
+    path: ":puppyId",
     children: [
       {
         path: "",

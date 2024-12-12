@@ -7,7 +7,6 @@ export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: calc(${theme.size.gnbHeight} + 30px);
-  /* height: calc(100vh +); // 전체 높이 사용 */
 `;
 
 export const ContentWrapper = styled.div`
@@ -15,6 +14,7 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  margin-top: 10px;
 `;
 
 export const ProfileWrapper = styled.div`
