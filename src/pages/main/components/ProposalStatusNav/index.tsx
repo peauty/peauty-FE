@@ -1,8 +1,8 @@
 import { Text } from "../../../../components";
 import { NavigationWrapper, Tab, ContentWrapper } from "./index.stlyes";
 import { useState } from "react";
-import StylistItem from "../../../../components/stylist-item/StylistItem";
-import PetlistItem from "../../../../components/petlist-item/PetlistItem";
+import { StylistItem } from "../../../../components/stylist-item";
+import { PetlistItem } from "../../../../components/petlist-item";
 
 interface HomeProps {
   title: string;
@@ -50,16 +50,16 @@ export default function ProposalStautsNav({
             {title === "견적" ? (
               // title이 "견적"일 때 보여줄 내용
               <StylistItem
+                name="수석실장 시언"
+                imageUrl="https://via.placeholder.com/65"
+                location="몽끄의 아틀리에 위례점"
+                star={"3.0"}
+                starCount={12}
+                career={5}
                 badges={[
                   { text: "청결 우수상", type: "general", variant: "green" },
                   { text: "2023 골드 가위", type: "scissors", variant: "gold" },
                 ]}
-                career={5}
-                imageUrl="https://via.placeholder.com/65"
-                location="몽끄의 아틀리에 위례점"
-                name="수석실장 시언"
-                star={"3.0"}
-                starCount={12}
                 showButton="내 요청보기"
               />
             ) : (
