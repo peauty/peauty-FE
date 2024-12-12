@@ -4,7 +4,7 @@ import { colors } from "../../../../style/color";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
 `;
 
 export const ImgUploadWrapper = styled.div`
@@ -17,6 +17,7 @@ export const ImgUploadWrapper = styled.div`
 export const FirstQuestionBox = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
 `;
 
 export const SecondQuestionBox = styled.div`
@@ -48,7 +49,7 @@ export const ServiceInfoWrapper = styled.div`
 export const SelectTagWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
   padding: 10px 0;
 `;
 

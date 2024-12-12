@@ -6,8 +6,8 @@ import {
   GNB,
   Text,
 } from "../../../../components";
-import StarRating from "../../../../components/star-rating/StarRating";
 import ReviewableService from "./components/ReviewableService";
+import StarChanger from "./components/Star/StarChanger";
 import TagList from "./components/TagList";
 import {
   FirstQuestionBox,
@@ -18,9 +18,11 @@ import {
 } from "./index.styles";
 
 export default function WriteReview() {
-  const initialRating = 3;
-
   const handleImageUpload = () => {};
+
+  const handleStarChange = (score: number) => {
+    console.log("고정된 별점: ", score);
+  };
 
   return (
     <>
@@ -30,7 +32,7 @@ export default function WriteReview() {
 
         <FirstQuestionBox>
           <Text typo="subtitle300">서비스에 만족하셨나요?</Text>
-          <StarRating rating={initialRating} />
+          <StarChanger onChange={handleStarChange} />
         </FirstQuestionBox>
 
         <SecondQuestionBox>
