@@ -22,14 +22,14 @@ import {
   PhotoAttachmentContainer,
 } from "../../../designer/quote/index.styles";
 import {
-  알머리컷,
-  베이비컷,
-  여신머리,
-  곰돌이컷,
-  물개컷,
-  라이언컷,
-  하이바컷,
-  귀툭튀,
+  EggHead,
+  BabyCut,
+  Goddess,
+  TeddyCut,
+  SealCut,
+  LionCut,
+  Helmet,
+  EarsPop,
 } from "../../../../assets/svg";
 import {
   HAIRSTYLES,
@@ -53,20 +53,17 @@ export default function CustomizeGrooming() {
   const [desiredDateTimeError, setDesiredDateTimeError] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
-  const maxCharLimit = 300;
+  const maxCharLimit = 200;
 
-  const faceStyleImg: Record<
-    string,
-    React.FC<React.SVGProps<SVGSVGElement>>
-  > = {
-    알머리컷,
-    베이비컷,
-    여신머리,
-    곰돌이컷,
-    물개컷,
-    라이언컷,
-    하이바컷,
-    귀툭튀,
+  const faceStyleImg: Record<string, JSX.Element> = {
+    알머리컷: <EggHead width="100px" height="auto" />,
+    베이비컷: <BabyCut width="100px" height="auto" />,
+    여신머리: <Goddess width="100px" height="auto" />,
+    곰돌이컷: <TeddyCut width="100px" height="auto" />,
+    물개컷: <SealCut width="100px" height="auto" />,
+    라이언컷: <LionCut width="100px" height="auto" />,
+    하이바컷: <Helmet width="100px" height="auto" />,
+    귀툭튀: <EarsPop width="100px" height="auto" />,
   };
 
   const handleGroomingTypeSelect = (index: number) => {
@@ -147,12 +144,7 @@ export default function CustomizeGrooming() {
                 onSelect={handleFaceStyleSelect}
               />
               {selectedFaceStyle && selectedFaceStyle !== "선택 없음" && (
-                <SelectedHair>
-                  {faceStyleImg[selectedFaceStyle]?.({
-                    width: "100px",
-                    height: "auto",
-                  })}
-                </SelectedHair>
+                <SelectedHair>{faceStyleImg[selectedFaceStyle]}</SelectedHair>
               )}
             </SectionWrapper>
 
