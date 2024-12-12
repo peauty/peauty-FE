@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GridWrapper, ButtonStyle } from "./MultiSelectButton.styles";
 import { Text } from "../../texts/Text";
 import { colors } from "../../../style/color";
@@ -18,6 +18,11 @@ export default function MultiSelectButton({
   onSelect,
 }: MultiSelectButtonProps) {
   const [selected, setSelected] = useState<number[]>(selectedIndexes);
+
+  // selectedIndexes 변경 시 selected 상태 업데이트
+  useEffect(() => {
+    setSelected(selectedIndexes);
+  }, [selectedIndexes]);
 
   const handleSelect = (index: number) => {
     if (index === 0) {

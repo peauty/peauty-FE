@@ -48,12 +48,11 @@ export default function Card({
         </Text>
         <DiseaseWrapper>
           <TagsWrapper>
-          {tags.map((tag, index) => (
-            <Tag key={index} text={tag} />
-          ))}
-          </TagsWrapper>        
+            {tags.map((tag, index) => (
+              <Tag key={index} text={tag} />
+            ))}
+          </TagsWrapper>
         </DiseaseWrapper>
-
       </InfoWrapper>
     </CardWrapper>
   );
