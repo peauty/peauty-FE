@@ -5,6 +5,7 @@ type StyleImg = {
   height?: string;
   border?: string;
   pointer?: boolean;
+  borderRadius?: string; 
 };
 
 export const StyleProfileImg = {
@@ -18,7 +19,7 @@ export const StyleProfileImg = {
     width: ${(props) => (props.width ? props.width : "100%")};
     height: ${(props) => (props.height ? props.height : "auto")};
     border: ${(props) => (props.border ? props.border : 0)};
-    border-radius: 100%;
+    border-radius: ${(props) => props.borderRadius || "100%"}; 
     cursor: ${(props) => props.pointer && "pointer"};
     position: relative;
   `,
