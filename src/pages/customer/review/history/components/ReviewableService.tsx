@@ -3,8 +3,8 @@ import CustomerInfo from "../../../status/components/CustomerInfo";
 
 export default function ReviewableService() {
   const statusItemData = {
-    name: "수석실장 시언",
-    store: "몽뜨의 아틀리네 위례점",
+    store: "움칫둠칫",
+    location: "서울특별시 강남구 대치동",
     reservation: "예약완료",
     score: 4.5,
     review: 120,
@@ -32,7 +32,7 @@ export default function ReviewableService() {
       >
         <CustomerInfo
           date={statusItemData.date}
-          name={statusItemData.name}
+          location={statusItemData.location}
           store={statusItemData.store}
           score={statusItemData.score}
           review={statusItemData.review}
@@ -49,6 +49,7 @@ export default function ReviewableService() {
           ]}
           status="가윗컷 + 곰돌이컷"
           payment={statusItemData.payment}
+          onClick={statusItemData.onClick}
         />
       </div>
     </>
