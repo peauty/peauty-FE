@@ -20,21 +20,23 @@ export const MenuItem = styled.div<{ isActive: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 5px;
   cursor: pointer;
   color: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
     fill: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
   }
 
   span {
     font-weight: ${(props) => (props.isActive ? "semibold" : "normal")};
     color: ${(props) => (props.isActive ? `${colors.blue100}` : "#000")};
-    /* height: 30px; */
+    height: 20px;
+    display: flex;
+    justify-content: center;
   }
 
   &:after {
