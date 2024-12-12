@@ -1,4 +1,4 @@
-// styles.tsx
+// CustomButton.styles.tsx
 import styled, { css, keyframes } from "styled-components";
 import { colors } from "../../../style/color";
 import { typography } from "../../../style/typography";
@@ -28,6 +28,9 @@ export const Button = styled.button<{
   cursor: pointer;
   width: ${(props) => (props.fullwidth ? "100%" : "auto")};
   color: ${colors.white};
+  overflow: hidden; /* 텍스트가 넘치는 경우 숨김 */
+  white-space: nowrap; /* 텍스트가 한 줄로 유지 */
+  text-overflow: ellipsis; /* 텍스트가 넘칠 경우 '...'으로 처리 */
 
   // 크기 설정
   ${(props) => {
@@ -35,8 +38,10 @@ export const Button = styled.button<{
       case "small":
         return css`
           padding: 8px 16px;
-          font-size: 10px;
+          font-size: 12px;
+          font-weight: 500;
           height: 32px;
+          border-radius: 7px;
         `;
       case "large":
         return css`
@@ -44,6 +49,7 @@ export const Button = styled.button<{
           ${typography.subtitle300}
           height: 80px;
           border-radius: 10px;
+          font-weight: 500;
         `;
       case "big":
         return css`
@@ -51,14 +57,16 @@ export const Button = styled.button<{
           font-size: 12px;
           height: 250px;
           width: 180px;
+          font-weight: 500;
           border-radius: 10px;
         `;
       default: // medium
         return css`
           /* padding: 12px 24px; */
-          ${typography.subtitle200}
+          ${typography.subtitle300}
           height: 50px;
           width: 100%;
+          font-weight: 500;
         `;
     }
   }}

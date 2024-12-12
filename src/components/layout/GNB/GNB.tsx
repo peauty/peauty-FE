@@ -78,8 +78,8 @@ export function GNB({
             onClick={onLargeButtonClick}
             disabled={disabled}
           >
-            <Text typo="body100" color="white">
-              {buttonText}
+            <Text typo="subtitle200" color="white">
+              <div style={{ letterSpacing: "1px" }}>{buttonText}</div>
             </Text>
           </CustomButton>
         </ContentWrapper>

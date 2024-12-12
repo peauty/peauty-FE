@@ -48,8 +48,8 @@ export default function CustomerMyPageDetail() {
 
   return (
     <>
+      <AppBar prefix="backButton" title="회원 정보" />
       <PageWrapper>
-        <AppBar prefix="backButton" title="회원 정보" />
         <ProfileImg
           src={profileData.profileImageUrl || ""}
           alt="profileImage"

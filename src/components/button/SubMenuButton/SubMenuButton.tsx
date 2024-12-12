@@ -42,7 +42,7 @@ export default function SubMenuButton({
 
   return (
     <StyledSubMenuButton onClick={handleClick}>
-      <Text typo="subtitle300">{text}</Text>
+      <Text typo="body100">{text}</Text>
       {renderIcon()}
     </StyledSubMenuButton>
   );

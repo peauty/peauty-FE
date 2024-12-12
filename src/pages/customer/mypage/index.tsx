@@ -84,7 +84,12 @@ export default function CustomerMyPage() {
                 {profile?.customerNickname || "사용자"}
                 <Text typo={"subtitle100"}> 님</Text>
               </Text>
-              <Text typo={"body300"} color={"gray100"}>
+              <Text
+                typo={"body400"}
+                color={"gray100"}
+                onClick={() => navigate(ROUTE.customer.mypage.detail)}
+                style={{ cursor: "pointer" }}
+              >
                 내 정보 수정하기
               </Text>
             </MyInfoWrapper>
@@ -94,8 +99,9 @@ export default function CustomerMyPage() {
         <Divider thickness={2} />
         <ContentWrapper>
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "15px" }}
+            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
           >
+            <Text typo="subtitle200">내 반려견 목록</Text>
             <SubMenuButton
               text="우리집 퓨티들"
               iconType="plus"

@@ -60,7 +60,12 @@ export default function DesignerMyPage() {
                 {profile?.nickname || ""}
                 <Text typo={"subtitle100"}> 님</Text>
               </Text>
-              <Text typo={"body300"} color={"gray100"}>
+              <Text
+                typo={"body400"}
+                color={"gray100"}
+                onClick={() => navigate("/designer/mypage/detail")}
+                style={{ cursor: "pointer" }}
+              >
                 내 정보 수정하기
               </Text>
             </MyInfoWrapper>

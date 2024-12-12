@@ -25,7 +25,7 @@ export default function AppBar({ prefix, title, onclick }: Props) {
             height={20}
           />
         ) : (
-          <Logo width="94px" height="24px" onClick={onclick} />
+          <Logo height="24px" onClick={onclick} />
         )
       ) : null}
       {title && (
