@@ -4,6 +4,7 @@ import {
   AppBar,
   CustomButton,
   CustomInput,
+  Divider,
   GNB,
   Text,
 } from "../../../../components";
@@ -31,6 +32,7 @@ export default function WriteReview() {
       <AppBar prefix="backButton" title="리뷰 작성" />
       <Wrapper>
         <ReviewableService />
+        <Divider />
 
         <FirstQuestionBox>
           <Text typo="subtitle300">서비스에 만족하셨나요?</Text>
@@ -44,6 +46,7 @@ export default function WriteReview() {
           </Text>
           <TagList />
         </SecondQuestionBox>
+        <Divider />
 
         <WriteReviewBox>
           <HintWrapper>

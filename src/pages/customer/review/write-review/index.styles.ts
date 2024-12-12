@@ -4,7 +4,7 @@ import { colors } from "../../../../style/color";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 `;
 
 export const ImgUploadWrapper = styled.div`
