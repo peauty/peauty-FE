@@ -53,9 +53,7 @@ export default function CustomerMyPage() {
 
     fetchPuppyProfiles();
   }, [userId]);
-  const handlePet = () => {
-    navigate(`/customer/pets/:${puppy.puppyId}`);
-  };
+
   return (
     <>
       {isLoading && (
@@ -114,7 +112,7 @@ export default function CustomerMyPage() {
                   weight={`${puppy.weight}` || ""}
                   breed={puppy.breed || ""}
                   tags={puppy.disease || []}
-                  onClick={() => navigate(`/customer/pets/${puppy.puppyId}`)}
+                  onClick={() => navigate(`/customer/pets/${puppy.puppyId}`)} // 클릭 시 handlePet 호출
                 />
               ))}
             </CardWrapper>
