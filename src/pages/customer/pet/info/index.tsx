@@ -25,12 +25,13 @@ export default function PetInfoPage() {
   const [loading, setLoading] = useState(true);
   const { userId } = useUserDetails();
   const params = useParams();
+  const puppyId = params.puppyId;
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPuppyDetail = async (userId: number, puppyId: number) => {
+    const fetchPuppyDetail = async (userId: number, _puppyId: number) => {
       try {
-        const data = await getPuppyDetail(userId, puppyId);
+        const data = await getPuppyDetail(userId, _puppyId);
         setPuppyData(data);
       } catch (error) {
         console.error("Failed to fetch puppy detail:", error);
@@ -39,16 +40,16 @@ export default function PetInfoPage() {
       }
     };
 
-    if (userId && params.puppyId) {
-      fetchPuppyDetail(userId, Number(params.puppyId));
+    if (userId && puppyId) {
+      fetchPuppyDetail(userId, Number(puppyId));
     }
-  }, [userId, params.puppyId]);
+  }, [userId, puppyId]);
 
   const handleSelect = (index: number) => {
     if (index === 0) {
       console.log("삭제하기 클릭");
-    } else if (index === 1) {
-      console.log("수정하기 클릭");
+    } else if (index === 1 && puppyId) {
+      navigate(ROUTE.customer.pets.edit(puppyId));
     }
   };
 

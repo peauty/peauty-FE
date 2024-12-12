@@ -3,9 +3,6 @@ import PetInfoPage from "../../../pages/customer/pet/info";
 
 export const petsPaths = [
   {
-    path: "",
-  },
-  {
     path: ":puppyId",
     children: [
       {
