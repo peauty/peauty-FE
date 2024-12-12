@@ -19,7 +19,7 @@ export const designerPaths = [
   {
     path: "home",
     children: homePaths,
-    element: <AuthLayout userType={"designer"} />,
+    element: <AuthLayout userType={"designer"} style={noPadding} />,
   },
   {
     path: "mypage",

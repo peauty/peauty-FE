@@ -4,11 +4,11 @@ import {
   ItemImg,
   TextWrapper,
 } from "./StylistItem.styles";
-import { Text } from "../texts/Text";
-import { Star } from "../../assets/svg";
-import Badge from "../category/Badge/Badge";
-import { BadgeContainer } from "../category/Badge/Badge.styles";
-import { typography } from "../../style/typography";
+import { Text } from "../../../../components";
+import { Star } from "../../../../assets/svg";
+import { Badge } from "../../../../components/category/Badge";
+import { BadgeContainer } from "../../../../components/category/Badge/Badge.styles";
+import { typography } from "../../../../style/typography";
 import { useNavigate } from "react-router-dom";
 type GeneralVariant = "blue" | "green" | "disease";
 type ScissorsVariant = "gold" | "silver" | "bronze";
