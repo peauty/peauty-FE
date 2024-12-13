@@ -39,3 +39,20 @@ export const puppySizeMap: KeyValueMap = {
   중형견: "MEDIUM",
   대형견: "LARGE",
 };
+
+// constants.ts
+export const DEFAULTS = {
+  GROOMING_TYPE: {
+    TOTAL: 0,
+    CLEAN: 1,
+  },
+  BODY_TYPE: {
+    DEFAULT: 1,
+  },
+  INPUT_PLACEHOLDER: {
+    DESCRIPTION: "강아지의 특이사항이나 요청사항을 작성해주세요",
+    DESIRED_COST: "희망 금액을 입력해주세요",
+  },
+  MAX_CHAR_LIMIT: 200,
+  COST_ERROR_MESSAGE: "숫자를 입력해주세요",
+};

@@ -29,18 +29,13 @@ import { SendEstimateProposalRequest } from "../../../../../types/customer/custo
 
 interface SearchStepProps {
   onNext: () => void;
-  inputData: SendEstimateProposalRequest;
   handleArrayChange: (
     key: keyof SendEstimateProposalRequest,
     value: any,
   ) => void;
 }
 
-export default function Search({
-  onNext,
-  inputData,
-  handleArrayChange,
-}: SearchStepProps) {
+export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   const [isSelecting, setIsSelecting] = useState(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);

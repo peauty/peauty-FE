@@ -5,6 +5,7 @@ import {
   Text,
   CustomInput,
   GNB,
+  CustomButton,
 } from "../../../../../components";
 import { RadioSelectButton } from "../../../../../components/button/RadioSelectButton";
 import {
@@ -12,15 +13,16 @@ import {
   GroomingType,
 } from "../../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
 import {
+  AddWrapper,
   ContentWrapper,
+  DeleteButton,
+  ImageContainer,
+  ImageUnit,
   SectionWrapper,
   SelectedHair,
   TwoItemsWrapper,
 } from "./index.styles";
-import {
-  PhotoAttachment,
-  PhotoAttachmentContainer,
-} from "../../../../designer/quote/index.styles";
+
 import {
   EggHead,
   BabyCut,
@@ -30,40 +32,57 @@ import {
   LionCut,
   Helmet,
   EarsPop,
+  AddImage,
 } from "../../../../../assets/svg";
-import {
-  HAIRSTYLES,
-  CUTTING,
-  SUMMERCUT,
-  TIME,
-} from "../../../../../constants/request";
+import { HAIRSTYLES, CUTTING, TIME } from "../../../../../constants/request";
 import InfoButton from "../../../../../components/button/InfoButton";
 import DropBox from "./components/DropBox";
 import { useNavigate } from "react-router-dom";
 import { DateDropBox } from "../../../../../components/button/DateDropBox";
-import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
+import {
+  GroomingTypeType,
+  SendEstimateProposalRequest,
+  TotalGroomingBodyTypeType,
+  TotalGroomingFaceTypeType,
+} from "../../../../../types/customer/customer-bidding-api";
+import { uploadImage } from "../../../../../apis/customer/resources/internal";
+
+const faceTypeMapping: Record<string, TotalGroomingFaceTypeType> = {
+  알머리컷: "EGG",
+  베이비컷: "BABY",
+  여신머리: "GODDESS",
+  곰돌이컷: "BEAR",
+  물개컷: "SEAL",
+  라이언컷: "LION",
+};
+
+const bodyTypeMapping: Record<string, TotalGroomingBodyTypeType> = {
+  "3mm": "CLIPPING_3MM",
+  "6mm": "CLIPPING_6MM",
+  "9mm": "CLIPPING_9MM",
+};
 
 interface LastStepProps {
   onSubmit: () => void;
   inputData: SendEstimateProposalRequest;
   handleChange: (key: keyof SendEstimateProposalRequest, value: any) => void;
+  handleArrayChange: (
+    key: keyof SendEstimateProposalRequest,
+    value: any[],
+  ) => void;
 }
 
 export default function CustomizeGrooming({
   onSubmit,
   inputData,
   handleChange,
+  handleArrayChange,
 }: LastStepProps) {
-  const [selectedGroomingType, setSelectedGroomingType] = useState(0);
-  const [selectedBodyType, setSelectedBodyType] = useState(-1);
-  const [selectedFaceStyle, setSelectedFaceStyle] = useState("");
-  const [selectedLength, setSelectedLength] = useState("");
-  const [description, setDescription] = useState("");
-  const [desiredCost, setDesiredCost] = useState("");
-  const [desiredDateTime, setDesiredDateTime] = useState("");
   const [desiredCostError, setDesiredCostError] = useState("");
-  const [desiredDateTimeError, setDesiredDateTimeError] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedBodyIndex, setSelectedBodyIndex] = useState<number | null>(
+    null,
+  );
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const maxCharLimit = 200;
 
@@ -79,48 +98,87 @@ export default function CustomizeGrooming({
   };
 
   const handleGroomingTypeSelect = (index: number) => {
-    setSelectedGroomingType(index);
-    resetFields(); // Reset fields when grooming type changes
+    const groomingType: GroomingTypeType = index === 0 ? "TOTAL" : "CLEAN";
+    handleChange("groomingType", groomingType);
+
+    if (groomingType === "TOTAL") {
+      handleChange("totalGroomingFaceType", undefined);
+      handleChange("totalGroomingBodyType", undefined);
+    }
   };
 
-  const navigate = useNavigate();
-  const resetFields = () => {
-    setSelectedFaceStyle("");
-    setSelectedBodyType(-1);
-    setSelectedLength("");
-    setDescription("");
-    setDesiredCost("");
-    setDesiredDateTime("");
+  const handleFaceStyleSelect = (value: string) => {
+    const faceType = faceTypeMapping[value];
+    handleChange("totalGroomingFaceType", faceType);
   };
 
-  const handleFaceStyleSelect = (value: string) => setSelectedFaceStyle(value);
-  const handleBodyTypeSelect = (type: number) => setSelectedBodyType(type);
-  const handleLengthSelect = (value: string) => setSelectedLength(value);
-  const handleDescriptionChange = (value: string) =>
-    value.length <= maxCharLimit && setDescription(value);
+  const handleBodyTypeSelect = (index: number) => {
+    setSelectedBodyIndex(index);
+    const bodyType = Object.values(bodyTypeMapping)[index];
+    handleChange("totalGroomingBodyType", bodyType);
+  };
+
+  const handleLengthSelect = (value: string) => {
+    const bodyType = bodyTypeMapping[value];
+    handleChange("totalGroomingBodyType", bodyType);
+  };
+
+  const handleDescriptionChange = (value: string) => {
+    if (value.length <= maxCharLimit) {
+      handleChange("detail", value);
+    }
+  };
 
   const handleDesiredCostChange = (value: string) => {
-    const numericValue = value.replace(/[^0-9]/g, ""); // 숫자만 추출
+    const numericValue = value.replace(/[^0-9]/g, "");
 
     if (value && !numericValue) {
-      setDesiredCostError("숫자를 입력해주세요"); // 숫자가 아닌 경우 에러 메시지 설정
+      setDesiredCostError("숫자를 입력해주세요");
     } else {
-      setDesiredCostError(""); // 에러 메시지 초기화
+      setDesiredCostError("");
+      handleChange(
+        "desiredCost",
+        numericValue ? Number(numericValue) : undefined,
+      );
     }
-
-    setDesiredCost(
-      numericValue ? `${Number(numericValue).toLocaleString()}` : "",
-    ); // 상태 업데이트
   };
 
   const handleDateChange = (date: string) => {
-    setSelectedDate(date);
-    console.log("선택된 날짜:", date);
+    const dateTimeString = `${date}`;
+    handleChange("desiredDateTime", dateTimeString);
   };
 
-  const handleComplete = () => {
-    navigate("/customer/request");
+  const handleTimeChange = (time: string) => {
+    const dateTimeString = `${inputData.desiredDateTime}T${time}:00`;
+    handleChange("desiredDateTime", dateTimeString);
   };
+
+  const handleImageUpload = async (file: File) => {
+    try {
+      const response = await uploadImage(file);
+      if (response.uploadedImageUrl) {
+        const updatedImageUrls = [...imageUrls, response.uploadedImageUrl];
+        setImageUrls(updatedImageUrls);
+        handleArrayChange("imageUrls", updatedImageUrls); // 상위 컴포넌트에 전체 이미지 URL 목록 전달
+      }
+    } catch (error) {
+      console.error("Image upload failed:", error);
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleImageUpload(file);
+    }
+  };
+
+  const handleImageDelete = (url: string) => {
+    const updatedImageUrls = imageUrls.filter((imageUrl) => imageUrl !== url);
+    setImageUrls(updatedImageUrls);
+    handleArrayChange("imageUrls", updatedImageUrls); // 상위 컴포넌트에 삭제된 목록 전달
+  };
+
   return (
     <>
       <AppBar prefix="backButton" title="견적서 요청하기" />
@@ -138,10 +196,10 @@ export default function CustomizeGrooming({
           <Text typo="subtitle300">미용 종류</Text>
           <RadioSelectButton
             {...GroomingType.args}
-            selectedIndex={selectedGroomingType}
+            selectedIndex={inputData.groomingType === "TOTAL" ? 0 : 1}
             onSelect={handleGroomingTypeSelect}
           />
-          {selectedGroomingType === 1 && (
+          {inputData.groomingType === "CLEAN" && (
             <InfoButton
               title="위생미용이란?"
               message="반려견의 건강을 위해 발바닥 털, 발톱, 항문주변 털, 눈주변, 귀털,
@@ -150,17 +208,31 @@ export default function CustomizeGrooming({
           )}
         </SectionWrapper>
 
-        {selectedGroomingType === 0 && (
+        {inputData.groomingType === "TOTAL" && (
           <>
             <SectionWrapper>
               <DropButton
                 label="얼굴"
                 placeholder="스타일을 선택해주세요"
                 options={HAIRSTYLES}
+                selected={Object.keys(faceTypeMapping).find(
+                  (key) =>
+                    faceTypeMapping[key] === inputData.totalGroomingFaceType,
+                )}
                 onSelect={handleFaceStyleSelect}
               />
-              {selectedFaceStyle && selectedFaceStyle !== "선택 없음" && (
-                <SelectedHair>{faceStyleImg[selectedFaceStyle]}</SelectedHair>
+              {inputData.totalGroomingFaceType && (
+                <SelectedHair>
+                  {
+                    faceStyleImg[
+                      Object.keys(faceTypeMapping).find(
+                        (key) =>
+                          faceTypeMapping[key] ===
+                          inputData.totalGroomingFaceType,
+                      ) || ""
+                    ]
+                  }
+                </SelectedHair>
               )}
             </SectionWrapper>
 
@@ -168,30 +240,18 @@ export default function CustomizeGrooming({
               <Text typo="subtitle300">몸</Text>
               <RadioSelectButton
                 {...GroomingBodyType.args}
-                selectedIndex={selectedBodyType}
+                selectedIndex={selectedBodyIndex || 0}
                 onSelect={handleBodyTypeSelect}
               />
-              {selectedBodyType === 0 && (
-                <DropButton
-                  placeholder="mm를 선택해주세요"
-                  options={CUTTING}
-                  onSelect={handleLengthSelect}
-                />
-              )}
-              {selectedBodyType === 1 && (
-                <TwoItemsWrapper>
-                  <DropButton
-                    placeholder="미용을 선택해주세요"
-                    options={SUMMERCUT}
-                    onSelect={handleLengthSelect}
-                  />
-                  <DropButton
-                    placeholder="mm를 선택해주세요"
-                    options={CUTTING}
-                    onSelect={handleLengthSelect}
-                  />
-                </TwoItemsWrapper>
-              )}
+              <DropButton
+                placeholder="mm를 선택해주세요"
+                options={CUTTING}
+                selected={Object.keys(bodyTypeMapping).find(
+                  (key) =>
+                    bodyTypeMapping[key] === inputData.totalGroomingBodyType,
+                )}
+                onSelect={handleLengthSelect}
+              />
             </SectionWrapper>
           </>
         )}
@@ -200,22 +260,48 @@ export default function CustomizeGrooming({
           <CustomInput
             label="상세설명"
             inputType="textarea"
-            value={description}
+            value={inputData.detail || ""}
             onChange={(e) => handleDescriptionChange(e.target.value)}
             placeholder="강아지의 특이사항이나 요청사항을 작성해주세요"
           />
         </SectionWrapper>
 
         <SectionWrapper>
-          <PhotoAttachment>
-            <Text typo="subtitle300">사진첨부</Text>
-            <PhotoAttachmentContainer>+</PhotoAttachmentContainer>
-          </PhotoAttachment>
+          <Text typo="subtitle300">사진첨부</Text>
+          <ImageContainer>
+            {/* 추가 버튼 */}
+            {imageUrls.length < 3 && (
+              <AddWrapper>
+                <CustomButton variant="secondary">
+                  <label htmlFor="image-upload" style={{ cursor: "pointer" }}>
+                    <AddImage width={15} />
+                  </label>
+                  <input
+                    id="image-upload"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleFileChange}
+                  />
+                </CustomButton>
+              </AddWrapper>
+            )}
+            {/* 업로드된 이미지 */}
+            {imageUrls.map((url, index) => (
+              <AddWrapper key={index} style={{ position: "relative" }}>
+                <ImageUnit src={url} alt={`Uploaded image ${index + 1}`} />
+                {/* 삭제 버튼 */}
+                <DeleteButton onClick={() => handleImageDelete(url)}>
+                  &minus;
+                </DeleteButton>
+              </AddWrapper>
+            ))}
+          </ImageContainer>
         </SectionWrapper>
 
         <CustomInput
           label="희망비용"
-          value={desiredCost}
+          value={inputData.desiredCost?.toString() || ""}
           onChange={(e) => handleDesiredCostChange(e.target.value)}
           placeholder="희망 금액을 입력해주세요"
           error={desiredCostError}
@@ -226,13 +312,17 @@ export default function CustomizeGrooming({
           <DateDropBox
             type="reservation"
             label="날짜"
+            selectedDate={inputData.desiredDateTime?.split("T")[0] || ""}
             onChange={handleDateChange}
           />
           <DropBox
             label="시간"
             placeholder="시간을 선택해주세요"
             options={TIME}
-            onSelect={handleLengthSelect}
+            selected={
+              inputData.desiredDateTime?.split("T")[1]?.slice(0, -3) || ""
+            }
+            onSelect={(time) => handleTimeChange(time)}
           />
         </SectionWrapper>
       </ContentWrapper>

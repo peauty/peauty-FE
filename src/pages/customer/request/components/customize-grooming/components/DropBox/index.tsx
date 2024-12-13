@@ -1,4 +1,3 @@
-// DropButton.tsx
 import React, { useState, useEffect, useRef } from "react";
 import {
   Wrapper,
@@ -12,21 +11,27 @@ import {
 } from "./index.styles";
 import { DropDown } from "../../../../../../../assets/svg";
 import { colors } from "../../../../../../../style/color";
+
+// DropBox Props Interface
 export interface DropBoxProps {
   label?: string; // Optional label text
   placeholder: string; // Default text for the dropdown
   options: string[]; // List of options (e.g., "Maltese", "Poodle")
+  selected?: string; // Initial selected value
   onSelect: (value: string) => void; // Callback for when an option is selected
 }
 
-const DropBox: React.FC<DropBoxProps> = ({
+const DropBox = ({
   label,
   placeholder,
   options,
+  selected,
   onSelect,
-}) => {
+}: DropBoxProps) => {
   const [isActive, setIsActive] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string | null>(
+    selected || null,
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (value: string) => {
@@ -50,6 +55,12 @@ const DropBox: React.FC<DropBoxProps> = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  useEffect(() => {
+    if (selected) {
+      setSelectedValue(selected);
+    }
+  }, [selected]);
 
   return (
     <Wrapper ref={dropdownRef}>

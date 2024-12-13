@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SendEstimateProposalRequest } from "../../../../types/customer/customer-bidding-api";
 
 export function useEstimateProposalForm() {
+  const [puppyId, setPuppyId] = useState(0);
   const [formData, setFormData] = useState<SendEstimateProposalRequest>({
     designerIds: [],
     groomingType: undefined,
@@ -34,5 +35,7 @@ export function useEstimateProposalForm() {
     formData,
     handleChange,
     handleArrayChange,
+    setPuppyId,
+    puppyId,
   };
 }
