@@ -14,9 +14,7 @@ export default function ShopEvent({ notice, noticeTitle }: EventProps) {
         <Text typo="subtitle300">{noticeTitle}</Text>
       </IconContain>
       <TextWrapper>
-        <Text typo="body300" color="gray100">
-          {notice}
-        </Text>
+        <Text typo="body300">{notice}</Text>
       </TextWrapper>
     </EventWrapper>
   );

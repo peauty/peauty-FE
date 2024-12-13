@@ -29,24 +29,17 @@ export default function OverviewInfo({
 
         <IconContain>
           <Maker height={12} />
-          <Text typo="body400" color="gray100">
-            {address}
-          </Text>
+          <Text typo="body400">{address}</Text>
         </IconContain>
       </div>
       <TextWrapper>
-        {/* 아이콘과 첫 번째 줄 */}
-        <IconContain>
-          <Shop height={10} style={{ marginRight: "5px" }} />
-          <Text typo="body400" color="gray100">
-            {introduceTitle}
-          </Text>
-        </IconContain>
-
-        {/* 두 번째 줄 */}
-        <Text typo="body400" color="gray100">
-          {introduce}
-        </Text>
+        <div>
+          <IconContain>
+            <Shop height={10} style={{ marginRight: "5px" }} />
+            <Text typo="body300">{introduceTitle}</Text>
+          </IconContain>
+          <Text typo="body400">{introduce}</Text>
+        </div>
         <IconContain>
           <Badge type="general" text="사업자 등록 인증" variant="green" />
           <Badge type="general" text="말티즈 전문가" />

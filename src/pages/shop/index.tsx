@@ -31,8 +31,8 @@ export default function Shop() {
       id === "detail"
         ? detailRef.current
         : id === "review"
-        ? reviewRef.current
-        : badgeRef.current;
+          ? reviewRef.current
+          : badgeRef.current;
 
     if (target) {
       const navHeight = navRef.current?.offsetHeight || 0;
@@ -132,7 +132,12 @@ export default function Shop() {
   return (
     <>
       <AppBar prefix="backButton" />
-      <Carousel images={[workspace.bannerImageUrl]} height={300} rounded={false} autoPlay={false} />
+      <Carousel
+        images={[workspace.bannerImageUrl]}
+        height={300}
+        rounded={false}
+        autoPlay={false}
+      />
       <ShopOverview {...overviewData} />
       <StickyContainer ref={navRef}>
         <ShopNav activeSection={activeSection} onNavigate={handleNavigate} />
