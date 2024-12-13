@@ -6,7 +6,8 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 30px 20px calc(${theme.size.gnbHeight} + 30px);
+  padding: 30px 25px;
+  white-space: pre-line;
 `;
 
 export const SectionWrapper = styled.div`

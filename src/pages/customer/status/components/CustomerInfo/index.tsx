@@ -8,16 +8,14 @@ import {
   RatingWrapper,
   ButtonWrapper,
   StyledButton,
-  StoreReservationWrapper,
   RatingAndReviewWrapper,
+  ContentsWrapper,
 } from "./index.styles";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
-import { Divider } from "../../../../../components";
 
 interface ButtonProps {
   width: string;
-  height?: string;
   title: string;
   bgColor: string;
   color: string;
@@ -26,7 +24,7 @@ interface ButtonProps {
 
 interface CustomerInfoProps {
   date?: number;
-  name: string;
+  location: string;
   store: string;
   score: number;
   reservation?: string;
@@ -35,10 +33,11 @@ interface CustomerInfoProps {
   payment: number;
   thumbnailUrl: string;
   buttons: ButtonProps[];
+  onClick: () => void;
 }
 
 export default function CustomerInfo({
-  name,
+  location,
   date,
   store,
   score,
@@ -47,70 +46,68 @@ export default function CustomerInfo({
   buttons,
   status,
   payment,
+  onClick,
   reservation,
 }: CustomerInfoProps) {
+  const pay = payment.toLocaleString();
   return (
-    <CardContainer>
+    <>
       {date && (
         <>
           <DateWrapper>{date}</DateWrapper>
-          <Divider thickness={1} />
         </>
       )}
-      <CardWrapper>
-        <Thumbnail src={thumbnailUrl} alt={name} />
-        <InfoWrapper>
-          <StoreReservationWrapper>
-            <Text typo="subtitle200">{store}</Text>
-            <Text typo="subtitle200" color={"blue100"}>
-              {reservation}
-            </Text>
-          </StoreReservationWrapper>
-
-          <NameWrapper>
-            <Text typo={"body500"}>{name}</Text>
-            {status && (
-              <Text typo={"body500"} color={"blue100"}>
-                {status}
+      <CardContainer>
+        <CardWrapper onClick={onClick}>
+          <Thumbnail src={thumbnailUrl} alt={store} />
+          <InfoWrapper>
+            <NameWrapper>
+              <Text typo="subtitle200">{store}</Text>
+              <Text typo="subtitle200" color={"blue100"}>
+                {reservation}
               </Text>
-            )}
-          </NameWrapper>
-          <RatingWrapper>
-            <RatingAndReviewWrapper>
-              <Rating
-                starSize="10"
-                score={score}
-                fontsize="body600"
-                color="gray100"
-              />
-              <Text typo="body600" color="gray100">
-                ({review})
-              </Text>
-            </RatingAndReviewWrapper>
-            {payment && (
-              <Text typo={"subtitle200"} color={"black"}>
-                {payment}
-              </Text>
-            )}
-          </RatingWrapper>
-        </InfoWrapper>
-      </CardWrapper>
-      {buttons.length > 0 && (
-        <ButtonWrapper>
-          {buttons.map((button, index) => (
-            <StyledButton
-              key={index}
-              bgColor={button.bgColor}
-              color={button.color}
-              width={button.width}
-              height={button.height}
-              onClick={button.onClick}
-            >
-              {button.title}
-            </StyledButton>
-          ))}
-        </ButtonWrapper>
-      )}
-    </CardContainer>
+            </NameWrapper>
+            <ContentsWrapper>
+              <RatingAndReviewWrapper>
+                <>
+                  <Rating starSize="13" score={score} fontsize="body400" />
+                  <Text typo="body400">({review}) |</Text>
+                </>
+                <Text typo={"body400"}>{location}</Text>
+              </RatingAndReviewWrapper>
+              <RatingWrapper>
+                {status && (
+                  <Text typo={"body600"} color={"blue100"}>
+                    {status}
+                  </Text>
+                )}
+              </RatingWrapper>
+              <RatingWrapper>
+                {payment && (
+                  <Text typo={"subtitle200"} color={"black"}>
+                    {pay}원
+                  </Text>
+                )}
+              </RatingWrapper>
+            </ContentsWrapper>
+          </InfoWrapper>
+        </CardWrapper>
+        {buttons.length > 0 && (
+          <ButtonWrapper>
+            {buttons.map((button, index) => (
+              <StyledButton
+                key={index}
+                bgColor={button.bgColor}
+                color={button.color}
+                width={button.width}
+                onClick={button.onClick}
+              >
+                {button.title}
+              </StyledButton>
+            ))}
+          </ButtonWrapper>
+        )}
+      </CardContainer>
+    </>
   );
 }

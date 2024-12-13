@@ -110,7 +110,7 @@ export default function DesignerMyPageDetail() {
           <Divider />
         </FieldWrapper>
         <EndWrapper onClick={handleLogout}>
-          <Text color="gray100" typo={"subtitle300"}>
+          <Text color="gray100" typo={"body200"}>
             로그아웃
           </Text>
         </EndWrapper>

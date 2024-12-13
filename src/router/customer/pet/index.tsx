@@ -20,4 +20,8 @@ export const petsPaths = [
       },
     ],
   },
+  {
+    path: "regist",
+    element: <PetSignUp />,
+  },
 ];

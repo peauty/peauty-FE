@@ -2,8 +2,7 @@ import Status from "../../../pages/customer/status";
 
 export const statusPaths = [
   {
-    path: "status",
+    path: "",
     element: <Status />,
   },
 ];
-

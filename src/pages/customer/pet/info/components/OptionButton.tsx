@@ -29,7 +29,7 @@ function OptionButton({
           onClick={() => handleSelect(index)}
         >
           <Text
-            color={selected === index ? "white" : "gray100"}
+            color={selected === index ? "gray100" : "white"}
             typo="subtitle300"
           >
             {name}

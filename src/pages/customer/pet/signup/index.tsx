@@ -77,7 +77,7 @@ export default function PetSignUp() {
         weight: inputData.weight,
         sex: inputData.sex,
         age: inputData.age,
-        birthdate: inputData.birthdate, 
+        birthdate: inputData.birthdate,
         detail: inputData.detail,
         disease: inputData.disease ?? [], // TODO
         diseaseDescription: inputData.diseaseDescription,
@@ -98,12 +98,14 @@ export default function PetSignUp() {
   return (
     <>
       <AppBar prefix="backButton" title="반려견 등록" />
-      <ProgressWrapper>
-        {Array.from({ length: totalSteps }).map((_, index) => (
-          <ProgressBlock key={index} isActive={index < currentStep} />
-        ))}
-      </ProgressWrapper>
-      {renderStep()}
+      <div style={{ paddingBottom: `30px` }}>
+        <ProgressWrapper>
+          {Array.from({ length: totalSteps }).map((_, index) => (
+            <ProgressBlock key={index} isActive={index < currentStep} />
+          ))}
+        </ProgressWrapper>
+        {renderStep()}
+      </div>
     </>
   );
 }

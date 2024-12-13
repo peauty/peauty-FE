@@ -23,7 +23,7 @@ function Divider({
           height: `${thickness}px`,
           backgroundColor: color,
           border: 'none',
-          margin: '12px 0'
+          margin: '10px 0'
         }}
       />
     );

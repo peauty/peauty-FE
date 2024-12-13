@@ -10,6 +10,7 @@ import Shop from "../../pages/shop";
 import { noPadding } from "../../style/layoutStyle";
 import { statusPaths } from "./status";
 import QuoteDetail from "../../pages/customer/quote-detail";
+import Status from "../../pages/customer/status";
 import { paymentPaths } from "./payment";
 
 
@@ -50,6 +51,7 @@ export const customerPaths = [
         children: requestPaths,
       },
     ],
+    element: <AuthLayout userType="customer" style={noPadding} />,
   },
   {
     path: "",
@@ -71,8 +73,13 @@ export const customerPaths = [
   },
   {
     path: "",
-    children: statusPaths,
-    element: <Layout style={noPadding} />,
+    children: [
+      {
+        path: "status",
+        children: statusPaths,
+      },
+    ],
+    element: <AuthLayout userType="customer" style={noPadding} />,
   },
   {
     path: "",

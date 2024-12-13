@@ -87,11 +87,15 @@ export default function PetInfoPage() {
 
   return (
     <PageWrapper>
-      <AppBar prefix="backButton" onclick={handleBack} />
+      <AppBar
+        prefix="backButton"
+        onclick={handleBack}
+        title={`${puppyData.name} 프로필 보기`}
+      />
       <ContentWrapper>
-        <Text typo="body100" color="gray100">
+        <Text typo="subtitle300">
           {"태어난지 "}
-          <Text typo="body100" color="blue100">
+          <Text typo="subtitle300" color="blue100">
             {puppyData.age}년
           </Text>
         </Text>
@@ -102,53 +106,55 @@ export default function PetInfoPage() {
           width="200"
           height="200"
         />
-
-        <MyInfoWrapper>
-          <Text typo="title100" color="black">
-            {puppyData.name}
-          </Text>
-          <Gender gender={puppyData.sex || ""} />
-        </MyInfoWrapper>
-
-        <Text typo="body300" color="blue100">
-          {puppyData.breed}ㅤ
-          <Text typo="body300" color="gray100">
-            {puppyData.weight} kg
-          </Text>
-        </Text>
-
-        <MyInfoWrapper>
-          <SvgBirthDay width={15} />
-          <Text typo="body300" color="gray100">
-            {puppyData.birthdate}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <MyInfoWrapper>
+            <Text typo="title100">{puppyData.name}</Text>
+            <Gender gender={puppyData.sex || ""} />
+          </MyInfoWrapper>
+          <MyInfoWrapper>
             <Text typo="body300" color="blue100">
-              ㅤ{puppyData.age}살
+              {puppyData.breed}{" "}
+              <Text typo="body300" color="gray100">
+                {puppyData.weight}kg
+              </Text>
             </Text>
-          </Text>
-        </MyInfoWrapper>
+          </MyInfoWrapper>
+          <MyInfoWrapper>
+            <SvgBirthDay width={15} />
+            <Text typo="body300" color="gray100">
+              {puppyData.birthdate}
+              <Text typo="body300" color="blue100">
+                {" "}
+                {puppyData.age}살
+              </Text>
+            </Text>
+          </MyInfoWrapper>
+        </div>
 
         {puppyData.disease && puppyData.disease.length > 0 && (
           <InfoWrapper>
             {puppyData.detail && (
               <Text typo="body100" color="blue100">
                 {puppyData.disease.join(", ")}
-                <Text typo="body100" color="black">
-                  이 있어요
-                </Text>
+                <Text typo="body100">이 있어요</Text>
               </Text>
             )}
             {puppyData.diseaseDescription && (
-              <Text typo="body100" color="black">
-                {puppyData.diseaseDescription}
-              </Text>
+              <Text typo="body100">{puppyData.diseaseDescription}</Text>
             )}
             {puppyData.detail && (
-              <Text typo="body100" color="black">
-                {puppyData.name}는ㅤ
+              <div style={{ display: "flex", gap: "5px" }}>
+                <Text typo="body100">{puppyData.name}는 </Text>
                 <Text typo="body100" color="blue100">
                   {puppyData.detail}
                 </Text>
-              </Text>
+              </div>
             )}
           </InfoWrapper>
         )}
@@ -165,7 +171,7 @@ export default function PetInfoPage() {
       {isModalOpen && (
         <Modal
           title="정말 삭제하시겠습니까?"
-          message="삭제한 뒤에는 복구할 수 없습니다."
+          message="삭제한 뒤에는 복구할 수 없어요"
           onConfirm={handleDelete} // 예 버튼 클릭 시 삭제
           onCancel={() => setIsModalOpen(false)} // 아니요 버튼 클릭 시 모달 닫기
         />

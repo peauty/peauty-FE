@@ -15,15 +15,19 @@ function InfoButton({ message, title }: InfoButtonProps) {
     <div
       style={{
         position: "relative",
-        display: "inline-block",
-        alignContent: "center",
+        display: "flex",
+        alignItems: "center",
       }}
       onMouseEnter={() => setIsTooltipVisible(true)}
       onMouseLeave={() => setIsTooltipVisible(false)}
     >
       <IconButton>
         <IconContainItem>
-          <FaRegQuestionCircle style={{ width: "13px" }} />
+          <div
+            style={{ display: "flex", alignItems: "center", margin: "auto" }}
+          >
+            <FaRegQuestionCircle style={{ width: "13px" }} />
+          </div>
           <Text typo="body300" color="gray100">
             {title}
           </Text>

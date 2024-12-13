@@ -4,22 +4,23 @@ import {
   CutTextWrapper,
   RequestButton,
 } from "./index.styles";
-
+import { useNavigate } from "react-router-dom";
 import { Text } from "../../../../../components";
 
 export default function Info() {
+  const navigate = useNavigate();
   const handleButtonClick = () => {
-    console.log("내 요청 보기 버튼이 클릭되었습니다.");
+    navigate("/customer/request/view");
   };
 
   return (
     <Container>
       <InnerBox>
         <Text typo="body300" color="blue100">
-          20024.12.24
+          2024.12.24 12:30
         </Text>
         <CutTextWrapper>
-          <Text typo="subtitle200" color="black">
+          <Text typo="subtitle300" color="black">
             곰돌이컷+가위컷
           </Text>
           <RequestButton onClick={handleButtonClick}>

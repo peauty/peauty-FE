@@ -5,11 +5,13 @@ export const colors = {
   black100: "#2B2B2B",
 
   gray100: "#909090",
-  gray200: "#d9d9d9",
-  gray300: "#e0e0e0",
+  gray200: "#AEAEAE",
+  gray300: "#E0E0E0",
   gray400: "#F9F9FB",
+  
+  background: "#F0F1F3",
 
-  blue100: "#6f82f1",
+  blue100: "#6D82FF",
   blue200: "#b6c0f7",
   blue300: "#f1f3fe",
 

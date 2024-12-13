@@ -2,19 +2,29 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar, CustomInput, CustomButton, GNB } from "../../../../components";
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
+import {
+  getDesignerAccount,
+  updateDesignerAccount,
+} from "../../../../apis/designer/resources/designer";
 import { MyPageEditWrapper, NicknameAvailabilityMessage } from "./index.styles"; // styled-components 임포트
-import { getDesignerAccount, updateDesignerAccount } from "../../../../apis/designer/resources/designer";
-import { GetDesignerAccountResponse, UpdateDesignerAccountRequest } from "../../../../types/designer/designer";
+import {
+  GetDesignerAccountResponse,
+  UpdateDesignerAccountRequest,
+} from "../../../../types/designer/designer";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
-import { useCheckNickname } from "../../../../apis/designer/hooks/useUser"; 
+import { useCheckNickname } from "../../../../apis/designer/hooks/useUser";
 
 export default function DesignerMyPageEdit() {
   const navigate = useNavigate();
   const { userId } = useUserDetails();
-  const [profile, setProfile] = useState<GetDesignerAccountResponse | null>(null);
+  const [profile, setProfile] = useState<GetDesignerAccountResponse | null>(
+    null,
+  );
   const [formData, setFormData] = useState<UpdateDesignerAccountRequest>({});
-  const [nicknameAvailable, setNicknameAvailable] = useState<boolean | null>(null); // 중복 검사 상태
-  const { check } = useCheckNickname(); 
+  const [nicknameAvailable, setNicknameAvailable] = useState<boolean | null>(
+    null,
+  ); // 중복 검사 상태
+  const { check } = useCheckNickname();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -30,7 +40,10 @@ export default function DesignerMyPageEdit() {
     fetchProfile();
   }, [userId]);
 
-  const handleInputChange = (field: keyof UpdateDesignerAccountRequest, value: string) => {
+  const handleInputChange = (
+    field: keyof UpdateDesignerAccountRequest,
+    value: string,
+  ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -60,8 +73,8 @@ export default function DesignerMyPageEdit() {
 
   return (
     <>
+      <AppBar prefix="backButton" title="회원 정보" />
       <MyPageEditWrapper>
-        <AppBar prefix="backButton" title="회원 정보" />
         <ProfileImg
           src={profile.profileImageUrl || "default-profile.png"}
           alt="profileImage"
@@ -79,7 +92,7 @@ export default function DesignerMyPageEdit() {
             <CustomButton
               size="small"
               variant="primary"
-              onClick={checkNicknameAvailability} 
+              onClick={checkNicknameAvailability}
             >
               중복검사
             </CustomButton>
@@ -88,7 +101,9 @@ export default function DesignerMyPageEdit() {
         {/* Styled component로 중복 메시지 출력 */}
         {nicknameAvailable !== null && (
           <NicknameAvailabilityMessage isAvailable={nicknameAvailable}>
-            {nicknameAvailable ? "사용 가능한 닉네임입니다." : "이미 존재하는 닉네임입니다."}
+            {nicknameAvailable
+              ? "사용 가능한 닉네임입니다."
+              : "이미 존재하는 닉네임입니다."}
           </NicknameAvailabilityMessage>
         )}
         <CustomInput

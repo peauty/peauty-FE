@@ -4,8 +4,7 @@ import { CSSProperties } from "react";
 import { Outlet } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { ROUTE } from "../../../constants/routes";
-import { Main } from "../Layout/Layout.styles";
-import { Wrapper } from "../Wrpper";
+import { Main, Wrapper } from "../Layout/Layout.styles";
 import { CustomJwtPayload } from "../../../types/types";
 
 interface LayoutProps {
