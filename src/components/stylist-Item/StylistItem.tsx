@@ -13,14 +13,14 @@ import { useNavigate } from "react-router-dom";
 type GeneralVariant = "blue" | "green" | "disease";
 type ScissorsVariant = "gold" | "silver" | "bronze";
 
-interface StyledBadgeProps {
+export interface StyledBadgeProps {
   type: "general" | "scissors" | "normal";
   variant: GeneralVariant | ScissorsVariant;
   text: string;
   typo?: keyof typeof typography;
 }
 
-interface StyledItemProps {
+export interface StyledItemProps {
   name: string;
   imageUrl: string;
   location: string;
