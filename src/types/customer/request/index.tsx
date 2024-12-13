@@ -26,7 +26,7 @@ export interface ShopDetailProps {
   openHours: string;
   closeHours: string;
   openDay: string;
-  paymentOption: string[];
+  paymentOptions: string[];
   phoneNumber: string;
 }
 export interface ShopDetailInfoProps {
@@ -36,6 +36,6 @@ export interface ShopDetailInfoProps {
   openHours: string;
   closeHours: string;
   openDay: string;
-  paymentOption: string[];
+  paymentOptions: string[];
   phoneNumber: string;
 }

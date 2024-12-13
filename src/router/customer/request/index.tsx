@@ -30,7 +30,7 @@ export const requestPaths = [
     path: "",
     children: [
       {
-        path: ":workspaceId",
+        path: ":userId",
         element: <Shop />,
       },
     ],

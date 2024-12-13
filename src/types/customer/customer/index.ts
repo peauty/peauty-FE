@@ -49,6 +49,7 @@ export interface Workspace {
   scissorsRank: string; // 추가된 필드
 }
 
+
 export interface GetAroundWorkspacesResponse {
   customerId: number;
   customerAddress: string;

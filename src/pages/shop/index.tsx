@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 type Section = "detail" | "review" | "badge";
 
 export default function Shop() {
-  const { userId } = useParams<{ userId: string }>(); // URL에서 userId 가져오기
+  const { userId } = useParams<{ userId: string }>();
   const [workspace, setWorkspace] = useState<any>(null); // API 데이터를 저장
   const [loading, setLoading] = useState(true); // 로딩 상태
 
@@ -31,8 +31,8 @@ export default function Shop() {
       id === "detail"
         ? detailRef.current
         : id === "review"
-          ? reviewRef.current
-          : badgeRef.current;
+        ? reviewRef.current
+        : badgeRef.current;
 
     if (target) {
       const navHeight = navRef.current?.offsetHeight || 0;
@@ -57,8 +57,11 @@ export default function Shop() {
       try {
         const response = await getDesignerWorkspace(Number(userId));
         console.log("API 호출 성공:", response);
+        setWorkspace(response);
+        setLoading(false);
       } catch (error) {
         console.error("API 호출 실패:", error);
+        setLoading(false);
       }
     };
 
@@ -118,21 +121,25 @@ export default function Shop() {
     openHours: workspace.openHours,
     closeHours: workspace.closeHours,
     openDay: workspace.openDay,
-    paymentOption: workspace.paymentOption,
+    paymentOptions: workspace.paymentOptions,
     phoneNumber: workspace.phoneNumber,
+  };
+
+  const badgeData = {
+    representativeBadgeNames: workspace.representativeBadgeNames,
   };
 
   return (
     <>
       <AppBar prefix="backButton" />
-      <Carousel images={images} height={300} rounded={false} autoPlay={false} />
+      <Carousel images={[workspace.bannerImageUrl]} height={300} rounded={false} autoPlay={false} />
       <ShopOverview {...overviewData} />
       <StickyContainer ref={navRef}>
         <ShopNav activeSection={activeSection} onNavigate={handleNavigate} />
       </StickyContainer>
       <ShopDetail ref={detailRef} id="detail" {...detailData} />
       <ShopReview ref={reviewRef} id="review" />
-      <ShopBadge ref={badgeRef} id="badge" />
+      <ShopBadge ref={badgeRef} id="badge" {...badgeData} />
       <GNB type="customer" />
     </>
   );

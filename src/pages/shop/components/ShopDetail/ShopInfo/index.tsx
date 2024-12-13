@@ -16,10 +16,10 @@ export default function Shopinfo({
   openHours,
   closeHours,
   openDay,
-  paymentOption,
+  paymentOptions,
   phoneNumber,
 }: ShopDetailInfoProps) {
-  const payments = paymentOption.join(" ");
+  const payments = paymentOptions.join(" ");
   return (
     <ContentsWrapper>
       <Text typo="subtitle300">매장 정보</Text>
