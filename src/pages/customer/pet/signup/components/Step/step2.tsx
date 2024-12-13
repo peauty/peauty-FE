@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCustomHook";
 import { MultiSelectButton } from "../../../../../../components/button/MultiSelectButton";
 import { CustomInput } from "../../../../../../components/input/CustomInput";
 import { CustomButton } from "../../../../../../components/button/CustomButton";
@@ -8,6 +7,7 @@ import { Text } from "../../../../../../components/texts/Text";
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { diseaseMap } from "../../../../../../constants/puppy";
 import { ContentsWrapper } from "../../index.styles";
+
 interface Step2Props {
   onNext: () => void;
   inputData: RegisterPuppyRequest;
@@ -21,26 +21,15 @@ export default function Step2({
   handleChange,
   handleDiseaseChange,
 }: Step2Props) {
-  // 선택된 질병을 상태로 관리
-  const [selectedDiseases, setSelectedDiseases] = useState<number[]>([]);
-  const dieseases = Object.keys(diseaseMap);
-  const handleDiseaseSelect = (selectedIndexes: number[]) => {
-    // 선택된 질병 상태 업데이트
-    setSelectedDiseases(selectedIndexes);
+  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
+  const diseases = Object.keys(diseaseMap);
 
-    const diseases = [
-      "NONE",
-      "PATELLA",
-      "EAR_INFECTION",
-      "DERMATITIS",
-      "EYE_DISEASE",
-      "HEART_DISEASE",
-      "ARTHRITIS",
-      "ETC",
-    ];
-
-    const selectedDiseases = selectedIndexes.map((index) => diseases[index]);
-    handleDiseaseChange(selectedDiseases);
+  const handleDiseaseSelect = (indexes: number[]) => {
+    setSelectedIndexes(indexes); // 선택된 인덱스를 상태로 저장
+    const selectedDiseases = indexes.map(
+      (index) => diseaseMap[diseases[index]],
+    );
+    handleDiseaseChange(selectedDiseases); // 부모로 전달
   };
 
   const handleDiseaseDescriptionChange = (
@@ -64,11 +53,19 @@ export default function Step2({
           <MultiSelectButton
             row={3}
             col={3}
-            buttonNames={dieseases}
-            selectedIndexes={selectedDiseases} // 상태로 관리된 선택된 인덱스
+            buttonNames={diseases}
+            selectedIndexes={selectedIndexes} // 상태로 관리된 선택된 인덱스
             onSelect={handleDiseaseSelect}
           />
         </ColumnWrapper>
+
+        <MultiSelectButton
+          row={3}
+          col={3}
+          buttonNames={diseases}
+          selectedIndexes={selectedIndexes} // 상태 전달
+          onSelect={handleDiseaseSelect}
+        />
 
         <CustomInput
           label="기타"
@@ -79,7 +76,6 @@ export default function Step2({
           onChange={handleDiseaseDescriptionChange}
         />
       </ContentsWrapper>
-
       <CustomButton fullwidth onClick={onNext}>
         다음
       </CustomButton>
