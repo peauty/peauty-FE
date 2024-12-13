@@ -25,14 +25,14 @@ interface ButtonProps {
 }
 
 interface CustomerInfoProps {
-  date?: number;
+  date?: string;
   name: string;
   store: string;
   score: number;
   reservation?: string;
   review: number;
   status?: string;
-  payment: number;
+  payment: string;
   thumbnailUrl: string;
   buttons: ButtonProps[];
 }
@@ -89,7 +89,7 @@ export default function CustomerInfo({
             </RatingAndReviewWrapper>
             {payment && (
               <Text typo={"subtitle200"} color={"black"}>
-                {payment}
+                {payment} 원
               </Text>
             )}
           </RatingWrapper>

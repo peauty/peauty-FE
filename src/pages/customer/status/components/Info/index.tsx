@@ -16,7 +16,7 @@ export default function Info() {
     <Container>
       <InnerBox>
         <Text typo="body300" color="blue100">
-          20024.12.24
+          2024.12.24
         </Text>
         <CutTextWrapper>
           <Text typo="subtitle200" color="black">

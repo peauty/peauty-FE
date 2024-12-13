@@ -1,11 +1,10 @@
-
 import styled from "styled-components";
 
 // DogListWrapper 스타일
 export const DogListWrapper = styled.div`
   display: flex;
   gap: 30px;
-  padding: 0 20px;
+  padding: 0 30px;
 `;
 
 // DogProfileWrapper 스타일

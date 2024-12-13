@@ -5,11 +5,9 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 0px 20px;
+  padding: 20px;
   cursor: pointer;
 `;
-
-
 
 export const Thumbnail = styled.img`
   background-color: ${colors.gray400};
@@ -22,7 +20,7 @@ export const Details = styled.div`
   display: flex;
   flex-direction: column;
   line-height: 1.3;
-  gap:3px;
+  gap: 3px;
 `;
 
 export const RatingWrapper = styled.div`

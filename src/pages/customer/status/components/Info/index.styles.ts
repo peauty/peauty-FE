@@ -2,11 +2,8 @@ import styled from "styled-components";
 import { colors } from "../../../../../style/color";
 import { typography } from "../../../../../style/typography";
 
-
-export  const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
-  padding: 20px 20px;
-  background-color: ${colors.gray300};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,10 +11,8 @@ export  const Container = styled.div`
 
 export const InnerBox = styled.div`
   width: 100%;
-  padding: 15px;
- // height: 77px;
+  padding: 20px;
   background-color: ${colors.gray400};
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
