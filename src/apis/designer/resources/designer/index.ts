@@ -4,11 +4,14 @@ import { UpdateDesignerWorkspaceResponse } from "../../../../types/designer/desi
 import { UpdateDesignerWorkspaceRequest } from "../../../../types/designer/designer";
 import { CreateDesignerWorkspaceResponse } from "../../../../types/designer/designer";
 import { CreateDesignerWorkspaceRequest } from "../../../../types/designer/designer";
+import { UpdateRepresentativeBadgeResponse } from "../../../../types/designer/designer";
+import { UpdateRepresentativeBadgeRequest } from "../../../../types/designer/designer";
 import { GetDesignerAccountResponse } from "../../../../types/designer/designer";
 import { UpdateDesignerAccountResponse } from "../../../../types/designer/designer";
 import { UpdateDesignerAccountRequest } from "../../../../types/designer/designer";
 import { UploadProfileImageResponse } from "../../../../types/designer/designer";
 import FormData from "form-data";
+import { GetDesignerBadgesResponse } from "../../../../types/designer/designer";
 import { CheckDesignerNicknameDuplicatedResponse } from "../../../../types/designer/designer";
 
 export const getDesignerWorkspace = async (
@@ -39,6 +42,12 @@ export const createDesignerWorkspace = async (
     `/v1/users/${userId}/shop`,
     data,
   );
+  return res.data;
+};
+
+
+export const updateRepresentativeBadge = async (userId: number, badgeId: number, data: UpdateRepresentativeBadgeRequest): Promise<UpdateRepresentativeBadgeResponse> => {
+  const res = await DesignerAPI.put<UpdateRepresentativeBadgeResponse>(`/v1/users/${userId}/badges/${badgeId}/representative`, data);
   return res.data;
 };
 
@@ -79,6 +88,12 @@ export const uploadProfileImage = async (
   );
   return res.data;
 };
+
+export const getDesignerBadges = async (userId: number): Promise<GetDesignerBadgesResponse> => {
+  const res = await DesignerAPI.get<GetDesignerBadgesResponse>(`/v1/users/${userId}/badges`);
+  return res.data;
+};
+
 
 export const checkDesignerNicknameDuplicatedResponse = async (query: {
   nickname: string;

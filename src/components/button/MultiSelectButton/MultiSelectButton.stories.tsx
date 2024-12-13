@@ -53,3 +53,13 @@ export const LargeGrid: Story = {
     onSelect: (indexes) => console.log("선택된 버튼 인덱스:", indexes),
   },
 };
+
+export const Payment: Story = {
+  args: {
+    row: 1,
+    col: 3,
+    buttonNames: [, "카드 결제", "현금 결제", "계좌 이체"],
+    selectedIndexes: [],
+    onSelect: (indexes) => console.log("선택된 버튼 인덱스:", indexes),
+  },
+};

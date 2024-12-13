@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GridWrapper, ButtonStyle } from "./MultiSelectButton.styles";
 import { Text } from "../../texts/Text";
 import { colors } from "../../../style/color";
@@ -6,7 +6,7 @@ import { colors } from "../../../style/color";
 export interface MultiSelectButtonProps {
   row?: number;
   col?: number;
-  buttonNames?: string[]; // 버튼 이름 배열
+  buttonNames?: (string | undefined)[]; // 버튼 이름 배열
   selectedIndexes: number[]; // 선택된 버튼 인덱스 배열
   onSelect?: (indexes: number[]) => void; // 선택 이벤트
 }
@@ -18,6 +18,11 @@ export default function MultiSelectButton({
   onSelect,
 }: MultiSelectButtonProps) {
   const [selected, setSelected] = useState<number[]>(selectedIndexes);
+
+  // selectedIndexes 변경 시 selected 상태 업데이트
+  useEffect(() => {
+    setSelected(selectedIndexes);
+  }, [selectedIndexes]);
 
   const handleSelect = (index: number) => {
     if (index === 0) {
@@ -48,7 +53,7 @@ export default function MultiSelectButton({
           onClick={() => handleSelect(index)}
         >
           <Text
-            color={selected.includes(index) ? "blue100" : "gray200"}
+            color={selected.includes(index) ? "blue100" : "gray100"}
             typo="body100"
           >
             {name}

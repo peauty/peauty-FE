@@ -2,7 +2,7 @@ name: React build
 on:
   push:
     branches:
-      - sprint/** # 개발서버 배포
+      - develop # 개발서버 배포
 
 jobs:
   build:

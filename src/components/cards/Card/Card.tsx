@@ -16,6 +16,8 @@ interface CardProps {
   weight: string;
   breed: string;
   tags: string[];
+  onClick?: () => void;
+  isSelected?: boolean;
 }
 
 export default function Card({
@@ -26,9 +28,12 @@ export default function Card({
   weight,
   breed,
   tags,
+  onClick,
+  isSelected = false,
 }: CardProps) {
+  const gen = gender === "F" ? "여자" : "남자";
   return (
-    <CardWrapper>
+    <CardWrapper onClick={onClick} isSelected={isSelected}>
       <div>
         <ProfileImg
           src={imageSrc}
@@ -39,17 +44,16 @@ export default function Card({
       </div>
       <InfoWrapper>
         <Text typo={"subtitle200"}>{name}</Text>
-        <Text color={"gray100"} typo={"body300"}>
-          {age}살 | {gender} | {weight}kg | {breed}
+        <Text color={"gray100"} typo={"body400"}>
+          {age}살 | {gen} | {weight}kg | {breed}
         </Text>
         <DiseaseWrapper>
           <TagsWrapper>
-          {tags.map((tag, index) => (
-            <Tag key={index} text={tag} />
-          ))}
-          </TagsWrapper>        
+            {tags.map((tag, index) => (
+              <Tag key={index} text={tag} />
+            ))}
+          </TagsWrapper>
         </DiseaseWrapper>
-
       </InfoWrapper>
     </CardWrapper>
   );

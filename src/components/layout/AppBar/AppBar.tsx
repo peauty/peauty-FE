@@ -1,7 +1,8 @@
-import { ReactNode } from "react";
 import { Logo } from "../../../assets/svg";
 import { StyledAppBarBack, StyledHeader, Title } from "./AppBar.styles";
 import { Text } from "../../texts/Text";
+import { useNavigate } from "react-router-dom"; // navigate 함수 사용을 위해 import
+
 interface Props {
   prefix?: "backButton" | "logo";
   title?: string; // 중앙 제목
@@ -9,18 +10,27 @@ interface Props {
 }
 
 export default function AppBar({ prefix, title, onclick }: Props) {
+  const navigate = useNavigate();
+
+  const handleBackButtonClick = () => {
+    navigate(-1);
+  };
+
   return (
     <StyledHeader>
       {prefix ? (
         prefix === "backButton" ? (
-            <StyledAppBarBack onClick={onclick} height={20} />
+          <StyledAppBarBack
+            onClick={onclick || handleBackButtonClick}
+            height={20}
+          />
         ) : (
-          <Logo width="94px" height="24px" onClick={onclick} />
+          <Logo height="24px" onClick={onclick} />
         )
       ) : null}
       {title && (
         <Title>
-          <Text typo="title300">{title}</Text>
+          <Text typo="subtitle400">{title}</Text>
         </Title>
       )}
     </StyledHeader>

@@ -1,21 +1,18 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-
-const SvgHome = ({
-  fill = "currentColor",
-  ...props
-}: SVGProps<SVGSVGElement>) => (
+const SvgHome = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    data-name="Layer 1"
-    viewBox="0 0 24 24"
+    fill="none"
+    viewBox="0 0 34 35"
     {...props}
   >
     <path
-      d="M12.566 24H8.719l2-8H6.586a2.56 2.56 0 0 1-2.451-3.3L7.976 0h9.467l-3 8h4.023a2.533 2.533 0 0 1 2.11 3.932Z"
-      fill={fill} // fill 속성 추가
+
+      fillRule="evenodd"
+      d="M19.207 8.34a3.187 3.187 0 0 0-4.414 0L8.24 14.63a1.06 1.06 0 0 0-.309.573 38.7 38.7 0 0 0-.171 12.964l.16 1.02h4.216v-8.799c0-.587.476-1.062 1.062-1.062h7.606c.586 0 1.062.475 1.062 1.062v8.8h4.217l.16-1.021c.67-4.3.613-8.683-.172-12.964a1.06 1.06 0 0 0-.309-.574zm-5.885-1.533a5.313 5.313 0 0 1 7.356 0l6.554 6.289c.483.463.807 1.066.928 1.724.828 4.515.89 9.139.18 13.675l-.255 1.64a1.39 1.39 0 0 1-1.377 1.177h-5.905a1.063 1.063 0 0 1-1.063-1.062v-8.8h-5.48v8.8c0 .587-.476 1.063-1.063 1.063H7.292c-.687 0-1.27-.5-1.377-1.179l-.256-1.64A40.9 40.9 0 0 1 5.84 14.82c.12-.658.445-1.261.928-1.724z"
+      clipRule="evenodd"
     />
   </svg>
 );
-
 export default SvgHome;

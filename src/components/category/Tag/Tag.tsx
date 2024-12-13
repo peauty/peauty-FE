@@ -9,7 +9,9 @@ interface TagProps {
 export default function Tag({ text }: TagProps) {
   return (
     <TagWrapper>
-      <Text typo="body300" color={"blue100"}>{text}</Text>
+      <Text typo="body300" color={"blue100"}>
+        {text}
+      </Text>
     </TagWrapper>
   );
 }

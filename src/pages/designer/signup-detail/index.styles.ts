@@ -13,13 +13,6 @@ export const Style = {
     margin-bottom: 30px;
     gap: 20px;
   `,
-
-  TwoInputWrapper: styled.div`
-    display: flex;
-    flex-direction: column;
-    /* margin-bottom: 30px; */
-    gap: 10px;
-  `,
   TitleWrapper: styled.div`
     display: flex;
     flex-direction: column;
@@ -28,7 +21,6 @@ export const Style = {
     display: flex;
     gap: 8px;
   `,
-
   ColumnWrapper: styled.div`
     display: flex;
     flex-direction: column;
@@ -43,5 +35,33 @@ export const Style = {
   AddWrapper: styled.div`
     width: 60px;
     margin-top: 10px;
+  `,
+  ImageContainer: styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  `,
+
+  ImageUnit: styled.img`
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+  `,
+
+  DeleteButton: styled.button`
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
   `,
 };

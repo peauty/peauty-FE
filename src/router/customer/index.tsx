@@ -1,36 +1,89 @@
 import CustomerSignUp from "../../pages/customer/sign-up";
 import CustomerSignUpComplete from "../../pages/customer/sign-up-complete";
-import CustomerHome from "../../pages/main";
-import { petPaths } from "./pet";
+import CustomerHome from "../../pages/main/customer";
+import { petsPaths } from "./pet";
 import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
+import { Layout } from "../../components/layout/Layout";
+import { AuthLayout } from "../../components/layout/AuthLayout";
+import Shop from "../../pages/shop";
+import { noPadding } from "../../style/layoutStyle";
+import { statusPaths } from "./status";
+import QuoteDetail from "../../pages/customer/quote-detail";
+import Status from "../../pages/customer/status";
+import { paymentPaths } from "./payment";
+
 
 export const customerPaths = [
   {
-    path: "signup",
-    element: <CustomerSignUp />,
+    path: "",
+    children: [
+      {
+        path: "signup",
+        element: <CustomerSignUp />,
+      },
+      {
+        path: "signup-complete",
+        element: <CustomerSignUpComplete />,
+      },
+    ],
+    element: <Layout />,
   },
   {
-    path: "signup-complete",
-    element: <CustomerSignUpComplete />,
+    path: "",
+    children: [
+      {
+        path: "mypage",
+        children: myPagePaths,
+      },
+      {
+        path: "pets",
+        children: petsPaths,
+      },
+    ],
+    element: <AuthLayout userType="customer" />,
   },
   {
-    path: "mypage",
-    children: myPagePaths,
+    path: "",
+    children: [
+      {
+        path: "request",
+        children: requestPaths,
+      },
+    ],
+    element: <AuthLayout userType="customer" style={noPadding} />,
   },
   {
-    path: "pet",
-    children: petPaths,
+    path: "",
+    children: [
+      {
+        path: "home",
+        element: <CustomerHome />,
+      },
+      {
+        path: "shop",
+        element: <Shop />,
+      },
+      {
+        path: "quote-detail",
+        element: <QuoteDetail />,
+      },
+    ],
+    element: <AuthLayout userType="customer" style={noPadding} />,
   },
   {
-    path: "request",
-    children: requestPaths,
+    path: "",
+    children: [
+      {
+        path: "status",
+        children: statusPaths,
+      },
+    ],
+    element: <AuthLayout userType="customer" style={noPadding} />,
   },
-];
-
-export const customerPaths2 = [
   {
-    path: "home",
-    element: <CustomerHome />,
+    path: "",
+    children: paymentPaths,
+    element: <Layout  />,
   },
 ];

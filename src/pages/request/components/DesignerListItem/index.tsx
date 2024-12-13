@@ -22,6 +22,7 @@ interface DesignerItemProps {
   review: number;
   badges: { name: string; color: string }[];
   thumbnailUrl: string;
+  address: string;
   onClick: () => void;
 }
 
@@ -33,6 +34,7 @@ export default function DesignerItem({
   experience,
   score,
   review,
+  address,
   badges,
   thumbnailUrl,
   onClick,
@@ -48,15 +50,15 @@ export default function DesignerItem({
         <Thumbnail src={thumbnailUrl} alt={`${name}의 섬네일`} />
         <Details>
           <Text typo="subtitle200">{name}</Text>
-          <Text typo="body600">{name}</Text>
+          <Text typo="body400">{address}</Text>
           <RatingWrapper>
             <Rating
               starSize="10"
               score={score}
-              fontsize="body600"
+              fontsize="body400"
               color="gray100"
             />
-            <Text typo="body600" color="gray100">
+            <Text typo="body400" color="gray100">
               ({review}) | 경력 {experience}년
             </Text>
           </RatingWrapper>
@@ -66,9 +68,7 @@ export default function DesignerItem({
                 key={idx}
                 type="general"
                 text={badge.name}
-                // variant={badge.color}
                 variant="blue"
-                // color={badge.color}
               />
             ))}
           </BadgeWrapper>

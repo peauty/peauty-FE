@@ -51,20 +51,27 @@ export default function Badge({
   padding = "2px 7px",
 }: BadgeProps) {
   const currentStyle =
-    type === "normal" ? styles.general.blue : type === "general"
-      ? styles.general[variant as GeneralVariant] || styles.general.blue
-      : styles.scissors[variant as ScissorsVariant] || styles.scissors.gold;
+    type === "normal"
+      ? styles.general.blue
+      : type === "general"
+        ? styles.general[variant as GeneralVariant] || styles.general.blue
+        : styles.scissors[variant as ScissorsVariant] || styles.scissors.gold;
 
-    return (
-    
+  return (
     <BadgeWrapper
       backgroundColor={colors[backgroundColor || currentStyle.backgroundColor]}
       borderRadius={borderRadius}
       padding={padding}
     >
-      {type != "normal" && <IconWrapper>{
-        type === "general" ? <Auth height="10px" color={colors[currentStyle.color]} /> : <ScissorsIcon height={10} color={colors[currentStyle.color]} />
-        }</IconWrapper>}
+      {type != "normal" && (
+        <IconWrapper>
+          {type === "general" ? (
+            <Auth height="10px" color={colors[currentStyle.color]} />
+          ) : (
+            <ScissorsIcon height={10} color={colors[currentStyle.color]} />
+          )}
+        </IconWrapper>
+      )}
       {text && (
         <Text
           typo={typo || currentStyle.typo}
