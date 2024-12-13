@@ -17,44 +17,54 @@ import {
   ShopWrapper,
 } from "./index.styles";
 import { getAroundWorkspaces } from "../../../../../apis/customer/resources/customer";
-import { Workspace } from "../../../../../types/customer/customer";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import { useNavigate } from "react-router-dom";
+import {
+  GetAroundWorkspacesResponse,
+  Workspace,
+} from "../../../../../types/customer/customer";
+import { ROUTE } from "../../../../../constants/routes";
+import Loading from "../../../../../components/page/sign-up/Loading";
 import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
 
 interface SearchStepProps {
   onNext: () => void;
   inputData: SendEstimateProposalRequest;
-  handleChange: (key: keyof SendEstimateProposalRequest, value: any) => void;
+  handleArrayChange: (
+    key: keyof SendEstimateProposalRequest,
+    value: any,
+  ) => void;
 }
 
 export default function Search({
   onNext,
   inputData,
-  handleChange,
+  handleArrayChange,
 }: SearchStepProps) {
   const [isSelecting, setIsSelecting] = useState(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
-  const [workspaces, setWorkspaces] = useState<Workspace[]>([]); // 작업 공간 데이터
-  const [customerAddress, setCustomerAddress] = useState<string>(""); // 고객 주소
-  const [loading, setLoading] = useState(true); // 로딩 상태
-  const user = useUserDetails(); // 로그인한 유저 정보 가져오기
-  const [isFetched, setIsFetched] = useState(false); // 요청 여부를 제어하는 상태
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
+  const [customerAddress, setCustomerAddress] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const user = useUserDetails();
+  const [isFetched, setIsFetched] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       if (!user || !user.userId || isFetched) {
-        return; // 이미 요청한 경우 실행하지 않음
+        return;
       }
 
       try {
         setLoading(true);
-        const response = await getAroundWorkspaces(user.userId);
-        console.log("API 응답 데이터:", response);
+        const response: GetAroundWorkspacesResponse = await getAroundWorkspaces(
+          user.userId,
+        );
         setCustomerAddress(response.customerAddress || "알 수 없음");
         setWorkspaces(response.workspaces || []);
-        setIsFetched(true); // 요청 완료 플래그 설정
+        setCheckedItems(Array(response.workspaces?.length || 0).fill(false));
+        setIsFetched(true);
       } catch (error) {
         console.error("데이터 로드 실패:", error);
       } finally {
@@ -68,17 +78,32 @@ export default function Search({
   const handleSelectClick = () => {
     setIsSelecting(!isSelecting);
     if (!isSelecting) {
-      setCheckedItems(Array(workspaces.length).fill(false)); // 초기화
+      setCheckedItems(Array(workspaces.length).fill(false));
+      handleArrayChange("designerIds", []);
     }
   };
   const handleQuote = () => {
     navigate("/customer/request/form");
   };
 
-  const handleCheckboxChange = (index: number) => {
-    setCheckedItems((prev) =>
-      prev.map((checked, idx) => (idx === index ? !checked : checked)),
+  const handleCheckboxChange = (index: number, designerId?: number) => {
+    if (!designerId) {
+      console.error("Invalid designerId:", designerId);
+      return;
+    }
+
+    const newCheckedItems = checkedItems.map((checked, idx) =>
+      idx === index ? !checked : checked,
     );
+    setCheckedItems(newCheckedItems);
+
+    // Update designerIds based on checked items
+    const selectedDesignerIds = workspaces
+      .filter((_, idx) => newCheckedItems[idx])
+      .map((workspace) => workspace.designerId)
+      .filter((id): id is number => id !== undefined);
+
+    handleArrayChange("designerIds", selectedDesignerIds);
   };
 
   if (!user || !user.userId) {
@@ -86,12 +111,17 @@ export default function Search({
   }
 
   if (loading) {
-    return <Text typo="body100">로딩 중...</Text>;
+    return <Loading />;
   }
 
-  const handleDesignerClick = (workspaceId: number) => {
-    navigate(`${workspaceId}`); // 이동 경로 설정
+  const handleDesignerClick = (workspaceId?: number) => {
+    if (workspaceId === undefined) {
+      console.error("Invalid workspaceId:", workspaceId);
+      return;
+    }
+    navigate(ROUTE.customer.request.shop(workspaceId));
   };
+
   return (
     <>
       <AppBar prefix="backButton" title="요청하기" />
@@ -124,21 +154,25 @@ export default function Search({
           {workspaces.length > 0 ? (
             workspaces.map((workspace, idx) => (
               <DesignerItem
-                onClick={() => handleDesignerClick(workspace.workspaceId)}
-                thumbnailUrl={workspace.bannerImageUrl}
                 key={workspace.workspaceId}
                 isSelecting={isSelecting}
                 isChecked={checkedItems[idx]}
-                onCheckboxChange={() => handleCheckboxChange(idx)}
-                name={workspace.workspaceName}
-                experience={workspace.yearOfExperience}
-                review={workspace.reviewCount}
-                score={workspace.reviewRating}
-                address={workspace.address}
-                badges={workspace.representativeBadges.map((badge) => ({
-                  name: badge.badgeName,
-                  color: badge.badgeColor,
-                }))}
+                onCheckboxChange={() =>
+                  handleCheckboxChange(idx, workspace.designerId)
+                }
+                name={workspace.workspaceName || "알 수 없음"}
+                experience={workspace.yearOfExperience || 0}
+                score={workspace.reviewRating || 0}
+                review={workspace.reviewCount || 0}
+                badges={
+                  workspace.representativeBadges?.map((badge) => ({
+                    name: badge.badgeName || "",
+                    color: badge.badgeColor || "gray",
+                  })) || []
+                }
+                thumbnailUrl={workspace.bannerImageUrl || ""}
+                onClick={() => handleDesignerClick(workspace.workspaceId)}
+                address={workspace.address || ""}
               />
             ))
           ) : (

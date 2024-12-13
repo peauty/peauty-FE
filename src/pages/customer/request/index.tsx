@@ -32,7 +32,7 @@ export default function Request() {
         <Search
           onNext={handleNext}
           inputData={formData}
-          handleChange={handleChange}
+          handleArrayChange={handleArrayChange}
         />
       );
     case 2:

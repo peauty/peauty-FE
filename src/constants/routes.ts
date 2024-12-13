@@ -23,7 +23,7 @@ export const ROUTE = {
     },
     request: {
       home: "/customer/request",
-      shop: (shopId: string) => `/customer/request/shop/${shopId}`,
+      shop: (shopId: number) => `/customer/request/shop/${shopId}`,
     },
     status: "/customer/status",
   },
