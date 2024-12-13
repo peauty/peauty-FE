@@ -88,20 +88,35 @@ export default function Status() {
           </>
         );
       case "received":
-      case "confirmed":
         return (
           <>
             <Info />
 
             <div style={{ padding: "0 20px" }}>
               <CustomerInfo
-                date={activeTab === "confirmed" ? statusItemData.date : ""}
                 store={statusItemData.store}
                 score={statusItemData.score}
                 review={statusItemData.review}
-                reservation={
-                  activeTab === "confirmed" ? statusItemData.reservation : ""
-                }
+                location={statusItemData.location}
+                thumbnailUrl={statusItemData.thumbnailUrl}
+                buttons={renderCustomerInfoButtons(activeTab)}
+                status="가위컷 + 곰돌이컷"
+                payment={formatCurrency(statusItemData.payment)} // 쉼표 추가
+                onClick={statusItemData.onClick}
+              />
+            </div>
+          </>
+        );
+      case "confirmed":
+        return (
+          <>
+            <div style={{ padding: "0 20px" }}>
+              <CustomerInfo
+                date={statusItemData.date}
+                store={statusItemData.store}
+                score={statusItemData.score}
+                review={statusItemData.review}
+                reservation={statusItemData.reservation}
                 location={statusItemData.location}
                 thumbnailUrl={statusItemData.thumbnailUrl}
                 buttons={renderCustomerInfoButtons(activeTab)}

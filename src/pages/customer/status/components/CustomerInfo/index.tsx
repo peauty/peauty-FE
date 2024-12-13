@@ -9,11 +9,9 @@ import {
   RatingAndReviewWrapper,
   ContentsWrapper,
   ShopInfoWrapper,
-  TimeWrapper,
 } from "./index.styles";
-import { Divider, Text } from "../../../../../components";
+import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
-import SvgClock from "../../../../../assets/svg/Clock";
 
 interface ButtonProps {
   width: string;
