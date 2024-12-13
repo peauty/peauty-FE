@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { Text } from "../../texts/Text";
 import { ButtonStyle, GridWrapper } from "./RadioSelectButton.style";
 
@@ -8,6 +7,7 @@ export interface RadioSelectButtonProps {
   buttonNames?: string[];
   selectedIndex: number;
   onSelect?: (index: number) => void;
+  disabled?: boolean; // disabled 추가
 }
 
 export default function RadioSelectButton({
@@ -15,10 +15,12 @@ export default function RadioSelectButton({
   buttonNames = [],
   selectedIndex,
   onSelect,
+  disabled = false, 
 }: RadioSelectButtonProps) {
   const [selected, setSelected] = useState<number>(selectedIndex);
 
   const handleSelect = (index: number) => {
+    if (disabled) return; 
     setSelected(index);
     onSelect?.(index);
   };
@@ -30,6 +32,7 @@ export default function RadioSelectButton({
           key={index}
           selected={selected === index}
           onClick={() => handleSelect(index)}
+          disabled={disabled} // 버튼을 비활성화
         >
           <Text
             color={selected === index ? "blue100" : "gray100"}
