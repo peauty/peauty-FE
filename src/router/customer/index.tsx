@@ -10,6 +10,8 @@ import Shop from "../../pages/shop";
 import { noPadding } from "../../style/layoutStyle";
 import { statusPaths } from "./status";
 import QuoteDetail from "../../pages/customer/quote-detail";
+import { paymentPaths } from "./payment";
+
 
 export const customerPaths = [
   {
@@ -71,5 +73,10 @@ export const customerPaths = [
     path: "",
     children: statusPaths,
     element: <Layout style={noPadding} />,
+  },
+  {
+    path: "",
+    children: paymentPaths,
+    element: <Layout  />,
   },
 ];
