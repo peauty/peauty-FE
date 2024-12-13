@@ -16,7 +16,6 @@ interface CarouselProps {
   fullWidth?: boolean;
   autoPlay?: boolean;
   autoPlayInterval?: number;
-  rounded?: boolean;
   dotSize?: number; // Dot의 가로 크기
   dotHeight?: number; // Dot의 높이
 }
@@ -27,7 +26,6 @@ export default function Carousel({
   height = 150,
   autoPlay = true,
   autoPlayInterval = 2500,
-  rounded = false,
   dotSize = 8,
   dotHeight = 8,
 }: CarouselProps) {
@@ -48,7 +46,7 @@ export default function Carousel({
     if (!isTransitioning) {
       setIsTransitioning(true);
       setCurrentIndex(
-        (prevIndex) => (prevIndex - 1 + images.length) % images.length
+        (prevIndex) => (prevIndex - 1 + images.length) % images.length,
       );
     }
   }, [isTransitioning, images.length]);
@@ -105,7 +103,6 @@ export default function Carousel({
                 key={index}
                 src={src}
                 alt={`Slide ${index}`}
-                rounded={rounded}
                 style={{ width: `${width}px`, height: `${height}px` }}
               />
             ))}

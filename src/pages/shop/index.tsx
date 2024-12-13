@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AppBar, GNB } from "../../components";
 import Carousel from "../../components/carousel/Carousel";
-import Temp from "../../assets/images/temp.png";
 import ShopOverview from "./components/ShopOverview";
 import ShopNav from "./components/ShopNav";
 import ShopDetail from "./components/ShopDetail";
@@ -17,14 +16,13 @@ export default function Shop() {
   const { userId } = useParams<{ userId: string }>();
   const [workspace, setWorkspace] = useState<any>(null); // API 데이터를 저장
   const [loading, setLoading] = useState(true); // 로딩 상태
-
-  const images = [Temp, Temp, Temp];
   const [activeSection, setActiveSection] = useState<Section>("detail");
 
   const detailRef = useRef<HTMLDivElement | null>(null);
   const reviewRef = useRef<HTMLDivElement | null>(null);
   const badgeRef = useRef<HTMLDivElement | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   const handleNavigate = (id: Section) => {
     const target =
@@ -67,6 +65,41 @@ export default function Shop() {
 
     fetchWorkspaceData();
   }, [userId]);
+
+  useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id as Section);
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "0px 0px -30% 0px" }, // 감지 민감도 증가
+    );
+
+    const sections = [
+      detailRef.current,
+      reviewRef.current,
+      badgeRef.current,
+    ].filter(Boolean) as HTMLDivElement[];
+
+    sections.forEach((section) => {
+      if (section && observerRef.current) {
+        observerRef.current.observe(section);
+      }
+    });
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,7 +168,6 @@ export default function Shop() {
       <Carousel
         images={[workspace.bannerImageUrl]}
         height={300}
-        rounded={false}
         autoPlay={false}
       />
       <ShopOverview {...overviewData} />
