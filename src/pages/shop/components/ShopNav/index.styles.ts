@@ -19,7 +19,7 @@ export const NavItem = styled.div.withConfig({
   position: relative;
   font-size: 16px;
   font-weight: ${({ active }) => (active ? "600" : "500")};
-  color: ${({ active }) => (active ? "#000000" : "#A0A0A0")};
+  color: ${({ active }) => (active ? `${colors.black}` : `${colors.gray200}`)};
   cursor: pointer;
 
   &:after {

@@ -4,7 +4,6 @@ import Rating from "../../../../../components/rating";
 import {
   Container,
   BadgeWrapper,
- 
   Details,
   RatingWrapper,
   Thumbnail,
@@ -12,10 +11,8 @@ import {
 } from "./index.styles";
 
 interface StatusListItemProps {
- 
-
-  name: string;
- store: string;
+  location: string;
+  store: string;
   score: number;
   review: number;
   badges: { name: string; color: string }[];
@@ -24,8 +21,7 @@ interface StatusListItemProps {
 }
 
 export default function StatusListItem({
-  
-  name,
+  location,
   store,
   score,
   review,
@@ -35,37 +31,27 @@ export default function StatusListItem({
 }: StatusListItemProps) {
   return (
     <Container>
-      
       <ContentsWrapper onClick={onClick}>
-        <Thumbnail src={thumbnailUrl} alt={`${name}의 섬네일`} />
+        <Thumbnail src={thumbnailUrl} alt={`${store}의 섬네일`} />
         <Details>
-          <Text typo="subtitle200">{store}</Text>
-          <Text typo="body600">{name}</Text>
-          <RatingWrapper>
-            <Rating
-              starSize="10"
-              score={score}
-              fontsize="body600"
-              color="gray100"
-            />
-            <Text typo="body600" color="gray100">
-              ({review}) 
-            </Text>
-            <BadgeWrapper>
+          <Text typo="subtitle200">{store}</Text>{" "}
+          <BadgeWrapper>
+            <RatingWrapper>
+              <Rating starSize="13" score={score} fontsize="body400" />
+              <Text typo="body400">({review})</Text>
+            </RatingWrapper>
+            <Text typo="body400">| {location}</Text>
+          </BadgeWrapper>
+          <BadgeWrapper>
             {badges.map((badge, idx) => (
               <Badge
                 key={idx}
                 type="general"
                 text={badge.name}
-                // variant={badge.color}
                 variant="blue"
-                // color={badge.color}
               />
             ))}
           </BadgeWrapper>
-            
-          </RatingWrapper>
-         
         </Details>
       </ContentsWrapper>
     </Container>

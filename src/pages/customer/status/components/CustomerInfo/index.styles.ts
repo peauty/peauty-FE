@@ -13,17 +13,19 @@ export const CardWrapper = styled.div`
   display: flex;
   gap: 20px;
   align-items: center;
+  white-space: break-spaces;
 `;
 
 export const Thumbnail = styled.img`
   background-color: ${colors.gray400};
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 5px;
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   line-height: 1.3;
   gap: 3px; // 내부 요소들 사이의 간격
@@ -32,19 +34,27 @@ export const InfoWrapper = styled.div`
 
 export const NameWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; /* 양 끝에 배치 */
+  width: 100%; /* 전체 너비를 채우도록 설정 */
+  white-space: break-spaces;
 `;
 
 export const RatingWrapper = styled.div`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
+`;
+
+export const ShopInfoWrapper = styled.div`
+  display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const RatingAndReviewWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 5px;
 `;
 
@@ -53,14 +63,10 @@ export const StoreReservationWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-export const DateWrapper = styled.div`
-  font-size: 15px;
-  color: ${colors.gray100};
-`;
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 5px;
   margin-top: 10px;
 `;
 
@@ -73,10 +79,15 @@ export const StyledButton = styled.button<{
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.color};
   width: ${(props) => props.width};
-  height: ${(props) => props.height || "37px"};
+  padding: 8px;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  margin-top: 10px;
+`;
+
+export const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

@@ -25,11 +25,10 @@ export const CutTextWrapper = styled.div`
 `;
 
 export const RequestButton = styled.button`
-  width: 78px;
-  height: 34px;
+  padding: 5px 10px;
   background-color: ${colors.blue300};
   color: ${colors.blue100};
-  ${typography.body300};
+  ${typography.body200};
   border: none;
   border-radius: 4px;
   cursor: pointer;

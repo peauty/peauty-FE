@@ -18,7 +18,6 @@ export const TabItem = styled.div.withConfig({
   font-weight: ${({ active }) => (active ? "600" : "500")};
   color: ${({ active }) => (active ? "#000000" : "#A0A0A0")};
   cursor: pointer;
-  /* border: 1px solid red; */
   width: 80px;
   display: flex;
   justify-content: center;

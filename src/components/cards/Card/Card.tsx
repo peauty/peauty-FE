@@ -31,6 +31,7 @@ export default function Card({
   onClick,
   isSelected = false,
 }: CardProps) {
+  const gen = gender === "F" ? "여자" : "남자";
   return (
     <CardWrapper onClick={onClick} isSelected={isSelected}>
       <div>
@@ -43,8 +44,8 @@ export default function Card({
       </div>
       <InfoWrapper>
         <Text typo={"subtitle200"}>{name}</Text>
-        <Text color={"gray100"} typo={"body300"}>
-          {age}살 | {gender} | {weight}kg | {breed}
+        <Text color={"gray100"} typo={"body400"}>
+          {age}살 | {gen} | {weight}kg | {breed}
         </Text>
         <DiseaseWrapper>
           <TagsWrapper>

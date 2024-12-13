@@ -13,11 +13,9 @@ export const GridWrapper = styled.div`
 export const ButtonStyle = styled.button<{ selected: boolean }>`
   padding: 8px 16px;
   border: 1px solid
-    ${({ selected }) => (selected ? `${colors.blue100}` : `${colors.gray200}`)};
+    ${({ selected }) => (selected ? `${colors.blue100}` : `${colors.gray300}`)};
   background-color: ${({ selected }) =>
     selected ? `${colors.blue300}` : `${colors.white}`};
-  color: ${({ selected }) =>
-    selected ? `${colors.blue100}` : `${colors.gray200}`};
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;

@@ -4,9 +4,6 @@ export const TabWrapper = styled.div`
   display: flex;
   flex-direction: column;  
   justify-content: center;
-  gap: 10px;
-  //align-items: center;
-  //margin: 16px 0;
 `;
 
 export const TabButton = styled.button<{ isActive: boolean }>`

@@ -12,6 +12,7 @@ export default function Status() {
   const statusItemData = {
     name: "수석실장 시언",
     store: "몽뜨의 아틀리네 위례점",
+    location: "서울특별시 강남구 대치동",
     reservation: "미용 확정",
     score: 4.5,
     review: 120,
@@ -76,7 +77,7 @@ export default function Status() {
           <>
             <Info />
             <StatusListItem
-              name={statusItemData.name}
+              location={statusItemData.location}
               store={statusItemData.store}
               score={statusItemData.score}
               review={statusItemData.review}
@@ -90,20 +91,21 @@ export default function Status() {
       case "confirmed":
         return (
           <>
-            <div style={{ padding: "0 20px" }}>
+            <div style={{ padding: "20px" }}>
               <CustomerInfo
                 date={activeTab === "confirmed" ? statusItemData.date : ""}
-                name={statusItemData.name}
                 store={statusItemData.store}
                 score={statusItemData.score}
                 review={statusItemData.review}
                 reservation={
                   activeTab === "confirmed" ? statusItemData.reservation : ""
                 }
+                location={statusItemData.location}
                 thumbnailUrl={statusItemData.thumbnailUrl}
                 buttons={renderCustomerInfoButtons(activeTab)}
                 status="가위컷 + 곰돌이컷"
                 payment={formatCurrency(statusItemData.payment)} // 쉼표 추가
+                onClick={statusItemData.onClick}
               />
             </div>
           </>

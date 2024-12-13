@@ -1,11 +1,9 @@
 import styled from "styled-components";
-
+import theme from "../../../../style/theme";
 export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 9px; // FieldWrapper 간 간격
-  width: 100%;
-  margin-top: 30px;
+  padding: 30px 0 calc(${theme.size.gnbHeight} + 30px);
 `;
 
 export const FieldWrapper = styled.div`
@@ -22,6 +20,7 @@ export const TextWrapper = styled.div`
 
 export const LeftAlignedText = styled.div`
   align-self: flex-end;
+  cursor: pointer;
 `;
 export const EndWrapper = styled.div`
   cursor: pointer;

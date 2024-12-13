@@ -48,8 +48,8 @@ export default function CustomerMyPageDetail() {
 
   return (
     <>
+      <AppBar prefix="backButton" title="회원 정보" />
       <PageWrapper>
-        <AppBar prefix="backButton" title="회원 정보" />
         <ProfileImg
           src={profileData.profileImageUrl || ""}
           alt="profileImage"
@@ -98,12 +98,12 @@ export default function CustomerMyPageDetail() {
           <Divider />
         </FieldWrapper>
         <EndWrapper onClick={handleLogout}>
-          <Text color="gray100" typo={"subtitle300"}>
+          <Text color="gray100" typo={"body200"}>
             로그아웃
           </Text>
         </EndWrapper>
+        <GNB type="designer" />
       </PageWrapper>
-      <GNB type="designer" />
     </>
   );
 }

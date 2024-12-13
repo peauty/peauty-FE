@@ -22,19 +22,20 @@ export const ButtonWrapper = styled.div`
 
 export const MyInfoWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 `;
 
 export const InfoWrapper = styled.div`
   width: 410px;
-  height: 100px;
-  margin-top: 19px;
+  min-height: 50px;
+  margin-top: 20px;
   background-color: ${colors.blue300};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 8px;
-  color: white;
-  padding-left: 30px;
+  border-radius: 10px;
+  padding: 20px 30px;
+  line-height: 1.4;
 `;

@@ -29,15 +29,15 @@ export function GNB({
   const userMenuItems: item[] = [
     { icon: <Home />, label: "홈", path: ROUTE.customer.home },
     { icon: <Request />, label: "요청하기", path: ROUTE.customer.request.base },
-    { icon: <Status />, label: "요청 현황", path: "/customer/status" },
+    { icon: <Status />, label: "요청 현황", path: ROUTE.customer.status },
     { icon: <Mypage />, label: "마이페이지", path: ROUTE.customer.mypage.home },
   ];
 
   const stylistMenuItems = [
     { icon: <Home />, label: "홈", path: ROUTE.designer.home },
     { icon: <Schedule />, label: "스케줄", path: ROUTE.designer.schedule },
-    { icon: <Status />, label: "견적 현황", path: "/propose" },
-    { icon: <Mypage />, label: "마이페이지", path: "/" },
+    { icon: <Status />, label: "견적 현황", path: ROUTE.designer.status },
+    { icon: <Mypage />, label: "마이페이지", path: ROUTE.designer.mypage.home },
   ];
 
   const menuItems = type === "customer" ? userMenuItems : stylistMenuItems;
@@ -78,8 +78,8 @@ export function GNB({
             onClick={onLargeButtonClick}
             disabled={disabled}
           >
-            <Text typo="body100" color="white">
-              {buttonText}
+            <Text typo="subtitle200" color="white">
+              <div style={{ letterSpacing: "1px" }}>{buttonText}</div>
             </Text>
           </CustomButton>
         </ContentWrapper>

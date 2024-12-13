@@ -27,6 +27,7 @@ export const ROUTE = {
       choosePet: "/customer/request/choose-pet-for-grooming", // 반려동물 정보 수정
       customizeGrooming: "/customer/request/customize-grooming", // 미용 방법 구체적으로 선택
     },
+    status: "/customer/status",
   },
   designer: {
     home: "/designer/home", // 디자이너 기본 경로
@@ -37,6 +38,12 @@ export const ROUTE = {
     mypageDetail: "/designer/mypage/detail", // 디자이너 마이페이지 회원 상세 정보 페이지
     mypageEdit: "/designer/mypage/edit", // 디자이너 마이페이지 수정
     schedule: "/designer/schedule",
+    status: "/designer/status",
+    mypage: {
+      home: "/designer/mypage",
+      detail: "/designer/mypage/detail",
+      edit: "/designer/mypage/edit",
+    },
   },
   // Error route
   notFound: "*",
