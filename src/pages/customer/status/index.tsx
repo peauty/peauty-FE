@@ -60,68 +60,70 @@ export default function Status() {
           <>
             <DogList />
             <Info />
-            <CustomerInfo
-              name={statusItemData.name}
-              store={statusItemData.store}
-              score={statusItemData.score}
-              review={statusItemData.review}
-
-              reservation={statusItemData.reservation}
-              thumbnailUrl={statusItemData.thumbnailUrl}
-              buttons={[
-                {
-                  title: "견적서 보기",
-                  bgColor: colors.blue300,
-                  color: colors.blue100,
-                  width: "100%",
-                  onClick: () => console.log("견적서 보기 클릭"),
-                },
-                {
-                  title: "더 이상 보지 않기",
-                  bgColor: colors.gray300,
-                  color: colors.gray100,
-                  width: "100%",
-                  onClick: () => console.log("더이상 보지 않기"),
-                },
-              ]}
-              status="가윗컷 + 곰돌이컷"
-              payment={statusItemData.payment}
-            />
+            <div style={{ padding: "20px" }}>
+              <CustomerInfo
+                name={statusItemData.name}
+                store={statusItemData.store}
+                score={statusItemData.score}
+                review={statusItemData.review}
+                reservation={statusItemData.reservation}
+                thumbnailUrl={statusItemData.thumbnailUrl}
+                buttons={[
+                  {
+                    title: "견적서 보기",
+                    bgColor: colors.blue300,
+                    color: colors.blue100,
+                    width: "100%",
+                    onClick: () => console.log("견적서 보기 클릭"),
+                  },
+                  {
+                    title: "더 이상 보지 않기",
+                    bgColor: colors.gray300,
+                    color: colors.gray100,
+                    width: "100%",
+                    onClick: () => console.log("더이상 보지 않기"),
+                  },
+                ]}
+                status="가윗컷 + 곰돌이컷"
+                payment={statusItemData.payment}
+              />
+            </div>
           </>
         )}
         
         {activeTab === "confirmed" && (
           <>
-          <DogList />
-            <CustomerInfo
-             date={statusItemData.date}
-              name={statusItemData.name}
-              store={statusItemData.store}
-              score={statusItemData.score}
-              review={statusItemData.review}
-              reservation={statusItemData.reservation}
-              thumbnailUrl={statusItemData.thumbnailUrl}
-              buttons={[
-                {
-                  title: "견적서 보기",
-                  bgColor: colors.blue300,
-                  color: colors.blue100,
-                  width: "100%",
-                  onClick: () => console.log("견적서 보기 클릭"),
-                },
-                {
-                  title: "결제 취소",
-                  bgColor: colors.gray300,
-                  color: colors.gray100,
-                  width: "100%",
-                  onClick: () => console.log("더이상 보지 않기"),
-                },
-               
-              ]}
-              status="가윗컷 + 곰돌이컷"
-              payment={statusItemData.payment}
-            />
-            
+            <DogList />
+
+            <div style={{ padding: "20px" }}>
+              <CustomerInfo
+                date={statusItemData.date}
+                name={statusItemData.name}
+                store={statusItemData.store}
+                score={statusItemData.score}
+                review={statusItemData.review}
+                reservation={statusItemData.reservation}
+                thumbnailUrl={statusItemData.thumbnailUrl}
+                buttons={[
+                  {
+                    title: "견적서 보기",
+                    bgColor: colors.blue300,
+                    color: colors.blue100,
+                    width: "100%",
+                    onClick: () => console.log("견적서 보기 클릭"),
+                  },
+                  {
+                    title: "결제 취소",
+                    bgColor: colors.gray300,
+                    color: colors.gray100,
+                    width: "100%",
+                    onClick: () => console.log("더이상 보지 않기"),
+                  },
+                ]}
+                status="가윗컷 + 곰돌이컷"
+                payment={statusItemData.payment}
+              />
+            </div>
           </>
         )}
 
