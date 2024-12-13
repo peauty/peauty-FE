@@ -13,11 +13,11 @@ export default function Status() {
     name: "수석실장 시언",
     store: "몽뜨의 아틀리네 위례점",
     location: "서울특별시 강남구 대치동",
-    reservation: "미용 확정",
+    reservation: "미용 완료",
     score: 4.5,
     review: 120,
     payment: 35000,
-    date: "2021.11.12",
+    date: "2024년 11월 12일",
     badges: [
       { name: "친절함", color: "blue" },
       { name: "전문성", color: "green" },
@@ -57,7 +57,7 @@ export default function Status() {
     {
       title:
         reservationStatus === "received"
-          ? "더 이상 보지 않기"
+          ? "지우기"
           : getButtonTitle(statusItemData.reservation),
       bgColor: colors.gray400,
       color: colors.gray100,
@@ -91,7 +91,9 @@ export default function Status() {
       case "confirmed":
         return (
           <>
-            <div style={{ padding: "20px" }}>
+            <Info />
+
+            <div style={{ padding: "0 20px" }}>
               <CustomerInfo
                 date={activeTab === "confirmed" ? statusItemData.date : ""}
                 store={statusItemData.store}

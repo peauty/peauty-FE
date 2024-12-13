@@ -9,9 +9,11 @@ import {
   RatingAndReviewWrapper,
   ContentsWrapper,
   ShopInfoWrapper,
+  TimeWrapper,
 } from "./index.styles";
 import { Divider, Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
+import SvgClock from "../../../../../assets/svg/Clock";
 
 interface ButtonProps {
   width: string;
@@ -51,14 +53,6 @@ export default function CustomerInfo({
   const pay = payment.toLocaleString();
   return (
     <>
-      {date && (
-        <>
-          <Text typo="subtitle300" color="gray200">
-            {date}
-          </Text>
-          <Divider />
-        </>
-      )}
       <CardContainer>
         <CardWrapper onClick={onClick}>
           <Thumbnail src={thumbnailUrl} alt={store} />
@@ -71,7 +65,9 @@ export default function CustomerInfo({
             </NameWrapper>
             <ContentsWrapper>
               <RatingAndReviewWrapper>
-                <Text typo={"body400"}>{location}</Text>
+                <Text typo="body400" color="gray200">
+                  {location}
+                </Text>
 
                 {status && (
                   <Text typo={"body600"} color={"blue100"}>

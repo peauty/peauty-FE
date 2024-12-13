@@ -37,10 +37,19 @@ export default function StatusListItem({
           <Text typo="subtitle200">{store}</Text>{" "}
           <BadgeWrapper>
             <RatingWrapper>
-              <Rating starSize="13" score={score} fontsize="body400" />
-              <Text typo="body400">({review})</Text>
+              <Rating
+                starSize="13"
+                score={score}
+                fontsize="body400"
+                color="gray200"
+              />
+              <Text typo="body400" color="gray200">
+                ({review})
+              </Text>
             </RatingWrapper>
-            <Text typo="body400">| {location}</Text>
+            <Text typo="body400" color="gray200">
+              | {location}
+            </Text>
           </BadgeWrapper>
           <BadgeWrapper>
             {badges.map((badge, idx) => (

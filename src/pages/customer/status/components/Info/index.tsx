@@ -16,12 +16,15 @@ export default function Info() {
   return (
     <Container>
       <InnerBox>
-        <Text typo="body300" color="blue100">
-          2024.12.24 12:30
+        <Text typo="body300" color="gray100">
+          2024.12.24
         </Text>
         <CutTextWrapper>
-          <Text typo="subtitle300" color="black">
-            곰돌이컷+가위컷
+          <Text typo="subtitle300" color="blue100">
+            곰돌이컷+가위컷{" "}
+            <Text typo="subtitle300" color="gray200">
+              을 요청했어요!
+            </Text>
           </Text>
           <RequestButton onClick={handleButtonClick}>
             내 요청 보기

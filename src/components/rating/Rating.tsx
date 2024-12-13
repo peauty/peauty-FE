@@ -6,7 +6,7 @@ type Typo = keyof typeof typography;
 export interface RatingProps {
   score: number;
   fontsize?: Typo;
-  color?: "black" | "gray100";
+  color?: "black" | "gray100" | "gray200";
   starSize?: string;
 }
 export default function Rating({

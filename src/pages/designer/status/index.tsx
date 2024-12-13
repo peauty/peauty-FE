@@ -77,7 +77,7 @@ export default function Status() {
               onClick: () => console.log("견적서 보기 클릭"),
             },
             {
-              title: "미용 확정",
+              title: "미용 완료",
               bgColor: colors.gray200,
               color: colors.gray100,
               onClick: () => console.log("미용 확정 클릭"),

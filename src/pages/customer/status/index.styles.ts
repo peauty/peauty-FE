@@ -23,5 +23,4 @@ export const TabButton = styled.button<{ isActive: boolean }>`
 
 export const TabContentWrapper = styled.div`
   padding: 16px;
- // background-color: #ffffff;
 `;

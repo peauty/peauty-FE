@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import { colors } from "../../../../../style/color";
 
+export const TimeWrapper = styled.div`
+  display: flex;
+  gap: 5px;
+  padding-left: 5px;
+`;
+
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   height: auto;
   cursor: pointer;
+  margin-top: 20px;
 `;
 
 export const CardWrapper = styled.div`
@@ -66,7 +73,7 @@ export const StoreReservationWrapper = styled.div`
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 10px;
   margin-top: 10px;
 `;
 
