@@ -78,7 +78,7 @@ export default function CustomerInfo({
               </RatingAndReviewWrapper>
               <RatingWrapper>
                 {status && (
-                  <Text typo={"body600"} color={"blue100"}>
+                  <Text typo={"body500"} color={"blue100"}>
                     {status}
                   </Text>
                 )}
