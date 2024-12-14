@@ -49,12 +49,12 @@ export default function PetInfo({
   const statusColor = status === "견적 확인중" ? "blue100" : "gray100";
   return (
     <>
+      <CardContainer>
       {date && (
         <>
           <DateWrapper>{date}</DateWrapper>
         </>
       )}
-      <CardContainer>
         <CardWrapper>
           <div>
             <ProfileImg

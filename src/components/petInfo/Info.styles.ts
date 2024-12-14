@@ -6,8 +6,9 @@ export const CardContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 20px 25px;
+  padding: 0px 25px 20px;
   border-bottom: 2px solid ${colors.background};
+  border-top: 2px solid ${colors.background};
   cursor: pointer;
 `;
 
@@ -61,8 +62,8 @@ export const StoreReservationWrapper = styled.div`
 export const DateWrapper = styled.div`
   font-size: 12px;
   font-weight: 500;
-  padding: 10px 25px 0px;
-  border-top: 2px solid ${colors.background};
+  padding: 20px 0px 10px;
+  /* border-top: 2px solid ${colors.background}; */
 `;
 
 export const ButtonWrapper = styled.div`
