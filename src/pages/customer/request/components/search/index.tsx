@@ -68,7 +68,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
     };
 
     fetchData();
-  }, [user, isFetched]);
+  }, [user.userId, isFetched]);
 
   const handleSelectClick = () => {
     setIsSelecting(!isSelecting);
@@ -76,9 +76,6 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
       setCheckedItems(Array(workspaces.length).fill(false));
       handleArrayChange("designerIds", []);
     }
-  };
-  const handleQuote = () => {
-    navigate("/customer/request/form");
   };
 
   const handleCheckboxChange = (index: number, designerId?: number) => {

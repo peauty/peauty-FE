@@ -20,7 +20,6 @@ import {
   ImageUnit,
   SectionWrapper,
   SelectedHair,
-  TwoItemsWrapper,
 } from "./index.styles";
 
 import {
@@ -37,7 +36,6 @@ import {
 import { HAIRSTYLES, CUTTING, TIME } from "../../../../../constants/request";
 import InfoButton from "../../../../../components/button/InfoButton";
 import DropBox from "./components/DropBox";
-import { useNavigate } from "react-router-dom";
 import { DateDropBox } from "../../../../../components/button/DateDropBox";
 import {
   GroomingTypeType,
@@ -54,6 +52,8 @@ const faceTypeMapping: Record<string, TotalGroomingFaceTypeType> = {
   곰돌이컷: "BEAR",
   물개컷: "SEAL",
   라이언컷: "LION",
+  하이바컷: "HIGH_BAR",
+  귀툭튀: "POINTED_EARS",
 };
 
 const bodyTypeMapping: Record<string, TotalGroomingBodyTypeType> = {
