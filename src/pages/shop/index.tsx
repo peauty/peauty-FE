@@ -22,15 +22,14 @@ export default function Shop() {
   const reviewRef = useRef<HTMLDivElement | null>(null);
   const badgeRef = useRef<HTMLDivElement | null>(null);
   const navRef = useRef<HTMLDivElement | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
 
   const handleNavigate = (id: Section) => {
     const target =
       id === "detail"
         ? detailRef.current
         : id === "review"
-          ? reviewRef.current
-          : badgeRef.current;
+        ? reviewRef.current
+        : badgeRef.current;
 
     if (target) {
       const navHeight = navRef.current?.offsetHeight || 0;
@@ -67,46 +66,25 @@ export default function Shop() {
   }, [userId]);
 
   useEffect(() => {
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id as Section);
-          }
-        });
-      },
-      { threshold: 0.3, rootMargin: "0px 0px -30% 0px" },
-    );
-
-    const sections = [
-      detailRef.current,
-      reviewRef.current,
-      badgeRef.current,
-    ].filter(Boolean) as HTMLDivElement[];
-
-    sections.forEach((section) => {
-      if (section && observerRef.current) {
-        observerRef.current.observe(section);
-      }
-    });
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, []);
-
-  useEffect(() => {
     const handleScroll = () => {
+      const detailTop = detailRef.current?.getBoundingClientRect().top || 0;
+      const detailBottom = detailRef.current?.getBoundingClientRect().bottom || 0;
+
+      const reviewTop = reviewRef.current?.getBoundingClientRect().top || 0;
+      const reviewBottom = reviewRef.current?.getBoundingClientRect().bottom || 0;
+
+      const badgeTop = badgeRef.current?.getBoundingClientRect().top || 0;
       const badgeBottom = badgeRef.current?.getBoundingClientRect().bottom || 0;
+
       const windowHeight = window.innerHeight;
 
       if (badgeBottom <= windowHeight && badgeBottom > 0) {
+        setActiveSection("badge");
+      } else if (detailTop <= 125 && detailBottom > 125) {
+        setActiveSection("detail");
+      } else if (reviewTop <= 125 && reviewBottom > 125) {
+        setActiveSection("review");
+      } else if (badgeTop <= 125) {
         setActiveSection("badge");
       }
     };
@@ -148,10 +126,6 @@ export default function Shop() {
     openDay: workspace.openDay,
     paymentOptions: workspace.paymentOptions,
     phoneNumber: workspace.phoneNumber,
-  };
-
-  const badgeData = {
-    representativeBadgeNames: workspace.representativeBadgeNames,
   };
 
   return (

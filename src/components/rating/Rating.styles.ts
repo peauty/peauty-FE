@@ -4,4 +4,5 @@ export const RatingWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 2px;
+  align-items: center;
 `;
