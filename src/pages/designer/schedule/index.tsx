@@ -20,8 +20,8 @@ const statusItemData = {
   reservation: "예약완료",
   score: 4.5,
   review: 120,
-  payment: 35000,
-  date: 20211112,
+  payment: "35000",
+  date: "20211112",
   badges: [
     { name: "친절함", color: "blue" },
     { name: "전문성", color: "green" },
