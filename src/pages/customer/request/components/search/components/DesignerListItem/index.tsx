@@ -1,6 +1,6 @@
-import { Text } from "../../../../components";
-import { Badge } from "../../../../components/category/Badge";
-import Rating from "../../../../components/rating";
+import { Text } from "../../../../../../../components";
+import { Badge } from "../../../../../../../components/category/Badge";
+import Rating from "../../../../../../../components/rating";
 import {
   Container,
   BadgeWrapper,
@@ -20,7 +20,7 @@ interface DesignerItemProps {
   experience: number;
   score: number;
   review: number;
-  badges: { name: string; color: string; id: number; type: string }[];
+  badges: { name: string; color: string; type: string }[];
   thumbnailUrl: string;
   address: string;
   onClick: () => void;

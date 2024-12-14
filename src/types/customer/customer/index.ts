@@ -1,3 +1,9 @@
+export type ScissorsType = "NONE" | "GOLD" | "SILVER" | "BRONZE";
+
+export type BadgeColorType = "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
+
+export type BadgeTypeType = "GENERAL" | "SCISSORS";
+
 export interface GetCustomerProfileResponse {
   customerId?: number;
   name?: string;
@@ -29,35 +35,102 @@ export interface UploadProfileImageResponse {
   uploadedProfileImageUrl?: string;
 }
 
+export interface GetDesignerWorkspaceResponse {
+  designerId?: number;
+  workspaceId?: number;
+  bannerImageUrl?: string;
+  workspaceName?: string;
+  reviewRating?: number;
+  reviewsCount?: number;
+  scissors?: ScissorsType;
+  introduceTitle?: string;
+  introduce?: string;
+  noticeTitle?: string;
+  notice?: string;
+  address?: string;
+  addressDetail?: string;
+  phoneNumber?: string;
+  yearOfExperience?: number;
+  openHours?: string;
+  closeHours?: string;
+  openDay?: string;
+  directionGuide?: string;
+  licenses?: string[];
+  paymentOptions?: string[];
+  representativeBadgeNames?: string[];
+}
+
 export interface Badge {
-  badgeColor: string;
-  badgeContent: string;
-  badgeId: number;
-  badgeImageUrl: string;
-  badgeName: string;
-  badgeType: string;
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeImageUrl?: string;
+  badgeColor?: BadgeColorType;
+  badgeType?: BadgeTypeType;
 }
 
 export interface Workspace {
-  workspaceId: number;
-  workspaceName: string;
-  address: string;
-  addressDetail: string;
-  bannerImageUrl: string;
-  reviewCount: number;
-  reviewRating: number;
-  designerName: string;
-  yearOfExperience: number; // 추가된 필드
-  representativeBadges: Badge[]; // 기존 representativeBadges를 이름 배열로 변경
-  scissorsRank: string; // 추가된 필드
+  workspaceId?: number;
+  workspaceName?: string;
+  address?: string;
+  addressDetail?: string;
+  bannerImageUrl?: string;
+  reviewCount?: number;
+  reviewRating?: number;
+  designerId?: number;
+  designerName?: string;
+  yearOfExperience?: number;
+  representativeBadges?: Badge[]; // Badge 배열
 }
 
 export interface GetAroundWorkspacesResponse {
-  customerId: number;
-  customerAddress: string;
-  workspaces: Workspace[];
+  customerId?: number;
+  customerAddress?: string;
+  workspaces?: Workspace[]; // Workspace 배열
+}
+
+export interface GetAroundWorkspaceResponse {
+  workspaceId?: number;
+  workspaceName?: string;
+  address?: string;
+  addressDetail?: string;
+  bannerImageUrl?: string;
+  reviewCount?: number;
+  reviewRating?: number;
+  designerId?: number;
+  designerName?: string;
+  yearOfExperience?: number;
+  representativeBadges?: {
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
+}
+
+export interface BadgeResponse {
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeImageUrl?: string;
+  badgeColor?: BadgeColorType;
+  badgeType?: BadgeTypeType;
 }
 
 export interface CheckCustomerNicknameDuplicatedResponse {
   message?: string;
+}
+
+export interface GetDesignerBadgesForCustomerResponse {
+  acquiredBadges?: {
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
+  representativeBadges?: BadgeResponse[];
 }
