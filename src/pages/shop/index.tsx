@@ -144,8 +144,9 @@ export default function Shop() {
     noticeTitle: workspace.noticeTitle,
     notice: workspace.notice,
     address: workspace.address,
+    representativeBadges: workspace.representativeBadges,
   };
-
+  console.log(workspace.representativeBadges);
   const detailData = {
     workspaceName: workspace.workspaceName,
     address: workspace.address,

@@ -1,3 +1,4 @@
+import { Badge } from "../../designer/designer";
 export interface ShopOverviewProps {
   workspaceName: string;
   reviewRating: number;
@@ -7,6 +8,7 @@ export interface ShopOverviewProps {
   noticeTitle: string;
   notice: string;
   address: string;
+  representativeBadges: Badge[];
 }
 export interface ShopOverviewinfoProps {
   workspaceName: string;
@@ -15,6 +17,7 @@ export interface ShopOverviewinfoProps {
   introduceTitle?: string;
   introduce?: string;
   address: string;
+  representativeBadges: Badge[];
 }
 
 export interface ShopDetailProps {

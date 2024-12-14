@@ -13,6 +13,7 @@ export default function ShopOverview({
   noticeTitle,
   notice,
   address,
+  representativeBadges,
 }: ShopOverviewProps) {
   return (
     <div>
@@ -23,6 +24,7 @@ export default function ShopOverview({
         introduceTitle={introduceTitle}
         introduce={introduce}
         address={address}
+        representativeBadges={representativeBadges}
       />
       <ShopEvent noticeTitle={noticeTitle} notice={notice} />
       <Divider thickness={3} />

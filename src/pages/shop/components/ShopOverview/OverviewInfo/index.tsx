@@ -15,7 +15,9 @@ export default function OverviewInfo({
   introduceTitle,
   introduce,
   address,
+  representativeBadges,
 }: ShopOverviewinfoProps) {
+  console.log("뱃지 데이터:" + representativeBadges);
   return (
     <InfoWrapper>
       <div>
@@ -41,8 +43,14 @@ export default function OverviewInfo({
           <Text typo="body400">{introduce}</Text>
         </div>
         <IconContain>
-          <Badge type="general" text="사업자 등록 인증" variant="green" />
-          <Badge type="general" text="말티즈 전문가" />
+          {representativeBadges.map((badge, index) => (
+            <Badge
+              key={index}
+              type={badge.badgeType.toLowerCase()}
+              text={badge.badgeName}
+              variant={badge.badgeColor.toLowerCase()}
+            />
+          ))}
         </IconContain>
       </TextWrapper>
     </InfoWrapper>
