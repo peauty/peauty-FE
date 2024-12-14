@@ -13,18 +13,27 @@ import { DownArrow, UpArrow } from "../../../assets/svg";
 interface DateDropBoxProps {
   label?: string;
   type: "birthday" | "reservation";
+  selectedDate?: string; // 초기 날짜를 설정하기 위해 추가
   onChange?: (date: string) => void;
 }
 
 export default function DateDropBox({
   label,
   type,
+  selectedDate = "",
   onChange = () => {},
 }: DateDropBoxProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [selectedYear, setSelectedYear] = useState<string | null>(null);
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+
+  const initialYear = selectedDate ? selectedDate.split("-")[0] : null;
+  const initialMonth = selectedDate ? selectedDate.split("-")[1] : null;
+  const initialDay = selectedDate ? selectedDate.split("-")[2] : null;
+
+  const [selectedYear, setSelectedYear] = useState<string | null>(initialYear);
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(
+    initialMonth,
+  );
+  const [selectedDay, setSelectedDay] = useState<string | null>(initialDay);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -59,7 +68,7 @@ export default function DateDropBox({
   const handleDateChange = () => {
     if (selectedYear && selectedMonth && selectedDay) {
       const formattedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
-      onChange(formattedDate); // 호출
+      onChange(formattedDate); // 부모 컴포넌트에 변경된 날짜 전달
     }
   };
 
@@ -79,7 +88,7 @@ export default function DateDropBox({
     };
   }, []);
 
-  // 상태 변경 시 날짜가 모두 설정되면 날짜 업데이트
+  // 상태 변경 시 날짜 업데이트
   useEffect(() => {
     handleDateChange();
   }, [selectedYear, selectedMonth, selectedDay]);

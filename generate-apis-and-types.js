@@ -50,13 +50,40 @@ const groupPathsByTag = (paths) => {
   return groups;
 };
 
+// Enum 타입 추출 함수
+const extractEnumTypes = (schema) => {
+  const enums = {};
+
+  const processSchema = (schema, path = "") => {
+    if (!schema) return;
+
+    if (schema.type === "string" && schema.enum) {
+      const enumName =
+        path
+          .split(".")
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join("") + "Type";
+      enums[enumName] = schema.enum;
+      return enumName;
+    }
+
+    if (schema.properties) {
+      Object.entries(schema.properties).forEach(([key, prop]) => {
+        processSchema(prop, path ? `${path}.${key}` : key);
+      });
+    }
+  };
+
+  processSchema(schema);
+  return enums;
+};
+
 // 스키마를 TypeScript 인터페이스로 변환하는 함수
 const convertSchemaToTS = (schema, components, processedRefs = new Set()) => {
   if (!schema) return "any";
 
   if (schema.$ref) {
     const refName = schema.$ref.split("/").pop();
-    // Prevent infinite recursion with circular references
     if (processedRefs.has(refName)) {
       return refName;
     }
@@ -76,7 +103,6 @@ const convertSchemaToTS = (schema, components, processedRefs = new Set()) => {
 
   if (schema.type === "object" || (!schema.type && schema.properties)) {
     if (schema.additionalProperties) {
-      // Handle dictionary/map types
       const valueType = convertSchemaToTS(
         schema.additionalProperties,
         components,
@@ -88,26 +114,65 @@ const convertSchemaToTS = (schema, components, processedRefs = new Set()) => {
     const props = Object.entries(schema.properties || {})
       .map(([key, prop]) => {
         const isRequired = (schema.required || []).includes(key);
-        const typeStr = convertSchemaToTS(prop, components, processedRefs);
+        let typeStr;
+
+        // Check if property is an enum
+        if (prop.type === "string" && prop.enum) {
+          const enumName =
+            key
+              .split(/(?=[A-Z])/)
+              .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+              .join("") + "Type";
+          typeStr = enumName;
+        } else {
+          typeStr = convertSchemaToTS(prop, components, processedRefs);
+        }
+
         return `  ${key}${isRequired ? "" : "?"}: ${typeStr};`;
       })
       .join("\n");
     return `{\n${props}\n}`;
   }
 
+  if (schema.type === "string" && schema.enum) {
+    const enumName = Object.keys(components).find(
+      (key) =>
+        components[key].properties &&
+        Object.values(components[key].properties).some(
+          (prop) =>
+            prop === schema || JSON.stringify(prop) === JSON.stringify(schema),
+        ),
+    );
+
+    if (enumName) {
+      const propertyName = Object.keys(components[enumName].properties).find(
+        (key) =>
+          components[enumName].properties[key] === schema ||
+          JSON.stringify(components[enumName].properties[key]) ===
+            JSON.stringify(schema),
+      );
+
+      if (propertyName) {
+        return (
+          propertyName
+            .split(/(?=[A-Z])/)
+            .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+            .join("") + "Type"
+        );
+      }
+    }
+
+    return schema.enum.map((e) => `'${e}'`).join(" | ");
+  }
+
   const typeMapping = {
     integer: "number",
-    string: (prop) =>
-      prop.enum ? prop.enum.map((e) => `'${e}'`).join(" | ") : "string",
+    string: "string",
     boolean: "boolean",
     number: "number",
   };
 
-  return typeMapping[schema.type]
-    ? typeof typeMapping[schema.type] === "function"
-      ? typeMapping[schema.type](schema)
-      : typeMapping[schema.type]
-    : "any";
+  return typeMapping[schema.type] || "any";
 };
 
 const extractReferencedSchemas = (schema, schemas, collectedSchemas = {}) => {
@@ -182,7 +247,6 @@ const generateApiCode = (tag, endpoints, serverType) => {
     const params = [];
     let urlParams = endpoint.path;
 
-    // Path parameters
     endpoint.parameters?.forEach((param) => {
       if (param.in === "path") {
         params.push(`${param.name}: ${convertSchemaToTS(param.schema)}`);
@@ -190,7 +254,6 @@ const generateApiCode = (tag, endpoints, serverType) => {
       }
     });
 
-    // Query parameters
     const queryParams =
       endpoint.parameters?.filter((p) => p.in === "query") || [];
     if (queryParams.length > 0) {
@@ -203,7 +266,6 @@ const generateApiCode = (tag, endpoints, serverType) => {
       params.push(`query: { ${queryType} }`);
     }
 
-    // Multipart form data 처리
     let isMultipart = contentType === "multipart/form-data";
     if (isMultipart) {
       const formDataSchema =
@@ -216,9 +278,7 @@ const generateApiCode = (tag, endpoints, serverType) => {
         });
       }
       imports.add('import FormData from "form-data";');
-    }
-    // JSON request body
-    else if (requestType) {
+    } else if (requestType) {
       params.push(`data: ${requestType}`);
     }
 
@@ -261,15 +321,19 @@ const generateApiCode = (tag, endpoints, serverType) => {
 const generateTypeCode = (schemas) => {
   const processedSchemas = new Set();
   const interfaces = [];
+  const enumTypes = {};
 
   const processSchema = (name, schema) => {
     if (processedSchemas.has(name)) return;
     processedSchemas.add(name);
 
+    // Extract enum types
+    const schemaEnums = extractEnumTypes(schema);
+    Object.assign(enumTypes, schemaEnums);
+
     const tsInterface = convertSchemaToTS(schema, schemas);
     interfaces.push(`export interface ${name} ${tsInterface}\n`);
 
-    // Process any referenced schemas
     const referencedSchemas = extractReferencedSchemas(schema, schemas);
     Object.entries(referencedSchemas).forEach(([refName, refSchema]) => {
       if (!processedSchemas.has(refName)) {
@@ -282,7 +346,13 @@ const generateTypeCode = (schemas) => {
     processSchema(name, schema);
   });
 
-  return interfaces.join("\n");
+  // Generate enum type declarations
+  const enumDeclarations = Object.entries(enumTypes).map(
+    ([name, values]) =>
+      `export type ${name} = ${values.map((v) => `'${v}'`).join(" | ")};\n`,
+  );
+
+  return [...enumDeclarations, "\n", ...interfaces].join("\n");
 };
 
 // 디렉토리 생성 함수
@@ -297,7 +367,6 @@ const createDirectoryIfNotExists = async (dir) => {
 // 메인 실행 함수
 const generateFiles = async () => {
   try {
-    // 각 서버 타입별로 파일 생성
     for (const [serverType, serverConfig] of Object.entries(SERVERS)) {
       console.log(`Generating files for ${serverType} server...`);
 
@@ -309,29 +378,24 @@ const generateFiles = async () => {
 
       const groupedPaths = groupPathsByTag(paths);
 
-      // API 디렉토리 생성
       const apisDir = path.join(BASE_DIR, "apis", serverType, "resources");
       const typesDir = path.join(BASE_DIR, "types", serverType);
 
       await createDirectoryIfNotExists(apisDir);
       await createDirectoryIfNotExists(typesDir);
 
-      // 각 태그별로 파일 생성
       for (const [tag, endpoints] of Object.entries(groupedPaths)) {
         const tagLower = tag.toLowerCase();
 
-        // API 폴더 및 파일 생성
         const tagApiDir = path.join(apisDir, tagLower);
         await createDirectoryIfNotExists(tagApiDir);
 
         const apiCode = generateApiCode(tag, endpoints, serverType);
         await fs.writeFile(path.join(tagApiDir, "index.ts"), apiCode);
 
-        // 타입 폴더 및 파일 생성
         const tagTypeDir = path.join(typesDir, tagLower);
         await createDirectoryIfNotExists(tagTypeDir);
 
-        // 관련된 타입들 추출
         const relevantSchemas = {};
         endpoints.forEach((endpoint) => {
           const responseSchema =
@@ -340,13 +404,11 @@ const generateFiles = async () => {
             if (responseSchema.$ref) {
               const schemaName = responseSchema.$ref.split("/").pop();
               relevantSchemas[schemaName] = schemas[schemaName];
-              // Extract all nested schemas
               Object.assign(
                 relevantSchemas,
                 extractReferencedSchemas(schemas[schemaName], schemas),
               );
             } else {
-              // Handle inline response schemas
               const tempName = `${endpoint.operationId}Response`;
               relevantSchemas[tempName] = responseSchema;
               Object.assign(
@@ -362,13 +424,11 @@ const generateFiles = async () => {
             if (requestSchema.$ref) {
               const schemaName = requestSchema.$ref.split("/").pop();
               relevantSchemas[schemaName] = schemas[schemaName];
-              // Extract all nested schemas
               Object.assign(
                 relevantSchemas,
                 extractReferencedSchemas(schemas[schemaName], schemas),
               );
             } else {
-              // Handle inline request schemas
               const tempName = `${endpoint.operationId}Request`;
               relevantSchemas[tempName] = requestSchema;
               Object.assign(
@@ -379,7 +439,6 @@ const generateFiles = async () => {
           }
         });
 
-        // 타입 파일 생성
         const typeCode = generateTypeCode(relevantSchemas);
         await fs.writeFile(path.join(tagTypeDir, "index.ts"), typeCode);
       }
@@ -391,5 +450,4 @@ const generateFiles = async () => {
   }
 };
 
-// 스크립트 실행
 generateFiles();
