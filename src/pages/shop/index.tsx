@@ -5,7 +5,7 @@ import ShopOverview from "./components/ShopOverview";
 import ShopNav from "./components/ShopNav";
 import ShopDetail from "./components/ShopDetail";
 import ShopReview from "./components/ShopReview";
-import ShopBadge from "./components/ShopBadge";
+import { ShopBadge } from "./components/ShopBadge";
 import { StickyContainer } from "./index.styles";
 import { getDesignerWorkspace } from "../../apis/resources/designer";
 import { useParams } from "react-router-dom";
@@ -79,7 +79,7 @@ export default function Shop() {
           }
         });
       },
-      { threshold: 0.3, rootMargin: "0px 0px -30% 0px" }, // 감지 민감도 증가
+      { threshold: 0.3, rootMargin: "0px 0px -30% 0px" },
     );
 
     const sections = [
@@ -103,20 +103,11 @@ export default function Shop() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = [
-        { id: "detail", ref: detailRef },
-        { id: "review", ref: reviewRef },
-        { id: "badge", ref: badgeRef },
-      ];
+      const badgeBottom = badgeRef.current?.getBoundingClientRect().bottom || 0;
+      const windowHeight = window.innerHeight;
 
-      for (const section of sections) {
-        const top = section.ref.current?.getBoundingClientRect().top || 0;
-        const bottom = section.ref.current?.getBoundingClientRect().bottom || 0;
-
-        if (top <= 125 && bottom > 125) {
-          setActiveSection(section.id as Section);
-          break;
-        }
+      if (badgeBottom <= windowHeight && badgeBottom > 0) {
+        setActiveSection("badge");
       }
     };
 
@@ -146,7 +137,7 @@ export default function Shop() {
     address: workspace.address,
     representativeBadges: workspace.representativeBadges,
   };
-  console.log(workspace.representativeBadges);
+
   const detailData = {
     workspaceName: workspace.workspaceName,
     address: workspace.address,
@@ -177,7 +168,11 @@ export default function Shop() {
       </StickyContainer>
       <ShopDetail ref={detailRef} id="detail" {...detailData} />
       <ShopReview ref={reviewRef} id="review" />
-      <ShopBadge ref={badgeRef} id="badge" {...badgeData} />
+      <ShopBadge
+        ref={badgeRef}
+        id="badge"
+        badges={workspace.representativeBadges || []}
+      />
       <GNB type="customer" />
     </>
   );

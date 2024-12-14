@@ -1,5 +1,4 @@
 import { NavWrapper, NavItem } from "./index.styles";
-
 // "detail", "review", "badge"와 같은 섹션 타입 정의
 type Section = "detail" | "review" | "badge";
 
