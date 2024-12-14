@@ -36,5 +36,4 @@ export const BadgeWrapper = styled.div`
 export const ContentsWrapper = styled.div`
   display: flex;
   gap: 20px;
-  align-items: center;
 `;

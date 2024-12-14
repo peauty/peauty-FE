@@ -5,6 +5,7 @@ import CustomerRequestNotice from "../../../pages/customer/request/notice";
 import Request from "../../../pages/request";
 import Shop from "../../../pages/shop";
 import { noPadding } from "../../../style/layoutStyle";
+import RequestLook from "../../../pages/customer/request/request-look"
 
 export const requestPaths = [
   {
@@ -39,5 +40,10 @@ export const requestPaths = [
   {
     path: "form",
     element: <CustomizeGrooming />,
+  },
+  {
+    path: "request-look",
+    element: <RequestLook />,
+    
   },
 ];

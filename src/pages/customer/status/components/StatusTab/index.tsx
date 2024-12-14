@@ -1,6 +1,6 @@
 import { TabWrapper, TabItem } from "./index.styles";
 
-type Tab = "received" | "sent" | "confirmed";
+type Tab = "sent" | "received" | "confirmed";
 
 interface StatusTabProps {
   activeTab: Tab;
@@ -9,8 +9,8 @@ interface StatusTabProps {
 
 export default function StatusTab({ activeTab, onTabClick }: StatusTabProps) {
   const tabs: { id: Tab; label: string }[] = [
-    { id: "received", label: "견적 요청" },
-    { id: "sent", label: "받은 견적" },
+    { id: "sent", label: "보낸 요청" },
+    { id: "received", label: "받은 견적" },
     { id: "confirmed", label: "확정 견적" },
   ];
 

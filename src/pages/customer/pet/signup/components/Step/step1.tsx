@@ -16,33 +16,13 @@ import {
 
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { ChangeEvent } from "react";
-import { DateDropBox } from "../../../../../../components/button/DateDropBox";
-import theme from "../../../../../../style/theme";
+import { breedMap } from "../../../../../../constants/puppy";
 
 interface Step1Props {
   onNext: () => void;
   inputData: RegisterPuppyRequest;
   handleChange: (key: string, value: string) => void;
 }
-
-const breedMapping: Record<string, string> = {
-  아펜핀셔: "AFFENPINSCHER",
-  테리어: "TERRIER",
-  비글: "BEAGLE",
-  비숑: "BICHON",
-  치와와: "CHIHUAHUA",
-  말티즈: "MALTESE",
-  포메라니안: "POMERANIAN",
-  퍼그: "PUG",
-  시츄: "SHIHTZU",
-  셰퍼드: "SHEPHERD",
-  보더콜리: "BORDER_COLLIE",
-  불독: "BULLDOG",
-  달마시안: "DALMATIAN",
-  푸들: "POODLE",
-  리트리버: "RETRIEVER",
-  사모예드: "SAMOYED",
-};
 
 export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
   const handleInputChange = (
@@ -125,10 +105,8 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           <DropButton
             label="견종"
             placeholder="견종을 선택해주세요"
-            options={Object.keys(breedMapping)}
-            onSelect={(value) =>
-              handleChange("breed", breedMapping[value] || "")
-            }
+            options={Object.keys(breedMap)}
+            onSelect={(value) => handleChange("breed", breedMap[value] || "")}
           />
 
           {renderRadioButtonGroup(

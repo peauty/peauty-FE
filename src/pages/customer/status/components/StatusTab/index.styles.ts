@@ -5,25 +5,23 @@ export const TabWrapper = styled.div`
   position: sticky;
   display: flex;
   align-items: center;
-  padding: 10px 25px;
+  height: 40px;
+  margin-top: 20px;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
 `;
 
 export const TabItem = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "active",
 })<{ active: boolean }>`
+  position: relative;
+  font-weight: ${({ active }) => (active ? "600" : "500")};
+  color: ${({ active }) => (active ? "#000000" : "#A0A0A0")};
+  cursor: pointer;
+  width: 100%;
   display: flex;
   justify-content: center;
-  position: relative;
-  font-size: 16px;
-  font-weight: ${({ active }) => (active ? "600" : "500")};
-  color: ${({ active }) => (active ? `${colors.black}` : `${colors.gray200}`)};
-  cursor: pointer;
-  margin-right: 25px; /* 각 Tab 아이템 사이에 25px 간격 추가 */
-
-  &:last-child {
-    margin-right: 0; /* 마지막 Tab 아이템은 간격을 주지 않음 */
-  }
-
   &:after {
     content: "";
     position: absolute;
