@@ -59,14 +59,6 @@ export default function Step2({
           />
         </ColumnWrapper>
 
-        <MultiSelectButton
-          row={3}
-          col={3}
-          buttonNames={diseases}
-          selectedIndexes={selectedIndexes} // 상태 전달
-          onSelect={handleDiseaseSelect}
-        />
-
         <CustomInput
           label="기타"
           placeholder="기타 건강상태를 알려주세요"
