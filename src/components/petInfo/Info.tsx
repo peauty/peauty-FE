@@ -13,6 +13,7 @@ import {
 import { Tag } from "../category/Tag";
 import { Text } from "../texts/Text";
 import ProfileImg from "../profile-img/ProfileImg";
+import { colors } from "../../style/color";
 
 interface ButtonProps {
   title: string;
@@ -50,11 +51,11 @@ export default function PetInfo({
   return (
     <>
       <CardContainer>
-      {date && (
-        <>
-          <DateWrapper>{date}</DateWrapper>
-        </>
-      )}
+        {date && (
+          <>
+            <DateWrapper>{date}</DateWrapper>
+          </>
+        )}
         <CardWrapper>
           <div>
             <ProfileImg

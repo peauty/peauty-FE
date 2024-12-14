@@ -84,7 +84,7 @@ export default function Quote() {
             inputType="textarea"
           />
           <PhotoAttachment>
-            <div>
+            <div style={{display:"flex", flexDirection:'column'}}>
               <Text typo="body100">사진첨부</Text>
               <Text typo="body400" color="gray100">
                 상세 설명에 대한 이해를 돕기 위해 사진을 첨부하면 좋아요

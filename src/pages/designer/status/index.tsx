@@ -1,98 +1,167 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppBar, GNB } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import Info from "../../../components/petInfo/Info";
 import { colors } from "../../../style/color";
 import { TabWrapper } from "./index.styles";
 import StatusTab from "./components/StatusTab";
+import {
+  getStep1Threads,
+  getStep2Threads,
+  getStep3AboveThreads,
+} from "../../../apis/designer/resources/designer bidding api";
+import { GetThreadsByStepResponse } from "../../../types/designer/designer bidding api";
+import { formatDate } from "../../../utils/dataformat"; // formatDate 함수 가져오기
+
 type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
   const navigate = useNavigate();
-  const handleWorkspace = () => {
-    navigate("/designer/quote-detail");
+  const handleWorkspace = (processId: number) => {
+    navigate("/designer/quote-detail", { state: { processId } });
   };
 
-  const [activeTab, setActiveTab] = useState<"received" | "sent" | "confirmed">(
-    "received",
-  );
+  const [activeTab, setActiveTab] = useState<Tab>("received");
+  const [receivedData, setReceivedData] = useState<
+    GetThreadsByStepResponse["threads"] | null
+  >(null);
+  const [sentData, setSentData] = useState<
+    GetThreadsByStepResponse["threads"] | null
+  >(null);
+  const [confirmedData, setConfirmedData] = useState<
+    GetThreadsByStepResponse["threads"] | null
+  >(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleTabClick = (tab: "received" | "sent" | "confirmed") => {
+  // API 호출하여 데이터를 가져오기
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        if (activeTab === "received") {
+          const data = await getStep1Threads(12); // userId를 적절히 전달
+          console.log("받은 요청 리스트:", data.threads);
+          setReceivedData(data.threads || []);
+        } else if (activeTab === "sent") {
+          const data = await getStep2Threads(6); // userId를 적절히 전달
+          console.log("보낸 요청 리스트:", data.threads);
+          setSentData(data.threads || []);
+        } else if (activeTab === "confirmed") {
+          const data = await getStep3AboveThreads(1); // userId를 적절히 전달
+          console.log("확정된 요청 리스트:", data.threads);
+          setConfirmedData(data.threads || []);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        if (activeTab === "received") setReceivedData(null);
+        if (activeTab === "sent") setSentData(null);
+        if (activeTab === "confirmed") setConfirmedData(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [activeTab]); // activeTab이 변경될 때마다 API 호출
+
+  const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
   };
 
+  // Tab별로 필터링된 데이터 렌더링
   const renderContent = () => {
+    if (isLoading) return <div>Loading...</div>;
+
     if (activeTab === "received") {
-      return (
+      if (!receivedData) return <div>Error fetching received data.</div>;
+      if (receivedData.length === 0) return <div>받은 요청이 없습니다.</div>;
+
+      return receivedData.map((thread) => (
         <Info
-          date="2024.12.24"
-          imageSrc="https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785"
-          name="꼬미"
-          age={3}
-          gender="암컷"
-          weight="3.4"
-          breed="말티즈"
-          tags={["피부병", "슬개골"]}
+          key={thread.threadId}
+          date={formatDate(thread.processCreatedAt)} // 날짜 포맷팅 적용
+          imageSrc={
+            thread.puppy?.profileImageUrl ||
+            "https://peauty.s3.ap-northeast-2.amazonaws.com/images/dog.png"
+          }
+          name={thread.puppy?.name || "강아지"}
+          age={thread.puppy?.age || 3}
+          gender={thread.puppy?.sex || "수컷"}
+          weight={thread.puppy?.weight.toString() || "3.4"}
+          breed={thread.puppy?.breed || "품종 미제공"}
+          tags={["태그 없음"]}
           buttons={[
             {
               title: "요청 보기",
               bgColor: colors.blue300,
               color: colors.blue100,
-              onClick: () => handleWorkspace(),
+              onClick: () => console.log("하이"),
             },
           ]}
         />
-      );
+      ));
     } else if (activeTab === "sent") {
-      return (
+      if (!sentData) return <div>Error fetching sent data.</div>;
+      if (sentData.length === 0) return <div>보낸 요청이 없습니다.</div>;
+
+      return sentData.map((thread) => (
         <Info
-          date="2024.12.24"
-          imageSrc="https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785"
-          name="꼬미"
-          age={3}
-          gender="암컷"
-          weight="3.4"
-          breed="말티즈"
-          tags={["피부병", "슬개골"]}
+          key={thread.threadId}
+          date={formatDate(thread.processCreatedAt)} // 날짜 포맷팅 적용
+          imageSrc={
+            thread.puppy?.profileImageUrl ||
+            "https://peauty.s3.ap-northeast-2.amazonaws.com/images/dog.png"
+          }
+          name={thread.puppy?.name || "강아지"}
+          age={thread.puppy?.age || 3}
+          gender={thread.puppy?.sex || "수컷"}
+          weight={thread.puppy?.weight.toString() || "3.4"}
+          breed={thread.puppy?.breed || "품종 미제공"}
+          tags={["태그 없음"]}
           buttons={[
             {
               title: "견적서 보기",
               bgColor: colors.blue300,
               color: colors.blue100,
-              onClick: () => alert("견적서 보기 클릭"),
+              onClick: () => handleWorkspace(thread.processId),
             },
           ]}
-          status="견적 확인중"
         />
-      );
+      ));
     } else if (activeTab === "confirmed") {
-      return (
+      if (!confirmedData) return <div>Error fetching confirmed data.</div>;
+      if (confirmedData.length === 0) return <div>확정된 요청이 없습니다.</div>;
+
+      return confirmedData.map((thread) => (
         <Info
-          date="2024.12.11"
-          imageSrc="https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785"
-          name="Buddy"
-          age={5}
-          gender="남"
-          weight="12.3"
-          breed="푸들"
-          tags={["건강", "활발함"]}
+          key={thread.threadId}
+          date={formatDate(thread.processCreatedAt)} // 날짜 포맷팅 적용
+          imageSrc={
+            thread.puppy?.profileImageUrl ||
+            "https://peauty.s3.ap-northeast-2.amazonaws.com/images/dog.png"
+          }
+          name={thread.puppy?.name || "강아지"}
+          age={thread.puppy?.age || 3}
+          gender={thread.puppy?.sex || "수컷"}
+          weight={thread.puppy?.weight.toString() || "3.4"}
+          breed={thread.puppy?.breed || "품종 미제공"}
+          tags={["태그 없음"]}
           buttons={[
             {
               title: "견적서 보기",
               bgColor: colors.blue300,
               color: colors.blue100,
-              onClick: () => console.log("견적서 보기 클릭"),
+              onClick: () => handleWorkspace(thread.processId),
             },
             {
               title: "미용 완료",
               bgColor: colors.background,
               color: colors.gray100,
-              onClick: () => console.log("미용 확정 클릭"),
+              onClick: () => console.log("미용 완료 클릭"),
             },
           ]}
-          status="미용 완료"
         />
-      );
+      ));
     }
   };
 
@@ -100,7 +169,7 @@ export default function Status() {
     <>
       <AppBar prefix="backButton" />
       <TabWrapper>
-        <StatusTab activeTab={activeTab} onTabClick={setActiveTab} />
+        <StatusTab activeTab={activeTab} onTabClick={handleTabClick} />
         {renderContent()}
       </TabWrapper>
       <GNB type="designer" />

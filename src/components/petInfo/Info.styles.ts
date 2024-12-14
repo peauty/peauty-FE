@@ -8,7 +8,7 @@ export const CardContainer = styled.div`
   height: auto;
   padding: 0px 25px 20px;
   border-bottom: 2px solid ${colors.background};
-  border-top: 2px solid ${colors.background};
+  /* border-top: 2px solid ${colors.background}; */
   cursor: pointer;
 `;
 
