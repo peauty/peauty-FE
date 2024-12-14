@@ -9,7 +9,7 @@ export default function ReviewableService() {
     score: 4.5,
     review: 120,
     payment: 35000,
-    date: 2021.1112,
+    date: "2021.11.12",
     badges: [
       { name: "친절함", color: "blue" },
       { name: "전문성", color: "green" },
@@ -20,6 +20,11 @@ export default function ReviewableService() {
     onCheckboxChange: () => console.log("Checkbox changed"),
     onClick: () => console.log("StatusListItem clicked"),
   };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat().format(amount); // 1000 단위로 쉼표 추가
+  };
+
   return (
     <>
       <div
@@ -48,7 +53,7 @@ export default function ReviewableService() {
             },
           ]}
           status="가윗컷 + 곰돌이컷"
-          payment={statusItemData.payment}
+          payment={formatCurrency(statusItemData.payment)}
           onClick={statusItemData.onClick}
         />
       </div>

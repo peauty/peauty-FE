@@ -4,12 +4,12 @@ import {
   Thumbnail,
   InfoWrapper,
   NameWrapper,
-  DateWrapper,
-  RatingWrapper,
   ButtonWrapper,
   StyledButton,
   RatingAndReviewWrapper,
   ContentsWrapper,
+  RatingWrapper,
+  DateWrapper,
 } from "./index.styles";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
@@ -23,14 +23,14 @@ interface ButtonProps {
 }
 
 interface CustomerInfoProps {
-  date?: number;
+  date?: string;
   location: string;
   store: string;
   score: number;
   reservation?: string;
   review: number;
   status?: string;
-  payment: number;
+  payment: string;
   thumbnailUrl: string;
   buttons: ButtonProps[];
   onClick: () => void;
@@ -50,6 +50,7 @@ export default function CustomerInfo({
   reservation,
 }: CustomerInfoProps) {
   const pay = payment.toLocaleString();
+  const reservationColor = reservation === "예약 완료" ? "blue100" : "gray100";
   return (
     <>
       {date && (
@@ -63,7 +64,7 @@ export default function CustomerInfo({
           <InfoWrapper>
             <NameWrapper>
               <Text typo="subtitle200">{store}</Text>
-              <Text typo="subtitle200" color={"blue100"}>
+              <Text typo="subtitle200" color={reservationColor}>
                 {reservation}
               </Text>
             </NameWrapper>
@@ -77,7 +78,7 @@ export default function CustomerInfo({
               </RatingAndReviewWrapper>
               <RatingWrapper>
                 {status && (
-                  <Text typo={"body600"} color={"blue100"}>
+                  <Text typo={"body500"} color={"blue100"}>
                     {status}
                   </Text>
                 )}

@@ -59,12 +59,10 @@ export const StoreReservationWrapper = styled.div`
   justify-content: space-between;
 `;
 export const DateWrapper = styled.div`
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
-  padding: 10px 25px;
-  border-width: 2px 0;
-  border-style: solid;
-  border-color: ${colors.background};
+  padding: 10px 25px 0px;
+  border-top: 2px solid ${colors.background};
 `;
 
 export const ButtonWrapper = styled.div`

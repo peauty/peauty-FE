@@ -7,17 +7,17 @@ import { TabWrapper } from "./index.styles";
 import Info from "./components/Info";
 import { colors } from "../../../style/color";
 import CustomerInfo from "./components/CustomerInfo";
-import { useNavigate } from "react-router-dom";
 
 export default function Status() {
   const statusItemData = {
+    name: "수석실장 시언",
     store: "몽뜨의 아틀리네 위례점",
     location: "서울특별시 강남구 대치동",
-    reservation: "예약완료",
+    reservation: "미용 완료",
     score: 4.5,
     review: 120,
     payment: 35000,
-    date: 2021.1112,
+    date: "2024년 11월 12일",
     badges: [
       { name: "친절함", color: "blue" },
       { name: "전문성", color: "green" },
@@ -26,36 +26,55 @@ export default function Status() {
     thumbnailUrl:
       "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785",
     onCheckboxChange: () => console.log("Checkbox changed"),
-    onClick: () => handleWorkspace(),
+    onClick: () => console.log("StatusListItem clicked"),
   };
 
-  const [activeTab, setActiveTab] = useState<"received" | "sent" | "confirmed">(
-    "received",
+  const [activeTab, setActiveTab] = useState<"sent" | "received" | "confirmed">(
+    "sent",
   );
-  const navigate = useNavigate();
 
-  const handleTabClick = (tab: "received" | "sent" | "confirmed") => {
+  const handleTabClick = (tab: "sent" | "received" | "confirmed") => {
     setActiveTab(tab);
   };
 
-  const handleWorkspace = () => {
-    navigate("/customer/request/2");
+  const getButtonTitle = (reservationStatus: string) => {
+    if (reservationStatus === "예약 완료") {
+      return "결제 취소";
+    } else if (reservationStatus === "미용 완료료") {
+      return "리뷰 작성";
+    }
+    return "결제 취소"; // 기본값
   };
 
-  const handleQuoteDetail = () => {
-    navigate("/customer/quote-detail");
+  const renderCustomerInfoButtons = (reservationStatus: string) => [
+    {
+      title: "견적서 보기",
+      bgColor: colors.blue300,
+      color: colors.blue100,
+      width: "100%",
+      onClick: () => console.log("견적서 보기 클릭"),
+    },
+    {
+      title:
+        reservationStatus === "received"
+          ? "더 이상 보지 않기"
+          : getButtonTitle(statusItemData.reservation),
+      bgColor: colors.gray400,
+      color: colors.gray100,
+      width: "100%",
+      onClick: () => console.log("버튼 클릭"),
+    },
+  ];
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat().format(amount); // 1000 단위로 쉼표 추가
   };
 
-  return (
-    <>
-      <AppBar prefix="backButton" />
-      <TabWrapper>
-        <StatusTab activeTab={activeTab} onTabClick={handleTabClick} />
-
-        {/* 탭에 따라 다른 컴포넌트를 렌더링 */}
-        {activeTab === "received" && (
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "sent":
+        return (
           <>
-            <DogList />
             <Info />
             <StatusListItem
               location={statusItemData.location}
@@ -67,78 +86,54 @@ export default function Status() {
               onClick={statusItemData.onClick}
             />
           </>
-        )}
-
-        {activeTab === "sent" && (
+        );
+      case "received":
+        return (
           <>
-            <DogList />
             <Info />
             <CustomerInfo
-              location={statusItemData.location}
               store={statusItemData.store}
               score={statusItemData.score}
               review={statusItemData.review}
+              location={statusItemData.location}
               thumbnailUrl={statusItemData.thumbnailUrl}
+              buttons={renderCustomerInfoButtons(activeTab)}
+              status="가위컷 + 곰돌이컷"
+              payment={formatCurrency(statusItemData.payment)} // 쉼표 추가
               onClick={statusItemData.onClick}
-              buttons={[
-                {
-                  title: "견적서 보기",
-                  bgColor: colors.blue300,
-                  color: colors.blue100,
-                  width: "100%",
-                  onClick: () => handleQuoteDetail(), // 수정된 부분
-                },
-                {
-                  title: "더 이상 보지 않기",
-                  bgColor: colors.background,
-                  color: colors.gray100,
-                  width: "100%",
-                  onClick: () => console.log("더이상 보지 않기"),
-                },
-              ]}
-              status="가윗컷 + 곰돌이컷"
-              payment={statusItemData.payment}
             />
           </>
-        )}
-
-        {activeTab === "confirmed" && (
+        );
+      case "confirmed":
+        return (
           <>
-            <DogList />
             <CustomerInfo
               date={statusItemData.date}
-              location={statusItemData.location}
               store={statusItemData.store}
               score={statusItemData.score}
               review={statusItemData.review}
               reservation={statusItemData.reservation}
+              location={statusItemData.location}
               thumbnailUrl={statusItemData.thumbnailUrl}
+              buttons={renderCustomerInfoButtons(activeTab)}
+              status="가위컷 + 곰돌이컷"
+              payment={formatCurrency(statusItemData.payment)} // 쉼표 추가
               onClick={statusItemData.onClick}
-              buttons={[
-                {
-                  title: "견적서 보기",
-                  bgColor: colors.blue300,
-                  color: colors.blue100,
-                  width: "100%",
-                  onClick: () => console.log("견적서 보기 클릭"),
-                },
-                {
-                  title: "결제 취소",
-                  bgColor: colors.background,
-                  color: colors.gray100,
-                  width: "100%",
-                  onClick: () => console.log("더이상 보지 않기"),
-                },
-              ]}
-              status="가윗컷 + 곰돌이컷"
-              payment={statusItemData.payment}
             />
           </>
-        )}
+        );
+      default:
+        return null;
+    }
+  };
 
-        {activeTab === "confirmed" && (
-          <>{/* 확정 견적에 해당하는 컴포넌트들 */}</>
-        )}
+  return (
+    <>
+      <AppBar prefix="backButton" title="요청 현황" />
+      <TabWrapper>
+        <DogList />
+        <StatusTab activeTab={activeTab} onTabClick={handleTabClick} />
+        {renderTabContent()}
       </TabWrapper>
       <GNB type="customer" />
     </>

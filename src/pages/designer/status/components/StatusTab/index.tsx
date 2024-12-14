@@ -1,13 +1,13 @@
 import { TabWrapper, TabItem } from "./index.styles";
 
-type Tab = "received" | "sent" | "confirmed";
+type Tab = "sent" | "received" | "confirmed";
 
-interface RequestTabsProps {
+interface StatusTabProps {
   activeTab: Tab;
-  onTabChange: (tab: Tab) => void;
+  onTabClick: (tab: Tab) => void;
 }
 
-export default function RequestTabs({ activeTab, onTabChange }: RequestTabsProps) {
+export default function StatusTab({ activeTab, onTabClick }: StatusTabProps) {
   const tabs: { id: Tab; label: string }[] = [
     { id: "received", label: "받은 요청" },
     { id: "sent", label: "보낸 견적" },
@@ -20,7 +20,7 @@ export default function RequestTabs({ activeTab, onTabChange }: RequestTabsProps
         <TabItem
           key={tab.id}
           active={activeTab === tab.id}
-          onClick={() => onTabChange(tab.id)}
+          onClick={() => onTabClick(tab.id)}
         >
           {tab.label}
         </TabItem>

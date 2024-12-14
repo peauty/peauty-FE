@@ -1,13 +1,10 @@
 import styled from "styled-components";
+import { colors } from "../../../style/color";
 
 export const TabWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
-  
-   
- 
+  justify-content: center;
 `;
 
 export const TabButton = styled.button<{ isActive: boolean }>`
@@ -20,7 +17,7 @@ export const TabButton = styled.button<{ isActive: boolean }>`
   font-size: 14px;
 
   &:hover {
-    background: #007bff;
+    background: ${colors.blue100};
     color: #ffffff;
   }
 `;
