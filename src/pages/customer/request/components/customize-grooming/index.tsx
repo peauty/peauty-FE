@@ -20,6 +20,7 @@ import {
   ImageUnit,
   SectionWrapper,
   SelectedHair,
+  TwoItemsWrapper,
 } from "./index.styles";
 
 import {
@@ -33,7 +34,12 @@ import {
   EarsPop,
   AddImage,
 } from "../../../../../assets/svg";
-import { HAIRSTYLES, CUTTING, TIME } from "../../../../../constants/request";
+import {
+  HAIRSTYLES,
+  CUTTING,
+  TIME,
+  SUMMERCUT,
+} from "../../../../../constants/request";
 import InfoButton from "../../../../../components/button/InfoButton";
 import DropBox from "./components/DropBox";
 import { DateDropBox } from "../../../../../components/button/DateDropBox";
@@ -243,15 +249,27 @@ export default function CustomizeGrooming({
                 selectedIndex={selectedBodyIndex || 0}
                 onSelect={handleBodyTypeSelect}
               />
-              <DropButton
-                placeholder="mm를 선택해주세요"
-                options={CUTTING}
-                selected={Object.keys(bodyTypeMapping).find(
-                  (key) =>
-                    bodyTypeMapping[key] === inputData.totalGroomingBodyType,
-                )}
-                onSelect={handleLengthSelect}
-              />
+              {selectedBodyIndex === 0 && (
+                <DropButton
+                  placeholder="mm를 선택해주세요"
+                  options={CUTTING}
+                  onSelect={handleLengthSelect}
+                />
+              )}
+              {selectedBodyIndex === 1 && (
+                <TwoItemsWrapper>
+                  <DropButton
+                    placeholder="미용을 선택해주세요"
+                    options={SUMMERCUT}
+                    onSelect={handleLengthSelect}
+                  />
+                  <DropButton
+                    placeholder="mm를 선택해주세요"
+                    options={CUTTING}
+                    onSelect={handleLengthSelect}
+                  />
+                </TwoItemsWrapper>
+              )}
             </SectionWrapper>
           </>
         )}

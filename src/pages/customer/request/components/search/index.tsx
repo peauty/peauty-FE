@@ -19,10 +19,7 @@ import {
 import { getAroundWorkspaces } from "../../../../../apis/customer/resources/customer";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import { useNavigate } from "react-router-dom";
-import {
-  GetAroundWorkspacesResponse,
-  Workspace,
-} from "../../../../../types/customer/customer";
+import { GetAroundWorkspacesResponse } from "../../../../../types/customer/customer";
 import { ROUTE } from "../../../../../constants/routes";
 import Loading from "../../../../../components/page/sign-up/Loading";
 import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
@@ -177,7 +174,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
         </DesignerList>
       </ContentWrapper>
       {isSelecting ? (
-        <GNB onLargeButtonClick={onNext} buttonText="견적서 작성하기" />
+        <GNB onLargeButtonClick={onNext} buttonText="요청서 작성하기" />
       ) : (
         <GNB type="customer" />
       )}
