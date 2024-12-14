@@ -8,7 +8,8 @@ import {
   StyledButton,
   RatingAndReviewWrapper,
   ContentsWrapper,
-  ShopInfoWrapper,
+  RatingWrapper,
+  DateWrapper,
 } from "./index.styles";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
@@ -49,41 +50,46 @@ export default function CustomerInfo({
   reservation,
 }: CustomerInfoProps) {
   const pay = payment.toLocaleString();
+  const reservationColor = reservation === "예약 완료" ? "blue100" : "gray100";
   return (
     <>
+      {date && (
+        <>
+          <DateWrapper>{date}</DateWrapper>
+        </>
+      )}
       <CardContainer>
         <CardWrapper onClick={onClick}>
           <Thumbnail src={thumbnailUrl} alt={store} />
           <InfoWrapper>
             <NameWrapper>
               <Text typo="subtitle200">{store}</Text>
-              <Text typo="subtitle200" color={"blue100"}>
+              <Text typo="subtitle200" color={reservationColor}>
                 {reservation}
               </Text>
             </NameWrapper>
             <ContentsWrapper>
               <RatingAndReviewWrapper>
-                <Text typo="body400" color="gray200">
-                  {location}
-                </Text>
-
+                <>
+                  <Rating starSize="13" score={score} fontsize="body400" />
+                  <Text typo="body400">({review}) |</Text>
+                </>
+                <Text typo={"body400"}>{location}</Text>
+              </RatingAndReviewWrapper>
+              <RatingWrapper>
                 {status && (
                   <Text typo={"body600"} color={"blue100"}>
                     {status}
                   </Text>
                 )}
-              </RatingAndReviewWrapper>
-              <ShopInfoWrapper>
-                <div style={{ display: "flex", gap: "3px" }}>
-                  <Rating starSize="13" score={score} fontsize="body400" />
-                  <Text typo="body400">({review}) </Text>
-                </div>
+              </RatingWrapper>
+              <RatingWrapper>
                 {payment && (
                   <Text typo={"subtitle200"} color={"black"}>
                     {pay}원
                   </Text>
                 )}
-              </ShopInfoWrapper>
+              </RatingWrapper>
             </ContentsWrapper>
           </InfoWrapper>
         </CardWrapper>

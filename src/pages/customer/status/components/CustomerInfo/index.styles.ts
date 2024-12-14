@@ -1,19 +1,14 @@
 import styled from "styled-components";
 import { colors } from "../../../../../style/color";
 
-export const TimeWrapper = styled.div`
-  display: flex;
-  gap: 5px;
-  padding-left: 5px;
-`;
-
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   height: auto;
+  padding: 20px 25px;
+  border-bottom: 2px solid ${colors.background};
   cursor: pointer;
-  margin-top: 20px;
 `;
 
 export const CardWrapper = styled.div`
@@ -52,16 +47,9 @@ export const RatingWrapper = styled.div`
   align-items: center;
 `;
 
-export const ShopInfoWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 export const RatingAndReviewWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 5px;
 `;
 
@@ -70,10 +58,16 @@ export const StoreReservationWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+export const DateWrapper = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 25px 0px;
+  border-top: 2px solid ${colors.background};
+`;
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 5px;
   margin-top: 10px;
 `;
 

@@ -4,22 +4,23 @@ import { colors } from "../../../../../style/color";
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px;
+  gap: 20px;
+  padding: 20px 25px;
+  border-bottom: 2px solid ${colors.background};
   cursor: pointer;
 `;
 
 export const Thumbnail = styled.img`
   background-color: ${colors.gray400};
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 5px;
 `;
 
 export const Details = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 1.3;
-  gap: 3px;
+  gap: 2px;
 `;
 
 export const RatingWrapper = styled.div`

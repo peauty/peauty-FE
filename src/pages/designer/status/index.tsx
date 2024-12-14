@@ -4,16 +4,23 @@ import { useNavigate } from "react-router-dom";
 import Info from "../../../components/petInfo/Info";
 import { colors } from "../../../style/color";
 import { TabWrapper } from "./index.styles";
-import RequestTabs from "./components/RequsetTab";
-
+import StatusTab from "./components/StatusTab";
 type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
-  const [activeTab, setActiveTab] = useState<Tab>("received");
   const navigate = useNavigate();
   const handleWorkspace = () => {
     navigate("/designer/quote-detail");
   };
+
+  const [activeTab, setActiveTab] = useState<"received" | "sent" | "confirmed">(
+    "received",
+  );
+
+  const handleTabClick = (tab: "received" | "sent" | "confirmed") => {
+    setActiveTab(tab);
+  };
+
   const renderContent = () => {
     if (activeTab === "received") {
       return (
@@ -78,7 +85,7 @@ export default function Status() {
             },
             {
               title: "미용 완료",
-              bgColor: colors.gray200,
+              bgColor: colors.background,
               color: colors.gray100,
               onClick: () => console.log("미용 확정 클릭"),
             },
@@ -93,7 +100,7 @@ export default function Status() {
     <>
       <AppBar prefix="backButton" />
       <TabWrapper>
-        <RequestTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        <StatusTab activeTab={activeTab} onTabClick={setActiveTab} />
         {renderContent()}
       </TabWrapper>
       <GNB type="designer" />

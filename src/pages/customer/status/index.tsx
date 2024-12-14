@@ -40,7 +40,7 @@ export default function Status() {
   const getButtonTitle = (reservationStatus: string) => {
     if (reservationStatus === "예약 완료") {
       return "결제 취소";
-    } else if (reservationStatus === "미용 확정") {
+    } else if (reservationStatus === "미용 완료료") {
       return "리뷰 작성";
     }
     return "결제 취소"; // 기본값
@@ -57,7 +57,7 @@ export default function Status() {
     {
       title:
         reservationStatus === "received"
-          ? "지우기"
+          ? "더 이상 보지 않기"
           : getButtonTitle(statusItemData.reservation),
       bgColor: colors.gray400,
       color: colors.gray100,
@@ -91,40 +91,35 @@ export default function Status() {
         return (
           <>
             <Info />
-
-            <div style={{ padding: "0 20px" }}>
-              <CustomerInfo
-                store={statusItemData.store}
-                score={statusItemData.score}
-                review={statusItemData.review}
-                location={statusItemData.location}
-                thumbnailUrl={statusItemData.thumbnailUrl}
-                buttons={renderCustomerInfoButtons(activeTab)}
-                status="가위컷 + 곰돌이컷"
-                payment={formatCurrency(statusItemData.payment)} // 쉼표 추가
-                onClick={statusItemData.onClick}
-              />
-            </div>
+            <CustomerInfo
+              store={statusItemData.store}
+              score={statusItemData.score}
+              review={statusItemData.review}
+              location={statusItemData.location}
+              thumbnailUrl={statusItemData.thumbnailUrl}
+              buttons={renderCustomerInfoButtons(activeTab)}
+              status="가위컷 + 곰돌이컷"
+              payment={formatCurrency(statusItemData.payment)} // 쉼표 추가
+              onClick={statusItemData.onClick}
+            />
           </>
         );
       case "confirmed":
         return (
           <>
-            <div style={{ padding: "0 20px" }}>
-              <CustomerInfo
-                date={statusItemData.date}
-                store={statusItemData.store}
-                score={statusItemData.score}
-                review={statusItemData.review}
-                reservation={statusItemData.reservation}
-                location={statusItemData.location}
-                thumbnailUrl={statusItemData.thumbnailUrl}
-                buttons={renderCustomerInfoButtons(activeTab)}
-                status="가위컷 + 곰돌이컷"
-                payment={formatCurrency(statusItemData.payment)} // 쉼표 추가
-                onClick={statusItemData.onClick}
-              />
-            </div>
+            <CustomerInfo
+              date={statusItemData.date}
+              store={statusItemData.store}
+              score={statusItemData.score}
+              review={statusItemData.review}
+              reservation={statusItemData.reservation}
+              location={statusItemData.location}
+              thumbnailUrl={statusItemData.thumbnailUrl}
+              buttons={renderCustomerInfoButtons(activeTab)}
+              status="가위컷 + 곰돌이컷"
+              payment={formatCurrency(statusItemData.payment)} // 쉼표 추가
+              onClick={statusItemData.onClick}
+            />
           </>
         );
       default:
