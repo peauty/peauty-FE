@@ -58,7 +58,7 @@ export function GNB({
           {menuItems.map((item) => (
             <MenuItem
               key={item.path}
-              isActive={activePath === item.path} // 경로와 상태 동기화
+              isActive={activePath.startsWith(item.path)} // 경로 포함 여부 확인
               onClick={() => {
                 setActivePath(item.path); // 즉시 활성화 상태 업데이트
                 navigate(item.path);

@@ -86,13 +86,24 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
     );
     setCheckedItems(newCheckedItems);
 
-    // Update designerIds based on checked items
     const selectedDesignerIds = workspaces
       .filter((_, idx) => newCheckedItems[idx])
       .map((workspace) => workspace.designerId)
       .filter((id): id is number => id !== undefined);
 
     handleArrayChange("designerIds", selectedDesignerIds);
+  };
+
+  const handleDesignerClick = (
+    index: number,
+    workspaceId?: number,
+    designerId?: number,
+  ) => {
+    if (isSelecting) {
+      handleCheckboxChange(index, designerId);
+    } else if (workspaceId !== undefined) {
+      navigate(ROUTE.customer.request.shop(workspaceId));
+    }
   };
 
   if (!user || !user.userId) {
@@ -102,14 +113,6 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   if (loading) {
     return <Loading />;
   }
-
-  const handleDesignerClick = (workspaceId?: number) => {
-    if (workspaceId === undefined) {
-      console.error("Invalid workspaceId:", workspaceId);
-      return;
-    }
-    navigate(ROUTE.customer.request.shop(workspaceId));
-  };
 
   return (
     <>
@@ -157,10 +160,17 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
                   workspace.representativeBadges?.map((badge) => ({
                     name: badge.badgeName || "",
                     color: badge.badgeColor || "gray",
+                    type: badge.badgeType || "",
                   })) || []
                 }
                 thumbnailUrl={workspace.bannerImageUrl || ""}
-                onClick={() => handleDesignerClick(workspace.workspaceId)}
+                onClick={() =>
+                  handleDesignerClick(
+                    idx,
+                    workspace.workspaceId,
+                    workspace.designerId,
+                  )
+                }
                 address={workspace.address || ""}
               />
             ))

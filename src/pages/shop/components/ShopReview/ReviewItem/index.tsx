@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
-import { colors } from "../../../../../style/color";
+
 import {
   ReviewContain,
   ReviewHeader,

@@ -20,7 +20,7 @@ interface DesignerItemProps {
   experience: number;
   score: number;
   review: number;
-  badges: { name: string; color: string }[];
+  badges: { name: string; color: string; type: string }[];
   thumbnailUrl: string;
   address: string;
   onClick: () => void;
@@ -66,9 +66,9 @@ export default function DesignerItem({
             {badges.map((badge, idx) => (
               <Badge
                 key={idx}
-                type="general"
+                type={badge.type}
                 text={badge.name}
-                variant="blue"
+                variant={badge.color}
               />
             ))}
           </BadgeWrapper>

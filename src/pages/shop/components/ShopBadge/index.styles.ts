@@ -15,6 +15,8 @@ export const BadgeGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4개의 열로 구성 */
   grid-gap: 20px; /* 배지 간의 간격 */
+  justify-items: center; /* 배지 중앙 정렬 */
+  align-items: start; /* 배지 텍스트가 상단 정렬되도록 */
 `;
 
 export const BadgeItem = styled.div`
@@ -34,8 +36,7 @@ export const BadgeIcon = styled.div`
   background-color: ${colors.blue300};
   box-sizing: border-box;
   &:hover {
-    box-shadow: 0 0 10px ${colors.blue100};
-    /* 활성화되지 않은 배지를 호버했을 때 색상 변경 */
+    box-shadow: 0 0 15px ${colors.blue100};
   }
 `;
 export const BadgeText = styled(Text)`

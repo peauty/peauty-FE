@@ -9,8 +9,8 @@ type GeneralVariant = "blue" | "green" | "disease";
 type ScissorsVariant = "gold" | "silver" | "bronze";
 
 interface BadgeProps {
-  type?: BadgeType;
-  variant?: GeneralVariant | ScissorsVariant;
+  type?: BadgeType | string; // API로부터 대문자로 들어오는 값도 처리 가능
+  variant?: GeneralVariant | ScissorsVariant | string;
   text?: string;
   typo?: keyof typeof typography;
   color?: keyof typeof colors;
@@ -50,12 +50,20 @@ export default function Badge({
   borderRadius = "3px",
   padding = "2px 7px",
 }: BadgeProps) {
+  // 대문자로 들어오는 API 데이터를 소문자로 변환
+  const normalizedType = type.toLowerCase() as BadgeType;
+  const normalizedVariant = variant.toLowerCase() as
+    | GeneralVariant
+    | ScissorsVariant;
+
   const currentStyle =
-    type === "normal"
+    normalizedType === "normal"
       ? styles.general.blue
-      : type === "general"
-        ? styles.general[variant as GeneralVariant] || styles.general.blue
-        : styles.scissors[variant as ScissorsVariant] || styles.scissors.gold;
+      : normalizedType === "general"
+        ? styles.general[normalizedVariant as GeneralVariant] ||
+          styles.general.blue
+        : styles.scissors[normalizedVariant as ScissorsVariant] ||
+          styles.scissors.gold;
 
   return (
     <BadgeWrapper
@@ -63,9 +71,9 @@ export default function Badge({
       borderRadius={borderRadius}
       padding={padding}
     >
-      {type != "normal" && (
+      {normalizedType !== "normal" && (
         <IconWrapper>
-          {type === "general" ? (
+          {normalizedType === "general" ? (
             <Auth height="10px" color={colors[currentStyle.color]} />
           ) : (
             <ScissorsIcon height={10} color={colors[currentStyle.color]} />

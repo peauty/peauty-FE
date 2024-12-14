@@ -1,16 +1,33 @@
-import { Divider, Text } from "../../../../components";
-import { Shop } from "../../../../assets/svg";
-import { Badge } from "../../../../components/category/Badge";
-import ShopEvent from "./ShopEvent";
-import { Maker } from "../../../../assets/svg";
-import Rating from "../../../../components/rating";
+import React from "react";
+import { Divider } from "../../../../components";
 import OverviewInfo from "./OverviewInfo";
-export default function ShopOverview() {
+import ShopEvent from "./ShopEvent";
+import { ShopOverviewProps } from "../../../../types/customer/request";
+
+export default function ShopOverview({
+  workspaceName,
+  reviewRating,
+  reviewsCount,
+  introduceTitle,
+  introduce,
+  noticeTitle,
+  notice,
+  address,
+  representativeBadges,
+}: ShopOverviewProps) {
   return (
-  <div>
-    <OverviewInfo/>
-    <ShopEvent />
-    <Divider thickness={3} />
-  </div>
+    <div>
+      <OverviewInfo
+        workspaceName={workspaceName}
+        reviewRating={reviewRating}
+        reviewsCount={reviewsCount}
+        introduceTitle={introduceTitle}
+        introduce={introduce}
+        address={address}
+        representativeBadges={representativeBadges}
+      />
+      <ShopEvent noticeTitle={noticeTitle} notice={notice} />
+      <Divider thickness={3} />
+    </div>
   );
 }

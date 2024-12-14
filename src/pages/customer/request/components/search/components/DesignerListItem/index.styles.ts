@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 20px;
   padding: 20px 0;
-  border-top: 2px solid ${colors.gray400};
+  border-top: 1px solid ${colors.gray400};
   cursor: pointer;
 `;
 
@@ -18,22 +18,22 @@ export const Checkbox = styled.input.attrs({ type: "checkbox" })`
   appearance: none;
   width: 16px;
   height: 16px;
-  border: 2px solid ${colors.gray200};
+  border: 1.5px solid ${colors.gray200};
   border-radius: 2px;
   background-color: white;
   cursor: pointer;
   transition: all 0.2s;
 
   &:checked {
-    background-color: ${colors.blue200};
-    border-color: ${colors.blue200};
+    background-color: ${colors.blue100};
+    border-color: ${colors.blue100};
     position: relative;
   }
 
   &:checked::after {
     content: "";
     position: absolute;
-    left: 3.5px;
+    left: 4px;
     width: 5px;
     height: 9px;
     border: solid white;

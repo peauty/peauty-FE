@@ -13,9 +13,12 @@ import {
 
 interface BadgeModalProps {
   badge: {
-    icon: React.ReactElement; // 아이콘 컴포넌트
-    name: string; // 뱃지 이름
-    description: string; // 뱃지 설명
+    badgeId: number;
+    badgeName: string;
+    badgeContent: string;
+    badgeColor: string;
+    badgeType: string;
+    badgeImageUrl: string; // React.ReactElement 대신 string으로 수정
   };
   onClose: () => void; // 모달 닫기 함수
   iconSize?: number; // 아이콘 크기
@@ -24,7 +27,7 @@ interface BadgeModalProps {
 export default function BadgeModal({
   badge,
   onClose,
-  iconSize = 60, // 모달에서는 크기 60 고정
+  iconSize = 60,
 }: BadgeModalProps) {
   return (
     <CustomModal onClose={onClose}>
@@ -34,16 +37,23 @@ export default function BadgeModal({
           <InterContentStyled>
             <BoxWrapper>
               <InnerBox>
-                {/* 크기 60으로 아이콘 변경 */}
-                {React.cloneElement(badge.icon, { width: iconSize, height: iconSize })}
+                {/* 이미지 URL을 직접 사용 */}
+                <img
+                  src={badge.badgeImageUrl}
+                  alt={badge.badgeName}
+                  width={iconSize}
+                  height={iconSize}
+                />
               </InnerBox>
             </BoxWrapper>
           </InterContentStyled>
           <InterContentStyled>
-            <Text typo="body100">{badge.name}</Text>
+            <Text typo="body100">{badge.badgeName}</Text>
           </InterContentStyled>
           <BadgeExplainBox>
-            <Text typo="body400" color="gray100">{badge.description}</Text>
+            <Text typo="body400" color="gray100">
+              {badge.badgeContent}
+            </Text>
           </BadgeExplainBox>
         </BadgeContetsWrapper>
       </BadgeModalWrapper>
