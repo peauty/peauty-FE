@@ -30,9 +30,12 @@ export interface UploadProfileImageResponse {
 }
 
 export interface Badge {
-  badgeId: number;
-  badgeName: string;
   badgeColor: string;
+  badgeContent: string;
+  badgeId: number;
+  badgeImageUrl: string;
+  badgeName: string;
+  badgeType: string;
 }
 
 export interface Workspace {
@@ -48,7 +51,6 @@ export interface Workspace {
   representativeBadges: Badge[]; // 기존 representativeBadges를 이름 배열로 변경
   scissorsRank: string; // 추가된 필드
 }
-
 
 export interface GetAroundWorkspacesResponse {
   customerId: number;

@@ -20,7 +20,7 @@ import { getAroundWorkspaces } from "../../apis/customer/resources/customer";
 import { Workspace } from "../../types/customer/customer";
 import { useUserDetails } from "../../hooks/useUserDetails";
 import { useNavigate } from "react-router-dom";
-
+import { transformBadges } from "../../utils/transformBadges";
 export default function Request() {
   const [isSelecting, setIsSelecting] = useState(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
@@ -127,6 +127,8 @@ export default function Request() {
                 badges={workspace.representativeBadges.map((badge) => ({
                   name: badge.badgeName,
                   color: badge.badgeColor,
+                  id: badge.badgeId,
+                  type: badge.badgeType,
                 }))}
               />
             ))
