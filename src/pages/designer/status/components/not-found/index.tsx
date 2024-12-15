@@ -12,10 +12,10 @@ export default function NotFound({ type }: NotFoundProps) {
       case "request":
         return (
           <ContentWrapper>
-            <NoneRequset width={100} />;
-              <Text typo="body100" color="gray100">
-                받은 요청이 없어요
-              </Text>
+            <NoneRequset width={100} />
+            <Text typo="body100" color="gray100">
+              받은 요청이 없어요
+            </Text>
           </ContentWrapper>
         );
       case "quote":

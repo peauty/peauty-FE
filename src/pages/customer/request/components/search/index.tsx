@@ -35,7 +35,9 @@ interface SearchStepProps {
 export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   const [isSelecting, setIsSelecting] = useState(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
-  const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
+  const [workspaces, setWorkspaces] = useState<
+    GetAroundWorkspacesResponse["workspaces"] | []
+  >([]);
   const [customerAddress, setCustomerAddress] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const user = useUserDetails();
@@ -53,6 +55,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
         const response: GetAroundWorkspacesResponse = await getAroundWorkspaces(
           user.userId,
         );
+        console.log(response);
         setCustomerAddress(response.customerAddress || "알 수 없음");
         setWorkspaces(response.workspaces || []);
         setCheckedItems(Array(response.workspaces?.length || 0).fill(false));
@@ -70,7 +73,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   const handleSelectClick = () => {
     setIsSelecting(!isSelecting);
     if (!isSelecting) {
-      setCheckedItems(Array(workspaces.length).fill(false));
+      setCheckedItems(Array(workspaces?.length || 0).fill(false));
       handleArrayChange("designerIds", []);
     }
   };
@@ -87,9 +90,9 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
     setCheckedItems(newCheckedItems);
 
     const selectedDesignerIds = workspaces
-      .filter((_, idx) => newCheckedItems[idx])
-      .map((workspace) => workspace.designerId)
-      .filter((id): id is number => id !== undefined);
+      ?.filter((_, idx) => newCheckedItems[idx])
+      ?.map((workspace) => workspace?.designerId)
+      ?.filter((id): id is number => id !== undefined);
 
     handleArrayChange("designerIds", selectedDesignerIds);
   };
@@ -143,35 +146,35 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
           </SelectWrapper>
         </FilterWrapper>
         <DesignerList>
-          {workspaces.length > 0 ? (
-            workspaces.map((workspace, idx) => (
+          {(workspaces?.length || 0) > 0 ? (
+            workspaces?.map((workspace, idx) => (
               <DesignerItem
-                key={workspace.workspaceId}
+                key={workspace?.workspaceId}
                 isSelecting={isSelecting}
                 isChecked={checkedItems[idx]}
                 onCheckboxChange={() =>
-                  handleCheckboxChange(idx, workspace.designerId)
+                  handleCheckboxChange(idx, workspace?.designerId)
                 }
-                name={workspace.workspaceName || "알 수 없음"}
-                experience={workspace.yearOfExperience || 0}
-                score={workspace.reviewRating || 0}
-                review={workspace.reviewCount || 0}
+                name={workspace?.workspaceName || "알 수 없음"}
+                experience={workspace?.yearOfExperience || 0}
+                score={workspace?.reviewRating || 0}
+                review={workspace?.reviewCount || 0}
                 badges={
-                  workspace.representativeBadges?.map((badge) => ({
-                    name: badge.badgeName || "",
-                    color: badge.badgeColor || "gray",
-                    type: badge.badgeType || "",
-                  })) || []
+                  workspace?.representativeBadges?.map((badge) => ({
+                    name: badge?.badgeName || "",
+                    color: badge?.badgeColor || "gray",
+                    type: badge?.badgeType || "",
+                  })) || [] // undefined일 경우 빈 배열로 대체
                 }
-                thumbnailUrl={workspace.bannerImageUrl || ""}
+                thumbnailUrl={workspace?.bannerImageUrl || ""}
                 onClick={() =>
                   handleDesignerClick(
                     idx,
-                    workspace.workspaceId,
-                    workspace.designerId,
+                    workspace?.workspaceId,
+                    workspace?.designerId,
                   )
                 }
-                address={workspace.address || ""}
+                address={workspace?.address || ""}
               />
             ))
           ) : (

@@ -1,10 +1,8 @@
-export type ScissorsType = 'NONE' | 'GOLD' | 'SILVER' | 'BRONZE';
+export type ScissorsType = "NONE" | "GOLD" | "SILVER" | "BRONZE";
 
-export type BadgeColorType = 'BLUE' | 'GREEN' | 'BRONZE' | 'SILVER' | 'GOLD';
+export type BadgeColorType = "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
 
-export type BadgeTypeType = 'GENERAL' | 'SCISSORS';
-
-
+export type BadgeTypeType = "GENERAL" | "SCISSORS";
 
 export interface GetCustomerProfileResponse {
   customerId?: number;
@@ -60,14 +58,14 @@ export interface GetDesignerWorkspaceResponse {
   licenses?: string[];
   paymentOptions?: string[];
   representativeBadges?: {
-  badgeId?: number;
-  badgeName?: string;
-  badgeContent?: string;
-  badgeImageUrl?: string;
-  isRepresentativeBadge?: boolean;
-  badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
-}[];
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    isRepresentativeBadge?: boolean;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
 }
 
 export interface Badge {
@@ -75,7 +73,6 @@ export interface Badge {
   badgeName?: string;
   badgeContent?: string;
   badgeImageUrl?: string;
-  isRepresentativeBadge?: boolean;
   badgeColor?: BadgeColorType;
   badgeType?: BadgeTypeType;
 }
@@ -84,25 +81,25 @@ export interface GetAroundWorkspacesResponse {
   customerId?: number;
   customerAddress?: string;
   workspaces?: {
-  workspaceId?: number;
-  workspaceName?: string;
-  address?: string;
-  addressDetail?: string;
-  bannerImageUrl?: string;
-  reviewCount?: number;
-  reviewRating?: number;
-  designerId?: number;
-  designerName?: string;
-  yearOfExperience?: number;
-  representativeBadges?: {
-  badgeId?: number;
-  badgeName?: string;
-  badgeContent?: string;
-  badgeImageUrl?: string;
-  badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
-}[];
-}[];
+    workspaceId?: number;
+    workspaceName?: string;
+    address?: string;
+    addressDetail?: string;
+    bannerImageUrl?: string;
+    reviewCount?: number;
+    reviewRating?: number;
+    designerId?: number;
+    designerName?: string;
+    yearOfExperience?: number;
+    representativeBadges?: {
+      badgeId?: number;
+      badgeName?: string;
+      badgeContent?: string;
+      badgeImageUrl?: string;
+      badgeColor?: BadgeColorType;
+      badgeType?: BadgeTypeType;
+    }[];
+  }[];
 }
 
 export interface GetAroundWorkspaceResponse {
@@ -117,13 +114,13 @@ export interface GetAroundWorkspaceResponse {
   designerName?: string;
   yearOfExperience?: number;
   representativeBadges?: {
-  badgeId?: number;
-  badgeName?: string;
-  badgeContent?: string;
-  badgeImageUrl?: string;
-  badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
-}[];
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
 }
 
 export interface BadgeResponse {
@@ -141,12 +138,12 @@ export interface CheckCustomerNicknameDuplicatedResponse {
 
 export interface GetDesignerBadgesForCustomerResponse {
   acquiredBadges?: {
-  badgeId?: number;
-  badgeName?: string;
-  badgeContent?: string;
-  badgeImageUrl?: string;
-  badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
-}[];
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
   representativeBadges?: BadgeResponse[];
 }
