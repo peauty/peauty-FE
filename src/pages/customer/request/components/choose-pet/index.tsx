@@ -7,6 +7,7 @@ import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import Loading from "../../../../../components/page/sign-up/Loading";
 import { GetPuppyProfileResponse } from "../../../../../types/customer/puppy";
 import { getPuppyProfiles } from "../../../../../apis/customer/resources/puppy";
+import { getPuppyProfilesWithCanStartProcessStatus } from "../../../../../apis/customer/resources/bidding";
 
 interface ChoosePetProps {
   onNext: () => void;
@@ -18,6 +19,9 @@ export default function ChoosePetForGrooming({
   setPuppyId,
 }: ChoosePetProps) {
   const [puppies, setPuppies] = useState<GetPuppyProfileResponse[]>([]);
+  const [puppyProcessStatus, setPuppyProcessStatus] = useState<{
+    [key: number]: boolean;
+  }>({}); // {puppyId: hasOngoingProcess}
   const [selectedPetId, setSelectedPetId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [customerNickname, setCustomerNickname] = useState<string>("");
@@ -31,10 +35,25 @@ export default function ChoosePetForGrooming({
 
       try {
         setLoading(true);
-        const response = await getPuppyProfiles(user.userId);
 
+        // 강아지 프로필 데이터
+        const response = await getPuppyProfiles(user.userId);
         if (response.puppies) {
           setPuppies(response.puppies);
+        }
+
+        // "hasOngoingProcess" 상태 데이터
+        const statusResponse = await getPuppyProfilesWithCanStartProcessStatus(
+          user.userId,
+        );
+        if (statusResponse.puppies) {
+          const statusMap: { [key: number]: boolean } = {};
+          statusResponse.puppies.forEach((puppy) => {
+            if (puppy.id) {
+              statusMap[puppy.id] = puppy.hasOngoingProcess;
+            }
+          });
+          setPuppyProcessStatus(statusMap);
         }
 
         if (response.customerNickname) {
@@ -78,21 +97,26 @@ export default function ChoosePetForGrooming({
         </TextWrapper>
 
         {puppies.length > 0 ? (
-          puppies.map((pet) => (
-            <CardWrapper key={pet.puppyId}>
-              <Card
-                imageSrc={pet.puppyProfileImageUrl || "/svg/pin.svg"}
-                name={pet.name || "이름 없음"}
-                age={pet.age || 0}
-                gender={pet.sex || ""}
-                weight={pet.weight || 0}
-                breed={pet.breed || "품종 미상"}
-                tags={pet.disease || []}
-                isSelected={selectedPetId === pet.puppyId}
-                onClick={() => handleChoosePet(pet.puppyId)}
-              />
-            </CardWrapper>
-          ))
+          puppies.map((pet) => {
+            const hasOngoingProcess =
+              puppyProcessStatus[pet.puppyId || 0] || false;
+            return (
+              <CardWrapper key={pet.puppyId}>
+                <Card
+                  imageSrc={pet.puppyProfileImageUrl || "/svg/pin.svg"}
+                  name={pet.name || "이름 없음"}
+                  age={pet.age || 0}
+                  gender={pet.sex || ""}
+                  weight={pet.weight || 0}
+                  breed={pet.breed || "품종 미상"}
+                  tags={pet.disease || []}
+                  isSelected={selectedPetId === pet.puppyId}
+                  onClick={() => handleChoosePet(pet.puppyId)}
+                  disabled={hasOngoingProcess} // ongoing process가 있으면 선택 불가
+                />
+              </CardWrapper>
+            );
+          })
         ) : (
           <Text typo="body100" color="gray100">
             등록된 반려견이 없습니다.
