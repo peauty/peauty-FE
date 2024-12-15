@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { AppBar, Divider, GNB, Text, CustomInput } from "../../../components";
 import Card from "../../../components/cards/Card";
 import { colors } from "../../../style/color";
@@ -22,28 +23,22 @@ import {
   SendEstimateResponse,
   SendEstimateRequest,
 } from "../../../types/designer/designer bidding api";
+
 export default function Quote() {
+  const location = useLocation();
+  const { userId, processId, threadId } = location.state || {};
+
   const [proposalData, setProposalData] =
     useState<GetEstimateAndProposalDetailsResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // 폼 입력 상태 관리
-  const [content, setContent] = useState<string>(""); // 상세 설명
-  const [estimatedDuration, setEstimatedDuration] = useState<string>(""); // 소요 시간
-  const [estimatedCost, setEstimatedCost] = useState<number | undefined>(); // 비용
-  const [attachments, setAttachments] = useState<string[]>([]); // 첨부 이미지
+  const [content, setContent] = useState<string>("");
+  const [estimatedDuration, setEstimatedDuration] = useState<string>("");
+  const [estimatedCost, setEstimatedCost] = useState<number | undefined>();
+  const [attachments, setAttachments] = useState<string[]>([]);
 
   const handleSendEstimate = async () => {
     try {
-      if (!proposalData) {
-        console.error("Proposal data is not loaded.");
-        return;
-      }
-
-      const userId = 12; // 하드코딩된 사용자 ID
-      const processId = proposalData.processId || 0;
-      const threadId = proposalData.threadId || 0;
-
       const requestData: SendEstimateRequest = {
         content,
         estimatedDuration,
@@ -59,23 +54,15 @@ export default function Quote() {
       );
 
       console.log("견적서 전송 성공:", response);
-      alert(
-        `견적서가 성공적으로 전송되었습니다. 견적 ID: ${response.estimateId}`,
-      );
+      alert(`견적서가 성공적으로 전송되었습니다. ID: ${response.estimateId}`);
     } catch (error) {
       console.error("견적서 전송 실패:", error);
-      alert("견적서 전송에 실패했습니다.");
     }
   };
 
   useEffect(() => {
     const fetchProposalDetails = async () => {
       try {
-        // 하드코딩된 데이터
-        const userId = 12;
-        const processId = 15;
-        const threadId = 33;
-
         const data = await getEstimateAndProposalDetails(
           userId,
           processId,
@@ -89,16 +76,13 @@ export default function Quote() {
       }
     };
 
-    fetchProposalDetails();
-  }, []);
+    if (userId && processId && threadId) {
+      fetchProposalDetails();
+    }
+  }, [userId, processId, threadId]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!proposalData) {
-    return <div>Error fetching proposal details</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
+  if (!proposalData) return <div>Error fetching proposal details</div>;
 
   const imageUrl =
     proposalData.puppyProfile?.profileImageUrl ||
@@ -127,11 +111,8 @@ export default function Quote() {
               요청 스타일
             </Text>
             <Text typo="body100">
-              {proposalData.estimateProposal?.totalGroomingFaceType ||
-                "데이터 없음"}{" "}
-              +{" "}
-              {proposalData.estimateProposal?.totalGroomingBodyType ||
-                "데이터 없음"}
+              {proposalData.estimateProposal?.totalGroomingFaceType || "없음"} +{" "}
+              {proposalData.estimateProposal?.totalGroomingBodyType || "없음"}
             </Text>
           </RequestSection>
           <RequestSection>
@@ -199,7 +180,7 @@ export default function Quote() {
           <CustomInput
             label="비용"
             placeholder="결제 비용을 입력하세요"
-            value={estimatedCost ?? ""}
+            value={estimatedCost}
             onChange={(e) => setEstimatedCost(Number(e.target.value))}
           />
           <CustomInput
@@ -226,7 +207,6 @@ export default function Quote() {
           </PhotoAttachment>
         </InputWrapper>
       </SectionWrapper>
-
       <GNB buttonText="견적서 보내기" onLargeButtonClick={handleSendEstimate} />
     </Container>
   );
