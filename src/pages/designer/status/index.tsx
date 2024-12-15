@@ -27,6 +27,11 @@ export default function Status() {
       state: { userId, processId, threadId },
     });
   };
+  const handleQuoteDatail = (processId: number, threadId: number) => {
+    navigate(`/designer/status/quote/${processId}`, {
+      state: { userId, processId, threadId },
+    });
+  };
 
   const [activeTab, setActiveTab] = useState<Tab>("received");
   const [receivedData, setReceivedData] = useState<
@@ -94,7 +99,7 @@ export default function Status() {
           gender={thread.puppy?.sex || "수컷"}
           weight={thread.puppy?.weight.toString() || "3.4"}
           breed={thread.puppy?.breed || "품종 미제공"}
-          tags={["태그 없음"]}
+          tags={thread.puppy?.diseases || []}
           buttons={[
             {
               title: "요청 보기",
@@ -129,7 +134,7 @@ export default function Status() {
           gender={thread.puppy?.sex || "수컷"}
           weight={thread.puppy?.weight.toString() || "3.4"}
           breed={thread.puppy?.breed || "품종 미제공"}
-          tags={["태그 없음"]}
+          tags={thread.puppy?.diseases || []}
           buttons={[
             {
               title: "견적서 보기",
@@ -137,7 +142,7 @@ export default function Status() {
               color: colors.blue100,
               onClick: () => {
                 if (thread.processId && thread.threadId) {
-                  handleQuote(thread.processId, thread.threadId);
+                  handleQuoteDatail(thread.processId, thread.threadId);
                 } else {
                   console.error("processId 또는 threadId가 없습니다.");
                 }
@@ -163,7 +168,7 @@ export default function Status() {
           gender={thread.puppy?.sex || "수컷"}
           weight={thread.puppy?.weight.toString() || "3.4"}
           breed={thread.puppy?.breed || "품종 미제공"}
-          tags={["태그 없음"]}
+          tags={thread.puppy?.diseases || []}
           buttons={[
             {
               title: "견적서 보기",

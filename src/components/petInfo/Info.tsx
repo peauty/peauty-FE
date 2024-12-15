@@ -32,7 +32,7 @@ interface InfoProps {
   weight: string;
   breed: string;
   status?: string;
-  tags: string[];
+  tags?: string[];
   buttons?: ButtonProps[];
 }
 
@@ -88,13 +88,13 @@ export default function PetInfo({
                 <div
                   style={{
                     backgroundColor: `${statusProcess.fontColor}`,
-                    padding: "0px 5px",
-                    height: "17px",
-                    lineHeight: "0.9",
-                    borderRadius: "2px",
+                    padding: "0px 4px",
+                    height: "16px",
+                    lineHeight: "0.8",
+                    borderRadius: "3px",
                   }}
                 >
-                  <Text typo="body300" color="white">
+                  <Text typo="body500" color="white">
                     {statusProcess.text}
                   </Text>
                 </div>
@@ -110,7 +110,7 @@ export default function PetInfo({
               {age}살 | {gender} {weight}kg | {breed}
             </Text>
             <BadgeWrapper>
-              {tags.map((tag, index) => (
+              {tags?.map((tag, index) => (
                 <Tag key={index} text={tag} />
               ))}
             </BadgeWrapper>

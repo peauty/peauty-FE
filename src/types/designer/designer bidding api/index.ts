@@ -105,6 +105,7 @@ export interface GetThreadsByStepResponse {
     puppy?: {
       puppyId: number;
       customerId: number;
+      diseases?:string[];
       name: string;
       breed: string;
       weight: number;

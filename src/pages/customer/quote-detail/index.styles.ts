@@ -71,6 +71,7 @@ export const DetailText = styled.div`
   flex: 2;
   white-space: pre-line;
   line-height: 1.1;
+  text-align: end;
 `;
 
 // Section for Agreement Items (checkboxes for terms)

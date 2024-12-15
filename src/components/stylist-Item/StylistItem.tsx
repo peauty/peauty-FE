@@ -76,7 +76,7 @@ export default function StylistItem({
 
           <TextWrapper>
             <Star width={14} />{" "}
-            <Text typo="body600" color="gray100">
+            <Text typo="body400" color="gray100">
               <TextWrapper>
                 <span>
                   {star}({starCount})

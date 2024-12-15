@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { AppBar, Divider, GNB, Text, CustomInput } from "../../../components";
-import Card from "../../../components/cards/Card";
-import { colors } from "../../../style/color";
+import {
+  AppBar,
+  Divider,
+  GNB,
+  Text,
+  CustomInput,
+} from "../../../../components";
+import Card from "../../../../components/cards/Card";
+import { colors } from "../../../../style/color";
 import {
   Container,
   ContentWrapper,
@@ -16,17 +22,17 @@ import {
 import {
   getEstimateAndProposalDetails,
   sendEstimate,
-} from "../../../apis/designer/resources/designer bidding api";
-import { uploadImages } from "../../../apis/designer/resources/internal";
-import { GetEstimateAndProposalDetailsResponse } from "../../../types/customer/customer-bidding-api";
-import { formatDate } from "../../../utils/dataformat";
+} from "../../../../apis/designer/resources/designer bidding api";
+import { uploadImages } from "../../../../apis/designer/resources/internal";
+import { GetEstimateAndProposalDetailsResponse } from "../../../../types/customer/customer-bidding-api";
+import { formatDate } from "../../../../utils/dataformat";
 import {
   SendEstimateResponse,
   SendEstimateRequest,
-} from "../../../types/designer/designer bidding api";
-import Modal from "../../../components/modal/Modal/Modal";
+} from "../../../../types/designer/designer bidding api";
+import Modal from "../../../../components/modal/Modal/Modal";
 import { useNavigate } from "react-router-dom";
-export default function Quote() {
+export default function QuoteForm() {
   const location = useLocation();
   const navigate = useNavigate();
   const { userId, processId, threadId } = location.state || {};
@@ -150,7 +156,7 @@ export default function Quote() {
           gender={proposalData.puppyProfile?.sex || "알 수 없음"}
           weight={proposalData.puppyProfile?.weight || 0}
           breed={proposalData.puppyProfile?.breed || "품종 미제공"}
-          tags={[]}
+          tags={proposalData.puppyProfile?.diseases || []}
         />
       </ContentWrapper>
       <Divider thickness={3} color={`${colors.gray400}`} />

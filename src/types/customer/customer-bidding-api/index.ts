@@ -114,6 +114,7 @@ export interface GetEstimateAndProposalDetailsResponse {
   puppyProfile?: {
     puppyId?: number;
     customerId?: number;
+    diseases?: string[];
     name?: string;
     breed?: string;
     weight?: number;
@@ -132,5 +133,15 @@ export interface GetEstimateAndProposalDetailsResponse {
     imageUrls?: string[];
     desiredCost?: number;
     desiredDateTime?: string;
+  };
+  estimate?: {
+    threadId?: number;
+    estimateId?: number;
+    content?: string;
+    availableGroomingDate?: string;
+    estimatedDuration?: string;
+    estimatedCost?: number;
+    depositPrice?: number;
+    imageUrls?: [string];
   };
 }
