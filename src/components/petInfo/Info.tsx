@@ -49,7 +49,22 @@ export default function PetInfo({
   buttons = [],
   status,
 }: InfoProps) {
-  const statusColor = status === "견적 확인중" ? "blue100" : "gray100";
+  const getThreadStepLabel = ():
+    | { text: string; fontColor: "blue100" | "gray100" }
+    | undefined => {
+    switch (status) {
+      case "견적응답":
+        return { text: "견적확인 중", fontColor: "blue100" };
+      case "미용완료":
+        return { text: "미용 완료", fontColor: "gray100" };
+      case "예약완료":
+        return { text: "예약 완료", fontColor: "blue100" };
+      default:
+        return undefined;
+    }
+  };
+  const threadStep = getThreadStepLabel() || { text: "", fontColor: "gray100" };
+
   const getStatusLabel = () => {
     switch (processStatus) {
       case "예약 전":
@@ -101,8 +116,9 @@ export default function PetInfo({
                 <Text typo={"subtitle200"}>{name}</Text>
               </span>
               {status && (
-                <Text typo={"subtitle200"} color={statusColor}>
-                  {status}
+                <Text typo={"subtitle200"} color={threadStep.fontColor}>
+                  {threadStep?.text}
+                  {/* {status} */}
                 </Text>
               )}
             </NameWrapper>
@@ -110,9 +126,7 @@ export default function PetInfo({
               {age}살 | {gender} {weight}kg | {breed}
             </Text>
             <BadgeWrapper>
-              {tags?.map((tag, index) => (
-                <Tag key={index} text={tag} />
-              ))}
+              {tags?.map((tag, index) => <Tag key={index} text={tag} />)}
             </BadgeWrapper>
             {date && (
               <>

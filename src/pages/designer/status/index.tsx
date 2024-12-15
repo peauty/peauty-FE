@@ -15,7 +15,8 @@ import { formatDate } from "../../../utils/dataformat";
 import { useUserDetails } from "../../../hooks/useUserDetails";
 import NotFound from "./components/not-found";
 import { formatTimeDifference } from "../status/utils";
-
+import { completeGrooming } from "../../../apis/designer/resources/designer bidding api";
+import Modal from "../../../components/modal/Modal/Modal";
 type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
@@ -45,20 +46,30 @@ export default function Status() {
   >(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+  const [isAlreadyCompleteDialogOpen, setIsAlreadyCompleteDialogOpen] =
+    useState(false); // 완료된 미용 모달 상태
+  const [currentThread, setCurrentThread] = useState<{
+    processId: number;
+    threadId: number;
+  } | null>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       if (!userId) return;
       setIsLoading(true);
       try {
         if (activeTab === "received") {
-          const data = await getStep1Threads(16);
+          const data = await getStep1Threads(userId);
           console.log(data.threads);
           setReceivedData(data.threads || []);
         } else if (activeTab === "sent") {
           const data = await getStep2Threads(userId);
+          console.log(data.threads);
           setSentData(data.threads || []);
         } else if (activeTab === "confirmed") {
-          const data = await getStep3AboveThreads(userId);
+          const data = await getStep3AboveThreads(1);
+          console.log(data.threads);
           setConfirmedData(data.threads || []);
         }
       } catch (error) {
@@ -76,6 +87,38 @@ export default function Status() {
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
+  };
+
+  const handleCompleteGrooming = async (
+    processId: number,
+    threadId: number,
+  ) => {
+    if (!userId || !processId || !threadId) {
+      console.error("미용 완료를 위한 필수 데이터가 없습니다.");
+      return;
+    }
+
+    try {
+      const response = await completeGrooming(userId, processId, threadId);
+      console.log("미용 완료 성공:", response);
+      setIsConfirmDialogOpen(false);
+      window.location.reload();
+    } catch (error) {
+      console.error("미용 완료 실패:", error);
+    }
+  };
+
+  const handleModalOpen = (
+    processId: number,
+    threadId: number,
+    threadStep: string,
+  ) => {
+    if (threadStep === "미용완료") {
+      setIsAlreadyCompleteDialogOpen(true); // 이미 완료된 미용 모달 열기
+    } else {
+      setCurrentThread({ processId, threadId });
+      setIsConfirmDialogOpen(true);
+    }
   };
 
   const renderContent = () => {
@@ -135,6 +178,7 @@ export default function Status() {
           weight={thread.puppy?.weight.toString() || "3.4"}
           breed={thread.puppy?.breed || "품종 미제공"}
           tags={thread.puppy?.diseases || []}
+          status={thread.threadStep}
           buttons={[
             {
               title: "견적서 보기",
@@ -157,8 +201,9 @@ export default function Status() {
 
       return confirmedData.map((thread) => (
         <Info
+          processStatus={thread.processStatus}
           key={thread.threadId}
-          date={formatDate(thread.processCreatedAt)} // 날짜 포맷팅 적용
+          date={formatDate(thread.threadStepModifiedAt)} // 날짜 포맷팅 적용
           imageSrc={
             thread.puppy?.profileImageUrl ||
             "https://peauty.s3.ap-northeast-2.amazonaws.com/images/dog.png"
@@ -168,19 +213,36 @@ export default function Status() {
           gender={thread.puppy?.sex || "수컷"}
           weight={thread.puppy?.weight.toString() || "3.4"}
           breed={thread.puppy?.breed || "품종 미제공"}
+          status={thread.threadStep}
           tags={thread.puppy?.diseases || []}
           buttons={[
             {
               title: "견적서 보기",
               bgColor: colors.blue300,
               color: colors.blue100,
-              onClick: () => console.log("견적서 보기 클릭"),
+              onClick: () => {
+                if (thread.processId && thread.threadId) {
+                  handleQuoteDatail(thread.processId, thread.threadId);
+                } else {
+                  console.error("processId 또는 threadId가 없습니다.");
+                }
+              },
             },
             {
               title: "미용 완료",
               bgColor: colors.background,
               color: colors.gray100,
-              onClick: () => console.log("미용 완료 클릭"),
+              onClick: () => {
+                if (thread.processId && thread.threadId) {
+                  handleModalOpen(
+                    thread.processId,
+                    thread.threadId,
+                    thread.threadStep || "",
+                  );
+                } else {
+                  console.error("processId 또는 threadId가 없습니다.");
+                }
+              },
             },
           ]}
         />
@@ -196,6 +258,36 @@ export default function Status() {
         {renderContent()}
       </TabWrapper>
       <GNB type="designer" />
+      {isConfirmDialogOpen && currentThread && (
+        <Modal
+          title="해당 미용이 완료됐나요?"
+          message="확정 상태는 변경할 수 없어요"
+          buttons={[
+            {
+              label: "네",
+              onClick: () =>
+                handleCompleteGrooming(
+                  currentThread.processId,
+                  currentThread.threadId,
+                ),
+            },
+            { label: "아니오", onClick: () => setIsConfirmDialogOpen(false) },
+          ]}
+          onClose={() => setIsConfirmDialogOpen(false)}
+        />
+      )}
+      {isAlreadyCompleteDialogOpen && (
+        <Modal
+          message="이미 완료된 미용이에요"
+          buttons={[
+            {
+              label: "닫기",
+              onClick: () => setIsAlreadyCompleteDialogOpen(false),
+            },
+          ]}
+          onClose={() => setIsAlreadyCompleteDialogOpen(false)}
+        />
+      )}
     </>
   );
 }
