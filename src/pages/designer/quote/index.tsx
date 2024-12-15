@@ -24,9 +24,11 @@ import {
   SendEstimateResponse,
   SendEstimateRequest,
 } from "../../../types/designer/designer bidding api";
-
+import Modal from "../../../components/modal/Modal/Modal";
+import { useNavigate } from "react-router-dom";
 export default function Quote() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { userId, processId, threadId } = location.state || {};
 
   const [proposalData, setProposalData] =
@@ -37,8 +39,29 @@ export default function Quote() {
   const [estimatedDuration, setEstimatedDuration] = useState<string>("");
   const [estimatedCost, setEstimatedCost] = useState<number | undefined>();
   const [attachments, setAttachments] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalButtons, setModalButtons] = useState<
+    { label: string; onClick: () => void }[]
+  >([]);
+  const [isCancelDialogOpen, setIsCancelDialogOpen] = useState<boolean>(false);
+
+  const handleBackClick = () => {
+    setIsCancelDialogOpen(true);
+  };
+
+  const handleConfirmExit = () => {
+    setIsCancelDialogOpen(false);
+    navigate(-1); // 이전 페이지로 이동
+  };
 
   const handleSendEstimate = async () => {
+    if (proposalData?.processStatus !== "예약 전") {
+      setIsModalOpen(true);
+      setModalButtons([
+        { label: "닫기", onClick: () => setIsModalOpen(false) },
+      ]);
+      return;
+    }
     try {
       const requestData: SendEstimateRequest = {
         content,
@@ -114,7 +137,11 @@ export default function Quote() {
 
   return (
     <Container>
-      <AppBar prefix="backButton" title="견적서 작성" />
+      <AppBar
+        prefix="backButton"
+        title="견적서 작성"
+        onclick={handleBackClick}
+      />
       <ContentWrapper>
         <Card
           imageSrc={imageUrl}
@@ -204,8 +231,18 @@ export default function Quote() {
           <CustomInput
             label="비용"
             placeholder="결제 비용을 입력하세요"
-            value={estimatedCost}
-            onChange={(e) => setEstimatedCost(Number(e.target.value))}
+            value={
+              estimatedCost !== undefined ? estimatedCost.toLocaleString() : ""
+            }
+            onChange={(e) => {
+              const input = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외 문자 제거
+              if (input === "") {
+                setEstimatedCost(undefined); // 입력값이 비었을 때
+              } else {
+                setEstimatedCost(Number(input)); // 숫자로 변환
+              }
+            }}
+            unit="원"
           />
           <CustomInput
             label="소요 시간"
@@ -283,6 +320,24 @@ export default function Quote() {
         </InputWrapper>
       </SectionWrapper>
       <GNB buttonText="견적서 보내기" onLargeButtonClick={handleSendEstimate} />
+      {isModalOpen && (
+        <Modal
+          message="현재 상태에서는 견적서를 보낼 수 없습니다."
+          buttons={modalButtons}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
+      {isCancelDialogOpen && (
+        <Modal
+          title="견적서 작성을 취소할까요?"
+          message="페이지를 나가면 작성한 내용은 사라져요"
+          buttons={[
+            { label: "나가기", onClick: handleConfirmExit },
+            { label: "닫기", onClick: () => setIsCancelDialogOpen(false) },
+          ]}
+          onClose={() => setIsCancelDialogOpen(false)}
+        />
+      )}
     </Container>
   );
 }
