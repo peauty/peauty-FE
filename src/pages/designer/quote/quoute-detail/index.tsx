@@ -113,7 +113,7 @@ export default function QuoteDetail() {
       </ContentWrapper>
       <Divider />
       <>
-        <RequestDetail>
+        <RequestDetail style={{ gap: "0px" }}>
           {/* 클릭 시 열림/닫힘 상태를 토글 */}
           <div
             onClick={() => setIsDetailOpen((prev) => !prev)}
@@ -126,7 +126,7 @@ export default function QuoteDetail() {
               backgroundColor: `${colors.white}`,
             }}
           >
-            <Text typo="subtitle200">요청 상세</Text>
+            <Text typo="subtitle300">요청 상세</Text>
             <Text typo="body400" color="gray100">
               {isDetailOpen ? "▲" : "▼"}
             </Text>
@@ -135,7 +135,7 @@ export default function QuoteDetail() {
           <>
             {/* 내용은 열림 상태일 때만 렌더링 */}
             {isDetailOpen && (
-              <SectionWrapper>
+              <SectionWrapper style={{ backgroundColor: `${colors.white}` }}>
                 <RequestSection>
                   <Text typo="body400" color="gray100">
                     요청 스타일
@@ -220,7 +220,7 @@ export default function QuoteDetail() {
           <div
             style={{ display: "flex", justifyContent: "center", gap: "3px" }}
           >
-            <Text typo="subtitle100" color="blue100">
+            <Text typo="subtitle100" color="blue100"style={{fontWeight:'600'}}>
               {proposalData.puppyProfile?.name}
             </Text>
             <Text typo="subtitle100">견적서</Text>
@@ -302,7 +302,7 @@ export default function QuoteDetail() {
               </Text>
             </DetailLabel>
             <Text typo="subtitle200">
-              {proposalData.estimate?.depositPrice?.toLocaleString()}
+              {proposalData.estimate?.depositPrice?.toLocaleString()}원
             </Text>
           </DetailRow>
 
