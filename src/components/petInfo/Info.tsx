@@ -23,6 +23,7 @@ interface ButtonProps {
 }
 
 interface InfoProps {
+  processStatus?: string;
   date?: string;
   imageSrc: string;
   name: string;
@@ -36,6 +37,7 @@ interface InfoProps {
 }
 
 export default function PetInfo({
+  processStatus,
   date,
   imageSrc,
   name,
@@ -48,14 +50,25 @@ export default function PetInfo({
   status,
 }: InfoProps) {
   const statusColor = status === "견적 확인중" ? "blue100" : "gray100";
+  const getStatusLabel = () => {
+    switch (processStatus) {
+      case "예약 전":
+        return { text: "요청중", fontColor: colors.green100 };
+      case "예약 성공":
+        return { text: "예약중", fontColor: colors.blue100 };
+      case "완료":
+        return { text: "완료", fontColor: colors.gray100 };
+      default:
+        return null; // 취소 상태일 때
+    }
+  };
+  const statusProcess = getStatusLabel();
+  // 취소 상태일 때는 렌더링하지 않음
+  if (!statusProcess) return null;
+
   return (
     <>
       <CardContainer>
-        {date && (
-          <>
-            <DateWrapper>{date}</DateWrapper>
-          </>
-        )}
         <CardWrapper>
           <div>
             <ProfileImg
@@ -64,11 +77,29 @@ export default function PetInfo({
               width="80px"
               height="80px"
               borderRadius="10px"
+              isDarkened={processStatus !== "예약 전"}
             />
           </div>
           <InfoWrapper>
             <NameWrapper>
-              <Text typo={"subtitle200"}>{name}</Text>
+              <span
+                style={{ display: "flex", gap: "5px", alignItems: "center" }}
+              >
+                <div
+                  style={{
+                    backgroundColor: `${statusProcess.fontColor}`,
+                    padding: "0px 5px",
+                    height: "17px",
+                    lineHeight: "0.9",
+                    borderRadius: "2px",
+                  }}
+                >
+                  <Text typo="body300" color="white">
+                    {statusProcess.text}
+                  </Text>
+                </div>
+                <Text typo={"subtitle200"}>{name}</Text>
+              </span>
               {status && (
                 <Text typo={"subtitle200"} color={statusColor}>
                   {status}
@@ -83,6 +114,11 @@ export default function PetInfo({
                 <Tag key={index} text={tag} />
               ))}
             </BadgeWrapper>
+            {date && (
+              <>
+                <DateWrapper>{date}</DateWrapper>
+              </>
+            )}
           </InfoWrapper>
         </CardWrapper>
         {buttons.length > 0 && (

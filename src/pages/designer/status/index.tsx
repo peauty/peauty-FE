@@ -14,6 +14,7 @@ import { GetThreadsByStepResponse } from "../../../types/designer/designer biddi
 import { formatDate } from "../../../utils/dataformat";
 import { useUserDetails } from "../../../hooks/useUserDetails";
 import NotFound from "./components/not-found";
+import { formatTimeDifference } from "../status/utils";
 
 type Tab = "received" | "sent" | "confirmed";
 
@@ -45,7 +46,7 @@ export default function Status() {
       setIsLoading(true);
       try {
         if (activeTab === "received") {
-          const data = await getStep1Threads(userId);
+          const data = await getStep1Threads(16);
           console.log(data.threads);
           setReceivedData(data.threads || []);
         } else if (activeTab === "sent") {
@@ -81,8 +82,9 @@ export default function Status() {
 
       return receivedData.map((thread) => (
         <Info
+          processStatus={thread.processStatus}
           key={thread.threadId}
-          date={formatDate(thread.processCreatedAt)}
+          date={formatTimeDifference(thread.processCreatedAt)}
           imageSrc={
             thread.puppy?.profileImageUrl ||
             "https://peauty.s3.ap-northeast-2.amazonaws.com/images/dog.png"
@@ -115,8 +117,9 @@ export default function Status() {
 
       return sentData.map((thread) => (
         <Info
+          processStatus={thread.processStatus}
           key={thread.threadId}
-          date={formatDate(thread.processCreatedAt)} // 날짜 포맷팅 적용
+          date={formatTimeDifference(thread.processCreatedAt)} // 날짜 포맷팅 적용
           imageSrc={
             thread.puppy?.profileImageUrl ||
             "https://peauty.s3.ap-northeast-2.amazonaws.com/images/dog.png"
