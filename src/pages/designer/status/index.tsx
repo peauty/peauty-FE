@@ -46,6 +46,7 @@ export default function Status() {
       try {
         if (activeTab === "received") {
           const data = await getStep1Threads(userId);
+          console.log(data.threads);
           setReceivedData(data.threads || []);
         } else if (activeTab === "sent") {
           const data = await getStep2Threads(userId);

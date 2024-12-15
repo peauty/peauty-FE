@@ -17,6 +17,7 @@ import {
   getEstimateAndProposalDetails,
   sendEstimate,
 } from "../../../apis/designer/resources/designer bidding api";
+import { uploadImages } from "../../../apis/designer/resources/internal";
 import { GetEstimateAndProposalDetailsResponse } from "../../../types/customer/customer-bidding-api";
 import { formatDate } from "../../../utils/dataformat";
 import {
@@ -80,6 +81,29 @@ export default function Quote() {
       fetchProposalDetails();
     }
   }, [userId, processId, threadId]);
+
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const response = await uploadImages(file);
+      const uploadedUrls = response.uploadedImageUrl;
+
+      if (uploadedUrls && uploadedUrls.length > 0) {
+        setAttachments((prev) => [...prev, ...uploadedUrls]);
+      }
+    } catch (error) {
+      console.error("이미지 업로드 실패:", error);
+      alert("이미지 업로드에 실패했습니다.");
+    }
+  };
+
+  const handleImageRemove = (index: number) => {
+    setAttachments((prev) => prev.filter((_, i) => i !== index));
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (!proposalData) return <div>Error fetching proposal details</div>;
@@ -203,7 +227,58 @@ export default function Quote() {
                 상세 설명에 대한 이해를 돕기 위해 사진을 첨부하세요
               </Text>
             </div>
-            <PhotoAttachmentContainer>+</PhotoAttachmentContainer>
+            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+              <PhotoAttachmentContainer>
+                <label style={{ cursor: "pointer" }}>
+                  +
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageUpload}
+                  />
+                </label>
+              </PhotoAttachmentContainer>
+              {attachments.map((url, index) => (
+                <div
+                  key={index}
+                  style={{
+                    position: "relative",
+                    width: "80px",
+                    height: "80px",
+                  }}
+                >
+                  <img
+                    src={url}
+                    alt={`첨부 이미지 ${index + 1}`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  <button
+                    onClick={() => handleImageRemove(index)}
+                    style={{
+                      position: "absolute",
+                      top: "3px",
+                      right: "3px",
+                      background: `${colors.grayOpacity300}`,
+                      color: "white",
+                      border: "none",
+                      borderRadius: "50%",
+                      cursor: "pointer",
+                      width: "20px",
+                      height: "20px",
+                      lineHeight: "1.3",
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
           </PhotoAttachment>
         </InputWrapper>
       </SectionWrapper>
