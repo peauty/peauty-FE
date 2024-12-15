@@ -25,35 +25,6 @@ export interface CompleteGroomingResponse {
   completedTime?: string;
 }
 
-// Puppy 객체 타입
-interface Puppy {
-  puppyId: number;
-  customerId: number;
-  name: string;
-  breed: string;
-  weight: number;
-  sex: string;
-  age: number;
-  birthdate: string;
-  profileImageUrl: string;
-  puppySize: "중형견" | "소형견" | "대형견"; // 대형견 등의 다른 값이 있을 수 있음
-}
-
-// Thread 객체 타입
-interface Thread {
-  processId: number;
-  processStatus: string;
-  processCreatedAt: string;
-  processStatusModifiedAt: string;
-  threadId: number;
-  threadStep: string;
-  threadStatus: string;
-  threadCreatedAt: string;
-  threadStepModifiedAt: string;
-  puppy: Puppy; // 위에서 정의한 Puppy 타입을 사용
-}
-
-
 // 강아지 프로필 타입
 export interface PuppyProfile {
   puppyId: number;
@@ -105,7 +76,7 @@ export interface GetThreadsByStepResponse {
     puppy?: {
       puppyId: number;
       customerId: number;
-      diseases?:string[];
+      diseases?: string[];
       name: string;
       breed: string;
       weight: number;

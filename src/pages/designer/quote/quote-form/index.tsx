@@ -35,7 +35,7 @@ import { useNavigate } from "react-router-dom";
 export default function QuoteForm() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { userId, processId, threadId } = location.state || {};
+  const { userId, processId, threadId, activeTab } = location.state || {};
 
   const [proposalData, setProposalData] =
     useState<GetEstimateAndProposalDetailsResponse | null>(null);
@@ -57,7 +57,9 @@ export default function QuoteForm() {
 
   const handleConfirmExit = () => {
     setIsCancelDialogOpen(false);
-    navigate(-1); // 이전 페이지로 이동
+    navigate("/designer/status", {
+      state: { activeTab }, // 돌아갈 때 탭 상태 전달
+    });
   };
 
   const handleSendEstimate = async () => {

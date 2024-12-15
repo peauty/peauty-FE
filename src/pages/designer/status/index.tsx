@@ -17,24 +17,28 @@ import NotFound from "./components/not-found";
 import { formatTimeDifference } from "../status/utils";
 import { completeGrooming } from "../../../apis/designer/resources/designer bidding api";
 import Modal from "../../../components/modal/Modal/Modal";
+import { useLocation } from "react-router-dom";
 type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { userId } = useUserDetails();
 
   const handleQuote = (processId: number, threadId: number) => {
     navigate(`/designer/quote/${processId}`, {
-      state: { userId, processId, threadId },
-    });
-  };
-  const handleQuoteDatail = (processId: number, threadId: number) => {
-    navigate(`/designer/status/quote/${processId}`, {
-      state: { userId, processId, threadId },
+      state: { userId, processId, threadId, activeTab },
     });
   };
 
-  const [activeTab, setActiveTab] = useState<Tab>("received");
+  const handleQuoteDatail = (processId: number, threadId: number) => {
+    navigate(`/designer/status/quote/${processId}`, {
+      state: { userId, processId, threadId, activeTab },
+    });
+  };
+  const initialTab =
+    (location.state as { activeTab?: Tab })?.activeTab || "received";
+  const [activeTab, setActiveTab] = useState<Tab>(initialTab);
   const [receivedData, setReceivedData] = useState<
     GetThreadsByStepResponse["threads"] | null
   >(null);

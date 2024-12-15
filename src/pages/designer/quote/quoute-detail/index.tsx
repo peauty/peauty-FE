@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppBar, GNB, Text } from "../../../../components";
 import Card from "../../../../components/cards/Card";
 import { colors } from "../../../../style/color";
@@ -11,15 +11,11 @@ import {
   RequestSection,
 } from "../quote-form/index.styles";
 import { getEstimateAndProposalDetails } from "../../../../apis/designer/resources/designer bidding api";
-import { uploadImages } from "../../../../apis/designer/resources/internal";
 import { GetEstimateAndProposalDetailsResponse } from "../../../../types/customer/customer-bidding-api";
 import { formatDate } from "../../../../utils/dataformat";
-import { useNavigate } from "react-router-dom";
-import { RequestSection2 } from "./index.styles";
 import { CheckIcon2 } from "../../../../assets/svg";
 import { Divider } from "./index.styles";
 import {
-  PageContainer,
   AgreementContainer,
   AgreementItem,
   DashedDivider,
@@ -31,20 +27,20 @@ import {
 } from "../../../customer/quote-detail/index.styles";
 
 export default function QuoteDetail() {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { userId, processId, threadId } = location.state || {};
+  const location = useLocation();
+  const { userId, processId, threadId, activeTab } = location.state || {};
 
   const [proposalData, setProposalData] =
     useState<GetEstimateAndProposalDetailsResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isDetailOpen, setIsDetailOpen] = useState<boolean>(false);
 
-  const [content, setContent] = useState<string>("");
-  const [estimatedDuration, setEstimatedDuration] = useState<string>("");
-  const [estimatedCost, setEstimatedCost] = useState<number | undefined>();
-  const [attachments, setAttachments] = useState<string[]>([]);
-
+  const handleBack = () => {
+    navigate("/designer/status", {
+      state: { activeTab }, // 돌아갈 때 탭 상태 전달
+    });
+  };
   useEffect(() => {
     const fetchProposalDetails = async () => {
       try {
@@ -67,29 +63,6 @@ export default function QuoteDetail() {
     }
   }, [userId, processId, threadId]);
 
-  const handleImageUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    try {
-      const response = await uploadImages(file);
-      const uploadedUrls = response.uploadedImageUrl;
-
-      if (uploadedUrls && uploadedUrls.length > 0) {
-        setAttachments((prev) => [...prev, ...uploadedUrls]);
-      }
-    } catch (error) {
-      console.error("이미지 업로드 실패:", error);
-      alert("이미지 업로드에 실패했습니다.");
-    }
-  };
-
-  const handleImageRemove = (index: number) => {
-    setAttachments((prev) => prev.filter((_, i) => i !== index));
-  };
-
   if (isLoading) return <div>Loading...</div>;
   if (!proposalData) return <div>Error fetching proposal details</div>;
 
@@ -99,7 +72,7 @@ export default function QuoteDetail() {
 
   return (
     <Container style={{ backgroundColor: `${colors.background}` }}>
-      <AppBar prefix="backButton" title="견적서 보기" />
+      <AppBar prefix="backButton" title="견적서 보기" onclick={handleBack} />
       <ContentWrapper>
         <Card
           imageSrc={imageUrl}
@@ -220,7 +193,11 @@ export default function QuoteDetail() {
           <div
             style={{ display: "flex", justifyContent: "center", gap: "3px" }}
           >
-            <Text typo="subtitle100" color="blue100"style={{fontWeight:'600'}}>
+            <Text
+              typo="subtitle100"
+              color="blue100"
+              style={{ fontWeight: "600" }}
+            >
               {proposalData.puppyProfile?.name}
             </Text>
             <Text typo="subtitle100">견적서</Text>
