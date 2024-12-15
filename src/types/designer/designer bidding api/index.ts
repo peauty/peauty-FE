@@ -53,9 +53,42 @@ interface Thread {
   puppy: Puppy; // 위에서 정의한 Puppy 타입을 사용
 }
 
-// 전체 응답 데이터 타입
-export interface GetEstimateAndProposalDetailsResponse {
-  threads: Thread[]; // 여러 개의 Thread를 배열로 담고 있음
+
+// 강아지 프로필 타입
+export interface PuppyProfile {
+  puppyId: number;
+  customerId: number;
+  name: string;
+  breed: string;
+  weight: number;
+  sex: string;
+  age: number;
+  birthdate: string;
+  profileImageUrl: string;
+  puppySize: string;
+}
+
+// 견적 제안 타입
+export interface EstimateProposal {
+  id: number;
+  style: string;
+  totalGroomingBodyType: string;
+  totalGroomingFaceType: string;
+  detail: string;
+  imageUrls: string[];
+  desiredCost: number;
+  desiredDateTime: string;
+}
+
+// 메인 데이터 타입
+export interface EstimateAndProposalDetails {
+  processId: number;
+  processStatus: string;
+  threadId: number;
+  threadStatus: string;
+  threadStep: string;
+  puppyProfile: PuppyProfile;
+  estimateProposal: EstimateProposal;
 }
 
 export interface GetThreadsByStepResponse {

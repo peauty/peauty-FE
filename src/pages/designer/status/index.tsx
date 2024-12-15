@@ -12,13 +12,14 @@ import {
 } from "../../../apis/designer/resources/designer bidding api";
 import { GetThreadsByStepResponse } from "../../../types/designer/designer bidding api";
 import { formatDate } from "../../../utils/dataformat"; // formatDate 함수 가져오기
+import { useUserDetails } from "../../../hooks/useUserDetails";
 
 type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
   const navigate = useNavigate();
-  const handleWorkspace = (processId: number) => {
-    navigate("/designer/quote-detail", { state: { processId } });
+  const handleQuote = (puppyId: number) => {
+    navigate(`/designer/quote/${puppyId}`, { state: { puppyId } });
   };
 
   const [activeTab, setActiveTab] = useState<Tab>("received");
@@ -33,21 +34,24 @@ export default function Status() {
   >(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { userId } = useUserDetails(); // 유저 ID 가져오기
+
   // API 호출하여 데이터를 가져오기
   useEffect(() => {
     const fetchData = async () => {
+      if (!userId) return; // userId가 없으면 실행하지 않음
       setIsLoading(true);
       try {
         if (activeTab === "received") {
-          const data = await getStep1Threads(12); // userId를 적절히 전달
+          const data = await getStep1Threads(userId);
           console.log("받은 요청 리스트:", data.threads);
           setReceivedData(data.threads || []);
         } else if (activeTab === "sent") {
-          const data = await getStep2Threads(6); // userId를 적절히 전달
+          const data = await getStep2Threads(userId);
           console.log("보낸 요청 리스트:", data.threads);
           setSentData(data.threads || []);
         } else if (activeTab === "confirmed") {
-          const data = await getStep3AboveThreads(1); // userId를 적절히 전달
+          const data = await getStep3AboveThreads(userId);
           console.log("확정된 요청 리스트:", data.threads);
           setConfirmedData(data.threads || []);
         }
@@ -62,7 +66,7 @@ export default function Status() {
     };
 
     fetchData();
-  }, [activeTab]); // activeTab이 변경될 때마다 API 호출
+  }, [activeTab, userId]); // activeTab 또는 userId 변경 시 호출
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
@@ -95,7 +99,13 @@ export default function Status() {
               title: "요청 보기",
               bgColor: colors.blue300,
               color: colors.blue100,
-              onClick: () => console.log("하이"),
+              onClick: () => {
+                if (thread.puppy?.puppyId !== undefined) {
+                  handleQuote(thread.puppy.puppyId);
+                } else {
+                  console.error("puppyId가 존재하지 않습니다.");
+                }
+              },
             },
           ]}
         />
@@ -123,7 +133,13 @@ export default function Status() {
               title: "견적서 보기",
               bgColor: colors.blue300,
               color: colors.blue100,
-              onClick: () => handleWorkspace(thread.processId),
+              onClick: () => {
+                if (thread.puppy?.puppyId !== undefined) {
+                  handleQuote(thread.puppy.puppyId);
+                } else {
+                  console.error("puppyId가 존재하지 않습니다.");
+                }
+              },
             },
           ]}
         />
@@ -151,7 +167,7 @@ export default function Status() {
               title: "견적서 보기",
               bgColor: colors.blue300,
               color: colors.blue100,
-              onClick: () => handleWorkspace(thread.processId),
+              onClick: () => console.log("견적서 보기 클릭"),
             },
             {
               title: "미용 완료",
