@@ -15,7 +15,7 @@ export const getDesignerWorkspace = async (
   userId: number,
 ): Promise<GetDesignerWorkspaceResponse> => {
   const res = await CustomerAPI.get<GetDesignerWorkspaceResponse>(
-    `/v1/${userId}/shop`,
+    `/v1/users/${userId}/shop`, // 경로 수정: users 추가
   );
   return res.data;
 };
