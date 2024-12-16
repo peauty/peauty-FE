@@ -31,7 +31,8 @@ interface DogListProps {
 }
 
 export default function DogList({ setPuppyId }: DogListProps) {
-  const { userId, isLoading } = useUserDetails(); 
+  const { userId, isLoading } = useUserDetails();
+
   const [puppyData, setPuppyData] = useState<GetPuppyProfilesWithCanStartProcessStatusResponse | null>(null); // 강아지 데이터 상태
   const [selectedDog, setSelectedDog] = useState<string>(""); // 선택된 강아지 상태
 
@@ -42,14 +43,14 @@ export default function DogList({ setPuppyId }: DogListProps) {
         .then((data: GetPuppyProfilesWithCanStartProcessStatusResponse) => {
           console.log("API 응답 데이터:", data);
           
-          const puppies = data?.puppies; 
+          const puppies = data?.puppies;
           if (Array.isArray(puppies) && puppies.length > 0) {
             setPuppyData(data);
             setSelectedDog(puppies[0].name); // 첫 번째 강아지를 기본 선택
             setPuppyId(puppies[0].puppyId); // 첫 번째 강아지의 puppyId를 부모로 전달
           } else {
             console.error("puppies 데이터가 잘못되었거나 없습니다.");
-            setPuppyData(null); 
+            setPuppyData(null);
           }
         })
         .catch((error) => {
@@ -60,8 +61,9 @@ export default function DogList({ setPuppyId }: DogListProps) {
 
   const dogs = puppyData?.puppies || []; // puppies 배열이 없으면 빈 배열로 설정
 
-  const handleDogClick = (name: string) => {
+  const handleDogClick = (name: string, puppyId: number) => {
     setSelectedDog(name === selectedDog ? "" : name); // 선택된 강아지를 토글
+    setPuppyId(puppyId); // 선택된 강아지의 puppyId 전달
   };
 
   if (isLoading) {
@@ -79,7 +81,7 @@ export default function DogList({ setPuppyId }: DogListProps) {
             src={dog.profileImageUrl || "default-image-url"} // 기본 이미지 URL
             name={dog.name || "Unnamed Dog"} // 기본 이름
             active={dog.name === selectedDog} // 선택된 강아지 활성화 여부 확인
-            onClick={() => handleDogClick(dog.name)} // 클릭 시 선택 토글
+            onClick={() => handleDogClick(dog.name, dog.puppyId)} // 클릭 시 선택 토글, puppyId 전달
           />
         ))
       )}
