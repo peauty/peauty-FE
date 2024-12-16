@@ -129,7 +129,7 @@ export default function DesignerSignUpDetail() {
     try {
       // Try creating the designer workspace with the mapped payment options
       await createDesignerWorkspace(Number(userId), updatedShopDetailInfo);
-      alert("워크스페이스가 성공적으로 등록되었습니다.");
+      navigate(ROUTE.designer.signupDetailComplete);
     } catch (error) {
       try {
         // If creation fails, attempt to update the workspace

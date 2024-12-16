@@ -13,11 +13,11 @@ export default function CustomerSignUpComplete() {
   const navigate = useNavigate();
 
   const handleRegisterNow = () => {
-    navigate(ROUTE.designer.home); // TODO 바꾸기
+    navigate(ROUTE.designer.signupDetail);
   };
 
   const handleRegisterLater = () => {
-    navigate(ROUTE.designer.home); // TODO 바꾸기
+    navigate(ROUTE.designer.home);
   };
 
   return (
