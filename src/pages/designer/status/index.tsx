@@ -9,13 +9,13 @@ import {
   getStep1Threads,
   getStep2Threads,
   getStep3AboveThreads,
-} from "../../../apis/designer/resources/designer bidding api";
-import { GetThreadsByStepResponse } from "../../../types/designer/designer bidding api";
+} from "../../../apis/designer/resources/designer-bidding-api";
+import { GetThreadsByStepResponse } from "../../../types/designer/designer-bidding-api";
 import { formatDate } from "../../../utils/dataformat";
 import { useUserDetails } from "../../../hooks/useUserDetails";
 import NotFound from "./components/not-found";
 import { formatTimeDifference } from "../status/utils";
-import { completeGrooming } from "../../../apis/designer/resources/designer bidding api";
+import { completeGrooming } from "../../../apis/designer/resources/designer-bidding-api";
 import Modal from "../../../components/modal/Modal/Modal";
 import { useLocation } from "react-router-dom";
 import Toast from "../../../components/toast";

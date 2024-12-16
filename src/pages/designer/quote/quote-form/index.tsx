@@ -22,14 +22,14 @@ import {
 import {
   getEstimateAndProposalDetails,
   sendEstimate,
-} from "../../../../apis/designer/resources/designer bidding api";
+} from "../../../../apis/designer/resources/designer-bidding-api";
 import { uploadImages } from "../../../../apis/designer/resources/internal";
-import { GetEstimateAndProposalDetailsResponse } from "../../../../types/designer/designer bidding api";
+import { GetEstimateAndProposalDetailsResponse } from "../../../../types/designer/designer-bidding-api";
 import { formatDate } from "../../../../utils/dataformat";
 import {
   SendEstimateResponse,
   SendEstimateRequest,
-} from "../../../../types/designer/designer bidding api";
+} from "../../../../types/designer/designer-bidding-api";
 import Modal from "../../../../components/modal/Modal/Modal";
 import { useNavigate } from "react-router-dom";
 export default function QuoteForm() {
