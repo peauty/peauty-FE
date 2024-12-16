@@ -17,6 +17,7 @@ const ShopDetail = forwardRef<HTMLDivElement, ShopDetailProps>(
       openDay,
       paymentOptions,
       phoneNumber,
+      licenses,
       ...rest
     },
     ref,
@@ -34,7 +35,7 @@ const ShopDetail = forwardRef<HTMLDivElement, ShopDetailProps>(
           phoneNumber={phoneNumber}
         />
         <Career yearOfExperience={yearOfExperience} />
-        <License />
+        <License licenses={licenses} />
       </TabWrapper>
     );
   },

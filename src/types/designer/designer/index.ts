@@ -8,28 +8,28 @@ export interface Badge {
 }
 
 export interface GetDesignerWorkspaceResponse {
-  designerId: number;
-  workspaceId: number;
-  bannerImageUrl: string;
-  workspaceName: string;
-  reviewRating: number;
-  reviewsCount: number;
-  scissors: "NONE" | "GOLD" | "SILVER" | "BRONZE";
-  introduceTitle: string;
-  introduce: string;
-  noticeTitle: string;
-  notice: string;
-  address: string;
-  addressDetail: string;
-  phoneNumber: string;
-  yearOfExperience: number;
-  openHours: string;
-  closeHours: string;
-  openDay: string;
-  directionGuide: string;
-  licenses: string[]; // 자격증 이미지 URL 리스트
-  paymentOptions: ("계좌 이체" | "현금 결제" | "카드 결제")[]; // 결제 옵션
-  representativeBadgeNames: Badge[]; // 대표 배지 이름 리스트
+  designerId?: number;
+  workspaceId?: number;
+  bannerImageUrl?: string;
+  workspaceName?: string;
+  reviewRating?: number;
+  reviewsCount?: number;
+  scissors?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
+  introduceTitle?: string;
+  introduce?: string;
+  noticeTitle?: string;
+  notice?: string;
+  address?: string;
+  addressDetail?: string;
+  phoneNumber?: string;
+  yearOfExperience?: number;
+  openHours?: string;
+  closeHours?: string;
+  openDay?: string;
+  directionGuide?: string;
+  licenses?: string[]; // 자격증 이미지 URL 리스트
+  paymentOptions?: ("계좌 이체" | "현금 결제" | "카드 결제")[]; // 결제 옵션
+  representativeBadgeNames?: Badge[]; // 대표 배지 이름 리스트
 }
 
 export interface UpdateDesignerWorkspaceResponse {

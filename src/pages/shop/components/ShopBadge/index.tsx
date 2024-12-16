@@ -39,7 +39,7 @@ export const ShopBadge = forwardRef<HTMLDivElement, ShopBadgeProps>(
       <BadgeContainer ref={ref} {...props}>
         <Text typo="subtitle300">가게 뱃지</Text>
         <BadgeGrid>
-          {badges.map((badge) => (
+          {badges?.map((badge) => (
             <BadgeItem
               key={badge.badgeId}
               onClick={() => handleBadgeClick(badge)}
@@ -56,7 +56,7 @@ export const ShopBadge = forwardRef<HTMLDivElement, ShopBadgeProps>(
             </BadgeItem>
           ))}
         </BadgeGrid>
-        {badges.length === 0 && (
+        {badges?.length === 0 && (
           <Text typo="body400" color="gray100">
             뱃지가 없습니다.
           </Text>

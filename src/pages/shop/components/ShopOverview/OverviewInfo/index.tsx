@@ -43,14 +43,20 @@ export default function OverviewInfo({
           <Text typo="body400">{introduce}</Text>
         </div>
         <IconContain>
-          {representativeBadges.map((badge, index) => (
-            <Badge
-              key={index}
-              type={badge.badgeType.toLowerCase()}
-              text={badge.badgeName}
-              variant={badge.badgeColor.toLowerCase()}
-            />
-          ))}
+          {representativeBadges && representativeBadges.length > 0 ? (
+            representativeBadges.map((badge, index) => (
+              <Badge
+                key={index}
+                type={badge.badgeType?.toLowerCase() || "default"} // badgeType이 없을 경우 기본값 설정
+                text={badge.badgeName || "Unknown"} // badgeName이 없을 경우 기본값 설정
+                variant={badge.badgeColor?.toLowerCase() || "gray"} // badgeColor가 없을 경우 기본값 설정
+              />
+            ))
+          ) : (
+            <Text typo="body400" color="gray100">
+              {""}
+            </Text>
+          )}
         </IconContain>
       </TextWrapper>
     </InfoWrapper>
