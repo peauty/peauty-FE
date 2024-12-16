@@ -6,6 +6,9 @@
 > `Pet + Beauty = Peauty`<br>
 > 강아지를 아름답게 하는 **동네 기반 반려견 미용 중계 서비스**
 
+📌 배포링크: https://peauty.click/
+📌 피그마: https://www.figma.com/design/NkS08LM6bIL2xIlPaLRof4/PEAUTY?node-id=0-1&t=UrkMxndIzMjNcE4X-0
+
 #### 견적서 서비스
 
 사용자는 원하는 애견 미용사에게 견적서를 요청한다.
@@ -144,11 +147,11 @@ src/style
 [견적서 부분]
 
 - UI 완료
-- api 미완료
+- api 완료
 
 **[견적 현황]**
 
-- UI 구현, api 둘 다 안됨
+- UI 구현, api 완료
 
 ### 고객
 
@@ -162,12 +165,12 @@ src/style
 
 **[강아지 등록]**
 
-- 반려견 수정 등록 삭제 (api 붙이는 중 UI는 다 완성됨)
+- 반려견 수정 등록 삭제 
 
 **[견적서 부분]**
 
 - 주변 미용실 리스트 UI/api 완료
-- 고객 요청하기 미완
+- 고객 요청하기 완료
 - 받은 견적 UI 구현해야함
 
 **[고객 메인 페이지]**
@@ -185,7 +188,3 @@ src/style
 ### 추후 계획
 
 이번 주 안에 견적서(요청하기,보내기, 현황) UI 및 api 연결, 리뷰 UI, api 연결
-
-### 피그마 주소
-
-- https://www.figma.com/design/NkS08LM6bIL2xIlPaLRof4/PEAUTY?node-id=0-1&t=UrkMxndIzMjNcE4X-0
