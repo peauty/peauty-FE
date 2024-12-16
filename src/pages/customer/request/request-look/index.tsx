@@ -3,7 +3,7 @@ import { AppBar, DropButton, Text, CustomInput, GNB } from "../../../../componen
 import { RadioSelectButton } from "../../../../components/button/RadioSelectButton";
 import { GroomingBodyType, GroomingType } from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
 import { ContentWrapper, SectionWrapper, SelectedHair, TwoItemsWrapper } from "./index.styles";
-import { PhotoAttachment, PhotoAttachmentContainer } from "../../../designer/quote/index.styles";
+import { PhotoAttachment, PhotoAttachmentContainer } from "../../../designer/quote/quote-form/index.styles";
 import { EggHead, BabyCut, Goddess, TeddyCut, SealCut, LionCut, Helmet, EarsPop } from "../../../../assets/svg";
 import { HAIRSTYLES, CUTTING, SUMMERCUT } from "../../../../constants/request";
 import InfoButton from "../../../../components/button/InfoButton";

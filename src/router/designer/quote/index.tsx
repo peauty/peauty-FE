@@ -1,8 +1,8 @@
-import Quote from "../../../pages/designer/quote";
-
+import QuoteForm from "../../../pages/designer/quote/quote-form";
+import QuoteDetail from "../../../pages/designer/quote/quoute-detail";
 export const quotePaths = [
   {
-    path: "",
-    element: <Quote />,
+    path: ":puppyId",
+    element: <QuoteForm />,
   },
 ];

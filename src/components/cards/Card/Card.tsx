@@ -13,7 +13,7 @@ interface CardProps {
   name: string;
   age: number;
   gender: string;
-  weight: string;
+  weight: number;
   breed: string;
   tags: string[];
   onClick?: () => void;

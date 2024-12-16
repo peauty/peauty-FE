@@ -7,8 +7,8 @@ interface Props {
   onClick?: () => void;
   width?: string;
   height?: string;
-  borderRadius?: string; 
-  
+  borderRadius?: string;
+  isDarkened?: boolean;
 }
 
 export default function ProfileImg({
@@ -18,6 +18,7 @@ export default function ProfileImg({
   width,
   height,
   borderRadius,
+  isDarkened = false,
 }: Props) {
   return (
     <StyleProfileImg.Wrapper>
@@ -26,7 +27,11 @@ export default function ProfileImg({
         alt={alt}
         width={width}
         height={height}
-        borderRadius={borderRadius} 
+        borderRadius={borderRadius}
+        style={{
+          filter: isDarkened ? "brightness(0.5)" : "none", // 어둡게 처리
+          transition: "filter 0.3s ease", // 부드럽게 전환
+        }}
       />
       {onClick && (
         <StyleProfileImg.EditButton onClick={onClick}>

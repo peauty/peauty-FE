@@ -3,7 +3,9 @@ import { colors } from "../../../style/color";
 
 export const CardWrapper = styled.div<{ isSelected: boolean }>`
   border: ${({ isSelected }) =>
-    isSelected ? `1px solid ${colors.blue200}` : `1px solid ${colors.gray300}`};
+    isSelected
+      ? `1px solid ${colors.blue200}`
+      : `1px solid ${colors.background}`};
   border-radius: 15px;
   padding: 16px 22px;
   background-color: ${({ isSelected }) =>

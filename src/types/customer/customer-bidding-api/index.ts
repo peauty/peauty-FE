@@ -1,10 +1,36 @@
-export type GroomingTypeType = 'TOTAL' | 'CLEAN';
+export type GroomingTypeType = "TOTAL" | "CLEAN";
 
-export type TotalGroomingBodyTypeType = 'CLIPPING_3MM' | 'CLIPPING_6MM' | 'CLIPPING_9MM' | 'SPORTING_3MM' | 'SPORTING_6MM' | 'SPORTING_9MM' | 'PANTALONG_3MM' | 'PANTALONG_6MM' | 'PANTALONG_9MM' | 'BELL_3MM' | 'BELL_6MM' | 'BELL_9MM' | 'SCISSORS';
+export type TotalGroomingBodyTypeType =
+  | "CLIPPING_3MM"
+  | "CLIPPING_6MM"
+  | "CLIPPING_9MM"
+  | "SPORTING_3MM"
+  | "SPORTING_6MM"
+  | "SPORTING_9MM"
+  | "PANTALONG_3MM"
+  | "PANTALONG_6MM"
+  | "PANTALONG_9MM"
+  | "BELL_3MM"
+  | "BELL_6MM"
+  | "BELL_9MM"
+  | "SCISSORS";
 
-export type TotalGroomingFaceTypeType = 'EGG' | 'BABY' | 'GODDESS' | 'BEAR' | 'SEAL' | 'LION' | 'CROWN' | 'TEDDY_BEAR' | 'CANDY' | 'BROCCOLI' | 'HIGH_BAR' | 'POINTED_EARS' | 'MONKEY' | 'BEDLINGTON' | 'POODLINGTON';
-
-
+export type TotalGroomingFaceTypeType =
+  | "EGG"
+  | "BABY"
+  | "GODDESS"
+  | "BEAR"
+  | "SEAL"
+  | "LION"
+  | "CROWN"
+  | "TEDDY_BEAR"
+  | "CANDY"
+  | "BROCCOLI"
+  | "HIGH_BAR"
+  | "POINTED_EARS"
+  | "MONKEY"
+  | "BEDLINGTON"
+  | "POODLINGTON";
 
 export interface SendEstimateProposalResponse {
   processId?: number;
@@ -40,15 +66,15 @@ export interface GetEstimateProposalDetailResponse {
   processId?: number;
   processStatus?: string;
   puppy?: {
-  id?: number;
-  style?: string;
-  totalGroomingBodyType?: string;
-  totalGroomingFaceType?: string;
-  detail?: string;
-  imageUrls?: string[];
-  desiredCost?: number;
-  desiredDateTime?: string;
-};
+    id?: number;
+    style?: string;
+    totalGroomingBodyType?: string;
+    totalGroomingFaceType?: string;
+    detail?: string;
+    imageUrls?: string[];
+    desiredCost?: number;
+    desiredDateTime?: string;
+  };
   estimateProposal?: Profile;
 }
 
@@ -68,15 +94,15 @@ export interface GetEstimateDesignerWorkspaceProfilesResponse {
   processStatus?: string;
   style?: string;
   workspaces?: {
-  id?: number;
-  style?: string;
-  totalGroomingBodyType?: string;
-  totalGroomingFaceType?: string;
-  detail?: string;
-  imageUrls?: string[];
-  desiredCost?: number;
-  desiredDateTime?: string;
-}[];
+    id?: number;
+    style?: string;
+    totalGroomingBodyType?: string;
+    totalGroomingFaceType?: string;
+    detail?: string;
+    imageUrls?: string[];
+    desiredCost?: number;
+    desiredDateTime?: string;
+  }[];
 }
 
 export interface GetEstimateAndProposalDetailsResponse {
@@ -86,15 +112,15 @@ export interface GetEstimateAndProposalDetailsResponse {
   threadStatus?: string;
   threadStep?: string;
   puppy?: {
-  id?: number;
-  style?: string;
-  totalGroomingBodyType?: string;
-  totalGroomingFaceType?: string;
-  detail?: string;
-  imageUrls?: string[];
-  desiredCost?: number;
-  desiredDateTime?: string;
-};
+    id?: number;
+    style?: string;
+    totalGroomingBodyType?: string;
+    totalGroomingFaceType?: string;
+    detail?: string;
+    imageUrls?: string[];
+    desiredCost?: number;
+    desiredDateTime?: string;
+  };
   estimateProposal?: Profile;
   estimate?: Profile;
 }
