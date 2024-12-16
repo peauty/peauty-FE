@@ -5,7 +5,7 @@ export interface SignUpResponse {
 
 export interface SignUpRequest {
   socialId?: string;
-  socialPlatform?: 'KAKAO' | 'GOOGLE' | 'APPLE';
+  socialPlatform?: "KAKAO" | "GOOGLE" | "APPLE";
   name?: string;
   phoneNumber?: string;
   address?: string;
