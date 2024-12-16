@@ -1,11 +1,12 @@
-export interface Badge {
-  badgeId: number;
-  badgeName: string;
-  badgeContent: string;
-  badgeImageUrl: string;
-  badgeColor: string;
-  badgeType: string;
-}
+import { Badge } from "../../customer/customer";
+
+export type ScissorsType = "NONE" | "GOLD" | "SILVER" | "BRONZE";
+
+export type BadgeColorType = "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
+
+export type BadgeTypeType = "GENERAL" | "SCISSORS";
+
+export type PaymentOptionType = "CARD" | "CASH" | "ACCOUNT";
 
 export interface GetDesignerWorkspaceResponse {
   designerId?: number;
@@ -35,11 +36,11 @@ export interface GetDesignerWorkspaceResponse {
 export interface UpdateDesignerWorkspaceResponse {
   designerId?: number;
   workspaceId?: number;
-  bannerImageUrl?: string;
+  bannerImageUrls?: string[];
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
-  scissors?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
+  scissors?: ScissorsType;
   introduceTitle?: string;
   introduce?: string;
   noticeTitle?: string;
@@ -53,12 +54,37 @@ export interface UpdateDesignerWorkspaceResponse {
   openDay?: string;
   directionGuide?: string;
   licenses?: string[];
-  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
+  paymentOptions?: PaymentOptionType[];
+  representativeBadgeNames?: string[];
+}
+
+export interface UpdateDesignerWorkspaceResponse {
+  designerId?: number;
+  workspaceId?: number;
+  bannerImageUrls?: string[];
+  workspaceName?: string;
+  reviewRating?: number;
+  reviewsCount?: number;
+  scissors?: ScissorsType;
+  introduceTitle?: string;
+  introduce?: string;
+  noticeTitle?: string;
+  notice?: string;
+  address?: string;
+  addressDetail?: string;
+  phoneNumber?: string;
+  yearOfExperience?: number;
+  openHours?: string;
+  closeHours?: string;
+  openDay?: string;
+  directionGuide?: string;
+  licenses?: string[];
+  paymentOptions?: PaymentOptionType[];
   representativeBadgeNames?: string[];
 }
 
 export interface UpdateDesignerWorkspaceRequest {
-  bannerImageUrl?: string;
+  bannerImageUrls?: string[];
   workspaceName?: string;
   introduceTitle?: string;
   introduce?: string;
@@ -68,7 +94,7 @@ export interface UpdateDesignerWorkspaceRequest {
   addressDetail?: string;
   yearOfExperience?: number;
   licenses?: string[];
-  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
+  paymentOptions?: PaymentOptionType[];
   openHours?: string;
   closeHours?: string;
   openDays?: string;
@@ -79,11 +105,11 @@ export interface UpdateDesignerWorkspaceRequest {
 export interface CreateDesignerWorkspaceResponse {
   designerId?: number;
   workspaceId?: number;
-  bannerImageUrl?: string;
+  bannerImageUrls?: string[];
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
-  scissors?: "NONE" | "GOLD" | "SILVER" | "BRONZE";
+  scissors?: ScissorsType;
   introduceTitle?: string;
   introduce?: string;
   noticeTitle?: string;
@@ -97,12 +123,12 @@ export interface CreateDesignerWorkspaceResponse {
   openDay?: string;
   directionGuide?: string;
   licenses?: string[];
-  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
+  paymentOptions?: PaymentOptionType[];
   representativeBadgeNames?: string[];
 }
 
 export interface CreateDesignerWorkspaceRequest {
-  bannerImageUrl?: string;
+  bannerImageUrls?: string[];
   workspaceName?: string;
   introduceTitle?: string;
   introduce?: string;
@@ -112,7 +138,7 @@ export interface CreateDesignerWorkspaceRequest {
   addressDetail?: string;
   yearOfExperience?: number;
   licenses?: string[];
-  paymentOptions?: "CARD" | "CASH" | "ACCOUNT"[];
+  paymentOptions?: PaymentOptionType[];
   openHours?: string;
   closeHours?: string;
   openDays?: string;
@@ -168,7 +194,8 @@ export interface GetDesignerBadgesResponse {
     badgeName?: string;
     badgeContent?: string;
     badgeImageUrl?: string;
-    badgeColor?: "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
   }[];
   unacquiredBadges?: BadgeResponse[];
   representativeBadges?: BadgeResponse[];
@@ -179,7 +206,8 @@ export interface BadgeResponse {
   badgeName?: string;
   badgeContent?: string;
   badgeImageUrl?: string;
-  badgeColor?: "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
+  badgeColor?: BadgeColorType;
+  badgeType?: BadgeTypeType;
 }
 
 export interface CheckDesignerNicknameDuplicatedResponse {

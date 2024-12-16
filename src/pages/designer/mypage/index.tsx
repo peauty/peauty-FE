@@ -15,6 +15,7 @@ import {
   MyInfoWrapper,
 } from "./index.styles";
 import Loading from "../../../components/page/sign-up/Loading";
+import { ROUTE } from "../../../constants/routes";
 
 export default function DesignerMyPage() {
   const navigate = useNavigate();
@@ -82,7 +83,10 @@ export default function DesignerMyPage() {
                 나의 매장 정보
               </Text>
             </InfoWrapper>
-            <SubMenuButton text="매장 정보 수정/인증" to="/" />
+            <SubMenuButton
+              text="매장 정보 수정/인증"
+              to={ROUTE.designer.signupDetail}
+            />
           </div>
           <Divider />
           <div
