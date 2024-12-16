@@ -1,19 +1,16 @@
-import axios from 'axios';
-import { ROUTE } from '../../constants/routes';
+import axios from "axios";
+import { ROUTE } from "../../constants/routes";
 
-const publicPaths: string[] = [
-  "/v1/auth/sign-up",
-  "/v1/users/check"
-]
+const publicPaths: string[] = ["/v1/auth/sign-up", "/v1/users/check"];
 
 function createAPI(baseURL: string) {
   const api = axios.create({
     baseURL: baseURL,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
-  
+
   api.interceptors.request.use(
     async (config) => {
       if (
@@ -33,7 +30,7 @@ function createAPI(baseURL: string) {
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
 
   api.interceptors.response.use(
@@ -42,16 +39,18 @@ function createAPI(baseURL: string) {
       if (responseCode === "0000") {
         return response.data;
       } else {
-        const error = new Error(errorMessage || serviceErrorMessage || '알 수 없는 에러');
+        const error = new Error(
+          errorMessage || serviceErrorMessage || "알 수 없는 에러",
+        );
         throw error;
       }
     },
     (error) => {
-      throw new Error(error.message || '네트워크 오류');
-    }
+      throw new Error(error.message || "네트워크 오류");
+    },
   );
 
-  return api
+  return api;
 }
 
-export const CustomerAPI = createAPI(import.meta.env.VITE_CUSTOMER_BACKEND_URL)
+export const CustomerAPI = createAPI(import.meta.env.VITE_CUSTOMER_BACKEND_URL);

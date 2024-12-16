@@ -1,11 +1,3 @@
-export type SexType = 'M' | 'F';
-
-export type BreedType = 'AFFENPINSCHER' | 'TERRIER' | 'BEAGLE' | 'BICHON_FRISE' | 'CHIHUAHUA' | 'DACHSHUND' | 'MALTESE' | 'POMERANIAN' | 'PUG' | 'SHIHTZU' | 'SHEPHERD' | 'BORDER_COLLIE' | 'BULLDOG' | 'DALMATIAN' | 'POODLE' | 'RETRIEVER' | 'SAINT_BERNARD' | 'SAMOYED';
-
-export type PuppySizeType = 'SMALL' | 'MEDIUM' | 'LARGE';
-
-
-
 export interface GetPuppyDetailResponse {
   puppyId?: number;
   name?: string;
@@ -13,7 +5,6 @@ export interface GetPuppyDetailResponse {
   weight?: number;
   sex?: string;
   age?: number;
-  formattedAge?: string;
   birthdate?: string;
   detail?: string;
   disease?: string[];
@@ -27,8 +18,8 @@ export interface UpdatePuppyDetailResponse {
   name?: string;
   breed?: string;
   weight?: number;
-  sex?: SexType;
-  formattedAge?: string;
+  sex?: "M" | "F";
+  age?: number;
   birthdate?: string;
   detail?: string;
   disease?: string[];
@@ -39,15 +30,16 @@ export interface UpdatePuppyDetailResponse {
 
 export interface UpdatePuppyDetailRequest {
   name?: string;
-  breed?: BreedType;
+  breed?: string;
   weight?: number;
-  sex?: SexType;
+  sex?: "M" | "F";
+  age?: number;
   birthdate?: string;
   detail?: string;
-  disease?: 'NONE' | 'ETC' | 'PATELLA' | 'EAR_INFECTION' | 'DERMATITIS' | 'EYE_DISEASE' | 'HEART_DISEASE' | 'ARTHRITIS'[];
+  disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
-  puppySize?: PuppySizeType;
+  puppySize?: string;
 }
 
 export interface DeletePuppyResponse {
@@ -58,16 +50,7 @@ export interface GetPuppyProfilesResponse {
   customerId?: number;
   customerNickname?: string;
   customerImageUrl?: string;
-  puppies?: {
-  puppyId?: number;
-  name?: string;
-  breed?: string;
-  weight?: number;
-  sex?: string;
-  age?: number;
-  disease?: string[];
-  puppyProfileImageUrl?: string;
-}[];
+  puppies?: GetPuppyProfileResponse[];
 }
 
 export interface GetPuppyProfileResponse {
@@ -87,7 +70,7 @@ export interface RegisterPuppyResponse {
   breed?: string;
   weight?: number;
   sex?: string;
-  formattedAge?: string;
+  age?: number;
   birthdate?: string;
   detail?: string;
   disease?: string[];
@@ -98,15 +81,16 @@ export interface RegisterPuppyResponse {
 
 export interface RegisterPuppyRequest {
   name: string;
-  breed: BreedType;
+  breed: string;
   weight: number;
-  sex: SexType;
+  sex: "M" | "F";
+  age: number;
   birthdate: string;
   detail?: string;
-  disease?: 'NONE' | 'ETC' | 'PATELLA' | 'EAR_INFECTION' | 'DERMATITIS' | 'EYE_DISEASE' | 'HEART_DISEASE' | 'ARTHRITIS'[];
+  disease?: string[];
   diseaseDescription?: string;
   profileImageUrl?: string;
-  puppySize?: PuppySizeType;
+  puppySize?: string;
 }
 
 export interface UploadPuppyImageResponse {

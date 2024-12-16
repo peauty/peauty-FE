@@ -23,8 +23,8 @@ import {
   getEstimateAndProposalDetails,
   sendEstimate,
 } from "../../../../apis/designer/resources/designer bidding api";
-import { uploadImages } from "../../../../apis/designer/resources/internal";
-import { GetEstimateAndProposalDetailsResponse } from "../../../../types/customer/customer-bidding-api";
+import { uploadImage } from "../../../../apis/customer/resources/internal";
+import { GetEstimateAndProposalDetailsResponse } from "../../../../types/designer/designer bidding api";
 import { formatDate } from "../../../../utils/dataformat";
 import {
   SendEstimateResponse,
@@ -120,7 +120,7 @@ export default function QuoteForm() {
     if (!file) return;
 
     try {
-      const response = await uploadImages(file);
+      const response = await uploadImage(file);
       const uploadedUrls = response.uploadedImageUrl;
 
       if (uploadedUrls && uploadedUrls.length > 0) {

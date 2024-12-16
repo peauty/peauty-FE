@@ -85,7 +85,7 @@ export default function ChoosePetForGrooming({
                 name={pet.name || "이름 없음"}
                 age={pet.age || 0}
                 gender={pet.sex || ""}
-                weight={pet.weight?.toString() || "0"}
+                weight={pet.weight || 0}
                 breed={pet.breed || "품종 미상"}
                 tags={pet.disease || []}
                 isSelected={selectedPetId === pet.puppyId}

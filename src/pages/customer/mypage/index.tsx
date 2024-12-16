@@ -120,7 +120,7 @@ export default function CustomerMyPage() {
                       name={puppy.name || ""}
                       age={puppy.age || 0}
                       gender={puppy.sex || ""}
-                      weight={`${puppy.weight}` || ""}
+                      weight={puppy.weight || 0}
                       breed={puppy.breed || ""}
                       tags={puppy.disease || []}
                       onClick={() => handleCard(puppy.puppyId)}

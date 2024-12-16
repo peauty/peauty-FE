@@ -2,7 +2,7 @@ import { DesignerAPI } from "../../api";
 import { SendEstimateResponse } from "../../../../types/designer/designer bidding api";
 import { SendEstimateRequest } from "../../../../types/designer/designer bidding api";
 import { CompleteGroomingResponse } from "../../../../types/designer/designer bidding api";
-import { GetEstimateAndProposalDetailsResponse } from "../../../../types/customer/customer-bidding-api";
+import { GetEstimateAndProposalDetailsResponse } from "../../../../types/designer/designer bidding api";
 import { GetThreadsByStepResponse } from "../../../../types/designer/designer bidding api";
 
 export const sendEstimate = async (

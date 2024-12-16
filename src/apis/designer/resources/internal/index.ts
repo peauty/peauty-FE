@@ -1,13 +1,17 @@
-import { DesignerAPI } from "../../api";
-import { UploadImagesResponse } from "../../../../types/designer/internal";
 import FormData from "form-data";
-import { UploadImageResponse } from "../../../../types/designer/internal";
+import {
+  UploadImageResponse,
+  UploadImagesResponse,
+} from "../../../../types/designer/internal";
+import { DesignerAPI } from "../../api";
 
 export const uploadImages = async (
-  images: File,
+  images: File[],
 ): Promise<UploadImagesResponse> => {
   const formData = new FormData();
-  formData.append("image", images);
+  images.forEach((image) => {
+    formData.append("image", image);
+  });
   const res = await DesignerAPI.post<UploadImagesResponse>(
     `/v1/internal/images`,
     formData,

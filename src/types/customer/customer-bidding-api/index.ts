@@ -111,20 +111,7 @@ export interface GetEstimateAndProposalDetailsResponse {
   threadId?: number;
   threadStatus?: string;
   threadStep?: string;
-  puppyProfile?: {
-    puppyId?: number;
-    customerId?: number;
-    diseases?: string[];
-    name?: string;
-    breed?: string;
-    weight?: number;
-    sex?: string;
-    age?: number;
-    birthdate?: string;
-    profileImageUrl?: string;
-    puppySize?: string;
-  };
-  estimateProposal?: {
+  puppy?: {
     id?: number;
     style?: string;
     totalGroomingBodyType?: string;
@@ -134,14 +121,6 @@ export interface GetEstimateAndProposalDetailsResponse {
     desiredCost?: number;
     desiredDateTime?: string;
   };
-  estimate?: {
-    threadId?: number;
-    estimateId?: number;
-    content?: string;
-    availableGroomingDate?: string;
-    estimatedDuration?: string;
-    estimatedCost?: number;
-    depositPrice?: number;
-    imageUrls?: [string];
-  };
+  estimateProposal?: Profile;
+  estimate?: Profile;
 }

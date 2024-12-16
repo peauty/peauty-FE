@@ -57,15 +57,7 @@ export interface GetDesignerWorkspaceResponse {
   directionGuide?: string;
   licenses?: string[];
   paymentOptions?: string[];
-  representativeBadges?: {
-    badgeId?: number;
-    badgeName?: string;
-    badgeContent?: string;
-    badgeImageUrl?: string;
-    isRepresentativeBadge?: boolean;
-    badgeColor?: BadgeColorType;
-    badgeType?: BadgeTypeType;
-  }[];
+  representativeBadgeNames?: string[];
 }
 
 export interface Badge {
@@ -77,29 +69,24 @@ export interface Badge {
   badgeType?: BadgeTypeType;
 }
 
+export interface Workspace {
+  workspaceId?: number;
+  workspaceName?: string;
+  address?: string;
+  addressDetail?: string;
+  bannerImageUrl?: string;
+  reviewCount?: number;
+  reviewRating?: number;
+  designerId?: number;
+  designerName?: string;
+  yearOfExperience?: number;
+  representativeBadges?: Badge[]; // Badge 배열
+}
+
 export interface GetAroundWorkspacesResponse {
   customerId?: number;
   customerAddress?: string;
-  workspaces?: {
-    workspaceId?: number;
-    workspaceName?: string;
-    address?: string;
-    addressDetail?: string;
-    bannerImageUrl?: string;
-    reviewCount?: number;
-    reviewRating?: number;
-    designerId?: number;
-    designerName?: string;
-    yearOfExperience?: number;
-    representativeBadges?: {
-      badgeId?: number;
-      badgeName?: string;
-      badgeContent?: string;
-      badgeImageUrl?: string;
-      badgeColor?: BadgeColorType;
-      badgeType?: BadgeTypeType;
-    }[];
-  }[];
+  workspaces?: Workspace[]; // Workspace 배열
 }
 
 export interface GetAroundWorkspaceResponse {
