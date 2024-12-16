@@ -107,6 +107,7 @@ export interface GetEstimateAndProposalDetailsResponse {
   };
   estimateProposal?: Profile;
   estimate?: Profile;
+  designer?: Profile;
 }
 
 export interface GetOngoingProcessWithThreadsResponse {
@@ -138,7 +139,7 @@ export interface GetAllStep3AboveThreadsResponse {
 
 export interface GetPuppyProfilesWithCanStartProcessStatusResponse {
   puppies?: {
-    id?: number;
+    puppyId?: number;
     style?: string;
     totalGroomingBodyType?: string;
     totalGroomingFaceType?: string;

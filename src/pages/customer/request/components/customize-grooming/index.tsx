@@ -48,7 +48,7 @@ import {
   SendEstimateProposalRequest,
   TotalGroomingBodyTypeType,
   TotalGroomingFaceTypeType,
-} from "../../../../../types/customer/customer-bidding-api";
+} from "../../../../../types/customer/bidding";
 import { uploadImage } from "../../../../../apis/customer/resources/internal";
 
 const faceTypeMapping: Record<string, TotalGroomingFaceTypeType> = {

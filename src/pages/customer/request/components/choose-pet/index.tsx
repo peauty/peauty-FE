@@ -46,13 +46,16 @@ export default function ChoosePetForGrooming({
         const statusResponse = await getPuppyProfilesWithCanStartProcessStatus(
           user.userId,
         );
+
         if (statusResponse.puppies) {
           const statusMap: { [key: number]: boolean } = {};
           statusResponse.puppies.forEach((puppy) => {
-            if (puppy.id) {
-              statusMap[puppy.id] = puppy.hasOngoingProcess;
+            if (puppy.puppyId) {
+              statusMap[puppy.puppyId] = puppy.hasOngoingProcess;
             }
           });
+
+          // 상태 업데이트 후, 상태 변경을 기다려서 pups를 렌더링하도록 조정
           setPuppyProcessStatus(statusMap);
         }
 
