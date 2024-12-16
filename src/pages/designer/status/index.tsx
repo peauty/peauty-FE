@@ -81,15 +81,12 @@ export default function Status() {
       try {
         if (activeTab === "received") {
           const data = await getStep1Threads(userId);
-          console.log(data.threads);
           setReceivedData(data.threads || []);
         } else if (activeTab === "sent") {
           const data = await getStep2Threads(userId);
-          console.log(data.threads);
           setSentData(data.threads || []);
         } else if (activeTab === "confirmed") {
           const data = await getStep3AboveThreads(1);
-          console.log(data.threads);
           setConfirmedData(data.threads || []);
         }
       } catch (error) {
@@ -120,7 +117,6 @@ export default function Status() {
 
     try {
       const response = await completeGrooming(userId, processId, threadId);
-      console.log("미용 완료 성공:", response);
       setIsConfirmDialogOpen(false);
       window.location.reload();
     } catch (error) {
