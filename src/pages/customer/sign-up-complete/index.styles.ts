@@ -1,38 +1,43 @@
 import { keyframes, styled } from "styled-components";
+import theme from "../../../style/theme";
 
 export const PageWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100vh; // 전체 높이 사용
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - ${theme.size.appBarHeight});
+  padding-bottom: 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
 `;
 
 export const ContentWrapper = styled.div`
-    flex: 1; // 남은 공간 모두 사용
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 24px; // 좌우 패딩
+  /* flex: 1; // 남은 공간 모두 사용 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px; // 좌우 패딩
 `;
 
 export const ButtonWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding-bottom: 275px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 `;
-
-
 
 const bang = keyframes`
   to {
-    box-shadow: ${Array(50).fill(0).map(() => {
-      const x = Math.floor(Math.random() * 500) - 250;
-      const y = Math.floor(Math.random() * 500) - 416;
-      const hue = Math.floor(Math.random() * 360);
-      return `${x}px ${y}px hsl(${hue}, 100%, 50%)`;
-    }).join(',')};
+    box-shadow: ${Array(50)
+      .fill(0)
+      .map(() => {
+        const x = Math.floor(Math.random() * 500) - 250;
+        const y = Math.floor(Math.random() * 500) - 416;
+        const hue = Math.floor(Math.random() * 360);
+        return `${x}px ${y}px hsl(${hue}, 100%, 50%)`;
+      })
+      .join(",")};
   }
 `;
 
@@ -81,14 +86,17 @@ export const Particle = styled.div`
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  box-shadow: ${Array(50).fill(0).map(() => '0 0 white').join(',')};
-  animation: 
+  box-shadow: ${Array(50)
+    .fill(0)
+    .map(() => "0 0 white")
+    .join(",")};
+  animation:
     ${bang} 1s ease-out infinite backwards,
     ${gravity} 1s ease-in infinite backwards,
     ${position} 5s linear infinite backwards;
 
   &.delay {
-    animation: 
+    animation:
       ${bang} 1.25s ease-out infinite backwards,
       ${gravity} 1.25s ease-in infinite backwards,
       ${position} 6.25s linear infinite backwards;

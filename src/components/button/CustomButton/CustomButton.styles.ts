@@ -92,7 +92,7 @@ export const Button = styled.button<{
         return css`
           background-color: transparent;
           color: ${colors.grayOpacity200};
-          border: 1px solid ${colors.gray200};
+          border: 1px solid ${colors.gray300};
 
           &:hover:not(:disabled) {
             color: ${colors.blue100};
