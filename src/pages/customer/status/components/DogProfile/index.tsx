@@ -4,6 +4,7 @@ import { GetPuppyProfilesWithCanStartProcessStatusResponse } from "../../../../.
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import { DogListWrapper, DogProfileWrapper, RoundImg, DogName } from "./index.styles";
 
+// 강아지 프로필 컴포넌트
 interface DogProfileProps {
   src: string;
   name: string;
@@ -25,22 +26,27 @@ const DogProfile = ({
   </DogProfileWrapper>
 );
 
-export default function DogList () {
+interface DogListProps {
+  setPuppyId: (puppyId: number | null) => void; // 부모로 puppyId를 전달할 함수 추가
+}
+
+export default function DogList({ setPuppyId }: DogListProps) {
   const { userId, isLoading } = useUserDetails(); 
   const [puppyData, setPuppyData] = useState<GetPuppyProfilesWithCanStartProcessStatusResponse | null>(null); // 강아지 데이터 상태
   const [selectedDog, setSelectedDog] = useState<string>(""); // 선택된 강아지 상태
-  const [puppyId, setPuppyId] = useState<number | null>(null); // puppyId 상태
 
+  // 강아지 데이터 fetch
   useEffect(() => {
     if (userId && !isLoading) {
       getPuppyProfilesWithCanStartProcessStatus(userId)
         .then((data: GetPuppyProfilesWithCanStartProcessStatusResponse) => {
-          console.log("API 응답 데이터:", data); 
+          console.log("API 응답 데이터:", data);
           
           const puppies = data?.puppies; 
-
-          if (Array.isArray(puppies)) {
-            setPuppyData(data); 
+          if (Array.isArray(puppies) && puppies.length > 0) {
+            setPuppyData(data);
+            setSelectedDog(puppies[0].name); // 첫 번째 강아지를 기본 선택
+            setPuppyId(puppies[0].puppyId); // 첫 번째 강아지의 puppyId를 부모로 전달
           } else {
             console.error("puppies 데이터가 잘못되었거나 없습니다.");
             setPuppyData(null); 
@@ -50,16 +56,7 @@ export default function DogList () {
           console.error("API 호출 오류:", error);
         });
     }
-  }, [userId, isLoading]);
-
-  useEffect(() => {
-    if (puppyData && selectedDog) {
-      const selectedPuppy = puppyData.puppies.find(puppy => puppy.name === selectedDog);
-      if (selectedPuppy) {
-        setPuppyId(selectedPuppy.puppyId); // 선택된 강아지의 puppyId를 상태로 설정
-      }
-    }
-  }, [selectedDog, puppyData]);
+  }, [userId, isLoading, setPuppyId]);
 
   const dogs = puppyData?.puppies || []; // puppies 배열이 없으면 빈 배열로 설정
 
@@ -68,7 +65,7 @@ export default function DogList () {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>; // 로딩 상태
   }
 
   return (
@@ -88,6 +85,4 @@ export default function DogList () {
       )}
     </DogListWrapper>
   );
-};
-
-
+}
