@@ -20,12 +20,12 @@ export const InfoCard = styled.div`
   gap: 30px;
 `;
 
-// Profile Image Section (for placeholder profile image)
-export const ProfileImage = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
-  background-color: ${colors.gray300};
+/// ProfileImage 컴포넌트를 img로 변경할 수 있습니다.
+export const ProfileImage = styled.img`
+width: 80px;
+height: 80px;
+border-radius: 10px;
+background-color: ${colors.gray300};
 `;
 
 // Profile Text and Info Layout
