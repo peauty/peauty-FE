@@ -23,7 +23,7 @@ import {
   getEstimateAndProposalDetails,
   sendEstimate,
 } from "../../../../apis/designer/resources/designer bidding api";
-import { uploadImage } from "../../../../apis/customer/resources/internal";
+import { uploadImages } from "../../../../apis/designer/resources/internal";
 import { GetEstimateAndProposalDetailsResponse } from "../../../../types/designer/designer bidding api";
 import { formatDate } from "../../../../utils/dataformat";
 import {
@@ -86,7 +86,13 @@ export default function QuoteForm() {
       );
 
       console.log("견적서 전송 성공:", response);
-      alert(`견적서가 성공적으로 전송되었습니다. ID: ${response.estimateId}`);
+
+      navigate("/designer/status", {
+        state: {
+          activeTab,
+          toastMessage: "견적서 작성을 성공했어요!",
+        },
+      });
     } catch (error) {
       console.error("견적서 전송 실패:", error);
     }
@@ -116,11 +122,12 @@ export default function QuoteForm() {
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
 
     try {
-      const response = await uploadImage(file);
+      const fileArray = Array.from(files); // FileList를 File[]로 변환
+      const response = await uploadImages(fileArray); // 배열 전달
       const uploadedUrls = response.uploadedImageUrl;
 
       if (uploadedUrls && uploadedUrls.length > 0) {

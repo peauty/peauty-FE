@@ -18,6 +18,7 @@ import { formatTimeDifference } from "../status/utils";
 import { completeGrooming } from "../../../apis/designer/resources/designer bidding api";
 import Modal from "../../../components/modal/Modal/Modal";
 import { useLocation } from "react-router-dom";
+import Toast from "../../../components/toast";
 type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
@@ -57,6 +58,21 @@ export default function Status() {
     processId: number;
     threadId: number;
   } | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  useEffect(() => {
+    // location.state로부터 toastMessage 가져오기
+    if (location.state?.toastMessage) {
+      setToastMessage(location.state.toastMessage);
+    }
+  }, [location.state]);
+
+  // 일정 시간 후 토스트 메시지 숨기기
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(null), 2500); // 3초 후 사라짐
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -261,6 +277,7 @@ export default function Status() {
         <StatusTab activeTab={activeTab} onTabClick={handleTabClick} />
         {renderContent()}
       </TabWrapper>
+      {toastMessage && <Toast>{toastMessage}</Toast>}
       <GNB type="designer" />
       {isConfirmDialogOpen && currentThread && (
         <Modal
