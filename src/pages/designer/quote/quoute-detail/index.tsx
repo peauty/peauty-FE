@@ -11,7 +11,7 @@ import {
   RequestSection,
 } from "../quote-form/index.styles";
 import { getEstimateAndProposalDetails } from "../../../../apis/designer/resources/designer bidding api";
-import { GetEstimateAndProposalDetailsResponse } from "../../../../types/customer/customer-bidding-api";
+import { GetEstimateAndProposalDetailsResponse } from "../../../../types/designer/designer bidding api";
 import { formatDate } from "../../../../utils/dataformat";
 import { CheckIcon2 } from "../../../../assets/svg";
 import { Divider } from "./index.styles";
