@@ -26,7 +26,7 @@ import {
 import { ROUTE } from "../../../../../constants/routes";
 import Loading from "../../../../../components/page/sign-up/Loading";
 import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
-import { Workspace } from "../../../../../types/customer/customer";
+
 interface SearchStepProps {
   onNext: () => void;
   handleArrayChange: (
