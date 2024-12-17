@@ -59,10 +59,6 @@ export const customerPaths = [
         element: <CustomerHome />,
       },
       {
-        path: "shop",
-        element: <Shop />,
-      },
-      {
         path: "quote-detail",
         element: <QuoteDetail />,
       },

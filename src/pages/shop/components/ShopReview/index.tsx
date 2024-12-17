@@ -23,10 +23,11 @@ interface ShopReviewProps {
   reviewsLoading?: boolean;
   id?: string;
   totalRating?: number;
+  userId?: string;
 }
 
 const ShopReview = forwardRef<HTMLDivElement, ShopReviewProps>((props, ref) => {
-  const { reviews = [], reviewsLoading, id, totalRating } = props;
+  const { reviews = [], reviewsLoading, id, totalRating, userId } = props;
   const [visibleReviews, setVisibleReviews] = useState<Review[]>(
     reviews.slice(0, 3),
   ); // 처음 3개의 리뷰만 표시
@@ -80,7 +81,7 @@ const ShopReview = forwardRef<HTMLDivElement, ShopReviewProps>((props, ref) => {
         </IconContain>
       </CustomerRiverWrapper>
 
-      <ReviewPhotos reviews={reviews} />
+      <ReviewPhotos reviews={reviews} workspaceId={userId || ""} />
 
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <BottomSheet

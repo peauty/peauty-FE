@@ -172,6 +172,7 @@ export default function Shop() {
         reviews={reviews}
         reviewsLoading={reviewsLoading}
         totalRating={overviewData.reviewRating}
+        userId={userId}
       />
       <ShopBadge
         ref={badgeRef}
