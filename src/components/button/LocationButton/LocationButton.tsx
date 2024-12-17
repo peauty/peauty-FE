@@ -10,12 +10,20 @@ import SearchLocationModal from "../../../pages/designer/signup-detail/component
 
 interface LocationButtonProps {
   onChange: (address: string, addressDetail: string) => void;
+  initialValues?: { address: string; addressDetail: string }; // 초기값을 받을 수 있도록 수정
 }
 
-export default function LocationButton({ onChange }: LocationButtonProps) {
+export default function LocationButton({
+  onChange,
+  initialValues = { address: "", addressDetail: "" }, // 기본값 설정
+}: LocationButtonProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<string>("");
-  const [addressDetail, setAddressDetail] = useState<string>("");
+  const [selectedLocation, setSelectedLocation] = useState<string>(
+    initialValues.address,
+  );
+  const [addressDetail, setAddressDetail] = useState<string>(
+    initialValues.addressDetail,
+  );
 
   const handleOpenSearchLocationModal = () => setIsModalVisible(true);
   const handleCloseSearchLocationModal = () => setIsModalVisible(false);
@@ -35,8 +43,15 @@ export default function LocationButton({ onChange }: LocationButtonProps) {
   };
 
   useEffect(() => {
+    if (initialValues.address && initialValues.addressDetail) {
+      setSelectedLocation(initialValues.address);
+      setAddressDetail(initialValues.addressDetail);
+    }
+  }, [initialValues.address, initialValues.addressDetail]);
+
+  useEffect(() => {
     onChange(selectedLocation, addressDetail);
-  }, [selectedLocation]);
+  }, [selectedLocation, addressDetail]);
 
   return (
     <>

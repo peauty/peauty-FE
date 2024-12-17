@@ -1,6 +1,7 @@
 import { AuthLayout } from "../../../components/layout/AuthLayout";
 import { Layout } from "../../../components/layout/Layout";
 import DesignerSignUp from "../../../pages/designer/signup";
+import DesignerSignUpComplete from "../../../pages/designer/signup-complete";
 import DesignerSignUpDetail from "../../../pages/designer/signup-detail";
 import DesignerSignUpDetailComplete from "../../../pages/designer/signup-detail-complete";
 
@@ -14,7 +15,7 @@ export const signupPaths = [
       },
       {
         path: "signup-complete",
-        element: <DesignerSignUpDetailComplete />,
+        element: <DesignerSignUpComplete />,
       },
     ],
     element: <Layout />,

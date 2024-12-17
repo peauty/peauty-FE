@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppBar, CustomInput, GNB, Text } from "../../../components";
 import { TitleContentInput } from "../../../components/input/TitleContentInput";
 import { Style } from "./index.styles";
-import CoverPhotoUploadSection from "./components/CoverPhotoUploadSection";
 import { useUserDetails } from "../../../hooks/useUserDetails";
-import { CreateDesignerWorkspaceRequest } from "../../../types/designer";
-import { createDesignerWorkspace } from "../../../apis/resources/designer";
 import ShopInfoInputSection from "./components/ShopInfoInputSection";
+import {
+  createDesignerWorkspace,
+  getDesignerWorkspace,
+  updateDesignerWorkspace,
+} from "../../../apis/designer/resources/designer";
+import {
+  CreateDesignerWorkspaceRequest,
+  PaymentOptionType,
+} from "../../../types/designer/designer";
+import { PaymentMethodMap } from "../../../constants/payment";
+import CoverPhotoUploadSection from "./components/CoverPhotoUploadSection";
 import CertificateInputSection from "./components/CertificateInputSection";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../constants/routes";
 
 interface validateRulesType {
   workspaceName: string;
@@ -20,10 +30,11 @@ interface validateRulesType {
 
 export default function DesignerSignUpDetail() {
   const { userId } = useUserDetails();
+  const navigate = useNavigate();
 
   const [shopDetailInfo, setShopDetailInfo] =
     useState<CreateDesignerWorkspaceRequest>({
-      bannerImageUrl: "",
+      bannerImageUrls: [],
       workspaceName: "",
       introduceTitle: "",
       introduce: "",
@@ -41,15 +52,49 @@ export default function DesignerSignUpDetail() {
       phoneNumber: "",
     });
 
-  const handleInputChange = (
-    field: keyof CreateDesignerWorkspaceRequest,
-    value: any,
+  useEffect(() => {
+    const fetchWorkspaceData = async () => {
+      if (!userId) return;
+
+      const response = await getDesignerWorkspace(Number(userId));
+      // Map the response to the form state
+      setShopDetailInfo({
+        bannerImageUrls: response.bannerImageUrls || [],
+        workspaceName: response.workspaceName || "",
+        introduceTitle: response.introduceTitle || "",
+        introduce: response.introduce || "",
+        noticeTitle: response.noticeTitle || "",
+        notice: response.notice || "",
+        address: response.address || "",
+        addressDetail: response.addressDetail || "",
+        yearOfExperience: response.yearOfExperience,
+        licenses: response.licenses || [],
+        paymentOptions: (response.paymentOptions as PaymentOptionType[]) || [],
+        openHours: response.openHours || "",
+        closeHours: response.closeHours || "",
+        openDays: response.openDay || "", // Note: API returns openDay but request needs openDays
+        directionGuide: response.directionGuide || "",
+        phoneNumber: response.phoneNumber || "",
+      });
+    };
+
+    fetchWorkspaceData();
+  }, [userId]);
+
+  const handleInputChange = <K extends keyof CreateDesignerWorkspaceRequest>(
+    field: K,
+    value: CreateDesignerWorkspaceRequest[K],
   ) => {
-    setShopDetailInfo((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    setShopDetailInfo((prev) => {
+      // Only update if the value has changed
+      if (prev[field] === value) return prev;
+      return {
+        ...prev,
+        [field]: value,
+      };
+    });
   };
+
   const handleSubmit = async () => {
     const validationRules: {
       key: keyof validateRulesType;
@@ -63,6 +108,7 @@ export default function DesignerSignUpDetail() {
       { key: "paymentOptions", message: "결제 방식을 선택해주세요." },
     ];
 
+    // Validation
     for (const { key, message } of validationRules) {
       if (!shopDetailInfo[key]) {
         alert(message);
@@ -70,12 +116,32 @@ export default function DesignerSignUpDetail() {
       }
     }
 
+    // Ensure paymentOptions is always an array
+    const mappedPaymentOptions: PaymentOptionType[] = (
+      shopDetailInfo.paymentOptions || []
+    ).map((option) => {
+      return PaymentMethodMap[option] || option; // Ensure that the value exists in the map
+    });
+
+    const updatedShopDetailInfo = {
+      ...shopDetailInfo,
+      paymentOptions: mappedPaymentOptions,
+    };
+
     try {
-      await createDesignerWorkspace(Number(userId), shopDetailInfo);
-      alert("워크스페이스가 성공적으로 등록되었습니다.");
+      // Try creating the designer workspace with the mapped payment options
+      await createDesignerWorkspace(Number(userId), updatedShopDetailInfo);
+      navigate(ROUTE.designer.signupDetailComplete);
     } catch (error) {
-      console.error("제출 실패", error);
-      alert("제출에 실패했습니다. 다시 시도해 주세요.");
+      try {
+        // If creation fails, attempt to update the workspace
+        await updateDesignerWorkspace(Number(userId), updatedShopDetailInfo);
+        alert("수정 완료했습니다.");
+        navigate(ROUTE.designer.mypage.home);
+      } catch (error) {
+        console.error("제출 실패", error);
+        alert("제출에 실패했습니다. 다시 시도해 주세요.");
+      }
     }
   };
 
@@ -85,7 +151,8 @@ export default function DesignerSignUpDetail() {
 
       <Style.RegisterPageWrapper>
         <CoverPhotoUploadSection
-          onChange={(url) => handleInputChange("bannerImageUrl", url)}
+          onChange={(url) => handleInputChange("bannerImageUrls", url)}
+          initialValue={shopDetailInfo.bannerImageUrls || []}
         />
 
         <Style.SectionWrapper>
@@ -93,6 +160,10 @@ export default function DesignerSignUpDetail() {
             title="공지사항"
             description="매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+            initialValues={[
+              shopDetailInfo.noticeTitle || "",
+              shopDetailInfo.notice || "",
+            ]}
             onChange={(index, value) => {
               const fieldName = index === 0 ? "noticeTitle" : "notice";
               handleInputChange(fieldName, value);
@@ -102,6 +173,10 @@ export default function DesignerSignUpDetail() {
             title="이벤트"
             description="현재 진행 중인 이벤트가 있다면 등록해 주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
+            initialValues={[
+              shopDetailInfo.introduceTitle || "",
+              shopDetailInfo.introduce || "",
+            ]}
             onChange={(index, value) => {
               const fieldName = index === 0 ? "introduceTitle" : "introduce";
               handleInputChange(fieldName, value);
@@ -111,6 +186,17 @@ export default function DesignerSignUpDetail() {
 
         <ShopInfoInputSection
           onChange={(field, value) => handleInputChange(field, value)}
+          initialValues={{
+            address: shopDetailInfo.address || "",
+            addressDetail: shopDetailInfo.addressDetail || "",
+            openHours: shopDetailInfo.openHours || "",
+            closeHours: shopDetailInfo.closeHours || "",
+            openDays: shopDetailInfo.openDays || "",
+            directionGuide: shopDetailInfo.directionGuide || "",
+            phoneNumber: shopDetailInfo.phoneNumber || "",
+            workspaceName: shopDetailInfo.workspaceName || "",
+            paymentOptions: shopDetailInfo.paymentOptions || [],
+          }}
         />
 
         <Style.SectionWrapper>
@@ -124,6 +210,7 @@ export default function DesignerSignUpDetail() {
           <CustomInput
             placeholder="예) 22"
             extraText="년"
+            value={shopDetailInfo.yearOfExperience}
             onChange={(e) =>
               handleInputChange("yearOfExperience", Number(e.target.value))
             }
@@ -132,6 +219,7 @@ export default function DesignerSignUpDetail() {
 
         <CertificateInputSection
           onChange={(licenses) => handleInputChange("licenses", licenses)}
+          initialValues={shopDetailInfo.licenses || []}
         />
       </Style.RegisterPageWrapper>
 

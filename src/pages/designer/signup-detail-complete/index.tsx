@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { GNB, Text } from "../../../components";
 import { SectionWrapper, Wrapper } from "./index.styles";
+import { ROUTE } from "../../../constants/routes";
 
 export default function DesignerSignUpDetailComplete() {
+  const navigate = useNavigate();
   return (
     <>
       <Wrapper>
@@ -22,7 +25,12 @@ export default function DesignerSignUpDetailComplete() {
           </Text>
         </SectionWrapper>
       </Wrapper>
-      <GNB buttonText="홈으로" />
+      <GNB
+        buttonText="홈으로"
+        onLargeButtonClick={() => {
+          navigate(ROUTE.designer.home);
+        }}
+      />
     </>
   );
 }

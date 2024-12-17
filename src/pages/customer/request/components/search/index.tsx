@@ -19,11 +19,14 @@ import {
 import { getAroundWorkspaces } from "../../../../../apis/customer/resources/customer";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import { useNavigate } from "react-router-dom";
-import { GetAroundWorkspacesResponse } from "../../../../../types/customer/customer";
+import {
+  GetAroundWorkspacesResponse,
+  Workspace,
+} from "../../../../../types/customer/customer";
 import { ROUTE } from "../../../../../constants/routes";
 import Loading from "../../../../../components/page/sign-up/Loading";
 import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
-import { Workspace } from "../../../../../types/customer/customer";
+
 interface SearchStepProps {
   onNext: () => void;
   handleArrayChange: (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Text } from "../../texts/Text";
 import { CustomInput } from "../CustomInput";
 import { Style } from "./TitleContentInput.styles";
@@ -7,6 +7,7 @@ type TitleContentInputProps = {
   title: string;
   description: string;
   inputPlaceholders: string[];
+  initialValues: string[]; // 초기값을 받는 prop 추가
   onChange: (index: number, value: string) => void; // 값 변경을 부모에게 전달하는 함수
 };
 
@@ -14,11 +15,15 @@ export default function TitleContentInput({
   title,
   description,
   inputPlaceholders,
+  initialValues, // 초기값을 props로 받음
   onChange, // onChange 함수 추가
 }: TitleContentInputProps) {
-  const [inputValues, setInputValues] = useState<string[]>(
-    new Array(inputPlaceholders.length).fill(""),
-  );
+  const [inputValues, setInputValues] = useState<string[]>(initialValues); // 초기값 설정
+
+  // 초기값이 바뀔 때마다 상태를 업데이트하도록 useEffect 추가
+  useEffect(() => {
+    setInputValues(initialValues);
+  }, [initialValues]);
 
   const handleChange = (index: number, value: string) => {
     const updatedValues = [...inputValues];

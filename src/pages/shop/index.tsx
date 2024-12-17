@@ -7,8 +7,8 @@ import ShopDetail from "./components/ShopDetail";
 import ShopReview from "./components/ShopReview";
 import { ShopBadge } from "./components/ShopBadge";
 import { StickyContainer } from "./index.styles";
-import { getDesignerWorkspace } from "../../apis/designer/resources/designer";
 import { useParams } from "react-router-dom";
+import { getDesignerWorkspace } from "../../apis/designer/resources/designer";
 
 type Section = "detail" | "review" | "badge";
 
