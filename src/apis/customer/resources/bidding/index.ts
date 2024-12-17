@@ -43,16 +43,33 @@ export const getEstimateProposalDetail = async (
   return res.data;
 };
 
+// export const getEstimateAndProposalDetails = async (userId: number, puppyId: number, processId: number, threadId: number): Promise<GetEstimateAndProposalDetailsResponse | null> => {
+//   const res = await CustomerAPI.get<GetEstimateAndProposalDetailsResponse>(`/v1/users/${userId}/puppies/${puppyId}/bidding/processes/${processId}/threads/${threadId}`);
+//   console.log(res)
+//   return res.data;
+// };
+
 export const getEstimateAndProposalDetails = async (
   userId: number,
   puppyId: number,
   processId: number,
   threadId: number,
-): Promise<GetEstimateAndProposalDetailsResponse> => {
-  const res = await CustomerAPI.get<GetEstimateAndProposalDetailsResponse>(
-    `/v1/users/${userId}/puppies/${puppyId}/bidding/processes/${processId}/threads/${threadId}`,
-  );
-  return res.data;
+): Promise<GetEstimateAndProposalDetailsResponse | null> => {
+  try {
+    const res = await CustomerAPI.get<GetEstimateAndProposalDetailsResponse>(
+      `/v1/users/${userId}/puppies/${puppyId}/bidding/processes/${processId}/threads/${threadId}`,
+    );
+
+    if (res.data) {
+      return res.data;
+    }
+
+    console.error("유효하지 않은 데이터", res.data);
+    return null;
+  } catch (error) {
+    console.error("API 요청 실패:", error);
+    return null;
+  }
 };
 
 export const getOngoingProcessWithStep2Threads = async (

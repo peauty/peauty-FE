@@ -18,6 +18,9 @@ export default function SearchLocationModal({
       if (updatedAddress.startsWith("서울 ")) {
         updatedAddress = updatedAddress.replace("서울 ", "서울특별시 ");
       }
+      if (updatedAddress.startsWith("경기")) {
+        updatedAddress = updatedAddress.replace("경기", "경기도");
+      }
 
       onLocationSelect(updatedAddress); // 선택된 주소를 부모 컴포넌트로 전달
       onClose();

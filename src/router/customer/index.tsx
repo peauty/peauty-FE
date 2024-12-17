@@ -13,70 +13,41 @@ import QuoteDetail from "../../pages/customer/quote-detail";
 import { paymentPaths } from "./payment";
 
 export const customerPaths = [
+  // Layout 적용 경로
   {
     path: "",
-    children: [
-      {
-        path: "signup",
-        element: <CustomerSignUp />,
-      },
-      {
-        path: "signup-complete",
-        element: <CustomerSignUpComplete />,
-      },
-    ],
     element: <Layout />,
+    children: [
+      { path: "signup", element: <CustomerSignUp /> },
+      { path: "signup-complete", element: <CustomerSignUpComplete /> },
+      ...paymentPaths, // 결제 관련 경로
+    ],
   },
+
+  // AuthLayout 적용 경로 (기본)
   {
     path: "",
-    children: [
-      {
-        path: "mypage",
-        children: myPagePaths,
-      },
-      {
-        path: "pets",
-        children: petsPaths,
-      },
-    ],
     element: <AuthLayout userType="customer" />,
+    children: [{ path: "pets", children: petsPaths }],
   },
+
+  // AuthLayout 적용 경로 (noPadding 스타일)
   {
     path: "",
-    children: [
-      {
-        path: "request",
-        children: requestPaths,
-      },
-    ],
-  },
-  {
-    path: "",
-    children: [
-      {
-        path: "home",
-        element: <CustomerHome />,
-      },
-      {
-        path: "quote-detail",
-        element: <QuoteDetail />,
-      },
-    ],
     element: <AuthLayout userType="customer" style={noPadding} />,
+    children: [
+      { path: "home", element: <CustomerHome /> },
+      { path: "quote-detail", element: <QuoteDetail /> },
+      { path: "status", children: statusPaths },
+    ],
   },
+
+  // 요청 관련 경로
   {
     path: "",
     children: [
-      {
-        path: "status",
-        children: statusPaths,
-      },
+      { path: "request", children: requestPaths },
+      { path: "mypage", children: myPagePaths },
     ],
-    element: <AuthLayout userType="customer" style={noPadding} />,
-  },
-  {
-    path: "",
-    children: paymentPaths,
-    element: <Layout />,
   },
 ];
