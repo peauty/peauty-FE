@@ -17,27 +17,100 @@ import {
   AgreementContainer,
   AgreementItem,
   TextSectionWrapper,
-} from "./index.styles"; // 스타일 컴포넌트 임포트
+} from "./index.styles"; 
+import { useEffect, useState } from 'react';
+import { getEstimateAndProposalDetails } from "../../../apis/customer/resources/bidding";
+import { GetEstimateAndProposalDetailsResponse } from "../../../types/customer/bidding";
+import { useUserDetails } from "../../../hooks/useUserDetails";
+import { useLocation } from "react-router-dom";
 
 export default function QuoteDetail() {
+  const { userId } = useUserDetails(); // userId 가져오기
+  
+  const [quoteData, setQuoteData] = useState<GetEstimateAndProposalDetailsResponse | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { search } = useLocation(); // 현재 URL에서 쿼리 스트링을 가져옴
+  const queryParams = new URLSearchParams(search); // URLSearchParams로 파싱
+
+  const puppyId = queryParams.get("puppyId");
+  const threadId = queryParams.get("threadId");
+  const processId = queryParams.get("processId");
+  const numericPuppyId = puppyId ? Number(puppyId) : null;
+  const numericProcessId = processId ? Number(processId) : null;
+  const numericThreadId = threadId ? Number(threadId) : null;
+
+
+  console.log("User ID:", userId);
+  console.log("Puppy ID:", puppyId);
+  console.log("Thread ID:", threadId);
+  
+  console.log("Process ID:", processId);
+
+  useEffect(() => {
+    // URL 쿼리 파라미터 값들이 모두 존재하는지 확인
+    if (numericPuppyId && numericProcessId && numericThreadId && userId) {
+      const fetchData = async () => {
+        try {
+          console.log("Fetching data with:", { userId, numericPuppyId, numericProcessId, numericThreadId });
+
+          // API 호출하여 puppyId, processId, threadId 가져오기
+          const data = await getEstimateAndProposalDetails(userId, numericPuppyId, numericProcessId, numericThreadId);
+
+          console.log("API 응답 데이터:", data);
+
+          // 데이터가 유효한 경우에만 상태 설정
+          if (data) {
+            setQuoteData(data);  // quoteData 설정
+          } else {
+            console.error("유효하지 않은 데이터", data);
+          }
+        } catch (error) {
+          console.error("API 요청 실패:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      fetchData();
+    }
+  }, [userId, numericPuppyId, numericProcessId, numericThreadId]); 
+
+  if (isLoading || !puppyId || !processId || !threadId) {
+    return <div>Loading...</div>;
+  }
+  
+  if (!quoteData) {
+    return <div>Error: Data is missing.</div>;
+  }
+
+  const { puppy, estimateProposal, estimate } = quoteData;
+
   return (
     <PageContainer>
       <AppBar prefix="backButton" title="견적서 보기" />
       <InfoContainer>
         <InfoCard>
-          <ProfileImage />
+        <ProfileImage 
+        src={quoteData?.designer.profileImageUrl} 
+        
+        width="100px" 
+        height="100px" 
+      
+      />
           <div>
-            <Text typo="subtitle200">수석실장 시언</Text>
+            <Text typo="subtitle200">{quoteData?.designer.designerName}</Text> 
             <ProfileTextContainer>
               <ProfileRow>
-                <Rating score={4.5} />
+              <Rating score={quoteData?.designer.reviewRating} />
                 <Text typo="body300" color="gray100">
-                  &nbsp;(12)
+                &nbsp;({quoteData?.designer.reviewCount})
                 </Text>
+  
+
               </ProfileRow>
               <ProfileRow>
                 <Maker width={10} />
-                <Text typo="body400">서울 특별시 강남구 대치동</Text>
+                <Text typo="body400">{quoteData?.designer.address}</Text>
               </ProfileRow>
               <ProfileRow>
                 <CareerIcon width={13} />
@@ -54,7 +127,7 @@ export default function QuoteDetail() {
             style={{ display: "flex", justifyContent: "center", gap: "3px" }}
           >
             <Text typo="subtitle100" color="blue100">
-              꼬미
+              {puppy.name}
             </Text>
             <Text typo="subtitle100">견적서</Text>
           </div>
@@ -68,58 +141,73 @@ export default function QuoteDetail() {
               <DetailLabel>
                 <Text typo="body300">예약 날짜</Text>
               </DetailLabel>
-              <Text typo="body300">2024.12.24 12:30</Text>
+              <Text typo="body300">
+                {new Date(estimateProposal.desiredDateTime).toLocaleString()} 
+              </Text>
             </DetailRow>
+
             <DetailRow>
               <DetailLabel>
                 <Text typo="body300">미용 종류</Text>
               </DetailLabel>
-              <Text typo="body300">곰돌이컷 + 가위컷</Text>
+              <Text typo="body300">
+                {estimateProposal.style} 
+              </Text>
             </DetailRow>
+
             <DetailRow>
               <DetailLabel>
                 <Text typo="body300">예상 소요 시간</Text>
               </DetailLabel>
-              <Text typo="body300">2시간 30분</Text>
+              <Text typo="body300">
+                {estimate.estimatedDuration} 
+              </Text>
             </DetailRow>
+
             <DetailRow>
               <DetailLabel>
                 <Text typo="body300">첨부사진</Text>
               </DetailLabel>
-              <div
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  borderRadius: "5px",
-                  backgroundColor: `${colors.gray300}`,
-                }}
-              />
+              {estimateProposal.imageUrls && estimateProposal.imageUrls.length > 0 ? (
+                <img
+                  src={estimateProposal.imageUrls[3]}
+                  alt="첨부 사진"
+                  style={{ width: "100px", height: "100px", borderRadius: "5px" }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "5px",
+                    backgroundColor: `${colors.gray300}`,
+                  }}
+                />
+              )}
             </DetailRow>
+
             <DetailRow>
               <DetailLabel>
                 <Text typo="body300">상세 설명</Text>
               </DetailLabel>
               <DetailText>
                 <Text typo="body300">
-                  해당 사진은 곰돌이 컷이 아니라 알머리컷입니다! 알머리 컷으로
-                  진행하겠습니다.
+                {estimate.content} 
                 </Text>
               </DetailText>
             </DetailRow>
           </div>
-
           <DashedDivider />
-
           <DetailRow>
             <DetailLabel>
               <Text typo="subtitle200" color="blue100">
                 총 결제 비용
               </Text>
             </DetailLabel>
-            <Text typo="subtitle200">35,000원</Text>
+            <Text typo="subtitle200">{estimate.depositPrice}</Text>
           </DetailRow>
 
-          <DashedDivider />
+         <DashedDivider />
 
           <AgreementContainer>
             <div style={{ marginBottom: "15px" }}>
@@ -169,7 +257,7 @@ export default function QuoteDetail() {
         </QuoteDetailsCard>
       </div>
 
-      <GNB buttonText="35,000원 결제하기" />
+      <GNB buttonText={`${estimate.depositPrice.toLocaleString()}원 결제하기`} />
     </PageContainer>
   );
 }
