@@ -12,8 +12,14 @@ export default function SearchLocationModal({
 }: SearchLocationModalProps) {
   const handleAddressChange = (data: { address: string }) => {
     if (data && data.address) {
-      console.log(data.address);
-      onLocationSelect(data.address); // 선택된 주소를 부모 컴포넌트로 전달
+      let updatedAddress = data.address;
+
+      // "서울 "로 시작하는 주소일 경우 "서울특별시 "로 변경
+      if (updatedAddress.startsWith("서울 ")) {
+        updatedAddress = updatedAddress.replace("서울 ", "서울특별시 ");
+      }
+
+      onLocationSelect(updatedAddress); // 선택된 주소를 부모 컴포넌트로 전달
       onClose();
     } else {
       alert("주소를 다시 검색해주세요.");
