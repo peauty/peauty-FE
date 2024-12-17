@@ -8,18 +8,28 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Text } from "../../../../../components";
 
-
 interface InfoProps {
   requestDate: string;
   requestText: string;
+  userId: number;  // userId 타입 추가
+  puppyId: number;  // puppyId 타입 추가
+  processId: number;  // processId 타입 추가
 }
 
-export default function Info({ requestDate, requestText }: InfoProps) {
+export default function Info({
+  requestDate,
+  requestText,
+  userId,
+  puppyId,
+  processId,
+}: InfoProps) {
   const navigate = useNavigate();
-
   const handleButtonClick = () => {
-    navigate("/customer/request/request-look");
+    const url = `/customer/request/request-look?userId=${userId}&puppyId=${puppyId}&processId=${processId}`;
+    console.log("Navigating to URL:", url); // URL을 콘솔에 출력
+    navigate(url);
   };
+  
 
   return (
     <Container>
