@@ -1,4 +1,5 @@
-import { Badge } from "../../designer/designer";
+import { Badge } from "../customer";
+
 export interface ShopOverviewProps {
   workspaceName: string;
   reviewRating: number;

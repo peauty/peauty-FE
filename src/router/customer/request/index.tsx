@@ -13,7 +13,17 @@ export const requestPaths = [
         element: <Request />,
       },
     ],
-    elemnent: <AuthLayout userType="customer" />,
+    element: <AuthLayout userType="customer" />,
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "request-look",
+        element: <RequestLook />,
+      },
+    ],
+    elemnent: <AuthLayout userType="customer" style={noPadding} />,
   },
   {
     path: "shops",
@@ -28,9 +38,5 @@ export const requestPaths = [
       },
     ],
     elemnent: <AuthLayout userType="customer" style={noPadding} />,
-  },
-  {
-    path: "request-look",
-    element: <RequestLook />,
   },
 ];

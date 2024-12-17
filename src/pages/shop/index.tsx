@@ -10,6 +10,7 @@ import { StickyContainer } from "./index.styles";
 import { getDesignerWorkspace } from "../../apis/designer/resources/designer";
 import { getDesignerReviews } from "../../apis/customer/resources/review";
 import { useParams } from "react-router-dom";
+
 type Section = "detail" | "review" | "badge";
 
 export default function Shop() {

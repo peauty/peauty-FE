@@ -1,22 +1,53 @@
+import { useState, useEffect } from "react";
 import { CustomInput, MultiSelectButton, Text } from "../../../../components";
 import { LocationButton } from "../../../../components/button/LocationButton";
 import { MultiSelectButtonProps } from "../../../../components/button/MultiSelectButton/MultiSelectButton";
-import { Payment } from "../../../../components/button/MultiSelectButton/MultiSelectButton.stories";
-import { CreateDesignerWorkspaceRequest } from "../../../../types/designer";
+import { CreateDesignerWorkspaceRequest } from "../../../../types/designer/designer";
 import { Style } from "../index.styles";
 
 interface ShopInfoInputSectionProps {
   onChange: (field: keyof CreateDesignerWorkspaceRequest, value: any) => void;
+  initialValues: {
+    address: string;
+    addressDetail: string;
+    openHours: string;
+    closeHours: string;
+    openDays: string;
+    directionGuide: string;
+    phoneNumber: string;
+    workspaceName: string;
+    paymentOptions: string[];
+  }; // initialValues를 받는 prop 추가
 }
+
+export const Payment: MultiSelectButtonProps = {
+  row: 1,
+  col: 3,
+  buttonNames: ["카드 결제", "현금 결제", "계좌 이체"],
+  selectedIndexes: [],
+  onSelect: (indexes: number[]) => console.log("선택된 버튼 인덱스:", indexes),
+};
 
 export default function ShopInfoInputSection({
   onChange,
+  initialValues, // initialValues prop 추가
 }: ShopInfoInputSectionProps) {
+  const [formValues, setFormValues] = useState(initialValues);
+
+  // 초기값이 변경될 때마다 상태를 업데이트하도록 useEffect 추가
+  useEffect(() => {
+    setFormValues(initialValues);
+  }, [initialValues]);
+
   const handleHowToPaySelect = (selectedPayIndexs: number[]) => {
     const paymentOptions = selectedPayIndexs.map((index) =>
       index === 0 ? "CARD" : index === 1 ? "CASH" : "ACCOUNT",
     );
-    onChange("paymentOptions", paymentOptions);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      paymentOptions,
+    }));
+    onChange("paymentOptions", paymentOptions); // 부모에게 값 전달
   };
 
   return (
@@ -31,11 +62,28 @@ export default function ShopInfoInputSection({
       <CustomInput
         label="이름"
         placeholder="매장 이름을 입력해주세요"
-        onChange={(e) => onChange("workspaceName", e.target.value)}
+        value={formValues.workspaceName} // 초기값 설정
+        onChange={(e) => {
+          const value = e.target.value;
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            workspaceName: value,
+          }));
+          onChange("workspaceName", value); // 부모에게 값 전달
+        }}
       />
 
       <LocationButton
+        initialValues={{
+          address: formValues.address,
+          addressDetail: formValues.addressDetail,
+        }} // 초기값 설정
         onChange={(address, addressDetail) => {
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            address,
+            addressDetail,
+          }));
           onChange("address", address);
           onChange("addressDetail", addressDetail);
         }}
@@ -44,14 +92,31 @@ export default function ShopInfoInputSection({
       <CustomInput
         label="영업 시간"
         placeholder="영업 시간을 입력해주세요"
-        onChange={(e) => onChange("openHours", e.target.value)}
+        value={formValues.openHours} // 초기값 설정
+        onChange={(e) => {
+          const value = e.target.value;
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            openHours: value,
+          }));
+          onChange("openHours", value); // 부모에게 값 전달
+        }}
       />
 
       <CustomInput
         label="대표 전화번호"
         placeholder="대표 전화번호를 입력해주세요"
-        onChange={(e) => onChange("phoneNumber", e.target.value)}
+        value={formValues.phoneNumber} // 초기값 설정
+        onChange={(e) => {
+          const value = e.target.value;
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            phoneNumber: value,
+          }));
+          onChange("phoneNumber", value); // 부모에게 값 전달
+        }}
       />
+
       <Style.RadioWrapper>
         <Text typo="subtitle300" color="gray100">
           결제 방식{" "}
@@ -60,8 +125,10 @@ export default function ShopInfoInputSection({
           </Text>
         </Text>
         <MultiSelectButton
-          {...(Payment.args as MultiSelectButtonProps)}
-          selectedIndexes={[]}
+          {...(Payment as MultiSelectButtonProps)}
+          selectedIndexes={formValues.paymentOptions.map((option) =>
+            option === "CARD" ? 0 : option === "CASH" ? 1 : 2,
+          )}
           onSelect={handleHowToPaySelect}
         />
       </Style.RadioWrapper>

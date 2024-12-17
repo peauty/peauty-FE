@@ -48,6 +48,26 @@ export const Style = {
     border-radius: 10px;
   `,
 
+  ImageList: styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  `,
+
+  ImageItem: styled.div`
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    /* overflow: hidden; */
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  `,
+
   DeleteButton: styled.button`
     position: absolute;
     top: -5px;

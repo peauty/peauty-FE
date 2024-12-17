@@ -18,6 +18,7 @@ interface CardProps {
   tags: string[];
   onClick?: () => void;
   isSelected?: boolean;
+  disabled?: boolean; // disabled 추가
 }
 
 export default function Card({
@@ -30,10 +31,24 @@ export default function Card({
   tags,
   onClick,
   isSelected = false,
+  disabled = false, // 기본값 false
 }: CardProps) {
   const gen = gender === "F" ? "여자" : "남자";
+
+  // disabled일 경우 onClick을 비활성화
+  const handleClick = (e: React.MouseEvent) => {
+    if (!disabled && onClick) {
+      onClick();
+    }
+    e.preventDefault(); // prevent default 클릭 동작 (선택 방지)
+  };
+
   return (
-    <CardWrapper onClick={onClick} isSelected={isSelected}>
+    <CardWrapper
+      onClick={handleClick}
+      isSelected={isSelected}
+      disabled={disabled} // disabled 스타일 적용
+    >
       <div>
         <ProfileImg
           src={imageSrc}
