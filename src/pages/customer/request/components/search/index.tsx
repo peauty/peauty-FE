@@ -80,7 +80,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   };
 
   const handleCheckboxChange = (index: number, designerId?: number) => {
-    if (!designerId) {
+    if (designerId === undefined) {
       console.error("Invalid designerId:", designerId);
       return;
     }
@@ -92,7 +92,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
 
     const selectedDesignerIds = workspaces
       .filter((_, idx) => newCheckedItems[idx])
-      .map((workspace) => workspace.designerId)
+      .map((workspace) => workspace.designerId!)
       .filter((id): id is number => id !== undefined);
 
     handleArrayChange("designerIds", selectedDesignerIds);
