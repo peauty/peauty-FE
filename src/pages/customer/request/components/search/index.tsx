@@ -100,13 +100,17 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
 
   const handleDesignerClick = (
     index: number,
-    workspaceId: number,
-    designerId: number,
+    workspaceId?: number,
+    designerId?: number,
   ) => {
     if (isSelecting) {
-      handleCheckboxChange(index, designerId);
-    } else if (designerId !== undefined) {
-      navigate(ROUTE.customer.request.shop(designerId));
+      if (designerId !== undefined) {
+        handleCheckboxChange(index, designerId);
+      } else {
+        console.error("designerId is undefined");
+      }
+    } else if (workspaceId !== undefined) {
+      navigate(ROUTE.customer.request.shop(workspaceId));
     }
   };
 
