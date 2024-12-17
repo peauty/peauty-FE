@@ -56,6 +56,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
         const response: GetAroundWorkspacesResponse = await getAroundWorkspaces(
           user.userId,
         );
+        console.log(response);
         setCustomerAddress(response.customerAddress || "알 수 없음");
         setWorkspaces(response.workspaces || []);
         setCheckedItems(Array(response.workspaces?.length || 0).fill(false));
@@ -99,13 +100,13 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
 
   const handleDesignerClick = (
     index: number,
-    workspaceId?: number,
-    designerId?: number,
+    workspaceId: number,
+    designerId: number,
   ) => {
     if (isSelecting) {
       handleCheckboxChange(index, designerId);
-    } else if (workspaceId !== undefined) {
-      navigate(ROUTE.customer.request.shop(workspaceId));
+    } else if (designerId !== undefined) {
+      navigate(ROUTE.customer.request.shop(designerId));
     }
   };
 
@@ -157,7 +158,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
           {workspaces.length > 0 ? (
             workspaces.map((workspace, idx) => (
               <DesignerItem
-                key={workspace.workspaceId}
+                key={workspace.designerId}
                 isSelecting={isSelecting}
                 isChecked={checkedItems[idx]}
                 onCheckboxChange={() =>

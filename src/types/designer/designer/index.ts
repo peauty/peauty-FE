@@ -6,29 +6,37 @@ export type BadgeTypeType = "GENERAL" | "SCISSORS";
 
 export type PaymentOptionType = "CARD" | "CASH" | "ACCOUNT";
 
+export interface Badge {
+  badgeId: number;
+  badgeName: string;
+  badgeContent: string;
+  badgeImageUrl: string;
+  badgeColor: string;
+  badgeType: string;
+}
+
 export interface GetDesignerWorkspaceResponse {
-  designerId?: number;
-  workspaceId?: number;
-  bannerImageUrls?: string[];
-  workspaceName?: string;
-  reviewRating?: number;
-  reviewsCount?: number;
-  scissors?: ScissorsType;
-  introduceTitle?: string;
-  introduce?: string;
-  noticeTitle?: string;
-  notice?: string;
   address?: string;
   addressDetail?: string;
-  phoneNumber?: string;
-  yearOfExperience?: number;
-  openHours?: string;
+  bannerImageUrls?: string[];
   closeHours?: string;
-  openDay?: string;
+  designerId?: number;
   directionGuide?: string;
+  introduce?: string;
+  introduceTitle?: string;
   licenses?: string[];
-  paymentOptions?: PaymentOptionType[];
-  representativeBadgeNames?: string[];
+  notice?: string;
+  noticeTitle?: string;
+  openDay?: string;
+  openHours?: string;
+  paymentOptions?: string[];
+  phoneNumber?: string;
+  representativeBadgeNames?: Badge[];
+  reviewRating?: number;
+  reviewsCount?: number;
+  workspaceId?: number;
+  workspaceName?: string;
+  yearOfExperience?: number;
 }
 
 export interface UpdateDesignerWorkspaceResponse {
@@ -38,7 +46,6 @@ export interface UpdateDesignerWorkspaceResponse {
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
-  scissors?: ScissorsType;
   introduceTitle?: string;
   introduce?: string;
   noticeTitle?: string;
@@ -52,8 +59,8 @@ export interface UpdateDesignerWorkspaceResponse {
   openDay?: string;
   directionGuide?: string;
   licenses?: string[];
-  paymentOptions?: PaymentOptionType[];
-  representativeBadgeNames?: string[];
+  paymentOptions?: string[];
+  representativeBadgeNames?: Badge[];
 }
 
 export interface UpdateDesignerWorkspaceRequest {
@@ -67,7 +74,7 @@ export interface UpdateDesignerWorkspaceRequest {
   addressDetail?: string;
   yearOfExperience?: number;
   licenses?: string[];
-  paymentOptions?: PaymentOptionType[];
+  paymentOptions?: string[];
   openHours?: string;
   closeHours?: string;
   openDays?: string;
