@@ -1,61 +1,81 @@
+import { useEffect, useState } from "react";
 import { colors } from "../../../../../style/color";
 import CustomerInfo from "../../../status/components/CustomerInfo";
+import { useUserDetails } from "../../../../../hooks/useUserDetails";
+import { usePuppyId } from "../../../../../hooks/usePuppyId"; 
+import { getAllStep3AboveThreads } from "../../../../../apis/customer/resources/bidding";
+import { GetAllStep3AboveThreadsResponse } from "../../../../../types/customer/bidding";
 
 export default function ReviewableService() {
-  const statusItemData = {
-    store: "움칫둠칫",
-    location: "서울특별시 강남구 대치동",
-    reservation: "예약완료",
-    score: 4.5,
-    review: 120,
-    payment: 35000,
-    date: "2021.11.12",
-    badges: [
-      { name: "친절함", color: "blue" },
-      { name: "전문성", color: "green" },
-      { name: "전문성", color: "green" },
-    ],
-    thumbnailUrl:
-      "https://item.kakaocdn.net/do/5c5d49e3cf96b8556201270d137a761f8f324a0b9c48f77dbce3a43bd11ce785",
-    onCheckboxChange: () => console.log("Checkbox changed"),
-    onClick: () => console.log("StatusListItem clicked"),
-  };
+  const { userId } = useUserDetails();
+  const { puppyId } = usePuppyId(userId);
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat().format(amount); // 1000 단위로 쉼표 추가
-  };
+  // 전체 응답 데이터를 저장
+  const [threadsData, setThreadsData] = useState<GetAllStep3AboveThreadsResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    const fetchThreads = async () => {
+      if (!puppyId) {
+        console.log("puppyId가 존재하지 않습니다.");
+        return;
+      }
+      setLoading(true);
+      setError("");
+
+      try {
+        const response = await getAllStep3AboveThreads(userId, puppyId);
+        console.log("API Response:", response);
+
+        // 전체 응답 데이터를 저장
+        setThreadsData(response);
+      } catch (err) {
+        console.error("API 호출 오류:", err);
+        setError("데이터를 가져오는 중 오류가 발생했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchThreads();
+  }, [userId, puppyId]);
+
+  const formatCurrency = (amount: number) => new Intl.NumberFormat().format(amount);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: "10px",
-        }}
-      >
-        <CustomerInfo
-          date={statusItemData.date}
-          location={statusItemData.location}
-          store={statusItemData.store}
-          score={statusItemData.score}
-          review={statusItemData.review}
-          reservation={statusItemData.reservation}
-          thumbnailUrl={statusItemData.thumbnailUrl}
-          buttons={[
-            {
-              title: "리뷰 작성",
-              bgColor: colors.blue300,
-              color: colors.blue100,
-              width: "100%",
-              onClick: () => console.log("리뷰작성클릭"),
-            },
-          ]}
-          status="가윗컷 + 곰돌이컷"
-          payment={formatCurrency(statusItemData.payment)}
-          onClick={statusItemData.onClick}
-        />
+      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        {threadsData && threadsData.data?.threads?.length ? (
+          threadsData.data.threads
+            .filter(thread => {
+              console.log("Thread 필터링 전:", thread);
+              return !thread.isReviewed;
+            }) // isReviewed가 false인 항목만 필터링
+            .map((thread, index) => {
+              console.log("Filtered Thread:", thread);
+              return (
+                <CustomerInfo
+                  key={index}
+                  isReviewed={false}
+                  store={thread.designer.workspaceName || "알 수 없음"}
+                  score={thread.designer.reviewRating || 0}
+                  review={thread.designer.reviewCount || 0}
+                  location={thread.designer.address || "알 수 없음"}
+                  thumbnailUrl={thread.designer.profileImageUrl || ""}
+                  buttons={renderCustomerInfoButtons("confirmed")}
+                  status={thread.threadStep || "알 수 없음"}
+                  payment={formatCurrency(thread.estimate.estimatedCost || 0)}
+                  onClick={() => console.log(`CustomerInfo clicked for thread ${index}`)}
+                />
+              );
+            })
+        ) : (
+          <p>확인된 데이터가 없습니다.</p>
+        )}
       </div>
     </>
   );
