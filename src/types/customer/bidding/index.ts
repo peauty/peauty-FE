@@ -1,5 +1,4 @@
 export type GroomingTypeType = "TOTAL" | "CLEAN";
-
 export type TotalGroomingBodyTypeType =
   | "CLIPPING_3MM"
   | "CLIPPING_6MM"
@@ -14,7 +13,6 @@ export type TotalGroomingBodyTypeType =
   | "BELL_6MM"
   | "BELL_9MM"
   | "SCISSORS";
-
 export type TotalGroomingFaceTypeType =
   | "EGG"
   | "BABY"
@@ -31,7 +29,6 @@ export type TotalGroomingFaceTypeType =
   | "MONKEY"
   | "BEDLINGTON"
   | "POODLINGTON";
-
 export interface SendEstimateProposalResponse {
   processId?: number;
   puppyId?: number;
@@ -39,7 +36,6 @@ export interface SendEstimateProposalResponse {
   processStatus?: string;
   createdAt?: string;
 }
-
 export interface SendEstimateProposalRequest {
   designerIds?: number[];
   groomingType?: GroomingTypeType;
@@ -50,7 +46,6 @@ export interface SendEstimateProposalRequest {
   totalGroomingBodyType?: TotalGroomingBodyTypeType;
   totalGroomingFaceType?: TotalGroomingFaceTypeType;
 }
-
 export interface AcceptEstimateResponse {
   puppyId?: number;
   processId?: number;
@@ -93,7 +88,6 @@ export interface GetEstimateProposalDetailResponse {
     };
   };
 }
-
 export interface Profile {
   id?: number;
   style?: string;
@@ -104,7 +98,6 @@ export interface Profile {
   desiredCost?: number;
   desiredDateTime?: string;
 }
-
 export interface GetOngoingProcessWithThreadsResponse {
   process: {
     processId: number;
@@ -148,7 +141,6 @@ export interface GetOngoingProcessWithThreadsResponse {
     };
   }[];
 }
-
 export interface GetStep2ProcessWithThreadsResponse {
   process: {
     processId: number;
@@ -204,7 +196,6 @@ export interface GetStep2ProcessWithThreadsResponse {
     };
   }[];
 }
-
 export interface GetAllStep3AboveThreadsResponse {
   threads: any;
   responseCode: string;
