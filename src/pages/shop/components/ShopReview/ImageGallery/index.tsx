@@ -13,23 +13,27 @@ interface ImageGridProps {
 }
 
 export default function ImageGallery({ images, totalImages }: ImageGridProps) {
+  const displayImages = images.slice(0, 4); // 처음 4장까지만 표시
+
   return (
     <ImageGrid>
-      {images.slice(0, 3).map((src, index) => (
+      {displayImages.map((src, index) => (
         <ImageWrapper key={index}>
-          <Image src={src} alt={`이미지 ${index + 1}`} />
+          {/* 마지막 이미지에 "더보기" 표시 */}
+          {index === 3 && images.length > 4 ? (
+            <>
+              <Image src={src} alt="더보기" />
+              <Overlay>
+                <MoreText>
+                  <span>+</span> 더보기
+                </MoreText>
+              </Overlay>
+            </>
+          ) : (
+            <Image src={src} alt={`이미지 ${index + 1}`} />
+          )}
         </ImageWrapper>
       ))}
-
-      {/* 마지막 이미지에 "더보기" 표시 */}
-      <ImageWrapper>
-        <Image src={images[3]} alt="더보기" />
-        <Overlay>
-          <MoreText>
-            <span>+</span> 더보기
-          </MoreText>
-        </Overlay>
-      </ImageWrapper>
     </ImageGrid>
   );
 }

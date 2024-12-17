@@ -7,7 +7,6 @@ export const ImageGrid = styled.div`
 
 export const ImageWrapper = styled.div`
   position: relative;
-  flex: 1;
   border-radius: 8px; /* 라운드 처리 */
   overflow: hidden;
   flex-shrink: 0;
@@ -15,8 +14,8 @@ export const ImageWrapper = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 102px;
+  height: 102px;
   object-fit: cover; /* 이미지 비율 유지하며 채우기 */
 `;
 
@@ -24,8 +23,8 @@ export const Overlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 102px;
+  height: 102px;
   background: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
   display: flex;
   justify-content: center;

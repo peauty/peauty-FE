@@ -79,7 +79,9 @@ const ShopReview = forwardRef<HTMLDivElement, ShopReviewProps>((props, ref) => {
           <StarRating rating={totalRating} size={17} />
         </IconContain>
       </CustomerRiverWrapper>
-      <ReviewPhotos />
+
+      <ReviewPhotos reviews={reviews} />
+
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <BottomSheet
           options={[
