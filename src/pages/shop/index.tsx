@@ -8,14 +8,16 @@ import ShopReview from "./components/ShopReview";
 import { ShopBadge } from "./components/ShopBadge";
 import { StickyContainer } from "./index.styles";
 import { getDesignerWorkspace } from "../../apis/designer/resources/designer";
+import { getDesignerReviews } from "../../apis/customer/resources/review";
 import { useParams } from "react-router-dom";
-
 type Section = "detail" | "review" | "badge";
 
 export default function Shop() {
   const { userId } = useParams<{ userId: string }>();
   const [workspace, setWorkspace] = useState<any>(null); // API 데이터를 저장
   const [loading, setLoading] = useState(true); // 로딩 상태
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true); // Reviews loading state
   const [activeSection, setActiveSection] = useState<Section>("detail");
 
   const detailRef = useRef<HTMLDivElement | null>(null);
@@ -46,7 +48,7 @@ export default function Shop() {
 
   useEffect(() => {
     if (!userId) {
-      console.error("userId가 없습니다."); // 디버깅용
+      console.error("userId가 없습니다.");
       return;
     }
 
@@ -62,7 +64,27 @@ export default function Shop() {
       }
     };
 
+    const fetchReviewsData = async () => {
+      try {
+        setReviewsLoading(true); // Start loading reviews
+        const response = await getDesignerReviews(33);
+        console.log("Reviews API 호출 성공:", response);
+
+        if (response && Array.isArray(response.reviews)) {
+          setReviews(response.reviews); // Set reviews data
+        } else {
+          console.error("Invalid reviews structure:", response);
+        }
+
+        setReviewsLoading(false); // End loading
+      } catch (error) {
+        console.error("Reviews API 호출 실패:", error);
+        setReviewsLoading(false); // End loading on error
+      }
+    };
+
     fetchWorkspaceData();
+    fetchReviewsData();
   }, [userId]);
 
   useEffect(() => {
@@ -144,7 +166,13 @@ export default function Shop() {
         <ShopNav activeSection={activeSection} onNavigate={handleNavigate} />
       </StickyContainer>
       <ShopDetail ref={detailRef} id="detail" {...detailData} />
-      <ShopReview ref={reviewRef} id="review" />
+      <ShopReview
+        ref={reviewRef}
+        id="review"
+        reviews={reviews}
+        reviewsLoading={reviewsLoading}
+        totalRating={overviewData.reviewRating}
+      />
       <ShopBadge
         ref={badgeRef}
         id="badge"

@@ -5,17 +5,25 @@ import { Text } from "../texts/Text";
 import { DownArrow, UpArrow } from "../../assets/svg";
 import BackDrop from "../back-drop/BackDrop";
 
+interface OptionType {
+  label: string; // 옵션에 표시될 텍스트
+  onClick?: () => void; // 클릭 시 실행될 함수 (선택적)
+}
+
 interface BottomSheetProps {
-  options: string[]; // 옵션 목록
+  options: OptionType[]; // 각 옵션이 label과 onClick 함수를 포함
 }
 
 function BottomSheet({ options }: BottomSheetProps) {
   const [isOpen, setIsOpen] = useState(false); // BottomSheet 열림 상태 관리
-  const [selectedOption, setSelectedOption] = useState(options[0]); // 선택된 옵션 초기값
+  const [selectedOption, setSelectedOption] = useState(options[0]?.label); // 선택된 옵션 초기값
 
-  const handleSelect = (option: string) => {
-    setSelectedOption(option); // 선택된 옵션 업데이트
+  const handleSelect = (option: OptionType) => {
+    setSelectedOption(option.label); // 선택된 옵션 업데이트
     setIsOpen(false); // 선택 후 BottomSheet 닫기
+    if (option.onClick) {  // onClick이 정의되어 있으면 호출
+      option.onClick(); 
+    }
   };
 
   const BottomSheetContent = (
@@ -34,10 +42,10 @@ function BottomSheet({ options }: BottomSheetProps) {
           {options.map((option, index) => (
             <Option
               key={index}
-              isSelected={selectedOption === option} // 선택된 옵션인지 확인
+              isSelected={selectedOption === option.label} // 선택된 옵션인지 확인
               onClick={() => handleSelect(option)}
             >
-              {option}
+              {option.label}
             </Option>
           ))}
         </Sheet>

@@ -132,7 +132,15 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
           </VerificationWrapper>
         </LocationWrapper>
         <FilterWrapper>
-          <BottomSheet options={["최신순", "평점 높은순"]} />
+          <BottomSheet
+            options={[
+              { label: "최신순", onClick: () => console.log("최신순 선택") },
+              {
+                label: "평점 높은순",
+                onClick: () => console.log("평점 높은순 선택"),
+              },
+            ]}
+          />
           <SelectWrapper>
             <SelectButton onClick={handleSelectClick}>
               <SelectIcon height={15} color="blue100" />

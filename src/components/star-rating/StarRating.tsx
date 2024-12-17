@@ -8,12 +8,12 @@ import {
   PartialStar,
 } from "./StarRating.styles";
 interface StarRatingProps {
-  rating: number; // 평점 (0 ~ 5)
+  rating?: number; // 평점 (0 ~ 5)
   size?: number;
   gap?: number;
 }
 
-export default function StarRating({ rating, size, gap }: StarRatingProps) {
+export default function StarRating({ rating = 0, size, gap }: StarRatingProps) {
   const totalStars = 5; // 총 별 개수
 
   return (
