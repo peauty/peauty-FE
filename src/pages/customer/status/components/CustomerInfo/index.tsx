@@ -31,6 +31,7 @@ interface CustomerInfoProps {
   review: number;
   status?: string;
   payment: string;
+  isReviewed:boolean;
   thumbnailUrl: string;
   buttons: ButtonProps[];
   onClick: () => void;
@@ -46,6 +47,7 @@ export default function CustomerInfo({
   buttons,
   status,
   payment,
+  isReviewed,
   onClick,
   reservation,
 }: CustomerInfoProps) {
