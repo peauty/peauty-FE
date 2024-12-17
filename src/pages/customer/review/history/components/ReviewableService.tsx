@@ -135,7 +135,7 @@ export default function ReviewableService() {
   useEffect(() => {
     setLoading(true);
     try {
-      setThreadsData(dummyData); // 더미 데이터를 상태에 설정
+      setThreadsData(dummyData);
     } catch (err) {
       setError("더미 데이터를 불러오는 중 오류가 발생했습니다.");
     } finally {
@@ -155,7 +155,7 @@ export default function ReviewableService() {
 
     try {
       const response = await getAllStep3AboveThreads(userId, puppyId);
-      setThreadsData(dummyData);
+      setThreadsData(response);
     } catch (err) {
       console.error("API 호출 오류:", err);
       setError("데이터를 가져오는 중 오류가 발생했습니다.");
