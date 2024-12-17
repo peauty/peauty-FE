@@ -141,7 +141,8 @@ export default function CustomerMyPage() {
           <Divider />
           <ContentsWrapper>
             <Text typo="subtitle200">리뷰</Text>
-            <SubMenuButton text="리뷰 내역" to="/" />
+            <SubMenuButton text="리뷰 내역" to="/customer/mypage/reviews-history" />
+
           </ContentsWrapper>
           <Divider />
           <ContentsWrapper>
