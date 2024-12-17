@@ -16,7 +16,7 @@ export const CarouselImage = styled.div`
 `;
 
 export const Image = styled.img<{ rounded?: boolean }>`
-  object-fit: cover;
+  object-fit: scale-down;
   border-radius: ${({ rounded }) => (rounded ? "10px" : "0")};
   width: 100%;
 `;

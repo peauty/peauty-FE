@@ -56,6 +56,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
         const response: GetAroundWorkspacesResponse = await getAroundWorkspaces(
           user.userId,
         );
+        console.log(response);
         setCustomerAddress(response.customerAddress || "알 수 없음");
         setWorkspaces(response.workspaces || []);
         setCheckedItems(Array(response.workspaces?.length || 0).fill(false));
@@ -79,7 +80,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   };
 
   const handleCheckboxChange = (index: number, designerId?: number) => {
-    if (!designerId) {
+    if (designerId === undefined) {
       console.error("Invalid designerId:", designerId);
       return;
     }
@@ -91,7 +92,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
 
     const selectedDesignerIds = workspaces
       .filter((_, idx) => newCheckedItems[idx])
-      .map((workspace) => workspace.designerId)
+      .map((workspace) => workspace.designerId!)
       .filter((id): id is number => id !== undefined);
 
     handleArrayChange("designerIds", selectedDesignerIds);
@@ -103,7 +104,11 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
     designerId?: number,
   ) => {
     if (isSelecting) {
-      handleCheckboxChange(index, designerId);
+      if (designerId !== undefined) {
+        handleCheckboxChange(index, designerId);
+      } else {
+        console.error("designerId is undefined");
+      }
     } else if (workspaceId !== undefined) {
       navigate(ROUTE.customer.request.shop(workspaceId));
     }
@@ -157,7 +162,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
           {workspaces.length > 0 ? (
             workspaces.map((workspace, idx) => (
               <DesignerItem
-                key={workspace.workspaceId}
+                key={workspace.designerId}
                 isSelecting={isSelecting}
                 isChecked={checkedItems[idx]}
                 onCheckboxChange={() =>
