@@ -57,7 +57,6 @@ export default function DesignerSignUpDetail() {
       if (!userId) return;
 
       const response = await getDesignerWorkspace(Number(userId));
-
       // Map the response to the form state
       setShopDetailInfo({
         bannerImageUrls: response.bannerImageUrls || [],
@@ -82,7 +81,10 @@ export default function DesignerSignUpDetail() {
     fetchWorkspaceData();
   }, [userId]);
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = <K extends keyof CreateDesignerWorkspaceRequest>(
+    field: K,
+    value: CreateDesignerWorkspaceRequest[K],
+  ) => {
     setShopDetailInfo((prev) => {
       // Only update if the value has changed
       if (prev[field] === value) return prev;

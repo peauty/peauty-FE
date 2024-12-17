@@ -20,7 +20,7 @@ export default function CoverPhotoUploadSection({
     if (initialValue && initialValue.length > 0) {
       setImageUrls(initialValue);
     }
-  }, [initialValue]); // initialValue만 의존성 배열에 추가
+  }, []);
 
   // 이미지 URL이 변경되면 상위 컴포넌트로 전달
   useEffect(() => {
