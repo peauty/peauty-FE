@@ -33,7 +33,6 @@ export default function SocialLoginModal({
     <CustomModal onClose={onClose}>
       <ModalContent>
         <SocialLoginButton type="kakao" onClick={handleKakaoLogin} />
-        <SocialLoginButton type="naver" />
         <SocialLoginButton type="google" onClick={handleGoogleLogin} />
       </ModalContent>
     </CustomModal>

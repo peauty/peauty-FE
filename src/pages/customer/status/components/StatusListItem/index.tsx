@@ -34,22 +34,17 @@ export default function StatusListItem({
       <ContentsWrapper onClick={onClick}>
         <Thumbnail src={thumbnailUrl} alt={`${store}의 섬네일`} />
         <Details>
-          <Text typo="subtitle200">{store}</Text>{" "}
+          <Text typo="subtitle200">{store}</Text>
           <BadgeWrapper>
             <RatingWrapper>
-              <Rating starSize="13" score={score} fontsize="body400" />
-              <Text typo="body400">({review})</Text>
+              <Rating starSize="13" score={score} fontsize="body400" color="gray200" />
+              <Text typo="body400" color="gray200">({review})</Text>
             </RatingWrapper>
-            <Text typo="body400">| {location}</Text>
+            <Text typo="body400" color="gray200">| {location}</Text>
           </BadgeWrapper>
           <BadgeWrapper>
             {badges.map((badge, idx) => (
-              <Badge
-                key={idx}
-                type="general"
-                text={badge.name}
-                variant="blue"
-              />
+              <Badge key={idx} type="general" text={badge.name} variant="blue" />
             ))}
           </BadgeWrapper>
         </Details>
