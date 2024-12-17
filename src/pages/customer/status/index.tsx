@@ -86,7 +86,6 @@ export default function Status() {
           );
           setStep2ThreadsData(step2Data as GetStep2ProcessWithThreadsResponse);
 
-
           // Step3 데이터 가져오기
           const step3Data = await getAllStep3AboveThreads(userId, puppyId);
           setThreadsData(step3Data);
@@ -186,6 +185,7 @@ export default function Status() {
               step2ThreadsData.threads.length > 0 ? (
                 step2ThreadsData.threads.map((thread, index) => (
                   <CustomerInfo
+                    isReviewed={false}
                     key={index}
                     store={thread.designer?.workspaceName || "알 수 없음"}
                     score={thread.designer?.reviewRating || 0}
@@ -212,28 +212,36 @@ export default function Status() {
         return (
           <>
             <div style={{ padding: "0 20px" }}>
-            {threadsData?.threads?.length ? (
-  threadsData.threads.map((thread: GetAllStep3AboveThreadsResponse['data']['threads'][number], index: number) => (
-    <CustomerInfo
-      key={index}
-      store={thread.designer.workspaceName || "알 수 없음"}
-      score={thread.designer.reviewRating || 0}
-      review={thread.designer.reviewCount || 0}
-      reservation={thread.threadStep || "알 수 없음"}
-      location={thread.designer.address || "알 수 없음"}
-      thumbnailUrl={thread.designer.profileImageUrl || ""}
-      buttons={renderCustomerInfoButtons("confirmed")}
-      status={thread.style || "알 수 없음"}
-      payment={formatCurrency(thread.estimate.estimatedCost || 0)}
-      onClick={() =>
-        console.log(`CustomerInfo clicked for thread ${index}`)
-      }
-    />
-  ))
-) : (
-  <p>확인된 데이터가 없습니다.</p>
-)}
-    </div>
+              {threadsData?.threads?.length ? (
+                threadsData.threads.map(
+                  (
+                    thread: GetAllStep3AboveThreadsResponse["data"]["threads"][number],
+                    index: number,
+                  ) => (
+                    <CustomerInfo
+                      isReviewed={false}
+                      key={index}
+                      store={thread.designer.workspaceName || "알 수 없음"}
+                      score={thread.designer.reviewRating || 0}
+                      review={thread.designer.reviewCount || 0}
+                      reservation={thread.threadStep || "알 수 없음"}
+                      location={thread.designer.address || "알 수 없음"}
+                      thumbnailUrl={thread.designer.profileImageUrl || ""}
+                      buttons={renderCustomerInfoButtons("confirmed")}
+                      status={thread.style || "알 수 없음"}
+                      payment={formatCurrency(
+                        thread.estimate.estimatedCost || 0,
+                      )}
+                      onClick={() =>
+                        console.log(`CustomerInfo clicked for thread ${index}`)
+                      }
+                    />
+                  ),
+                )
+              ) : (
+                <p>확인된 데이터가 없습니다.</p>
+              )}
+            </div>
           </>
         );
       default:

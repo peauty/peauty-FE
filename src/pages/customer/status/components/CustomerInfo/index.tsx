@@ -31,7 +31,7 @@ interface CustomerInfoProps {
   review: number;
   status?: string;
   payment: string;
-  isReviewed:boolean;
+  isReviewed?: boolean;
   thumbnailUrl: string;
   buttons: ButtonProps[];
   onClick: () => void;
