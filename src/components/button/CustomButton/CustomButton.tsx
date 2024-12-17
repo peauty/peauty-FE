@@ -10,7 +10,7 @@ interface CustomButtonProps {
   /**
    * 버튼 크기 variant
    */
-  size?: "small" | "medium" | "large" | "big";
+  size?: "small" | "medium" | "large" | "big" | "full";
   /**
    * 버튼 스타일 variant
    */
@@ -27,6 +27,8 @@ interface CustomButtonProps {
    * 너비를 100%로 설정
    */
   fullwidth?: boolean;
+  
+  onChange?: () => void;
 }
 
 export default function CustomButton({
@@ -36,6 +38,7 @@ export default function CustomButton({
   disabled = false,
   onClick,
   fullwidth = true,
+  onChange,
 }: CustomButtonProps) {
   return (
     <Button
@@ -44,6 +47,7 @@ export default function CustomButton({
       disabled={disabled}
       onClick={onClick}
       fullwidth={fullwidth}
+      onChange={onChange}
     >
       {children}
     </Button>

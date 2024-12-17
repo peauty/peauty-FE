@@ -107,6 +107,7 @@ export default function QuoteForm() {
           threadId,
         );
         setProposalData(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching proposal details:", error);
       } finally {

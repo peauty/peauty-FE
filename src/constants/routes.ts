@@ -24,6 +24,7 @@ export const ROUTE = {
     request: {
       home: "/customer/request",
       shop: (shopId: number) => `/customer/request/shops/${shopId}`,
+      gallery: (shopId: number) => `/customer/request/shops/${shopId}/gallery`,
     },
     status: "/customer/status",
   },

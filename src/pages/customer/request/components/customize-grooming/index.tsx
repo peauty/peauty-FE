@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   DropButton,
@@ -89,7 +89,6 @@ export default function CustomizeGrooming({
     null,
   );
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-
   const maxCharLimit = 200;
 
   const faceStyleImg: Record<string, JSX.Element> = {
@@ -190,10 +189,7 @@ export default function CustomizeGrooming({
       <AppBar prefix="backButton" title="견적서 요청하기" />
       <ContentWrapper>
         <Text typo="subtitle100">
-          <Text typo="subtitle100" color="blue100">
-            꼬미
-          </Text>
-          의 구체적인 미용 시술정보와
+          구체적인 미용 시술정보와
           {"\n"}
           원하는 사항을 알려주세요!
         </Text>
@@ -290,7 +286,7 @@ export default function CustomizeGrooming({
             {/* 추가 버튼 */}
             {imageUrls.length < 3 && (
               <AddWrapper>
-                <CustomButton variant="secondary">
+                <CustomButton variant="secondary" size="full">
                   <label htmlFor="image-upload" style={{ cursor: "pointer" }}>
                     <AddImage width={15} />
                   </label>
@@ -308,7 +304,6 @@ export default function CustomizeGrooming({
             {imageUrls.map((url, index) => (
               <AddWrapper key={index} style={{ position: "relative" }}>
                 <ImageUnit src={url} alt={`Uploaded image ${index + 1}`} />
-                {/* 삭제 버튼 */}
                 <DeleteButton onClick={() => handleImageDelete(url)}>
                   &minus;
                 </DeleteButton>
@@ -319,7 +314,7 @@ export default function CustomizeGrooming({
 
         <CustomInput
           label="희망비용"
-          value={inputData.desiredCost?.toString() || ""}
+          value={inputData.desiredCost?.toLocaleString() || ""}
           onChange={(e) => handleDesiredCostChange(e.target.value)}
           placeholder="희망 금액을 입력해주세요"
           error={desiredCostError}

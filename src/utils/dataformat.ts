@@ -1,7 +1,15 @@
 export const formatDate = (isoDate?: string): string => {
   if (!isoDate) return "";
 
-  const date = new Date(isoDate);
+  // 시간 부분이 한 자리일 경우, 앞에 0을 붙여서 ISO 형식으로 만듦
+  const fixedIsoDate = isoDate.replace(
+    /T(\d):/,
+    (_match, hour) => `T0${hour}:`,
+  );
+
+  const date = new Date(fixedIsoDate);
+
+  if (isNaN(date.getTime())) return "유효하지 않은 날짜입니다"; // 날짜가 잘못된 경우 예외 처리
 
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0"); // 두 자리 월
