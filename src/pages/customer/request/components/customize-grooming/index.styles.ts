@@ -5,8 +5,9 @@ import theme from "../../../../../style/theme";
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: 20px;
-  padding: 30px 25px;
+  padding: 30px 0px 100px;
   white-space: pre-line;
 `;
 
@@ -38,7 +39,7 @@ export const ItemWrapper = styled.div`
 `;
 
 export const AddWrapper = styled.div`
-  width: 60px;
+  width: 80px;
   margin-top: 10px;
 `;
 
@@ -50,7 +51,7 @@ export const ImageContainer = styled.div`
 
 export const ImageUnit = styled.img`
   width: 100%;
-  height: 50px;
+  height: 100%;
   border-radius: 10px;
 `;
 

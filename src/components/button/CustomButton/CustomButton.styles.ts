@@ -35,6 +35,14 @@ export const Button = styled.button<{
   // 크기 설정
   ${(props) => {
     switch (props.size) {
+      case "full":
+        return css`
+          display: flex;
+          width: 80px;
+          height: 80px;
+          justify-content: center;
+          align-items: center;
+        `;
       case "small":
         return css`
           padding: 8px 16px;
