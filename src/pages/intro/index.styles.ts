@@ -18,6 +18,7 @@ export const ContentWrapper = styled.div`
 
 export const ButtonWrapper = styled.div`
   background: white;
+  margin-bottom: 20px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -25,7 +26,7 @@ export const TitleWrapper = styled.div`
 `;
 
 export const Logo = styled.img`
-  width: 120px;
+  width: 90px;
   height: auto;
   margin: 20px 0;
 `;

@@ -7,7 +7,7 @@ import ShopDetail from "./components/ShopDetail";
 import ShopReview from "./components/ShopReview";
 import { ShopBadge } from "./components/ShopBadge";
 import { StickyContainer } from "./index.styles";
-import { getDesignerWorkspace } from "../../apis/resources/designer";
+import { getDesignerWorkspace } from "../../apis/designer/resources/designer";
 import { useParams } from "react-router-dom";
 
 type Section = "detail" | "review" | "badge";
@@ -28,8 +28,8 @@ export default function Shop() {
       id === "detail"
         ? detailRef.current
         : id === "review"
-        ? reviewRef.current
-        : badgeRef.current;
+          ? reviewRef.current
+          : badgeRef.current;
 
     if (target) {
       const navHeight = navRef.current?.offsetHeight || 0;
@@ -68,10 +68,12 @@ export default function Shop() {
   useEffect(() => {
     const handleScroll = () => {
       const detailTop = detailRef.current?.getBoundingClientRect().top || 0;
-      const detailBottom = detailRef.current?.getBoundingClientRect().bottom || 0;
+      const detailBottom =
+        detailRef.current?.getBoundingClientRect().bottom || 0;
 
       const reviewTop = reviewRef.current?.getBoundingClientRect().top || 0;
-      const reviewBottom = reviewRef.current?.getBoundingClientRect().bottom || 0;
+      const reviewBottom =
+        reviewRef.current?.getBoundingClientRect().bottom || 0;
 
       const badgeTop = badgeRef.current?.getBoundingClientRect().top || 0;
       const badgeBottom = badgeRef.current?.getBoundingClientRect().bottom || 0;
@@ -126,6 +128,7 @@ export default function Shop() {
     openDay: workspace.openDay,
     paymentOptions: workspace.paymentOptions,
     phoneNumber: workspace.phoneNumber,
+    licenses: workspace.licenses,
   };
 
   return (

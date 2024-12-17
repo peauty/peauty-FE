@@ -31,6 +31,7 @@ export interface ShopDetailProps {
   openDay: string;
   paymentOptions: string[];
   phoneNumber: string;
+  licenses: string[];
 }
 export interface ShopDetailInfoProps {
   workspaceName: string;

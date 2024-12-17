@@ -9,7 +9,10 @@ import {
   Title,
 } from "./index.styles";
 import { useLocation } from "../../../hooks/useLocation";
-import { useCheckNickname, useSignup } from "../../../apis/customer/hooks/useUser";
+import {
+  useCheckNickname,
+  useSignup,
+} from "../../../apis/customer/hooks/useUser";
 import { AppBar } from "../../../components/layout/AppBar";
 import { ProgressBlock } from "../../../components/progress/ProgressBlock";
 import { CustomInput } from "../../../components/input/CustomInput";
@@ -56,13 +59,9 @@ export default function CustomerSignUp() {
     StepWords[currentStep];
 
   useEffect(() => {
-    // 첫 번째 Step이 name일 경우 초기값 설정
     if (currentStep === 0) {
-      // 쿼리 파라미터에서 데이터 추출 및 초기 상태 설정
       const { name, profileImageUrl, socialPlatform, socialId } =
         parseQueryParams();
-
-      // username을 name에, profile_url을 profileImageUrl에 저장
       setFormData({
         name: name,
         profileImageUrl: profileImageUrl,
@@ -74,7 +73,6 @@ export default function CustomerSignUp() {
   }, [currentStep]);
 
   useEffect(() => {
-    // 현재 위치가 업데이트되면 formData에 반영
     if (location) {
       setInputValue(location);
       setFormData((prev) => ({
@@ -85,14 +83,29 @@ export default function CustomerSignUp() {
   }, [location]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    let value = e.target.value;
+
+    // 휴대폰 번호 포맷 적용 (currentStep === 1일 때만 적용)
+    if (currentStep === 1) {
+      value = value.replace(/[^0-9]/g, ""); // 숫자만 남기기
+      if (value.length <= 3) {
+        value = value; // 3자리 이하
+      } else if (value.length <= 7) {
+        value = `${value.slice(0, 3)}-${value.slice(3)}`; // 중간자리까지
+      } else {
+        value = `${value.slice(0, 3)}-${value.slice(3, 7)}-${value.slice(7)}`; // 끝자리까지
+      }
+    }
+
     setInputValue(value);
+
     if (regex && regex.test(value)) {
       setError("");
     } else if (regex) {
       setError(errorMessage);
     }
-    if (currentStep === 3 && isNickNameAvailable && checkedNickname != value) {
+
+    if (currentStep === 3 && isNickNameAvailable && checkedNickname !== value) {
       setisNickNameAvailable(false);
     }
   };
@@ -125,7 +138,6 @@ export default function CustomerSignUp() {
       return;
     }
 
-    // 현재 Step의 데이터를 formData에 저장
     setFormData((prev) => ({
       ...prev,
       [key]: inputValue,
@@ -134,11 +146,9 @@ export default function CustomerSignUp() {
     setError("");
     setInputValue("");
 
-    // 마지막 Step에서 회원가입 로직 실행
     if (currentStep < totalSteps - 1) {
       setCurrentStep((prevStep) => prevStep + 1);
     } else {
-      // formData를 UserSignupInput 형태로 매핑
       const signupData: SignUpRequest = {
         socialId: formData.socialId || "",
         socialPlatform: formData.socialPlatform as "KAKAO" | "GOOGLE" | "APPLE",
@@ -205,7 +215,7 @@ export default function CustomerSignUp() {
                 currentStep === 2 ? (
                   <CustomButton
                     size="small"
-                    variant={error === "" ? "secondary" : "emergency"}
+                    variant={error === "" ? "primary" : "emergency"}
                     onClick={handleGetLocation}
                   >
                     현재 위치 가져오기
@@ -213,9 +223,9 @@ export default function CustomerSignUp() {
                 ) : currentStep === 3 ? (
                   <CustomButton
                     size="small"
-                    variant={error === "" ? "secondary" : "emergency"}
+                    variant={error === "" ? "primary" : "emergency"}
                     onClick={handleNicknameCheck}
-                    disabled={inputValue === "" || error != ""}
+                    disabled={inputValue === "" || error !== ""}
                   >
                     중복 검사
                   </CustomButton>
@@ -231,9 +241,9 @@ export default function CustomerSignUp() {
           disabled={
             currentStep === 3
               ? inputValue === "" || error !== "" || !isNickNameAvailable
-              : inputValue === "" || error != ""
+              : inputValue === "" || error !== ""
           }
-        ></GNB>
+        />
       </PageWrapper>
     </>
   );
