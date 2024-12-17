@@ -109,8 +109,8 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
       } else {
         console.error("designerId is undefined");
       }
-    } else if (workspaceId !== undefined) {
-      navigate(ROUTE.customer.request.shop(workspaceId));
+    } else if (designerId !== undefined) {
+      navigate(ROUTE.customer.request.shop(designerId));
     }
   };
 
