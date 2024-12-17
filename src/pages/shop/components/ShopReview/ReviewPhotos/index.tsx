@@ -25,7 +25,9 @@ export default function ReviewPhotos({
     .filter((url) => url);
 
   const handleTotalImage = () => {
-    navigate(`/customer/request/shops/${workspaceId}/gallery`);
+    navigate(`/customer/request/shops/${workspaceId}/gallery`, {
+      state: { images },
+    });
   };
 
   return (
@@ -38,7 +40,12 @@ export default function ReviewPhotos({
           더보기
         </Text>
       </span>
-      <ImageGallery images={images} totalImages={images.length} />
+      {/* ImageGallery 컴포넌트에 핸들러 전달 */}
+      <ImageGallery
+        images={images}
+        totalImages={images.length}
+        onMoreClick={handleTotalImage} // "더보기" 클릭 이벤트
+      />
     </PhotosWrapper>
   );
 }

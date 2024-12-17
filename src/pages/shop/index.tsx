@@ -67,7 +67,7 @@ export default function Shop() {
     const fetchReviewsData = async () => {
       try {
         setReviewsLoading(true); // Start loading reviews
-        const response = await getDesignerReviews(33);
+        const response = await getDesignerReviews(Number(userId));
         console.log("Reviews API 호출 성공:", response);
 
         if (response && Array.isArray(response.reviews)) {

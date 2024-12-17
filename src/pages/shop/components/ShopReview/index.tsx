@@ -83,7 +83,7 @@ const ShopReview = forwardRef<HTMLDivElement, ShopReviewProps>((props, ref) => {
 
       <ReviewPhotos reviews={reviews} workspaceId={userId || ""} />
 
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", marginTop:'10px' }}>
         <BottomSheet
           options={[
             { label: "최신순", onClick: () => handleSort("date") },

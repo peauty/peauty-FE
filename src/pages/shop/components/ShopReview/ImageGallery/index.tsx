@@ -7,23 +7,30 @@ import {
   Overlay,
 } from "./index.styles";
 
-interface ImageGridProps {
-  images: string[]; // 이미지 배열
-  totalImages: number; // 총 이미지 수 (더보기 텍스트에 사용)
+interface ImageGalleryProps {
+  images: string[];
+  totalImages: number;
+  onMoreClick?: () => void; // "더보기" 클릭 핸들러 추가
 }
 
-export default function ImageGallery({ images, totalImages }: ImageGridProps) {
+export default function ImageGallery({
+  images,
+  totalImages,
+  onMoreClick,
+}: ImageGalleryProps) {
   const displayImages = images.slice(0, 4); // 처음 4장까지만 표시
 
   return (
     <ImageGrid>
       {displayImages.map((src, index) => (
-        <ImageWrapper key={index}>
-          {/* 마지막 이미지에 "더보기" 표시 */}
+        <ImageWrapper
+          key={index}
+          onClick={index === 3 ? onMoreClick : undefined}
+        >
           {index === 3 && images.length > 4 ? (
             <>
               <Image src={src} alt="더보기" />
-              <Overlay>
+              <Overlay onClick={onMoreClick}>
                 <MoreText>
                   <span>+</span> 더보기
                 </MoreText>
