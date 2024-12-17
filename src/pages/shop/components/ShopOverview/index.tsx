@@ -13,7 +13,7 @@ export default function ShopOverview({
   noticeTitle,
   notice,
   address,
-  representativeBadges,
+  representativeBadges = [],
 }: ShopOverviewProps) {
   return (
     <div>

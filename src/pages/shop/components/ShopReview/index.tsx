@@ -76,14 +76,22 @@ const ShopReview = forwardRef<HTMLDivElement, ShopReviewProps>((props, ref) => {
       <Text typo="subtitle300">고객 리뷰</Text>
       <CustomerRiverWrapper>
         <IconContain>
-          <Text typo="subtitle100">{totalRating}</Text>
-          <StarRating rating={totalRating} size={17} />
+          <Text typo="subtitle100">
+            {totalRating != null ? Math.trunc(totalRating * 100) / 100 : ""}
+          </Text>
+          <StarRating rating={totalRating ?? 0} size={17} />
         </IconContain>
       </CustomerRiverWrapper>
 
       <ReviewPhotos reviews={reviews} workspaceId={userId || ""} />
 
-      <div style={{ display: "flex", justifyContent: "flex-end", marginTop:'10px' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "10px",
+        }}
+      >
         <BottomSheet
           options={[
             { label: "최신순", onClick: () => handleSort("date") },

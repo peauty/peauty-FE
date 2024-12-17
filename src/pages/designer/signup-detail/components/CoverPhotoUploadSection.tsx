@@ -1,17 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AddImage } from "../../../../assets/svg";
 import { CustomButton, Text } from "../../../../components";
 import { Style } from "../index.styles";
 import { uploadImage } from "../../../../apis/designer/resources/internal";
 
 interface CoverPhotoUploadSectionProps {
-  onChange: (url: string[]) => void; // 여러 이미지 URL을 전달하도록 수정
+  onChange: (url: string[]) => void;
+  initialValue: string[]; // 초기값을 받는 prop 추가
 }
 
 export default function CoverPhotoUploadSection({
   onChange,
+  initialValue,
 }: CoverPhotoUploadSectionProps) {
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>(initialValue); // 초기값 설정
+
+  // initialValue가 변경될 때만 상태 업데이트
+  useEffect(() => {
+    if (initialValue && initialValue.length > 0) {
+      setImageUrls(initialValue);
+    }
+  }, [initialValue]);
+
+  // 이미지 URL이 변경되면 상위 컴포넌트로 전달
+  useEffect(() => {
+    onChange(imageUrls);
+  }, [imageUrls, onChange]);
 
   const handleImageUpload = async (file: File) => {
     try {
@@ -19,7 +33,6 @@ export default function CoverPhotoUploadSection({
       if (response.uploadedImageUrl) {
         const updatedImageUrls = [...imageUrls, response.uploadedImageUrl];
         setImageUrls(updatedImageUrls);
-        onChange(updatedImageUrls); // 상위 컴포넌트에 전체 이미지 URL 목록 전달
       }
     } catch (error) {
       console.error("Image upload failed:", error);
@@ -36,7 +49,6 @@ export default function CoverPhotoUploadSection({
   const handleImageDelete = (url: string) => {
     const updatedImageUrls = imageUrls.filter((imageUrl) => imageUrl !== url);
     setImageUrls(updatedImageUrls);
-    onChange(updatedImageUrls); // 상위 컴포넌트에 삭제된 목록 전달
   };
 
   return (
