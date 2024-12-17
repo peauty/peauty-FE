@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../../../../../style/color";
 export const ContentWrapper = styled.div`
-  padding: 0 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;

@@ -25,7 +25,7 @@ import {
 } from "../../../../../types/customer/customer";
 import { ROUTE } from "../../../../../constants/routes";
 import Loading from "../../../../../components/page/sign-up/Loading";
-import { SendEstimateProposalRequest } from "../../../../../types/customer/customer-bidding-api";
+import { SendEstimateProposalRequest } from "../../../../../types/customer/bidding";
 
 interface SearchStepProps {
   onNext: () => void;

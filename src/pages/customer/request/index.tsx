@@ -7,8 +7,8 @@ import CustomizeGrooming from "./components/customize-grooming";
 import { useEstimateProposalForm } from "./hooks/useEstimateProposalForm";
 
 import { ROUTE } from "../../../constants/routes";
-import { initProcessWithSendEstimateProposal } from "../../../apis/customer/resources/customer-bidding-api";
 import { useUserDetails } from "../../../hooks/useUserDetails";
+import { initProcessWithSendEstimateProposal } from "../../../apis/customer/resources/bidding";
 
 export default function Request() {
   const navigate = useNavigate();

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { SendEstimateProposalRequest } from "../../../../types/customer/customer-bidding-api";
+import { SendEstimateProposalRequest } from "../../../../types/customer/bidding";
 
 export function useEstimateProposalForm() {
   const [puppyId, setPuppyId] = useState(0);
   const [formData, setFormData] = useState<SendEstimateProposalRequest>({
     designerIds: [],
-    groomingType: undefined,
+    groomingType: "CLEAN",
     detail: "",
     imageUrls: [],
     desiredCost: undefined,
