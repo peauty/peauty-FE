@@ -10,6 +10,7 @@ import { StickyContainer } from "./index.styles";
 import { getDesignerWorkspace } from "../../apis/designer/resources/designer";
 import { getDesignerReviews } from "../../apis/customer/resources/review";
 import { useParams } from "react-router-dom";
+import theme from "../../style/theme";
 
 type Section = "detail" | "review" | "badge";
 
@@ -68,7 +69,7 @@ export default function Shop() {
     const fetchReviewsData = async () => {
       try {
         setReviewsLoading(true); // Start loading reviews
-        const response = await getDesignerReviews(Number(userId));
+        const response = await getDesignerReviews(Number(32));
         console.log("Reviews API 호출 성공:", response);
 
         if (response && Array.isArray(response.reviews)) {
@@ -155,10 +156,14 @@ export default function Shop() {
   };
 
   return (
-    <>
-      <AppBar prefix="backButton" />
+    <div
+      style={{
+        padding: `${theme.size.appBarHeight} 0  ${theme.size.gnbHeight}`,
+      }}
+    >
+      <AppBar prefix="backButton" title={workspace.workspaceName} />
       <Carousel
-        images={[workspace.bannerImageUrl]}
+        images={workspace.bannerImageUrls}
         height={300}
         autoPlay={false}
       />
@@ -181,6 +186,6 @@ export default function Shop() {
         badges={workspace.representativeBadges || []}
       />
       <GNB type="customer" />
-    </>
+    </div>
   );
 }

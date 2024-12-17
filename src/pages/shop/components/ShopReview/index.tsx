@@ -49,7 +49,6 @@ const ShopReview = forwardRef<HTMLDivElement, ShopReviewProps>((props, ref) => {
   // 정렬 함수
   const handleSort = (option: "date" | "rating") => {
     setSortOption(option); // 선택된 정렬 옵션을 상태로 저장
-
     let sorted;
     if (option === "date") {
       // 최신순 정렬 (날짜가 최신일수록 앞에 오도록)
@@ -65,7 +64,6 @@ const ShopReview = forwardRef<HTMLDivElement, ShopReviewProps>((props, ref) => {
       // 평점 높은순 정렬
       sorted = [...reviews].sort((a, b) => (b.rating || 0) - (a.rating || 0));
     }
-
     setSortedReviews(sorted); // 정렬된 리뷰 상태로 업데이트
     setVisibleReviews(sorted.slice(0, 3)); // 초기에는 3개의 리뷰만 표시
     setPage(1); // 페이지 번호 초기화
@@ -83,49 +81,60 @@ const ShopReview = forwardRef<HTMLDivElement, ShopReviewProps>((props, ref) => {
         </IconContain>
       </CustomerRiverWrapper>
 
-      <ReviewPhotos reviews={reviews} workspaceId={userId || ""} />
+      {/* 리뷰가 0개일 때 메시지 표시 */}
+      {!reviewsLoading && reviews.length === 0 && (
+        <Text typo="body300" color="gray100" style={{ marginTop: "20px" }}>
+          작성된 리뷰가 없어요
+        </Text>
+      )}
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          marginTop: "10px",
-        }}
-      >
-        <BottomSheet
-          options={[
-            { label: "최신순", onClick: () => handleSort("date") },
-            {
-              label: "평점 높은순",
-              onClick: () => handleSort("rating"),
-            },
-          ]}
-        />
-      </div>
+      {/* 리뷰가 있을 때만 표시 */}
+      {!reviewsLoading && reviews.length > 0 && (
+        <>
+          <ReviewPhotos reviews={reviews} workspaceId={userId || ""} />
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: "10px",
+            }}
+          >
+            <BottomSheet
+              options={[
+                { label: "최신순", onClick: () => handleSort("date") },
+                {
+                  label: "평점 높은순",
+                  onClick: () => handleSort("rating"),
+                },
+              ]}
+            />
+          </div>
+
+          {visibleReviews.map((review) => (
+            <ReviewItem
+              key={review.reviewId}
+              rating={review.rating || 0}
+              content={review.content || ""}
+              username={review.reviewerNickname || ""}
+              service={review.groomingStyle || ""}
+              date={review.reviewDate || ""}
+              images={review.imageUrls || []}
+            />
+          ))}
+
+          {/* 리뷰 더보기 버튼 */}
+          {hasMoreReviews && (
+            <MoreReview>
+              <Text typo="body200" color="blue100" onClick={handleLoadMore}>
+                리뷰 더보기
+              </Text>
+            </MoreReview>
+          )}
+        </>
+      )}
 
       {reviewsLoading && <Text typo="body300">리뷰 로딩 중...</Text>}
-
-      {!reviewsLoading &&
-        visibleReviews.map((review) => (
-          <ReviewItem
-            key={review.reviewId}
-            rating={review.rating || 0}
-            content={review.content || ""}
-            username={review.reviewerNickname || ""}
-            service={review.groomingStyle || ""}
-            date={review.reviewDate || ""}
-            images={review.imageUrls || []}
-          />
-        ))}
-
-      {/* 리뷰 더보기 버튼 (3개 초과일 때만 나타냄) */}
-      {hasMoreReviews && (
-        <MoreReview>
-          <Text typo="body200" color="blue100" onClick={handleLoadMore}>
-            리뷰 더보기
-          </Text>
-        </MoreReview>
-      )}
     </TabWrapper2>
   );
 });
