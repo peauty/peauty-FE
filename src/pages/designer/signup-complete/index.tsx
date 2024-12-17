@@ -9,7 +9,7 @@ import {
 } from "./index.styles";
 import { ROUTE } from "../../../constants/routes";
 
-export default function CustomerSignUpComplete() {
+export default function DesignerSignUpComplete() {
   const navigate = useNavigate();
 
   const handleRegisterNow = () => {
