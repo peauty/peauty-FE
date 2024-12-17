@@ -1,5 +1,4 @@
 export type GroomingTypeType = "TOTAL" | "CLEAN";
-
 export type TotalGroomingBodyTypeType =
   | "CLIPPING_3MM"
   | "CLIPPING_6MM"
@@ -14,7 +13,6 @@ export type TotalGroomingBodyTypeType =
   | "BELL_6MM"
   | "BELL_9MM"
   | "SCISSORS";
-
 export type TotalGroomingFaceTypeType =
   | "EGG"
   | "BABY"
@@ -31,7 +29,6 @@ export type TotalGroomingFaceTypeType =
   | "MONKEY"
   | "BEDLINGTON"
   | "POODLINGTON";
-
 export interface SendEstimateProposalResponse {
   processId?: number;
   puppyId?: number;
@@ -39,7 +36,6 @@ export interface SendEstimateProposalResponse {
   processStatus?: string;
   createdAt?: string;
 }
-
 export interface SendEstimateProposalRequest {
   designerIds?: number[];
   groomingType?: GroomingTypeType;
@@ -50,7 +46,6 @@ export interface SendEstimateProposalRequest {
   totalGroomingBodyType?: TotalGroomingBodyTypeType;
   totalGroomingFaceType?: TotalGroomingFaceTypeType;
 }
-
 export interface AcceptEstimateResponse {
   puppyId?: number;
   processId?: number;
@@ -61,23 +56,38 @@ export interface AcceptEstimateResponse {
   threadStatus?: string;
   acceptedTime?: string;
 }
-
 export interface GetEstimateProposalDetailResponse {
-  processId?: number;
-  processStatus?: string;
-  puppy?: {
-    id?: number;
-    style?: string;
-    totalGroomingBodyType?: string;
-    totalGroomingFaceType?: string;
-    detail?: string;
-    imageUrls?: string[];
-    desiredCost?: number;
-    desiredDateTime?: string;
+  responseCode: string;
+  errorMessage: string;
+  serviceErrorMessage: string;
+  data: {
+    processId: number;
+    processStatus: string;
+    puppy: {
+      puppyId: number;
+      customerId: number;
+      name: string;
+      breed: string;
+      weight: number;
+      sex: string;
+      age: number;
+      birthdate: string;
+      profileImageUrl: string;
+      puppySize: string;
+      diseases: string[];
+    };
+    estimateProposal: {
+      id: number;
+      style: string;
+      totalGroomingBodyType: string;
+      totalGroomingFaceType: string;
+      detail: string;
+      imageUrls: string[];
+      desiredCost: number;
+      desiredDateTime: string;
+    };
   };
-  estimateProposal?: Profile;
 }
-
 export interface Profile {
   id?: number;
   style?: string;
@@ -88,65 +98,224 @@ export interface Profile {
   desiredCost?: number;
   desiredDateTime?: string;
 }
-
-export interface GetEstimateAndProposalDetailsResponse {
-  processId?: number;
-  processStatus?: string;
-  threadId?: number;
-  threadStatus?: string;
-  threadStep?: string;
-  puppy?: {
-    id?: number;
-    style?: string;
-    totalGroomingBodyType?: string;
-    totalGroomingFaceType?: string;
-    detail?: string;
-    imageUrls?: string[];
-    desiredCost?: number;
-    desiredDateTime?: string;
-  };
-  estimateProposal?: Profile;
-  estimate?: Profile;
-  designer?: Profile;
-}
-
 export interface GetOngoingProcessWithThreadsResponse {
-  process?: {
-    id?: number;
-    style?: string;
-    totalGroomingBodyType?: string;
-    totalGroomingFaceType?: string;
-    detail?: string;
-    imageUrls?: string[];
-    desiredCost?: number;
-    desiredDateTime?: string;
+  process: {
+    processId: number;
+    processStatus: string;
+    processCreatedAt: string;
+    estimateProposal: {
+      id: number;
+      style: string;
+      totalGroomingBodyType: string;
+      totalGroomingFaceType: string;
+      detail: string;
+      imageUrls: string[];
+      desiredCost: number;
+      desiredDateTime: string;
+    };
   };
-  threads?: Profile[];
-}
-
-export interface GetAllStep3AboveThreadsResponse {
-  threads?: {
-    id?: number;
-    style?: string;
-    totalGroomingBodyType?: string;
-    totalGroomingFaceType?: string;
-    detail?: string;
-    imageUrls?: string[];
-    desiredCost?: number;
-    desiredDateTime?: string;
+  threads: {
+    processId: number;
+    threadId: number;
+    threadStep: string;
+    threadStatus: string;
+    threadStepModifiedAt?: string; // 추가
+    designer: {
+      designerId: number;
+      workspaceName: string;
+      designerName: string;
+      reviewCount: number;
+      reviewRating: number;
+      profileImageUrl: string;
+      badges: {
+        badgeId: number;
+        badgeName: string;
+        badgeContent: string;
+        badgeImageUrl: string;
+        isRepresentativeBadge: boolean;
+        badgeColor: string;
+        badgeType: string;
+      }[];
+      address: string;
+      scissors: string;
+    };
   }[];
 }
-
+export interface GetStep2ProcessWithThreadsResponse {
+  process: {
+    processId: number;
+    processStatus: string;
+    processCreatedAt: string;
+    processStatusModifiedAt?: string;
+    estimateProposal: {
+      id: number;
+      style: string;
+      totalGroomingBodyType: string;
+      totalGroomingFaceType: string;
+      detail: string;
+      imageUrls: string[];
+      desiredCost: number;
+      desiredDateTime: string;
+    };
+  };
+  threads: {
+    processId: number;
+    threadId: number;
+    threadStep: string;
+    threadStatus: string;
+    threadCreatedAt: string;
+    threadStepModifiedAt: string;
+    designer: {
+      designerId: number;
+      workspaceName: string;
+      designerName: string;
+      reviewCount: number;
+      reviewRating: number;
+      profileImageUrl: string;
+      badges: {
+        badgeId: number;
+        badgeName: string;
+        badgeContent: string;
+        badgeImageUrl: string;
+        isRepresentativeBadge: boolean;
+        badgeColor: string;
+        badgeType: string;
+      }[];
+      address: string;
+      scissors: string;
+    };
+    estimate: {
+      threadId: number;
+      estimateId: number;
+      content: string;
+      availableGroomingDate: string;
+      estimatedDuration: string;
+      estimatedCost: number;
+      depositPrice: number;
+      imageUrls: string[];
+    };
+  }[];
+}
+export interface GetAllStep3AboveThreadsResponse {
+  threads: any;
+  responseCode: string;
+  errorMessage: string;
+  serviceErrorMessage: string;
+  data: {
+    threads: {
+      processId: number;
+      style: string;
+      threadId: number;
+      threadStep: string;
+      threadStatus: string;
+      isReviewed: boolean;
+      threadCreatedAt: string;
+      designer: {
+        designerId: number;
+        workspaceName: string;
+        designerName: string;
+        reviewCount: number;
+        reviewRating: number;
+        profileImageUrl: string;
+        badges: {
+          badgeId: number;
+          badgeName: string;
+          badgeContent: string;
+          badgeImageUrl: string;
+          isRepresentativeBadge: boolean;
+          badgeColor: string;
+          badgeType: string;
+        }[];
+        address: string;
+        scissors: string;
+      };
+      estimate: {
+        threadId: number;
+        estimateId: number;
+        content: string;
+        availableGroomingDate: string;
+        estimatedDuration: string;
+        estimatedCost: number;
+        depositPrice: number;
+        imageUrls: string[];
+      };
+    }[];
+  };
+}
 export interface GetPuppyProfilesWithCanStartProcessStatusResponse {
-  puppies?: {
-    puppyId?: number;
-    style?: string;
-    totalGroomingBodyType?: string;
-    totalGroomingFaceType?: string;
-    detail?: string;
-    imageUrls?: string[];
-    desiredCost?: number;
-    desiredDateTime?: string;
+  responseCode: string;
+  errorMessage: string;
+  serviceErrorMessage: string;
+  puppies: {
+    puppyId: number;
+    customerId: number;
+    name: string;
+    breed: string;
+    weight: number;
+    sex: string;
+    age: number;
+    birthdate: string;
+    profileImageUrl: string;
+    puppySize: string;
     hasOngoingProcess: boolean;
   }[];
+}
+export interface GetEstimateAndProposalDetailsResponse {
+  processId: number;
+  processStatus: string;
+  threadId: number;
+  threadStatus: string;
+  threadStep: string;
+  puppy: {
+    puppyId: number;
+    customerId: number;
+    name: string;
+    breed: string;
+    weight: number;
+    sex: string;
+    age: number;
+    birthdate: string;
+    profileImageUrl: string;
+    puppySize: string;
+    diseases: string[];
+  };
+  estimateProposal: {
+    id: number;
+    style: string;
+    totalGroomingBodyType: string;
+    totalGroomingFaceType: string;
+    detail: string;
+    imageUrls: string[];
+    desiredCost: number;
+    desiredDateTime: string;
+  };
+  estimate: {
+    threadId: number;
+    estimateId: number;
+    content: string;
+    availableGroomingDate: string;
+    estimatedDuration: string;
+    estimatedCost: number;
+    depositPrice: number;
+    imageUrls: string[];
+  };
+  designer: {
+    designerId: number;
+    workspaceName: string;
+    designerName: string;
+    reviewCount: number;
+    reviewRating: number;
+    profileImageUrl: string;
+    badges: {
+      badgeId: number;
+      badgeName: string;
+      badgeContent: string;
+      badgeImageUrl: string;
+      isRepresentativeBadge: boolean;
+      badgeColor: string;
+      badgeType: string;
+    }[];
+    address: string;
+    scissors: string;
+  };
 }
