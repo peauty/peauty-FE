@@ -75,6 +75,7 @@ export const ContentsWrapper = styled.div`
   flex-direction: column;
   gap: 20px;
   justify-content: center;
+  padding: 30px 0 calc(${theme.size.gnbHeight} + 30px);
 `;
 
 export const ColumnWrapper = styled.div`
