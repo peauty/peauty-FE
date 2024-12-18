@@ -10,7 +10,7 @@ interface CustomButtonProps {
   /**
    * 버튼 크기 variant
    */
-  size?: "small" | "medium" | "large" | "big" | "full";
+  size?: "small" | "medium" | "large" | "big" | "full" | "signup" | "fullWidth";
   /**
    * 버튼 스타일 variant
    */
@@ -27,7 +27,7 @@ interface CustomButtonProps {
    * 너비를 100%로 설정
    */
   fullwidth?: boolean;
-  
+
   onChange?: () => void;
 }
 

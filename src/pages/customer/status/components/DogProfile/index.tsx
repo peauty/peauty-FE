@@ -8,7 +8,7 @@ import {
   RoundImg,
   DogName,
 } from "./index.styles";
-
+import Basic from "../../../../../assets/images/basic.png";
 // 강아지 프로필 컴포넌트
 interface DogProfileProps {
   src: string;
@@ -26,7 +26,12 @@ const DogProfile = ({
   active,
 }: DogProfileProps) => (
   <DogProfileWrapper onClick={onClick}>
-    <RoundImg src={src} alt={name} borderRadius={borderRadius} />
+    <RoundImg
+      src={src}
+      alt={name}
+      borderRadius={borderRadius}
+      active={active}
+    />
     <DogName active={active}>{name}</DogName>
   </DogProfileWrapper>
 );
@@ -84,7 +89,7 @@ export default function DogList({ setPuppyId }: DogListProps) {
         dogs.map((dog, index) => (
           <DogProfile
             key={index}
-            src={dog.profileImageUrl || "default-image-url"} // 기본 이미지 URL
+            src={dog.profileImageUrl || Basic} // 기본 이미지 URL
             name={dog.name || "Unnamed Dog"} // 기본 이름
             active={dog.name === selectedDog} // 선택된 강아지 활성화 여부 확인
             onClick={() => handleDogClick(dog.name || "", dog.puppyId || 0)} // 클릭 시 선택 토글, puppyId 전달

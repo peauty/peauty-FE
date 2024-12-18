@@ -32,7 +32,7 @@ import {
 import { useRecoilState } from "recoil";
 import { PaymentData, paymentAtom } from "../../../atoms/paymentAtom";
 import { ROUTE } from "../../../constants/routes";
-
+import { Icon } from "../../designer/quote/quoute-detail/index.styles";
 function formatDateToKorean(dateStr: string): string {
   const date = new Date(dateStr);
   const year = date.getFullYear();
@@ -301,14 +301,18 @@ export default function QuoteDetail() {
               </Text>
               <TextSectionWrapper>
                 <AgreementItem>
-                  <CheckIcon2 width={10} />
+                  <Icon>
+                    <CheckIcon2 width={10} />
+                  </Icon>
                   <Text typo="body700" color="gray100">
                     원활한 미용 서비스 제공을 위해 최초 1회 확인 및 동의가
                     필요한 사항입니다.
                   </Text>
                 </AgreementItem>
                 <AgreementItem>
-                  <CheckIcon2 width={10} />
+                  <Icon>
+                    <CheckIcon2 width={10} />
+                  </Icon>
                   <Text typo="body700" color="gray100">
                     마케팅 활용 및 개인정보 수집에 활용 될 수 있습니다.
                   </Text>
@@ -319,14 +323,18 @@ export default function QuoteDetail() {
               </Text>
               <TextSectionWrapper>
                 <AgreementItem>
-                  <CheckIcon2 width={10} />
+                  <Icon>
+                    <CheckIcon2 width={10} />
+                  </Icon>
                   <Text typo="body700" color="gray100">
                     요금 결제 시 예약금 결제 후 나머지 비용은 현장결제로
                     결제됩니다.
                   </Text>
                 </AgreementItem>
                 <AgreementItem>
-                  <CheckIcon2 width={10} />
+                  <Icon>
+                    <CheckIcon2 width={10} />
+                  </Icon>
                   <Text typo="body700" color="gray100">
                     서비스 시작 이후에는 서비스 요금 환불이 불가능 합니다.
                   </Text>

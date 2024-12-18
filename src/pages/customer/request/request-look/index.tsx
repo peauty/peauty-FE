@@ -14,6 +14,7 @@ import {
 } from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
 import {
   ContentWrapper,
+  NoImg,
   SectionWrapper,
   SelectedHair,
   TwoItemsWrapper,
@@ -86,7 +87,6 @@ export default function RequestLook() {
             numericPuppyId,
             numericProcessId,
           );
-          console.log("API 응답 데이터:", response);
 
           if (response && response.estimateProposal) {
             const { estimateProposal } = response;
@@ -116,13 +116,6 @@ export default function RequestLook() {
   }, [userId, puppyId, processId]);
 
   useEffect(() => {
-    console.log("미용 종류:", selectedGroomingType);
-    console.log("몸 타입:", selectedBodyType);
-    console.log("얼굴 스타일:", selectedFaceStyle);
-    console.log("상세 설명:", description);
-    console.log("희망 비용:", desiredCost);
-    console.log("선택된 날짜:", selectedDate);
-    console.log("첨부된 이미지:", selectedImage);
     if (proposalDetail) {
       console.log("제안서 세부 내용:", proposalDetail);
     }
@@ -170,17 +163,8 @@ export default function RequestLook() {
 
   return (
     <>
+      <AppBar prefix="backButton" title="요청서 보기" />
       <ContentWrapper>
-        <AppBar prefix="backButton" title="요청서 보기" />
-        <Text typo="subtitle100">
-          <Text typo="subtitle100" color="blue100">
-            꼬미
-          </Text>
-          의 구체적인 미용 시술정보와
-          <br />
-          원하는 사항을 알려주세요!
-        </Text>
-
         <SectionWrapper>
           <Text typo="subtitle300">미용 종류</Text>
           <RadioSelectButton
@@ -256,23 +240,28 @@ export default function RequestLook() {
             value={description}
             placeholder=""
             disabled={true}
+            maxLength={300}
           />
         </SectionWrapper>
 
         <SectionWrapper>
           <PhotoAttachment>
             <Text typo="subtitle300">사진첨부</Text>
-            <PhotoAttachmentContainer>
-              {selectedImage ? (
+            {selectedImage ? (
+              <PhotoAttachmentContainer>
                 <img
                   src={selectedImage}
                   alt="첨부된 사진"
                   style={{ width: "100%", height: "auto" }}
                 />
-              ) : (
-                "+"
-              )}
-            </PhotoAttachmentContainer>
+              </PhotoAttachmentContainer>
+            ) : (
+              <NoImg>
+                <Text typo="body300" color="gray100">
+                  첨부된 사진이 없어요
+                </Text>
+              </NoImg>
+            )}
           </PhotoAttachment>
           <CustomInput
             label="희망비용"

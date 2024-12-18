@@ -63,10 +63,24 @@ export default function CoverPhotoUploadSection({
           {/* 추가 버튼 */}
           {imageUrls.length < 3 && (
             <Style.AddWrapper>
-              <CustomButton variant="secondary">
-                <label htmlFor="image-upload" style={{ cursor: "pointer" }}>
+              {/* CustomButton 클릭 시 파일 업로드 가능 */}
+              <CustomButton
+                variant="outline"
+                size="full"
+                onClick={() => document.getElementById("image-upload")?.click()}
+              >
+                <div
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {/* 아이콘 */}
                   <AddImage width={15} />
-                </label>
+                </div>
                 <input
                   id="image-upload"
                   type="file"
@@ -77,6 +91,7 @@ export default function CoverPhotoUploadSection({
               </CustomButton>
             </Style.AddWrapper>
           )}
+
           {/* 업로드된 이미지 */}
           {imageUrls.map((url, index) => (
             <Style.AddWrapper key={index} style={{ position: "relative" }}>
