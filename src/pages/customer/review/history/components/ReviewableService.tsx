@@ -5,8 +5,9 @@ import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import { getCanReviewThreads } from "../../../../../apis/customer/resources/bidding";
 import { ROUTE } from "../../../../../constants/routes";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil"; // Recoil의 상태를 업데이트할 때 사용
+import { useSetRecoilState } from "recoil";
 import { ReviewAtom, ReviewData } from "../../../../../atoms/reviewAtom";
+import NoReview from "./NoReview";
 
 interface Badge {
   badgeId?: number;
@@ -38,7 +39,7 @@ export default function ReviewableService() {
   const [threads, setThreads] = useState<Thread[]>([]);
   const { userId, isLoading } = useUserDetails();
   const navigate = useNavigate();
-  const setReviewData = useSetRecoilState(ReviewAtom); // Recoil 상태 설정 훅 사용
+  const setReviewData = useSetRecoilState(ReviewAtom);
 
   const fetchThreads = async (userId: number) => {
     try {
@@ -60,18 +61,22 @@ export default function ReviewableService() {
   };
 
   const handleButtonClick = (thread: Thread) => {
-    // Recoil 상태에 필요한 데이터를 담아서 업데이트
     const reviewData: ReviewData = {
       userId: userId || 0,
       puppyId: thread.puppyId || 0,
       processId: thread.processId || 0,
       threadId: thread.threadId || 0,
-      reviewId: undefined, // 실제 reviewId를 설정해야 할 경우, 적절한 값 설정
+      reviewId: undefined,
     };
 
-    setReviewData(reviewData); // Recoil 상태에 데이터 저장
-    navigate(ROUTE.customer.mypage.review.write); // 리뷰 작성 페이지로 이동
+    setReviewData(reviewData);
+    navigate(ROUTE.customer.mypage.review.write);
   };
+
+  // threads가 비어있는 경우 NoReview 컴포넌트 렌더링
+  if (!threads.length) {
+    return <NoReview message="작성 가능한 리뷰가 없어요" />;
+  }
 
   return (
     <>
@@ -113,7 +118,7 @@ export default function ReviewableService() {
                   bgColor: colors.blue300,
                   color: colors.blue100,
                   width: "100%",
-                  onClick: () => handleButtonClick(thread), // handleButtonClick에 thread 데이터를 전달
+                  onClick: () => handleButtonClick(thread),
                 },
               ]}
               status={style || "스타일 정보 없음"}
