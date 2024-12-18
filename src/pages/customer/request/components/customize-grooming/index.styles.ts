@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { colors } from "../../../../../style/color";
-import theme from "../../../../../style/theme";
 
 export const ContentWrapper = styled.div`
   display: flex;
@@ -31,6 +30,14 @@ export const SelectedHair = styled.div`
 export const TwoItemsWrapper = styled.div`
   display: flex;
   gap: 5px;
+`;
+
+export const AddLabel = styled.label`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ItemWrapper = styled.div`
