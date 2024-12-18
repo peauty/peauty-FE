@@ -28,7 +28,7 @@ export default function PetSignUp() {
     }
   };
   const handleBack = () => {
-    if (currentStep > 0) {
+    if (currentStep > 1) {
       setCurrentStep((prevStep) => prevStep - 1);
     } else {
       navigate(ROUTE.signIn);
