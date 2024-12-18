@@ -8,9 +8,7 @@ import {
   ProfileWrapper,
   CameraIcon,
   SectionWrapper,
-  ButtonWrapper,
   InputWrapper,
-  HalfWrapper,
 } from "../../index.styles";
 
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
