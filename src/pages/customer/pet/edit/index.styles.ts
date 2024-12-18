@@ -5,6 +5,7 @@ export const Style = {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-bottom: 90px;
   `,
   SelectWrapper: styled.div`
     display: flex;
