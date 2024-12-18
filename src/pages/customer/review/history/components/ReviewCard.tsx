@@ -141,7 +141,7 @@ const ReviewImage = styled.img`
 
 const Footer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 10px;
   margin-top: 8px;
 `;
