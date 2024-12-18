@@ -8,6 +8,7 @@ import { GetOngoingProcessWithStep2ThreadsResponse } from "../../../../types/cus
 import { GetOngoingProcessWithStep1ThreadsResponse } from "../../../../types/customer/bidding";
 import { GetAllStep3AboveThreadsResponse } from "../../../../types/customer/bidding";
 import { GetPuppyProfilesWithCanStartProcessStatusResponse } from "../../../../types/customer/bidding";
+import { GetCanReviewThreadsResponse } from "../../../../types/customer/bidding";
 
 export const initProcessWithSendEstimateProposal = async (
   userId: number,
@@ -92,6 +93,15 @@ export const getPuppyProfilesWithCanStartProcessStatus = async (
   const res =
     await CustomerAPI.get<GetPuppyProfilesWithCanStartProcessStatusResponse>(
       `/v1/users/${userId}/puppies/with-bidding-available`,
+    );
+  return res.data;
+};
+
+export const getCanReviewThreads = async (
+  userId: number,
+): Promise<GetCanReviewThreadsResponse> => {
+  const res = await CustomerAPI.get<GetCanReviewThreadsResponse>(
+    `/v1/users/${userId}/puppies/bidding/processes/threads/can-review`,
     );
   return res.data;
 };
