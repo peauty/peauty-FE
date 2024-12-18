@@ -5,7 +5,6 @@ import Step1 from "./components/Step/step1";
 import Step2 from "./components/Step/step2";
 import Step3 from "./components/Step/step3";
 import { signUpCustomHook } from "../../../../apis/customer/hooks/signUpCustomHook";
-import axios from "axios";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
 import { registerPuppy } from "../../../../apis/customer/resources/puppy";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +25,13 @@ export default function PetSignUp() {
   const handleNext = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
+    }
+  };
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep((prevStep) => prevStep - 1);
+    } else {
+      navigate(ROUTE.signIn);
     }
   };
 
@@ -97,15 +103,13 @@ export default function PetSignUp() {
 
   return (
     <>
-      <AppBar prefix="backButton" title="반려견 등록" />
-      <div style={{ paddingBottom: `30px` }}>
-        <ProgressWrapper>
-          {Array.from({ length: totalSteps }).map((_, index) => (
-            <ProgressBlock key={index} isActive={index < currentStep} />
-          ))}
-        </ProgressWrapper>
-        {renderStep()}
-      </div>
+      <AppBar prefix="backButton" title="반려견 등록" onclick={handleBack} />
+      <ProgressWrapper>
+        {Array.from({ length: totalSteps }).map((_, index) => (
+          <ProgressBlock key={index} isActive={index < currentStep} />
+        ))}
+      </ProgressWrapper>
+      {renderStep()}
     </>
   );
 }

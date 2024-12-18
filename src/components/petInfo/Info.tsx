@@ -1,5 +1,5 @@
 // Info.tsx
-import React from "react";
+
 import {
   CardContainer,
   DateWrapper,
@@ -126,7 +126,9 @@ export default function PetInfo({
               {age}살 | {gender} {weight}kg | {breed}
             </Text>
             <BadgeWrapper>
-              {tags?.map((tag, index) => <Tag key={index} text={tag} />)}
+              {tags &&
+                tags[0] !== "없음" &&
+                tags?.map((tag, index) => <Tag key={index} text={tag} />)}
             </BadgeWrapper>
             {date && (
               <>

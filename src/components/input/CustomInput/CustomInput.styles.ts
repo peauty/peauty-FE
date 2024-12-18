@@ -177,4 +177,5 @@ export const NoticeContainer = styled.div<{ hasError: boolean }>`
     hasError ? "space-between" : "flex-end"};
   align-items: center;
   width: 100%;
+  margin-top: 10px;
 `;
