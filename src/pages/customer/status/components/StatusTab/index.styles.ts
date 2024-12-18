@@ -6,7 +6,6 @@ export const TabWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 40px;
-  margin-top: 20px;
   gap: 10px;
   width: 100%;
   justify-content: space-between;

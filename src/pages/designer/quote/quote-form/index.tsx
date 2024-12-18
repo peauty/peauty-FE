@@ -85,7 +85,6 @@ export default function QuoteForm() {
         requestData,
       );
 
-      console.log("견적서 전송 성공:", response);
 
       navigate("/designer/status", {
         state: {

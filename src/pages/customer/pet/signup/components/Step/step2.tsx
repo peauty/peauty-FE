@@ -7,6 +7,7 @@ import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { diseaseMap } from "../../../../../../constants/puppy";
 import { ContentsWrapper } from "../../index.styles";
 import { GNB } from "../../../../../../components";
+import Modal from "../../../../../../components/modal/Modal/Modal";
 
 interface Step2Props {
   onNext: () => void;
@@ -22,20 +23,36 @@ export default function Step2({
   handleDiseaseChange,
 }: Step2Props) {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
+  const [modalMessage, setModalMessage] = useState(""); // Modal message state
   const diseases = Object.keys(diseaseMap);
 
   const handleDiseaseSelect = (indexes: number[]) => {
-    setSelectedIndexes(indexes); // 선택된 인덱스를 상태로 저장
+    setSelectedIndexes(indexes); // Save the selected indexes to the state
     const selectedDiseases = indexes.map(
       (index) => diseaseMap[diseases[index]],
     );
-    handleDiseaseChange(selectedDiseases); // 부모로 전달
+    handleDiseaseChange(selectedDiseases); // Pass the selected diseases to parent
   };
 
   const handleDiseaseDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     handleChange("diseaseDescription", event.target.value);
+  };
+
+  const handleNextClick = () => {
+    if (selectedIndexes.length === 0) {
+      // Show warning if no disease is selected
+      setModalMessage("질병 이력을 선택해주세요.");
+      setIsModalOpen(true); // Open the modal
+    } else {
+      onNext(); // Proceed to the next step if validation passes
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
   };
 
   return (
@@ -54,7 +71,7 @@ export default function Step2({
             row={3}
             col={3}
             buttonNames={diseases}
-            selectedIndexes={selectedIndexes} // 상태로 관리된 선택된 인덱스
+            selectedIndexes={selectedIndexes} // Managed by state
             onSelect={handleDiseaseSelect}
           />
         </ColumnWrapper>
@@ -68,7 +85,17 @@ export default function Step2({
           onChange={handleDiseaseDescriptionChange}
         />
       </ContentsWrapper>
-      <GNB buttonText="다음" onLargeButtonClick={onNext} />
+
+      <GNB buttonText="다음" onLargeButtonClick={handleNextClick} />
+
+      {/* Modal for validation warning */}
+      {isModalOpen && (
+        <Modal
+          message={modalMessage}
+          buttons={[{ label: "확인", onClick: closeModal }]}
+          onClose={closeModal}
+        />
+      )}
     </SectionWrapper>
   );
 }

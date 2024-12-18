@@ -15,6 +15,8 @@ export { default as Circle } from "./Circle";
 export { default as Clean } from "./Clean";
 export { default as Clock } from "./Clock";
 export { default as DefaultProfile } from "./DefaultProfile";
+export { default as Dog1 } from "./Dog1";
+export { default as Dog2 } from "./Dog2";
 export { default as DownArrow } from "./DownArrow";
 export { default as DropDown } from "./DropDown";
 export { default as EarsPop } from "./EarsPop";
