@@ -8,7 +8,6 @@ import {
   ContentWrapper,
   DesignerList,
   FilterWrapper,
-  InfoBox,
   LocationInfo,
   LocationWrapper,
   SelectButton,
@@ -126,7 +125,6 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
     <>
       <AppBar prefix="backButton" title="요청하기" />
       <ContentWrapper>
-        <InfoBox>에디</InfoBox>
         <LocationWrapper>
           <LocationInfo>
             <Maker height={15} />
