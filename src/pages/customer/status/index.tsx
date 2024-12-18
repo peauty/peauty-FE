@@ -62,7 +62,7 @@ export default function Status() {
               name: step1Data.info.requestText || "알 수 없음",
               store: step1Data.stores?.[0]?.store || "알 수 없음",
               location: step1Data.stores?.[0]?.location || "알 수 없음",
-              reservation: step1Data.stores?.[0]?.threadStatus || "알 수 없음",
+              reservation: step1Data.stores?.[0]?. threadStep || "알 수 없음",
               score: step1Data.stores?.[0]?.score || 0,
               review: step1Data.stores?.[0]?.review || 0,
               payment: step1Data.stores?.[0]?.desiredCost || 0,

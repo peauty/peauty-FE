@@ -305,6 +305,7 @@ export interface GetOngoingProcessWithStep1ThreadsResponseItem {
 
 export interface GetAllStep3AboveThreadsResponse {
   threads?: {
+    estimate: any;//타입에러
     processId?: number;
     threadId?: number;
     threadStep?: string;
