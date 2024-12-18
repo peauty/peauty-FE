@@ -76,15 +76,15 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
     <div>
       <ProfileWrapper>
         <CameraIcon>
-          <label htmlFor="profile-image-upload">
+          <input
+            id="profile-image-upload"
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
+          <label htmlFor="profile-image-upload" style={{ cursor: "pointer" }}>
             <Camera width="30" height="30" />
-            <input
-              id="profile-image-upload"
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
           </label>
         </CameraIcon>
         {renderProfileImage()}
