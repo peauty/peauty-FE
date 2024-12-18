@@ -1,43 +1,57 @@
 import { useState, useEffect } from "react";
-import { Style } from "../index.styles";
-import { CustomButton, Text } from "../../../../components";
-import { AddImage } from "../../../../assets/svg";
+import { Style } from "../index.styles"; // Ensure this path is correct
+import { CustomButton, Text } from "../../../../components"; // Ensure these are correctly imported
+import { AddImage } from "../../../../assets/svg"; // Ensure this path is correct
+import { uploadImage } from "../../../../apis/designer/resources/internal"; // Ensure this path is correct
 
 interface CertificateInputSectionProps {
   onChange: (licenses: string[]) => void;
-  initialValues: string[]; // 초기값을 받는 prop 추가
+  initialValues: string[];
 }
 
 export default function CertificateInputSection({
   onChange,
-  initialValues, // initialValues prop 추가
+  initialValues,
 }: CertificateInputSectionProps) {
-  const [licenseImages, setLicenseImages] = useState<string[]>(initialValues); // 초기값 설정
+  const [licenseImages, setLicenseImages] = useState<string[]>(initialValues);
 
-  // 초기값이 변경될 때마다 상태를 업데이트하도록 useEffect 추가
   useEffect(() => {
-    setLicenseImages(initialValues);
+    if (initialValues && initialValues.length > 0) {
+      setLicenseImages(initialValues);
+    }
   }, [initialValues]);
 
-  // 실제 파일 업로드 처리 (파일을 받아서 URL로 바꾸는 함수)
-  const handleImageUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  useEffect(() => {
+    onChange(licenseImages);
+  }, [licenseImages, onChange]);
+
+  const handleImageUpload = async (file: File) => {
+    try {
+      const response = await uploadImage(file); // Ensure uploadImage is working
+      if (response.uploadedImageUrl) {
+        const updatedLicenses = [...licenseImages, response.uploadedImageUrl];
+        setLicenseImages(updatedLicenses);
+        onChange(updatedLicenses);
+      }
+    } catch (error) {
+      console.error("이미지 업로드 실패:", error);
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const uploadedUrl = URL.createObjectURL(file); // 임시 URL 생성
-      const updatedLicenses = [...licenseImages, uploadedUrl];
-      setLicenseImages(updatedLicenses);
-      onChange(updatedLicenses); // 부모에게 값 전달
+      handleImageUpload(file);
+    } else {
+      console.log("파일이 선택되지 않았습니다.");
     }
   };
 
   const handleImageDelete = (url: string) => {
-    const updatedLicenses = licenseImages.filter(
-      (imageUrl) => imageUrl !== url,
+    const updatedImageUrls = licenseImages.filter(
+      (licenseImage) => licenseImage !== url,
     );
-    setLicenseImages(updatedLicenses);
-    onChange(updatedLicenses); // 부모에게 값 전달
+    setLicenseImages(updatedImageUrls);
   };
 
   return (
@@ -49,29 +63,37 @@ export default function CertificateInputSection({
         </Text>
       </Style.TitleWrapper>
 
-      <CustomButton variant="outline">
-        <Style.ColumnWrapper>
-          <Text color="blue100" typo="body500">
-            증빙 사진을 업로드 해주세요
-          </Text>
-          <AddImage width={15} />
-        </Style.ColumnWrapper>
-        {/* 파일 선택 input */}
-        <input
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          id="certificate-upload"
-          onChange={handleImageUpload}
-        />
-        <label htmlFor="certificate-upload" style={{ cursor: "pointer" }}>
-          {/* <Text color="blue100" typo="body500">
-            파일 선택
-          </Text> */}
-        </label>
-      </CustomButton>
+      {/* 전체 영역을 클릭할 수 있도록 개선 */}
+      <Style.ColumnWrapper>
+        <CustomButton variant="outline" size="fullWidth">
+          <label
+            htmlFor="certificate-upload"
+            style={{
+              cursor: "pointer",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+          >
+            {/* 클릭 영역을 label로 만들어서 그 안에 텍스트와 아이콘을 넣음 */}
+            <Text color="blue100" typo="body500">
+              증빙 사진을 업로드 해주세요
+            </Text>
+            <AddImage width={15} />
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            id="certificate-upload"
+            onChange={handleFileChange}
+          />
+        </CustomButton>
+      </Style.ColumnWrapper>
 
-      {/* 업로드된 이미지 목록 표시 */}
       <Style.ImageList>
         {licenseImages.map((url, index) => (
           <Style.ImageItem key={index}>

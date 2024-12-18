@@ -45,6 +45,14 @@ export const Button = styled.button<{
           justify-content: center;
           align-items: center;
         `;
+      case "fullWidth":
+        return css`
+          display: flex;
+          width: 100%;
+          height: 80px;
+          justify-content: center;
+          align-items: center;
+        `;
       case "small":
         return css`
           padding: 8px 16px;

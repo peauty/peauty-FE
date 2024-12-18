@@ -33,7 +33,8 @@ export const Style = {
     gap: 8px;
   `,
   AddWrapper: styled.div`
-    width: 60px;
+    width: 80px;
+    height: 80px;
     margin-top: 10px;
   `,
   ImageContainer: styled.div`
@@ -44,7 +45,7 @@ export const Style = {
 
   ImageUnit: styled.img`
     width: 100%;
-    height: 50px;
+    height: 100%;
     border-radius: 10px;
   `,
 
@@ -60,7 +61,6 @@ export const Style = {
     width: 100px;
     height: 100px;
     border-radius: 10px;
-    /* overflow: hidden; */
     img {
       width: 100%;
       height: 100%;
