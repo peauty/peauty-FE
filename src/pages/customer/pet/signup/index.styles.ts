@@ -5,7 +5,6 @@ import theme from "../../../../style/theme";
 export const ProgressWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 40px 40px 20px;
 `;
 
 export const SectionWrapper = styled.div`
@@ -43,7 +42,7 @@ export const ProfileWrapper = styled.div`
   position: relative;
   width: 132px;
   height: 132px;
-  margin: 36px auto 0;
+  margin: 56px auto 0;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -81,4 +80,4 @@ export const ContentsWrapper = styled.div`
 export const ColumnWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;

@@ -1,9 +1,8 @@
 import { CustomInput } from "../../../../../../components/input/CustomInput";
-import { CustomButton } from "../../../../../../components/button/CustomButton";
 import { SectionWrapper } from "../../index.styles";
 import { Text } from "../../../../../../components/texts/Text";
-import { signUpCustomHook } from "../../../../../../apis/customer/hooks/signUpCustomHook";
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
+import { GNB } from "../../../../../../components";
 
 interface Step3Props {
   onSubmit: () => void;
@@ -39,9 +38,7 @@ export default function Step3({
           />
         </div>
 
-        <CustomButton size="medium" onClick={onSubmit}>
-          확인
-        </CustomButton>
+        <GNB buttonText="다음" onLargeButtonClick={onSubmit} />
       </SectionWrapper>
     </div>
   );

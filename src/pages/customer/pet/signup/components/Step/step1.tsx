@@ -4,7 +4,6 @@ import { CustomInput } from "../../../../../../components/input/CustomInput";
 import { RadioSelectButton } from "../../../../../../components/button/RadioSelectButton";
 import { Text } from "../../../../../../components/texts/Text";
 import { DropButton } from "../../../../../../components/button/DropButton";
-import { CustomButton } from "../../../../../../components/button/CustomButton";
 import {
   ProfileWrapper,
   CameraIcon,
@@ -17,6 +16,7 @@ import {
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { ChangeEvent } from "react";
 import { breedMap } from "../../../../../../constants/puppy";
+import { GNB } from "../../../../../../components";
 
 interface Step1Props {
   onNext: () => void;
@@ -164,11 +164,7 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           {/* <DateDropBox label="생일" type="birthday" /> */}
         </div>
 
-        <ButtonWrapper>
-          <CustomButton fullwidth variant="primary" onClick={onNext}>
-            다음
-          </CustomButton>
-        </ButtonWrapper>
+        <GNB buttonText="다음" onLargeButtonClick={onNext} />
       </SectionWrapper>
     </div>
   );
