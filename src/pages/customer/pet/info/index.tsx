@@ -21,8 +21,11 @@ import Loading from "../../../../components/page/sign-up/Loading";
 import { ROUTE } from "../../../../constants/routes";
 import Modal from "./components/Modal";
 import Gender from "./components/Gender";
-
+import Toast from "../../../../components/toast";
+import { useLocation } from "react-router-dom";
 export default function PetInfoPage() {
+  const location = useLocation();
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [puppyData, setPuppyData] = useState<GetPuppyDetailResponse | null>(
     null,
   );
@@ -33,6 +36,12 @@ export default function PetInfoPage() {
   const puppyId = params.puppyId;
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // location.state로부터 toastMessage 가져오기
+    if (location.state?.toastMessage) {
+      setToastMessage(location.state.toastMessage); // 메시지를 상태로 저장
+    }
+  }, [location]);
   useEffect(() => {
     const fetchPuppyDetail = async (userId: number, _puppyId: number) => {
       try {
@@ -54,8 +63,9 @@ export default function PetInfoPage() {
     if (!userId || !params.puppyId) return;
     try {
       await deletePuppy(userId, Number(params.puppyId));
-      alert("강아지가 삭제되었습니다.");
-      navigate(ROUTE.customer.mypage.home); // 성공 시 mypage로 이동
+      navigate(ROUTE.customer.mypage.home,{
+        state: {toastMessage: "반려견 삭제가 완료됐어요"}
+      }); // 성공 시 mypage로 이동
     } catch (error) {
       console.error("Failed to delete puppy:", error);
       alert("삭제 중 문제가 발생했습니다. 다시 시도해주세요.");
@@ -179,6 +189,7 @@ export default function PetInfoPage() {
           onCancel={() => setIsModalOpen(false)} // 아니요 버튼 클릭 시 모달 닫기
         />
       )}
+      {toastMessage && <Toast style={{ bottom: "25px" }}>{toastMessage}</Toast>}
     </PageWrapper>
   );
 }

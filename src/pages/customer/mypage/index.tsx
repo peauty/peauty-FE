@@ -11,30 +11,39 @@ import {
   NoPuppyPlaceholder,
   ContentsWrapper,
 } from "./index.styles";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom"; // react-router-dom에서 useLocation을 임포트
 import { AppBar, Divider, GNB, SubMenuButton, Text } from "../../../components";
-import InfoButton from "../../../components/button/InfoButton";
-import ProfileImg from "../../../components/profile-img/ProfileImg";
-import { useUserDetails } from "../../../hooks/useUserDetails";
-import { useEffect, useState } from "react";
 import { getPuppyProfiles } from "../../../apis/customer/resources/puppy";
 import {
   GetPuppyProfilesResponse,
   GetPuppyProfileResponse,
 } from "../../../types/customer/puppy";
 import { ROUTE } from "../../../constants/routes";
-import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/page/sign-up/Loading";
-
+import Toast from "../../../components/toast"; // Toast 컴포넌트 임포트
+import ProfileImg from "../../../components/profile-img/ProfileImg";
+import InfoButton from "../../../components/button/InfoButton";
+import { useUserDetails } from "../../../hooks/useUserDetails";
 export default function CustomerMyPage() {
   const navigate = useNavigate();
   const { userId } = useUserDetails();
   const [profile, setProfile] = useState<GetPuppyProfilesResponse | null>(null);
   const [puppies, setPuppies] = useState<GetPuppyProfileResponse[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation(); // useLocation 훅을 통해 location 객체를 가져옵니다.
+  const [toastMessage, setToastMessage] = useState<string | null>(null); // 토스트 메시지 상태 추가
+
+  useEffect(() => {
+    // location.state로부터 toastMessage 가져오기
+    if (location.state?.toastMessage) {
+      setToastMessage(location.state.toastMessage); // 메시지를 상태로 저장
+    }
+  }, [location]); // location이 변경될 때마다 토스트 메시지를 업데이트
 
   useEffect(() => {
     const fetchPuppyProfiles = async () => {
-      setIsLoading(true); // 로딩 시작
+      setIsLoading(true);
       if (userId) {
         try {
           const data = await getPuppyProfiles(userId);
@@ -47,7 +56,7 @@ export default function CustomerMyPage() {
         } catch (error) {
           console.error("Failed to fetch puppy profiles:", error);
         } finally {
-          setIsLoading(false); // 로딩 종료
+          setIsLoading(false);
         }
       }
     };
@@ -141,8 +150,10 @@ export default function CustomerMyPage() {
           <Divider />
           <ContentsWrapper>
             <Text typo="subtitle200">리뷰</Text>
-            <SubMenuButton text="리뷰 내역" to="/customer/mypage/reviews-history" />
-
+            <SubMenuButton
+              text="리뷰 내역"
+              to="/customer/mypage/reviews-history"
+            />
           </ContentsWrapper>
           <Divider />
           <ContentsWrapper>
@@ -155,6 +166,10 @@ export default function CustomerMyPage() {
           </ContentsWrapper>
         </ContentWrapper>
       </PageWrapper>
+
+      {/* 토스트 메시지가 있을 경우 출력 */}
+      {toastMessage && <Toast>{toastMessage}</Toast>}
+
       <GNB type={"customer"} />
     </>
   );
