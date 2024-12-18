@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { GridWrapper, ButtonStyle } from "./MultiSelectButton.styles";
 import { Text } from "../../texts/Text";
-import { colors } from "../../../style/color";
 
 export interface MultiSelectButtonProps {
   row?: number;

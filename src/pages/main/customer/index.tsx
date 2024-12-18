@@ -3,7 +3,6 @@ import { AppBar, GNB, Divider } from "../../../components";
 import Carousel from "../../../components/carousel/Carousel";
 import ProposalItem from "../components/ProposalItem";
 import Temp from "../../../assets/images/배너.png";
-import AD from "../components/AD";
 import PopularStore from "../components/PopularStore";
 import NewStore from "../components/NewStore";
 import { HomeWrapper } from "./index.styles";
@@ -23,7 +22,6 @@ export default function CustomerHome() {
       <HomeWrapper>
         <ProposalItem type={type} />
         <Carousel images={images} />
-        <AD />
         <PopularStore />
         <NewStore />
       </HomeWrapper>

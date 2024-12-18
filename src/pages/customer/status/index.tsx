@@ -12,10 +12,12 @@ import {
   getAllStep3AboveThreads,
   getOngoingProcessWithStep2Threads,
 } from "../../../apis/customer/resources/bidding";
-import { GetAllStep3AboveThreadsResponse } from "../../../types/customer/bidding";
-import { GetStep2ProcessWithThreadsResponse } from "../../../types/customer/bidding";
 import { useUserDetails } from "../../../hooks/useUserDetails";
 import { useNavigate } from "react-router-dom";
+import {
+  GetAllStep3AboveThreadsResponse,
+  GetOngoingProcessWithStep2ThreadsResponse,
+} from "../../../types/customer/bidding";
 
 interface StatusItemData {
   name: string;
@@ -24,14 +26,14 @@ interface StatusItemData {
   reservation: string;
   score: number;
   review: number;
-  payment: number;
+  payment?: number;
   date: string;
   badges: { name: string; color: string }[];
   thumbnailUrl: string;
 }
 
 export default function Status() {
-  const { userId } = useUserDetails(); // userId 가져오기
+  const { userId } = useUserDetails();
   const [statusItemData, setStatusItemData] = useState<StatusItemData | null>(
     null,
   );
@@ -39,64 +41,56 @@ export default function Status() {
     "sent",
   );
   const [step2ThreadsData, setStep2ThreadsData] =
-    useState<GetStep2ProcessWithThreadsResponse | null>(null); // Step2 데이터 상태 추가
+    useState<GetOngoingProcessWithStep2ThreadsResponse | null>(null);
   const [threadsData, setThreadsData] =
     useState<GetAllStep3AboveThreadsResponse | null>(null);
-  const [puppyId, setPuppyId] = useState<number | null>(null); // puppyId 상태
+  const [puppyId, setPuppyId] = useState<number | null>(null);
   const navigate = useNavigate();
   const [threadId, setThreadId] = useState<number | null>(null);
   const [processId, setProcessId] = useState<number | null>(null);
 
-  // puppyId 변경 시 해당 강아지의 데이터를 가져오기
   useEffect(() => {
     const fetchData = async () => {
       if (userId && puppyId !== null) {
         try {
-          // Step1 데이터 가져오기
           const step1Data = await getOngoingProcessWithStep1Threads(
             userId,
             puppyId,
           );
-          if (step1Data.process) {
-            const process = step1Data.process;
-            const designer = step1Data.threads[0]?.designer || {};
-
+          if (step1Data.info) {
             setStatusItemData({
-              name: process.estimateProposal.style || "알 수 없음",
-              store: designer.workspaceName || "알 수 없음",
-              location: designer.address || "알 수 없음",
-              reservation: process.processStatus || "알 수 없음",
-              score: designer.reviewRating || 0,
-              review: designer.reviewCount || 0,
-              payment: process.estimateProposal.desiredCost || 0,
-              date: process.estimateProposal.desiredDateTime || "알 수 없음",
+              name: step1Data.info.requestText || "알 수 없음",
+              store: step1Data.stores?.[0]?.store || "알 수 없음",
+              location: step1Data.stores?.[0]?.location || "알 수 없음",
+              reservation: step1Data.stores?.[0]?.threadStep || "알 수 없음",
+              score: step1Data.stores?.[0]?.score || 0,
+              review: step1Data.stores?.[0]?.review || 0,
+              //payment: step1Data.stores?.[0]?.desiredCost || 0,
+              date: step1Data.info.requestDate || "알 수 없음",
               badges:
-                designer.badges.map((badge) => ({
-                  name: badge.badgeName,
-                  color: badge.badgeColor,
+                step1Data.stores?.[0]?.badges?.map((badge) => ({
+                  name: badge.badgeName || "알 수 없음",
+                  color: badge.badgeColor || "#000",
                 })) || [],
-              thumbnailUrl: designer.profileImageUrl || "",
+              thumbnailUrl: step1Data.stores?.[0]?.thumbnailUrl || "",
             });
           }
 
-          // Step2 데이터 가져오기
           const step2Data = await getOngoingProcessWithStep2Threads(
             userId,
             puppyId,
           );
-          setStep2ThreadsData(step2Data as GetStep2ProcessWithThreadsResponse);
+          setStep2ThreadsData(step2Data);
 
-          // Step3 데이터 가져오기
           const step3Data = await getAllStep3AboveThreads(userId, puppyId);
           setThreadsData(step3Data);
 
-          // processId와 threadId 설정
-          if (step2Data.process) {
-            setProcessId(step2Data.process.processId);
+          if (step2Data.info) {
+            setProcessId(step2Data.info.processId || 0);
           }
 
-          if (step2Data.threads.length > 0) {
-            setThreadId(step2Data.threads[0].threadId);
+          if (step2Data.stores && step2Data.stores.length > 0) {
+            setThreadId(step2Data.stores[0].threadId || 0);
           }
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -105,7 +99,7 @@ export default function Status() {
     };
 
     fetchData();
-  }, [userId, puppyId]); // userId와 puppyId가 변경될 때마다 데이터 갱신
+  }, [userId, puppyId]);
 
   const handleTabClick = (tab: "sent" | "received" | "confirmed") => {
     setActiveTab(tab);
@@ -181,24 +175,21 @@ export default function Status() {
               processId={0}
             />
             <div style={{ padding: "0 20px" }}>
-              {step2ThreadsData?.threads &&
-              step2ThreadsData.threads.length > 0 ? (
-                step2ThreadsData.threads.map((thread, index) => (
+              {step2ThreadsData?.stores &&
+              step2ThreadsData.stores.length > 0 ? (
+                step2ThreadsData.stores.map((store, index) => (
                   <CustomerInfo
-                    isReviewed={false}
                     key={index}
-                    store={thread.designer?.workspaceName || "알 수 없음"}
-                    score={thread.designer?.reviewRating || 0}
-                    review={thread.designer?.reviewCount || 0}
-                    location={thread.designer?.address || "알 수 없음"}
-                    thumbnailUrl={thread.designer?.profileImageUrl || ""}
+                    store={store.store || "알 수 없음"}
+                    score={store.score || 0}
+                    review={store.review || 0}
+                    location={store.location || "알 수 없음"}
+                    thumbnailUrl={store.thumbnailUrl || ""}
                     buttons={renderCustomerInfoButtons("received")}
-                    status={thread.threadStep || "알 수 없음"}
-                    payment={formatCurrency(
-                      thread.estimate?.estimatedCost || 0,
-                    )}
+                    status={store.threadStatus || "알 수 없음"}
+                    payment={formatCurrency(store.desiredCost || 0)}
                     onClick={() =>
-                      console.log(`CustomerInfo clicked for thread ${index}`)
+                      console.log(`CustomerInfo clicked for store ${index}`)
                     }
                   />
                 ))
@@ -213,31 +204,25 @@ export default function Status() {
           <>
             <div style={{ padding: "0 20px" }}>
               {threadsData?.threads?.length ? (
-                threadsData.threads.map(
-                  (
-                    thread: GetAllStep3AboveThreadsResponse["data"]["threads"][number],
-                    index: number,
-                  ) => (
-                    <CustomerInfo
-                      isReviewed={false}
-                      key={index}
-                      store={thread.designer.workspaceName || "알 수 없음"}
-                      score={thread.designer.reviewRating || 0}
-                      review={thread.designer.reviewCount || 0}
-                      reservation={thread.threadStep || "알 수 없음"}
-                      location={thread.designer.address || "알 수 없음"}
-                      thumbnailUrl={thread.designer.profileImageUrl || ""}
-                      buttons={renderCustomerInfoButtons("confirmed")}
-                      status={thread.style || "알 수 없음"}
-                      payment={formatCurrency(
-                        thread.estimate.estimatedCost || 0,
-                      )}
-                      onClick={() =>
-                        console.log(`CustomerInfo clicked for thread ${index}`)
-                      }
-                    />
-                  ),
-                )
+                threadsData.threads.map((thread, index) => (
+                  <CustomerInfo
+                    key={index}
+                    store={thread.workspaceName || "알 수 없음"}
+                    score={thread.score || 0}
+                    review={thread.reviewCount || 0}
+                    reservation={thread.threadStep || "알 수 없음"}
+                    location={thread.address || "알 수 없음"}
+                    thumbnailUrl={thread.thumbnailUrl || ""}
+                    buttons={renderCustomerInfoButtons("confirmed")}
+                    status={thread.style || "알 수 없음"}
+                    payment={formatCurrency(
+                      thread.estimate?.estimatedCost || 0,
+                    )}
+                    onClick={() =>
+                      console.log(`CustomerInfo clicked for thread ${index}`)
+                    }
+                  />
+                ))
               ) : (
                 <p>확인된 데이터가 없습니다.</p>
               )}
@@ -253,7 +238,7 @@ export default function Status() {
     <>
       <AppBar prefix="backButton" title="요청 현황" />
       <TabWrapper>
-        <DogList setPuppyId={setPuppyId} />{" "}
+        <DogList setPuppyId={setPuppyId} />
         <StatusTab activeTab={activeTab} onTabClick={handleTabClick} />
         {renderTabContent()}
       </TabWrapper>

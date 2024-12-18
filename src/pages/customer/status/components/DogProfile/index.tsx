@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { getPuppyProfilesWithCanStartProcessStatus } from "../../../../../apis/customer/resources/bidding";
 import { GetPuppyProfilesWithCanStartProcessStatusResponse } from "../../../../../types/customer/bidding";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
-import { DogListWrapper, DogProfileWrapper, RoundImg, DogName } from "./index.styles";
+import {
+  DogListWrapper,
+  DogProfileWrapper,
+  RoundImg,
+  DogName,
+} from "./index.styles";
 
 // 강아지 프로필 컴포넌트
 interface DogProfileProps {
@@ -33,7 +38,8 @@ interface DogListProps {
 export default function DogList({ setPuppyId }: DogListProps) {
   const { userId, isLoading } = useUserDetails();
 
-  const [puppyData, setPuppyData] = useState<GetPuppyProfilesWithCanStartProcessStatusResponse | null>(null); // 강아지 데이터 상태
+  const [puppyData, setPuppyData] =
+    useState<GetPuppyProfilesWithCanStartProcessStatusResponse | null>(null); // 강아지 데이터 상태
   const [selectedDog, setSelectedDog] = useState<string>(""); // 선택된 강아지 상태
 
   // 강아지 데이터 fetch
@@ -42,12 +48,12 @@ export default function DogList({ setPuppyId }: DogListProps) {
       getPuppyProfilesWithCanStartProcessStatus(userId)
         .then((data: GetPuppyProfilesWithCanStartProcessStatusResponse) => {
           console.log("API 응답 데이터:", data);
-          
+
           const puppies = data?.puppies;
           if (Array.isArray(puppies) && puppies.length > 0) {
             setPuppyData(data);
-            setSelectedDog(puppies[0].name); // 첫 번째 강아지를 기본 선택
-            setPuppyId(puppies[0].puppyId); // 첫 번째 강아지의 puppyId를 부모로 전달
+            setSelectedDog(puppies[0].name || ""); // 첫 번째 강아지를 기본 선택
+            setPuppyId(puppies[0].puppyId || 0); // 첫 번째 강아지의 puppyId를 부모로 전달
           } else {
             console.error("puppies 데이터가 잘못되었거나 없습니다.");
             setPuppyData(null);
@@ -81,7 +87,7 @@ export default function DogList({ setPuppyId }: DogListProps) {
             src={dog.profileImageUrl || "default-image-url"} // 기본 이미지 URL
             name={dog.name || "Unnamed Dog"} // 기본 이름
             active={dog.name === selectedDog} // 선택된 강아지 활성화 여부 확인
-            onClick={() => handleDogClick(dog.name, dog.puppyId)} // 클릭 시 선택 토글, puppyId 전달
+            onClick={() => handleDogClick(dog.name || "", dog.puppyId || 0)} // 클릭 시 선택 토글, puppyId 전달
           />
         ))
       )}

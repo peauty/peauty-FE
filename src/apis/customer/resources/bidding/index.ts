@@ -4,7 +4,8 @@ import { SendEstimateProposalRequest } from "../../../../types/customer/bidding"
 import { AcceptEstimateResponse } from "../../../../types/customer/bidding";
 import { GetEstimateProposalDetailResponse } from "../../../../types/customer/bidding";
 import { GetEstimateAndProposalDetailsResponse } from "../../../../types/customer/bidding";
-import { GetOngoingProcessWithThreadsResponse } from "../../../../types/customer/bidding";
+import { GetOngoingProcessWithStep2ThreadsResponse } from "../../../../types/customer/bidding";
+import { GetOngoingProcessWithStep1ThreadsResponse } from "../../../../types/customer/bidding";
 import { GetAllStep3AboveThreadsResponse } from "../../../../types/customer/bidding";
 import { GetPuppyProfilesWithCanStartProcessStatusResponse } from "../../../../types/customer/bidding";
 
@@ -20,7 +21,7 @@ export const initProcessWithSendEstimateProposal = async (
   return res.data;
 };
 
-export const acceptEstimate = async (
+export const acceptEstimate_1 = async (
   userId: number,
   puppyId: number,
   processId: number,
@@ -58,8 +59,8 @@ export const getEstimateAndProposalDetails = async (
 export const getOngoingProcessWithStep2Threads = async (
   userId: number,
   puppyId: number,
-): Promise<GetOngoingProcessWithThreadsResponse> => {
-  const res = await CustomerAPI.get<GetOngoingProcessWithThreadsResponse>(
+): Promise<GetOngoingProcessWithStep2ThreadsResponse> => {
+  const res = await CustomerAPI.get<GetOngoingProcessWithStep2ThreadsResponse>(
     `/v1/users/${userId}/puppies/${puppyId}/bidding/processes/threads/step2`,
   );
   return res.data;
@@ -68,8 +69,8 @@ export const getOngoingProcessWithStep2Threads = async (
 export const getOngoingProcessWithStep1Threads = async (
   userId: number,
   puppyId: number,
-): Promise<GetOngoingProcessWithThreadsResponse> => {
-  const res = await CustomerAPI.get<GetOngoingProcessWithThreadsResponse>(
+): Promise<GetOngoingProcessWithStep1ThreadsResponse> => {
+  const res = await CustomerAPI.get<GetOngoingProcessWithStep1ThreadsResponse>(
     `/v1/users/${userId}/puppies/${puppyId}/bidding/processes/threads/step1`,
   );
   return res.data;

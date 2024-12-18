@@ -11,6 +11,7 @@ import { noPadding } from "../../style/layoutStyle";
 import { statusPaths } from "./status";
 import QuoteDetail from "../../pages/customer/quote-detail";
 import { paymentPaths } from "./payment";
+import Payment from "../../pages/customer/payment";
 
 export const customerPaths = [
   // Layout 적용 경로

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { MultiSelectButton } from "../../../../../../components/button/MultiSelectButton";
 import { CustomInput } from "../../../../../../components/input/CustomInput";
-import { CustomButton } from "../../../../../../components/button/CustomButton";
 import { ColumnWrapper, SectionWrapper } from "../../index.styles";
 import { Text } from "../../../../../../components/texts/Text";
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { diseaseMap } from "../../../../../../constants/puppy";
 import { ContentsWrapper } from "../../index.styles";
+import { GNB } from "../../../../../../components";
 
 interface Step2Props {
   onNext: () => void;
@@ -47,7 +47,7 @@ export default function Step2({
           <ColumnWrapper>
             <Text typo="subtitle300">질병 이력</Text>
             <Text typo="body400" color="blue100">
-              중복 선택 가능해요
+              중복 선택도 가능해요
             </Text>
           </ColumnWrapper>
           <MultiSelectButton
@@ -68,9 +68,7 @@ export default function Step2({
           onChange={handleDiseaseDescriptionChange}
         />
       </ContentsWrapper>
-      <CustomButton fullwidth onClick={onNext}>
-        다음
-      </CustomButton>
+      <GNB buttonText="다음" onLargeButtonClick={onNext} />
     </SectionWrapper>
   );
 }

@@ -54,5 +54,5 @@ export const ContentWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  padding: 15px 30px;
+  padding: 14px 12px;
 `;
