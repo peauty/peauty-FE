@@ -14,7 +14,7 @@ export const ContentWrapper = styled.div`
 export const SectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const SelectedHair = styled.div`
@@ -38,15 +38,13 @@ export const ItemWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const AddWrapper = styled.div`
-  width: 80px;
-  margin-top: 10px;
-`;
-
 export const ImageContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 10px;
+  gap: 20px;
+`;
+
+export const AddWrapper = styled.div`
+  width: 80px;
 `;
 
 export const ImageUnit = styled.img`
