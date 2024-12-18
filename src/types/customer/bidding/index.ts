@@ -32,6 +32,10 @@ export type TotalGroomingFaceTypeType =
   | "BEDLINGTON"
   | "POODLINGTON";
 
+export type BadgeColorType = "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
+
+export type BadgeTypeType = "GENERAL" | "SCISSORS";
+
 export interface SendEstimateProposalResponse {
   processId?: number;
   puppyId?: number;
@@ -179,170 +183,171 @@ export interface DesignerProfile {
   address?: string;
 }
 
-export interface GetOngoingProcessWithThreadsResponse {
-  process?: {
+export interface GetOngoingProcessWithStep2ThreadsResponse {
+  info?: {
+    requestDate?: string;
+    requestText?: string;
     processId?: number;
-    processStatus?: string;
-    processCreatedAt?: string;
-    processStatusModifiedAt?: string;
-    puppy?: {
-      puppyId?: number;
-      customerId?: number;
-      name?: string;
-      breed?: string;
-      weight?: number;
-      sex?: string;
-      age?: number;
-      birthdate?: string;
-      profileImageUrl?: string;
-      puppySize?: string;
-      diseases?: string[];
-      hasOngoingProcess?: boolean;
-    };
-    estimateProposal?: {
-      id?: number;
-      style?: string;
-      totalGroomingBodyType?: string;
-      totalGroomingFaceType?: string;
-      detail?: string;
-      imageUrls?: string[];
-      desiredCost?: number;
-      desiredDateTime?: string;
-    };
-    threadInfo?: {
-      processId?: number;
-      style?: string;
-      threadId?: number;
-      threadStep?: string;
-      threadStatus?: string;
-      isReviewed?: boolean;
-      threadCreatedAt?: string;
-      threadStepModifiedAt?: string;
-      designer?: {
-        workspaceName?: string;
-        address?: string;
-      };
-      estimate?: {
-        threadId?: number;
-        estimateId?: number;
-        content?: string;
-        availableGroomingDate?: string;
-        estimatedDuration?: string;
-        estimatedCost?: number;
-        depositPrice?: number;
-        imageUrls?: string[];
-      };
-    };
-    estimate?: EstimateProfile;
   };
-  threads?: ThreadProfile[];
-}
-
-export interface ProcessProfile {
-  processId?: number;
-  processStatus?: string;
-  processCreatedAt?: string;
-  processStatusModifiedAt?: string;
-  puppy?: {
-    puppyId?: number;
-    customerId?: number;
-    name?: string;
-    breed?: string;
-    weight?: number;
-    sex?: string;
-    age?: number;
-    birthdate?: string;
-    profileImageUrl?: string;
-    puppySize?: string;
-    diseases?: string[];
-    hasOngoingProcess?: boolean;
-  };
-  estimateProposal?: {
-    id?: number;
-    style?: string;
-    totalGroomingBodyType?: string;
-    totalGroomingFaceType?: string;
-    detail?: string;
-    imageUrls?: string[];
-    desiredCost?: number;
-    desiredDateTime?: string;
-  };
-  threadInfo?: {
-    processId?: number;
-    style?: string;
+  stores?: {
     threadId?: number;
     threadStep?: string;
     threadStatus?: string;
-    isReviewed?: boolean;
-    threadCreatedAt?: string;
-    threadStepModifiedAt?: string;
-    designer?: {
-      workspaceName?: string;
-      address?: string;
-    };
-    estimate?: {
-      threadId?: number;
-      estimateId?: number;
-      content?: string;
-      availableGroomingDate?: string;
-      estimatedDuration?: string;
-      estimatedCost?: number;
-      depositPrice?: number;
-      imageUrls?: string[];
-    };
-  };
-  estimate?: EstimateProfile;
+    thumbnailUrl?: string;
+    style?: string;
+    location?: string;
+    store?: string;
+    score?: number;
+    review?: number;
+    desiredCost?: number;
+    badges?: {
+      badgeId?: number;
+      badgeName?: string;
+      badgeContent?: string;
+      badgeImageUrl?: string;
+      isRepresentativeBadge?: boolean;
+      badgeColor?: BadgeColorType;
+      badgeType?: BadgeTypeType;
+    }[];
+  }[];
 }
 
-export interface ThreadProfile {
+export interface GetOngoingProcessWithStep2ThreadsResponseProcessInfo {
+  requestDate?: string;
+  requestText?: string;
   processId?: number;
-  style?: string;
+}
+
+export interface GetOngoingProcessWithStep2ThreadsResponseItem {
   threadId?: number;
   threadStep?: string;
   threadStatus?: string;
-  isReviewed?: boolean;
-  threadCreatedAt?: string;
-  threadStepModifiedAt?: string;
-  designer?: {
-    workspaceName?: string;
-    address?: string;
+  thumbnailUrl?: string;
+  style?: string;
+  location?: string;
+  store?: string;
+  score?: number;
+  review?: number;
+  desiredCost?: number;
+  badges?: {
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    isRepresentativeBadge?: boolean;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
+}
+
+export interface Badge {
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeImageUrl?: string;
+  isRepresentativeBadge?: boolean;
+  badgeColor?: BadgeColorType;
+  badgeType?: BadgeTypeType;
+}
+
+export interface GetOngoingProcessWithStep1ThreadsResponse {
+  info?: {
+    requestDate?: string;
+    requestText?: string;
+    processId?: number;
   };
-  estimate?: {
+  stores?: {
     threadId?: number;
-    estimateId?: number;
-    content?: string;
-    availableGroomingDate?: string;
-    estimatedDuration?: string;
-    estimatedCost?: number;
-    depositPrice?: number;
-    imageUrls?: string[];
-  };
+    threadStep?: string;
+    threadStatus?: string;
+    thumbnailUrl?: string;
+    location?: string;
+    store?: string;
+    score?: number;
+    review?: number;
+    badges?: {
+      badgeId?: number;
+      badgeName?: string;
+      badgeContent?: string;
+      badgeImageUrl?: string;
+      isRepresentativeBadge?: boolean;
+      badgeColor?: BadgeColorType;
+      badgeType?: BadgeTypeType;
+    }[];
+  }[];
+}
+
+export interface GetOngoingProcessWithStep1ThreadsResponseProcessInfo {
+  requestDate?: string;
+  requestText?: string;
+  processId?: number;
+}
+
+export interface GetOngoingProcessWithStep1ThreadsResponseItem {
+  threadId?: number;
+  threadStep?: string;
+  threadStatus?: string;
+  thumbnailUrl?: string;
+  location?: string;
+  store?: string;
+  score?: number;
+  review?: number;
+  badges?: {
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    isRepresentativeBadge?: boolean;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
 }
 
 export interface GetAllStep3AboveThreadsResponse {
   threads?: {
     processId?: number;
-    style?: string;
     threadId?: number;
     threadStep?: string;
     threadStatus?: string;
-    isReviewed?: boolean;
-    threadCreatedAt?: string;
-    threadStepModifiedAt?: string;
-    designer?: {
-      workspaceName?: string;
-      address?: string;
-    };
-    estimate?: {
-      threadId?: number;
-      estimateId?: number;
-      content?: string;
-      availableGroomingDate?: string;
-      estimatedDuration?: string;
-      estimatedCost?: number;
-      depositPrice?: number;
-      imageUrls?: string[];
-    };
+    thumbnailUrl?: string;
+    workspaceName?: string;
+    score?: number;
+    reviewCount?: number;
+    address?: string;
+    style?: string;
+    estimatedCost?: number;
+    badges?: {
+      badgeId?: number;
+      badgeName?: string;
+      badgeContent?: string;
+      badgeImageUrl?: string;
+      isRepresentativeBadge?: boolean;
+      badgeColor?: BadgeColorType;
+      badgeType?: BadgeTypeType;
+    }[];
+  }[];
+}
+
+export interface GetAllStep3AboveThreadsResponseThread {
+  processId?: number;
+  threadId?: number;
+  threadStep?: string;
+  threadStatus?: string;
+  thumbnailUrl?: string;
+  workspaceName?: string;
+  score?: number;
+  reviewCount?: number;
+  address?: string;
+  style?: string;
+  estimatedCost?: number;
+  badges?: {
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    isRepresentativeBadge?: boolean;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
   }[];
 }
 
