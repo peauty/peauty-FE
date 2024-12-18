@@ -32,7 +32,7 @@ import {
 import { useRecoilState } from "recoil";
 import { PaymentData, paymentAtom } from "../../../atoms/paymentAtom";
 import { ROUTE } from "../../../constants/routes";
-
+import { Icon } from "../../designer/quote/quoute-detail/index.styles";
 function formatDateToKorean(dateStr: string): string {
   const date = new Date(dateStr);
   const year = date.getFullYear();
