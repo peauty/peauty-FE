@@ -1,36 +1,36 @@
 import { styled } from "styled-components";
-import { typography } from "../../../../style/typography";
 import { colors } from "../../../../style/color";
+import theme from "../../../../style/theme";
 
 export const PageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding-top: 60px;
+  height: calc(100vh - ${theme.size.gnbHeight});
 `;
 
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px 5px;
+  justify-content: center;
 `;
 
 export const ButtonWrapper = styled.div`
-  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const MyInfoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 8px;
 `;
 
 export const InfoWrapper = styled.div`
-  width: 410px;
+  width: 100%;
   min-height: 50px;
-  margin-top: 20px;
+  margin-top: 100px;
   background-color: ${colors.blue300};
   display: flex;
   flex-direction: column;
