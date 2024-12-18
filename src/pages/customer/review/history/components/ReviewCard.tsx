@@ -12,72 +12,97 @@ interface ReviewProps {
   totalCost: number;
   rating: number;
   reviewText: string;
-  reviewImage: string;
+  reviewImages: string[];
   onEdit: () => void;
   onDelete: () => void;
 }
+
 export default function ReviewCard({
-    reviewDate,
-    groomingStyle,
-    puppyName,
-    address,
-    totalCost,
-    rating,
-    reviewText,
-    reviewImage,
-    onEdit,
-    onDelete,
-  }: ReviewProps) {
-    return (
-      <CardContainer>
-        <Divider />
-        <Date>
-          <Text typo="body300" color="gray100">작성일 {reviewDate}</Text>
-        </Date>
-  
+  reviewDate,
+  groomingStyle,
+  puppyName,
+  address,
+  totalCost,
+  rating,
+  reviewText,
+  reviewImages,
+  onEdit,
+  onDelete,
+}: ReviewProps) {
+  return (
+    <CardContainer>
+      <Divider />
+      <Date>
+        <Text typo="body300" color="gray100">
+          작성일 {reviewDate}
+        </Text>
+      </Date>
+
+      <div>
+        <Info>
+          <Text typo="body100" color="blue100">
+            {groomingStyle}
+          </Text>
+          <Text typo="body500" color="blue100">
+            총금액
+          </Text>
+        </Info>
+      </div>
+
+      <Header>
         <div>
-          <Info>
-            <Text typo="body100" color="blue100">{groomingStyle}</Text>
-            <Text typo="body500" color="blue100">총금액</Text>
-          </Info>
+          <div>
+            <Text typo="subtitle100">{puppyName}</Text>
+          </div>
+          <Text typo="body500" color="gray100">
+            {address}
+          </Text>
+          <RatingContainer>
+            <Rating score={rating} fontsize="body300" />
+          </RatingContainer>
         </div>
-  
-        <Header>
-          <div>
-            <div>
-              <Text typo="subtitle100">{puppyName}</Text>
-            </div>
-            <Text typo="body500" color="gray100">{address}</Text>
-            <RatingContainer>
-          <Rating score={rating} fontsize="body300" />
-        </RatingContainer>
-          </div>
-  
-          <div>
-            <Text typo="subtitle200" >{totalCost.toLocaleString()}원</Text>
-          </div>
-        </Header>
-  
-        <Text typo="body400">{reviewText}</Text>
-        <ImageContainer>
-          <ReviewImage src={reviewImage} alt="Review" />
-          <ReviewImage src={reviewImage} alt="Review" />
-        </ImageContainer>
-  
-        <Footer>
-          <ActionButton onClick={onEdit} bgColor={colors.blue300} color={colors.blue100} width="200px">수정</ActionButton>
-          <ActionButton onClick={onDelete} bgColor={colors.gray400} color={colors.gray100} width="200px">삭제</ActionButton>
-        </Footer>
-      </CardContainer>
-    );
-  }
-  
-  
-  const RatingContainer = styled.div`
+
+        <div>
+          <Text typo="subtitle200">{totalCost.toLocaleString()}원</Text>
+        </div>
+      </Header>
+
+      <Text typo="body400">{reviewText}</Text>
+      <ImageContainer>
+        {reviewImages.map((image, index) => (
+          <ReviewImage
+            key={`${image}-${index}`}
+            src={image}
+            alt={`Review image ${index + 1}`}
+          />
+        ))}
+      </ImageContainer>
+
+      <Footer>
+        <ActionButton
+          onClick={onEdit}
+          bgColor={colors.blue300}
+          color={colors.blue100}
+          width="200px"
+        >
+          수정
+        </ActionButton>
+        <ActionButton
+          onClick={onDelete}
+          bgColor={colors.gray400}
+          color={colors.gray100}
+          width="200px"
+        >
+          삭제
+        </ActionButton>
+      </Footer>
+    </CardContainer>
+  );
+}
+
+const RatingContainer = styled.div`
   margin-right: 60px;
-`
-
-
+`;
 
 const CardContainer = styled.div`
   padding: 0px 25px;
@@ -86,7 +111,6 @@ const CardContainer = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  // margin-bottom: 10px;
   width: 100%;
 `;
 
@@ -96,6 +120,7 @@ const ImageContainer = styled.div`
   gap: 10px;
   width: 100%;
   height: 80px;
+  overflow-x: auto;
 `;
 
 const Date = styled.div`
@@ -111,7 +136,7 @@ const Info = styled.div`
 const ReviewImage = styled.img`
   height: 100%;
   border-radius: 8px;
-  gap: 10px;
+  flex-shrink: 0;
 `;
 
 const Footer = styled.div`
@@ -121,7 +146,11 @@ const Footer = styled.div`
   margin-top: 8px;
 `;
 
-const ActionButton = styled.button<{ width: string; bgColor: string; color: string }>`
+const ActionButton = styled.button<{
+  width: string;
+  bgColor: string;
+  color: string;
+}>`
   width: ${({ width }) => width};
   height: 37px;
   font-size: 14px;
@@ -140,10 +169,4 @@ const ActionButton = styled.button<{ width: string; bgColor: string; color: stri
     color: #ccc;
     cursor: not-allowed;
   }
-`;
-
-const DateTextContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
 `;

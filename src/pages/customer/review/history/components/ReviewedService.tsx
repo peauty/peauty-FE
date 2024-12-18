@@ -1,24 +1,76 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import ReviewCard from "./ReviewCard";
+import { GetUserReviewsResponse } from "../../../../../types/customer/review";
+import { getUserReviews } from "../../../../../apis/customer/resources/review";
+import { useUserDetails } from "../../../../../hooks/useUserDetails";
 
 export default function ReviewedService() {
-  // 예시 데이터
-  const reviewData = {
-    reviewDate: "2024-12-18",
-    groomingStyle: "가윗컷+곰돌이컷",
-    puppyName: "초코",
-    address: "서울특별시 강남구",
-    totalCost: 45000,
-    rating: 4.5,
-    reviewText: "친절한 서비스와 꼼꼼한 손질로 만족스러웠습니다! 나중에 또오고싶어요",
-    reviewImage: "https://via.placeholder.com/80",
-    onEdit: () => alert("리뷰 수정 클릭!"),
-    onDelete: () => alert("리뷰 삭제 클릭!"),
-  };
+  const [reviews, setReviews] = useState<GetUserReviewsResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { userId } = useUserDetails();
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      if (!userId) return;
+
+      try {
+        setIsLoading(true);
+        const data = await getUserReviews(userId);
+        setReviews(data);
+        setError(null);
+      } catch (err) {
+        setError("리뷰를 불러오는데 실패했습니다.");
+        setReviews(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [userId]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <p>리뷰를 불러오는 중...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px] text-red-500">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (!reviews?.reviews?.length) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <p>작성한 리뷰가 없습니다.</p>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <ReviewCard {...reviewData} />
+    <div className="space-y-4">
+      {reviews.reviews.map((review) => (
+        <ReviewCard
+          key={review.reviewId}
+          reviewDate={review.reviewCreatedAt?.split("T")?.[0] ?? ""}
+          groomingStyle={review.groomingStyle ?? ""}
+          puppyName={review.puppyName ?? ""}
+          address={review.designerProfile?.address ?? ""}
+          totalCost={review.estimateCost ?? 0}
+          rating={review.reviewRating ?? 0}
+          reviewText={review.contentDetail ?? ""}
+          reviewImages={review.reviewImages ?? []}
+          onEdit={() => alert(`리뷰 ${review.reviewId} 수정 클릭!`)}
+          onDelete={() => alert(`리뷰 ${review.reviewId} 삭제 클릭!`)}
+        />
+      ))}
     </div>
   );
 }
