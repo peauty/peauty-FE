@@ -31,6 +31,8 @@ export const Button = styled.button<{
   overflow: hidden; /* 텍스트가 넘치는 경우 숨김 */
   white-space: nowrap; /* 텍스트가 한 줄로 유지 */
   text-overflow: ellipsis; /* 텍스트가 넘칠 경우 '...'으로 처리 */
+  position: relative; /* Ensure z-index works */
+  z-index: 1; /* Default z-index to ensure it's on top when not hovered */
 
   // 크기 설정
   ${(props) => {
@@ -68,6 +70,15 @@ export const Button = styled.button<{
           font-weight: 500;
           border-radius: 10px;
         `;
+      case "signup":
+        return css`
+          padding: 20px 32px;
+          font-size: 12px;
+          width: 200px;
+          font-weight: 500;
+          border-radius: 7px;
+          box-sizing: border-box;
+        `;
       default: // medium
         return css`
           /* padding: 12px 24px; */
@@ -90,6 +101,10 @@ export const Button = styled.button<{
 
           &:hover:not(:disabled) {
             background-color: #e0e7ff;
+            transform: scale(
+              1.05
+            ); /* Scale up without affecting surrounding elements */
+            z-index: 2; /* Ensure it's on top */
           }
 
           &:active:not(:disabled) {
@@ -99,13 +114,17 @@ export const Button = styled.button<{
       case "outline":
         return css`
           background-color: transparent;
-          color: ${colors.grayOpacity200};
+          color: ${colors.black};
           border: 1px solid ${colors.gray300};
 
           &:hover:not(:disabled) {
             color: ${colors.blue100};
-            border: 1px solid ${colors.blue100};
+            border: 2px solid ${colors.blue100};
             background-color: ${colors.blue300};
+            transform: scale(
+              1.05
+            ); /* Scale up without affecting surrounding elements */
+            z-index: 2; /* Ensure it's on top */
           }
 
           &:active:not(:disabled) {
@@ -121,6 +140,10 @@ export const Button = styled.button<{
           &:hover:not(:disabled) {
             background-color: ${colors.red200};
             transform: translateY(-1px);
+            transform: scale(
+              1.05
+            ); /* Scale up without affecting surrounding elements */
+            z-index: 2; /* Ensure it's on top */
           }
 
           &:active:not(:disabled) {
@@ -136,6 +159,10 @@ export const Button = styled.button<{
           &:hover:not(:disabled) {
             background-color: ${colors.blue200};
             transform: translateY(-1px);
+            transform: scale(
+              1.05
+            ); /* Scale up without affecting surrounding elements */
+            z-index: 2; /* Ensure it's on top */
           }
 
           &:active:not(:disabled) {
