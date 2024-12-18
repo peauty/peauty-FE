@@ -50,9 +50,8 @@ export default function ChoosePetForGrooming({
         if (statusResponse.puppies) {
           const statusMap: { [key: number]: boolean } = {};
           statusResponse.puppies.forEach((puppy) => {
-            if (puppy.puppyId) {
+            if (puppy.puppyId && puppy.hasOngoingProcess)
               statusMap[puppy.puppyId] = puppy.hasOngoingProcess;
-            }
           });
 
           // 상태 업데이트 후, 상태 변경을 기다려서 pups를 렌더링하도록 조정
