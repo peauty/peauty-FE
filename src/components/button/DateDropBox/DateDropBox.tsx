@@ -37,7 +37,11 @@ export default function DateDropBox({
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const currentYear = new Date().getFullYear();
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; // Months are 0-indexed in JS Date
+  const currentDay = currentDate.getDate();
+
   const years =
     type === "birthday"
       ? [
@@ -64,6 +68,18 @@ export default function DateDropBox({
       (i + 1).toString().padStart(2, "0"),
     ),
   ];
+
+  const filteredMonths =
+    type === "birthday" && selectedYear === currentYear.toString()
+      ? ["선택 없음", ...months.slice(1, currentMonth + 1)] // Only past months for current year
+      : months;
+
+  const filteredDays =
+    type === "birthday" &&
+    selectedYear === currentYear.toString() &&
+    selectedMonth === currentMonth.toString().padStart(2, "0")
+      ? ["선택 없음", ...days.slice(1, currentDay + 1)] // Only past days for current month of current year
+      : days;
 
   const handleDateChange = () => {
     if (selectedYear && selectedMonth && selectedDay) {
@@ -99,7 +115,12 @@ export default function DateDropBox({
       <div style={{ display: "flex", gap: "8px" }}>
         {["year", "month", "day"].map((type, index) => {
           const options =
-            type === "year" ? years : type === "month" ? months : days;
+            type === "year"
+              ? years
+              : type === "month"
+                ? filteredMonths
+                : filteredDays;
+
           const selected =
             type === "year"
               ? selectedYear

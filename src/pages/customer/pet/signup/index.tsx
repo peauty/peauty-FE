@@ -27,6 +27,13 @@ export default function PetSignUp() {
       setCurrentStep(currentStep + 1);
     }
   };
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep((prevStep) => prevStep - 1);
+    } else {
+      navigate(ROUTE.signIn);
+    }
+  };
 
   // Step 렌더링 함수
   const renderStep = () => {
@@ -96,7 +103,7 @@ export default function PetSignUp() {
 
   return (
     <>
-      <AppBar prefix="backButton" title="반려견 등록" />
+      <AppBar prefix="backButton" title="반려견 등록" onclick={handleBack} />
       <ProgressWrapper>
         {Array.from({ length: totalSteps }).map((_, index) => (
           <ProgressBlock key={index} isActive={index < currentStep} />

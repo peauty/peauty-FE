@@ -17,6 +17,7 @@ import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { ChangeEvent } from "react";
 import { breedMap } from "../../../../../../constants/puppy";
 import { GNB } from "../../../../../../components";
+import { DateDropBox } from "../../../../../../components/button/DateDropBox";
 
 interface Step1Props {
   onNext: () => void;
@@ -127,41 +128,19 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           )}
 
           <InputWrapper>
-            <HalfWrapper>
-              <CustomInput
-                label="나이"
-                placeholder="예) 4"
-                variant="outlined"
-                value={String(inputData.age)}
-                onChange={(event) => handleInputChange(event, "age")}
-              />
-              <Text color="gray100" typo="body100">
-                살
-              </Text>
-            </HalfWrapper>
-
-            <HalfWrapper>
-              <CustomInput
-                label="몸무게"
-                placeholder="예) 22"
-                variant="outlined"
-                value={String(inputData.weight)}
-                onChange={(event) => handleInputChange(event, "weight")}
-              />
-              <Text color="gray100" typo="body100">
-                kg
-              </Text>
-            </HalfWrapper>
+            <CustomInput
+              label="몸무게"
+              placeholder="예) 22"
+              variant="outlined"
+              value={String(inputData.weight)}
+              onChange={(event) => handleInputChange(event, "weight")}
+            />
+            <Text color="gray100" typo="body100">
+              kg
+            </Text>
           </InputWrapper>
 
-          <CustomInput
-            label="생일"
-            placeholder="예) 2024-12-10"
-            variant="outlined"
-            value={inputData.birthdate}
-            onChange={(event) => handleInputChange(event, "birthdate")}
-          />
-          {/* <DateDropBox label="생일" type="birthday" /> */}
+          <DateDropBox label="생년월일" type="birthday" />
         </div>
 
         <GNB buttonText="다음" onLargeButtonClick={onNext} />
