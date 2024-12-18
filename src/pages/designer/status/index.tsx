@@ -19,6 +19,7 @@ import { completeGrooming } from "../../../apis/designer/resources/designer-bidd
 import Modal from "../../../components/modal/Modal/Modal";
 import { useLocation } from "react-router-dom";
 import Toast from "../../../components/toast";
+import Basic from "../../../assets/images/basic.png";
 type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
@@ -220,10 +221,7 @@ export default function Status() {
           processStatus={thread.processStatus}
           key={thread.threadId}
           date={formatDate(thread.threadStepModifiedAt)} // 날짜 포맷팅 적용
-          imageSrc={
-            thread.puppy?.profileImageUrl ||
-            "https://peauty.s3.ap-northeast-2.amazonaws.com/images/dog.png"
-          }
+          imageSrc={thread.puppy?.profileImageUrl || Basic}
           name={thread.puppy?.name || "강아지"}
           age={thread.puppy?.age || 3}
           gender={thread.puppy?.sex || "수컷"}

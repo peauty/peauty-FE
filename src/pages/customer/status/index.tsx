@@ -18,7 +18,7 @@ import {
   GetAllStep3AboveThreadsResponse,
   GetOngoingProcessWithStep2ThreadsResponse,
 } from "../../../types/customer/bidding";
-
+import Basic from "../../../assets/images/basic.png";
 interface StatusItemData {
   name: string;
   store: string;
@@ -62,7 +62,7 @@ export default function Status() {
               name: step1Data.info.requestText || "알 수 없음",
               store: step1Data.stores?.[0]?.store || "알 수 없음",
               location: step1Data.stores?.[0]?.location || "알 수 없음",
-              reservation: step1Data.stores?.[0]?. threadStep || "알 수 없음",
+              reservation: step1Data.stores?.[0]?.threadStep || "알 수 없음",
               score: step1Data.stores?.[0]?.score || 0,
               review: step1Data.stores?.[0]?.review || 0,
               //payment: step1Data.stores?.[0]?.desiredCost || 0,
@@ -72,7 +72,7 @@ export default function Status() {
                   name: badge.badgeName || "알 수 없음",
                   color: badge.badgeColor || "#000",
                 })) || [],
-              thumbnailUrl: step1Data.stores?.[0]?.thumbnailUrl || "",
+              thumbnailUrl: step1Data.stores?.[0]?.thumbnailUrl || Basic,
             });
           }
 
@@ -159,7 +159,7 @@ export default function Status() {
               score={statusItemData?.score || 0}
               review={statusItemData?.review || 0}
               badges={statusItemData?.badges || []}
-              thumbnailUrl={statusItemData?.thumbnailUrl || ""}
+              thumbnailUrl={statusItemData?.thumbnailUrl || Basic}
               onClick={() => console.log("StatusListItem clicked")}
             />
           </>
@@ -174,29 +174,26 @@ export default function Status() {
               puppyId={0}
               processId={0}
             />
-            <div style={{ padding: "0 20px" }}>
-              {step2ThreadsData?.stores &&
-              step2ThreadsData.stores.length > 0 ? (
-                step2ThreadsData.stores.map((store, index) => (
-                  <CustomerInfo
-                    key={index}
-                    store={store.store || "알 수 없음"}
-                    score={store.score || 0}
-                    review={store.review || 0}
-                    location={store.location || "알 수 없음"}
-                    thumbnailUrl={store.thumbnailUrl || ""}
-                    buttons={renderCustomerInfoButtons("received")}
-                    status={store.threadStatus || "알 수 없음"}
-                    payment={formatCurrency(store.desiredCost || 0)}
-                    onClick={() =>
-                      console.log(`CustomerInfo clicked for store ${index}`)
-                    }
-                  />
-                ))
-              ) : (
-                <p>확인된 데이터가 없습니다.</p>
-              )}
-            </div>
+            {step2ThreadsData?.stores && step2ThreadsData.stores.length > 0 ? (
+              step2ThreadsData.stores.map((store, index) => (
+                <CustomerInfo
+                  key={index}
+                  store={store.store || "알 수 없음"}
+                  score={store.score || 0}
+                  review={store.review || 0}
+                  location={store.location || "알 수 없음"}
+                  thumbnailUrl={store.thumbnailUrl || Basic}
+                  buttons={renderCustomerInfoButtons("received")}
+                  status={step2ThreadsData.info?.requestText || "알 수 없음"}
+                  payment={formatCurrency(store.desiredCost || 0)}
+                  onClick={() =>
+                    console.log(`CustomerInfo clicked for store ${index}`)
+                  }
+                />
+              ))
+            ) : (
+              <p>확인된 데이터가 없습니다.</p>
+            )}
           </>
         );
       case "confirmed":
@@ -212,7 +209,7 @@ export default function Status() {
                     review={thread.reviewCount || 0}
                     reservation={thread.threadStep || "알 수 없음"}
                     location={thread.address || "알 수 없음"}
-                    thumbnailUrl={thread.thumbnailUrl || ""}
+                    thumbnailUrl={thread.thumbnailUrl || Basic}
                     buttons={renderCustomerInfoButtons("confirmed")}
                     status={thread.style || "알 수 없음"}
                     payment={formatCurrency(

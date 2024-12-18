@@ -172,9 +172,10 @@ export const StyledInputWrapper = styled.div`
 `;
 
 export const NoticeContainer = styled.div<{ hasError: boolean }>`
+  display: flex;
   justify-content: ${({ hasError }) =>
     hasError ? "space-between" : "flex-end"};
   align-items: center;
   width: 100%;
-  padding: 0 5px;
+  padding: 5px 5px 0;
 `;
