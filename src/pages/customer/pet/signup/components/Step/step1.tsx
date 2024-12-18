@@ -138,7 +138,12 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
             </Text>
           </InputWrapper>
 
-          <DateDropBox label="생년월일" type="birthday" />
+          <DateDropBox
+            label="생년월일"
+            type="birthday"
+            selectedDate={inputData.birthdate} // 기존에 선택된 생년월일이 있다면 표시
+            onChange={(date) => handleChange("birthdate", date)}
+          />
         </div>
 
         <GNB buttonText="다음" onLargeButtonClick={onNext} />
