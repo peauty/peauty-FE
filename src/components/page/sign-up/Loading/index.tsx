@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const rotate = keyframes`
   from {
@@ -33,16 +33,19 @@ interface LoaderProps {
   size?: number;
 }
 
-const LOADINGIMAGE = "https://avatars.githubusercontent.com/u/70759627?v=4" // TODO 퓨티 이미지로 변경
+const LOADINGIMAGE = "/svg/loading.svg"; // TODO 퓨티 이미지로 변경
 
-export default function Loading({ imageUrl=LOADINGIMAGE, size=40 }: LoaderProps) {
+export default function Loading({
+  imageUrl = LOADINGIMAGE,
+  size = 40,
+}: LoaderProps) {
   return (
-      <LoaderContainer>
-        <LoadingImage 
-          src={imageUrl} 
-          alt="loading" 
-          style={{ width: size, height: size }}
-        />
-      </LoaderContainer>
+    <LoaderContainer>
+      <LoadingImage
+        src={imageUrl}
+        alt="loading"
+        style={{ width: size, height: size }}
+      />
+    </LoaderContainer>
   );
-};
+}

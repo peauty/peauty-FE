@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Style } from "../index.styles"; // Ensure this path is correct
-import { CustomButton, Text } from "../../../../components"; // Ensure these are correctly imported
-import { AddImage } from "../../../../assets/svg"; // Ensure this path is correct
-import { uploadImage } from "../../../../apis/designer/resources/internal"; // Ensure this path is correct
+import { Style } from "../index.styles";
+import { CustomButton, Text } from "../../../../components";
+import { AddImage } from "../../../../assets/svg";
+import { uploadImage } from "../../../../apis/designer/resources/internal";
 
 interface CertificateInputSectionProps {
   onChange: (licenses: string[]) => void;
@@ -44,6 +44,23 @@ export default function CertificateInputSection({
       handleImageUpload(file);
     } else {
       console.log("파일이 선택되지 않았습니다.");
+  // 실제 파일 업로드 처리 (파일을 받아서 서버로 업로드하는 함수)
+  // const handleImageUpload = async (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  // ) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     try {
+  //       // 서버에 파일 업로드 (업로드된 URL 반환)
+  //       const response = await uploadImage(file);
+  //       if (response.uploadedImageUrl) {
+  //         const updatedLicenses = [...licenseImages, response.uploadedImageUrl];
+  //         setLicenseImages(updatedLicenses);
+  //         onChange(updatedLicenses); // 부모에게 값 전달
+  //       }
+  //     } catch (error) {
+  //       console.error("이미지 업로드 실패", error);
+  //     }
     }
   };
 

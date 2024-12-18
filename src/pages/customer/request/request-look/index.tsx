@@ -1,11 +1,37 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { AppBar, DropButton, Text, CustomInput, GNB } from "../../../../components";
+import {
+  AppBar,
+  DropButton,
+  Text,
+  CustomInput,
+  GNB,
+} from "../../../../components";
 import { RadioSelectButton } from "../../../../components/button/RadioSelectButton";
-import { GroomingBodyType, GroomingType } from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
-import { ContentWrapper, SectionWrapper, SelectedHair, TwoItemsWrapper } from "./index.styles";
-import { PhotoAttachment, PhotoAttachmentContainer } from "../../../designer/quote/quote-form/index.styles";
-import { EggHead, BabyCut, Goddess, TeddyCut, SealCut, LionCut, Helmet, EarsPop } from "../../../../assets/svg";
+import {
+  GroomingBodyType,
+  GroomingType,
+} from "../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
+import {
+  ContentWrapper,
+  SectionWrapper,
+  SelectedHair,
+  TwoItemsWrapper,
+} from "./index.styles";
+import {
+  PhotoAttachment,
+  PhotoAttachmentContainer,
+} from "../../../designer/quote/quote-form/index.styles";
+import {
+  EggHead,
+  BabyCut,
+  Goddess,
+  TeddyCut,
+  SealCut,
+  LionCut,
+  Helmet,
+  EarsPop,
+} from "../../../../assets/svg";
 import { HAIRSTYLES, CUTTING, SUMMERCUT } from "../../../../constants/request";
 import InfoButton from "../../../../components/button/InfoButton";
 import { GetEstimateProposalDetailResponse } from "../../../../types/customer/bidding";
@@ -16,12 +42,15 @@ export default function RequestLook() {
   const [selectedBodyType, setSelectedBodyType] = useState(0);
   const [selectedFaceStyle, setSelectedFaceStyle] = useState("알머리컷");
   const [selectedLength, setSelectedLength] = useState("3mm");
-  const [description, setDescription] = useState("이것은 고객이 작성한 상세설명입니다.");
+  const [description, setDescription] = useState(
+    "이것은 고객이 작성한 상세설명입니다.",
+  );
   const [desiredCost, setDesiredCost] = useState("50000");
   const [selectedDate, setSelectedDate] = useState("2024-12-20");
   const [selectedImage, setSelectedImage] = useState("");
 
-  const [proposalDetail, setProposalDetail] = useState<GetEstimateProposalDetailResponse | null>(null);
+  const [proposalDetail, setProposalDetail] =
+    useState<GetEstimateProposalDetailResponse | null>(null);
 
   // 얼굴 스타일 이미지 매핑
   const faceStyleImg: Record<string, JSX.Element> = {
@@ -45,26 +74,35 @@ export default function RequestLook() {
       const fetchProposalDetail = async () => {
         try {
           console.log("Fetching data with:", { userId, puppyId, processId });
-  
+
           // 문자열을 숫자로 변환
           const numericUserId = Number(userId);
           const numericPuppyId = Number(puppyId);
           const numericProcessId = Number(processId);
-  
+
           // 변환된 숫자값을 함수에 전달
-          const response = await getEstimateProposalDetail(numericUserId, numericPuppyId, numericProcessId);
+          const response = await getEstimateProposalDetail(
+            numericUserId,
+            numericPuppyId,
+            numericProcessId,
+          );
           console.log("API 응답 데이터:", response);
-  
-          if (response && response.data && response.data.estimateProposal) {
-            const { estimateProposal } = response.data;
-  
+
+          if (response && response.estimateProposal) {
+            const { estimateProposal } = response;
+
             // 각 필드를 상태로 설정
-            setSelectedFaceStyle(estimateProposal.totalGroomingFaceType);
-            setDescription(estimateProposal.detail);
-            setDesiredCost(estimateProposal.desiredCost.toString());
-            setSelectedDate(estimateProposal.desiredDateTime);
-            setSelectedImage(estimateProposal.imageUrls[0] || "");
-            setSelectedGroomingType(Number(estimateProposal.totalGroomingBodyType)); // 숫자로 변환
+            setSelectedFaceStyle(estimateProposal.totalGroomingFaceType || "");
+            setDescription(estimateProposal.detail || "");
+            setDesiredCost((estimateProposal.desiredCost || 0).toString());
+            setSelectedDate(estimateProposal.desiredDateTime || "");
+            setSelectedImage(
+              (estimateProposal.imageUrls && estimateProposal.imageUrls[0]) ||
+                "",
+            );
+            setSelectedGroomingType(
+              Number(estimateProposal.totalGroomingBodyType),
+            ); // 숫자로 변환
           } else {
             console.error("유효하지 않은 데이터", response);
           }
@@ -72,12 +110,11 @@ export default function RequestLook() {
           console.error("API 호출 오류:", error);
         }
       };
-  
+
       fetchProposalDetail();
     }
   }, [userId, puppyId, processId]);
-  
-  
+
   useEffect(() => {
     console.log("미용 종류:", selectedGroomingType);
     console.log("몸 타입:", selectedBodyType);
@@ -118,12 +155,12 @@ export default function RequestLook() {
   const handleLengthSelect = (value: string) => {
     setSelectedLength(value);
   };
-  
+
   const handleDesiredCostChange = (value: string) => {
     const numericValue = value.replace(/[^0-9]/g, "");
 
     setDesiredCost(
-      numericValue ? `${Number(numericValue).toLocaleString()}` : ""
+      numericValue ? `${Number(numericValue).toLocaleString()}` : "",
     );
   };
 
@@ -227,7 +264,11 @@ export default function RequestLook() {
             <Text typo="subtitle300">사진첨부</Text>
             <PhotoAttachmentContainer>
               {selectedImage ? (
-                <img src={selectedImage} alt="첨부된 사진" style={{ width: "100%", height: "auto" }} />
+                <img
+                  src={selectedImage}
+                  alt="첨부된 사진"
+                  style={{ width: "100%", height: "auto" }}
+                />
               ) : (
                 "+"
               )}

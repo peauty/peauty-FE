@@ -8,8 +8,6 @@ import {
   InfoCard,
   ProfileImage,
   ProfileTextContainer,
-  ProfileRow,
-  DashedDivider,
   QuoteDetailsCard,
   DetailRow,
   DetailLabel,
@@ -17,20 +15,44 @@ import {
   AgreementContainer,
   AgreementItem,
   TextSectionWrapper,
-} from "./index.styles"; 
-import { useEffect, useState } from 'react';
+  ProfileRow,
+  DashedDivider,
+} from "./index.styles";
+import { useEffect, useState } from "react";
 import { getEstimateAndProposalDetails } from "../../../apis/customer/resources/bidding";
 import { GetEstimateAndProposalDetailsResponse } from "../../../types/customer/bidding";
 import { useUserDetails } from "../../../hooks/useUserDetails";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Loading from "../../../components/page/sign-up/Loading";
+import { requestPayment } from "../../../apis/external/portOneAPI";
+import {
+  acceptEstimate,
+  saveOrder,
+} from "../../../apis/customer/resources/payment";
+import { useRecoilState } from "recoil";
+import { PaymentData, paymentAtom } from "../../../atoms/paymentAtom";
+import { ROUTE } from "../../../constants/routes";
+
+function formatDateToKorean(dateStr: string): string {
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분`;
+}
 
 export default function QuoteDetail() {
-  const { userId } = useUserDetails(); // userId 가져오기
-  
-  const [quoteData, setQuoteData] = useState<GetEstimateAndProposalDetailsResponse | null>(null);
+  const { userId } = useUserDetails();
+  const [paymentData, setPaymentData] = useRecoilState(paymentAtom);
+  const navigate = useNavigate();
+  const [quoteData, setQuoteData] =
+    useState<GetEstimateAndProposalDetailsResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { search } = useLocation(); // 현재 URL에서 쿼리 스트링을 가져옴
-  const queryParams = new URLSearchParams(search); // URLSearchParams로 파싱
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
 
   const puppyId = queryParams.get("puppyId");
   const threadId = queryParams.get("threadId");
@@ -39,28 +61,32 @@ export default function QuoteDetail() {
   const numericProcessId = processId ? Number(processId) : null;
   const numericThreadId = threadId ? Number(threadId) : null;
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.iamport.kr/v1/iamport.js";
+    script.async = true;
+    script.onload = () => {
+      console.log(window.IMP);
+    };
 
-  console.log("User ID:", userId);
-  console.log("Puppy ID:", puppyId);
-  console.log("Thread ID:", threadId);
-  
-  console.log("Process ID:", processId);
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   useEffect(() => {
-    // URL 쿼리 파라미터 값들이 모두 존재하는지 확인
     if (numericPuppyId && numericProcessId && numericThreadId && userId) {
       const fetchData = async () => {
         try {
-          console.log("Fetching data with:", { userId, numericPuppyId, numericProcessId, numericThreadId });
-
-          // API 호출하여 puppyId, processId, threadId 가져오기
-          const data = await getEstimateAndProposalDetails(userId, numericPuppyId, numericProcessId, numericThreadId);
-
-          console.log("API 응답 데이터:", data);
-
-          // 데이터가 유효한 경우에만 상태 설정
+          const data = await getEstimateAndProposalDetails(
+            userId,
+            numericPuppyId,
+            numericProcessId,
+            numericThreadId,
+          );
           if (data) {
-            setQuoteData(data);  // quoteData 설정
+            setQuoteData(data);
           } else {
             console.error("유효하지 않은 데이터", data);
           }
@@ -70,47 +96,91 @@ export default function QuoteDetail() {
           setIsLoading(false);
         }
       };
-
       fetchData();
     }
-  }, [userId, numericPuppyId, numericProcessId, numericThreadId]); 
+  }, [userId, numericPuppyId, numericProcessId, numericThreadId]);
 
-  if (isLoading || !puppyId || !processId || !threadId) {
-    return <div>Loading...</div>;
-  }
-  
-  if (!quoteData) {
-    return <div>Error: Data is missing.</div>;
+  if (isLoading || !puppyId || !processId || !threadId || !quoteData) {
+    return <Loading />;
   }
 
-  const { puppy, estimateProposal, estimate } = quoteData;
+  const { puppy, estimateProposal, estimate, designer } = quoteData;
+
+  const handleButtonClick = async () => {
+    try {
+      if (!userId || !puppy?.name || !estimate?.depositPrice) {
+        console.error("Required data missing for payment");
+        return;
+      }
+
+      const orderRes = await saveOrder(
+        userId,
+        Number(puppyId),
+        Number(processId),
+        Number(threadId),
+        {
+          price: estimate.estimatedCost || 0,
+          depositPrice: estimate.depositPrice,
+        },
+      );
+
+      const impUid = await requestPayment({
+        name: puppy.name,
+        price: estimate.depositPrice,
+      });
+
+      const res = await acceptEstimate(
+        userId,
+        Number(puppyId),
+        Number(processId),
+        Number(threadId),
+        {
+          orderId: orderRes.orderId,
+          depositPrice: estimate.depositPrice,
+          paymentUuid: impUid,
+        },
+      );
+
+      const paymentResponse: PaymentData = {
+        storeName: designer?.workspaceName || "알 수 없음",
+        paymentDate: res.paymentDate
+          ? formatDateToKorean(res.paymentDate)
+          : "날짜 정보 없음",
+        paidAmount: `${estimate.depositPrice.toLocaleString()} 원`,
+        onSiteAmount: estimate.estimatedCost
+          ? `${(estimate.estimatedCost - estimate.depositPrice).toLocaleString()} 원`
+          : "0 원",
+      };
+
+      setPaymentData(paymentResponse);
+      navigate(ROUTE.customer.payment);
+    } catch (error) {
+      console.error("Payment process failed:", error);
+    }
+  };
 
   return (
     <PageContainer>
       <AppBar prefix="backButton" title="견적서 보기" />
       <InfoContainer>
         <InfoCard>
-        <ProfileImage 
-        src={quoteData?.designer.profileImageUrl} 
-        
-        width="100px" 
-        height="100px" 
-      
-      />
+          <ProfileImage
+            src="" // 새 타입에는 profileImageUrl이 없음
+            width="100px"
+            height="100px"
+          />
           <div>
-            <Text typo="subtitle200">{quoteData?.designer.designerName}</Text> 
+            <Text typo="subtitle200">{designer?.workspaceName}</Text>
             <ProfileTextContainer>
               <ProfileRow>
-              <Rating score={quoteData?.designer.reviewRating} />
+                <Rating score={0} /> {/* 새 타입에는 reviewRating이 없음 */}
                 <Text typo="body300" color="gray100">
-                &nbsp;({quoteData?.designer.reviewCount})
+                  &nbsp;(0)
                 </Text>
-  
-
               </ProfileRow>
               <ProfileRow>
                 <Maker width={10} />
-                <Text typo="body400">{quoteData?.designer.address}</Text>
+                <Text typo="body400">{designer?.address}</Text>
               </ProfileRow>
               <ProfileRow>
                 <CareerIcon width={13} />
@@ -127,7 +197,7 @@ export default function QuoteDetail() {
             style={{ display: "flex", justifyContent: "center", gap: "3px" }}
           >
             <Text typo="subtitle100" color="blue100">
-              {puppy.name}
+              {puppy?.name || "알 수 없음"}
             </Text>
             <Text typo="subtitle100">견적서</Text>
           </div>
@@ -142,7 +212,9 @@ export default function QuoteDetail() {
                 <Text typo="body300">예약 날짜</Text>
               </DetailLabel>
               <Text typo="body300">
-                {new Date(estimateProposal.desiredDateTime).toLocaleString()} 
+                {estimateProposal?.desiredDateTime
+                  ? new Date(estimateProposal.desiredDateTime).toLocaleString()
+                  : "날짜 정보 없음"}
               </Text>
             </DetailRow>
 
@@ -151,7 +223,7 @@ export default function QuoteDetail() {
                 <Text typo="body300">미용 종류</Text>
               </DetailLabel>
               <Text typo="body300">
-                {estimateProposal.style} 
+                {estimateProposal?.style || "정보 없음"}
               </Text>
             </DetailRow>
 
@@ -160,7 +232,7 @@ export default function QuoteDetail() {
                 <Text typo="body300">예상 소요 시간</Text>
               </DetailLabel>
               <Text typo="body300">
-                {estimate.estimatedDuration} 
+                {estimate?.estimatedDuration || "정보 없음"}
               </Text>
             </DetailRow>
 
@@ -168,11 +240,15 @@ export default function QuoteDetail() {
               <DetailLabel>
                 <Text typo="body300">첨부사진</Text>
               </DetailLabel>
-              {estimateProposal.imageUrls && estimateProposal.imageUrls.length > 0 ? (
+              {estimateProposal?.imageUrls?.length ? (
                 <img
-                  src={estimateProposal.imageUrls[3]}
+                  src={estimateProposal.imageUrls[0]}
                   alt="첨부 사진"
-                  style={{ width: "100px", height: "100px", borderRadius: "5px" }}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "5px",
+                  }}
                 />
               ) : (
                 <div
@@ -191,23 +267,27 @@ export default function QuoteDetail() {
                 <Text typo="body300">상세 설명</Text>
               </DetailLabel>
               <DetailText>
-                <Text typo="body300">
-                {estimate.content} 
-                </Text>
+                <Text typo="body300">{estimate?.content || "설명 없음"}</Text>
               </DetailText>
             </DetailRow>
           </div>
+
           <DashedDivider />
+
           <DetailRow>
             <DetailLabel>
               <Text typo="subtitle200" color="blue100">
                 총 결제 비용
               </Text>
             </DetailLabel>
-            <Text typo="subtitle200">{estimate.depositPrice}</Text>
+            <Text typo="subtitle200">
+              {estimate?.depositPrice
+                ? `${estimate.depositPrice.toLocaleString()}원`
+                : "0원"}
+            </Text>
           </DetailRow>
 
-         <DashedDivider />
+          <DashedDivider />
 
           <AgreementContainer>
             <div style={{ marginBottom: "15px" }}>
@@ -257,7 +337,12 @@ export default function QuoteDetail() {
         </QuoteDetailsCard>
       </div>
 
-      <GNB buttonText={`${estimate.depositPrice.toLocaleString()}원 결제하기`} />
+      <GNB
+        buttonText={`${
+          estimate?.depositPrice ? estimate.depositPrice.toLocaleString() : 0
+        }원 결제하기`}
+        onLargeButtonClick={handleButtonClick}
+      />
     </PageContainer>
   );
 }

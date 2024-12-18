@@ -4,19 +4,20 @@ import { CustomInput } from "../../../../../../components/input/CustomInput";
 import { RadioSelectButton } from "../../../../../../components/button/RadioSelectButton";
 import { Text } from "../../../../../../components/texts/Text";
 import { DropButton } from "../../../../../../components/button/DropButton";
-import { CustomButton } from "../../../../../../components/button/CustomButton";
 import {
   ProfileWrapper,
   CameraIcon,
   SectionWrapper,
-  ButtonWrapper,
   InputWrapper,
-  HalfWrapper,
 } from "../../index.styles";
 
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { ChangeEvent } from "react";
 import { breedMap } from "../../../../../../constants/puppy";
+import { GNB } from "../../../../../../components";
+import { DateDropBox } from "../../../../../../components/button/DateDropBox";
+import { uploadImage } from "../../../../../../apis/customer/resources/internal";
+import { UploadImageResponse } from "../../../../../../types/customer/internal";
 
 interface Step1Props {
   onNext: () => void;
@@ -32,11 +33,19 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
     handleChange(key, event.target.value);
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      handleChange("profileImageUrl", imageUrl);
+      try {
+        // 파일 업로드 API 호출
+        const response: UploadImageResponse = await uploadImage(file);
+        // 업로드된 이미지 URL을 상태에 업데이트
+        if (response.uploadedImageUrl) {
+          handleChange("profileImageUrl", response.uploadedImageUrl);
+        }
+      } catch (error) {
+        console.error("이미지 업로드 실패", error);
+      }
     }
   };
 
@@ -76,15 +85,15 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
     <div>
       <ProfileWrapper>
         <CameraIcon>
-          <label htmlFor="profile-image-upload">
+          <input
+            id="profile-image-upload"
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
+          <label htmlFor="profile-image-upload" style={{ cursor: "pointer" }}>
             <Camera width="30" height="30" />
-            <input
-              id="profile-image-upload"
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
           </label>
         </CameraIcon>
         {renderProfileImage()}
@@ -127,48 +136,27 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           )}
 
           <InputWrapper>
-            <HalfWrapper>
-              <CustomInput
-                label="나이"
-                placeholder="예) 4"
-                variant="outlined"
-                value={String(inputData.age)}
-                onChange={(event) => handleInputChange(event, "age")}
-              />
-              <Text color="gray100" typo="body100">
-                살
-              </Text>
-            </HalfWrapper>
-
-            <HalfWrapper>
-              <CustomInput
-                label="몸무게"
-                placeholder="예) 22"
-                variant="outlined"
-                value={String(inputData.weight)}
-                onChange={(event) => handleInputChange(event, "weight")}
-              />
-              <Text color="gray100" typo="body100">
-                kg
-              </Text>
-            </HalfWrapper>
+            <CustomInput
+              label="몸무게"
+              placeholder="예) 22"
+              variant="outlined"
+              value={String(inputData.weight)}
+              onChange={(event) => handleInputChange(event, "weight")}
+            />
+            <Text color="gray100" typo="body100">
+              kg
+            </Text>
           </InputWrapper>
 
-          <CustomInput
-            label="생일"
-            placeholder="예) 2024-12-10"
-            variant="outlined"
-            value={inputData.birthdate}
-            onChange={(event) => handleInputChange(event, "birthdate")}
+          <DateDropBox
+            label="생년월일"
+            type="birthday"
+            selectedDate={inputData.birthdate} // 기존에 선택된 생년월일이 있다면 표시
+            onChange={(date) => handleChange("birthdate", date)}
           />
-          {/* <DateDropBox label="생일" type="birthday" /> */}
         </div>
 
-        <ButtonWrapper>
-          <CustomButton fullwidth variant="primary" onClick={onNext}>
-            다음
-          </CustomButton>
-        </ButtonWrapper>
+        <GNB buttonText="다음" onLargeButtonClick={onNext} />
       </SectionWrapper>
     </div>
   );
