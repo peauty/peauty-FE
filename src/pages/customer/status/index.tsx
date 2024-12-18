@@ -26,7 +26,7 @@ interface StatusItemData {
   reservation: string;
   score: number;
   review: number;
-  payment: number;
+  payment?: number;
   date: string;
   badges: { name: string; color: string }[];
   thumbnailUrl: string;
@@ -65,7 +65,7 @@ export default function Status() {
               reservation: step1Data.stores?.[0]?. threadStep || "알 수 없음",
               score: step1Data.stores?.[0]?.score || 0,
               review: step1Data.stores?.[0]?.review || 0,
-              payment: step1Data.stores?.[0]?.desiredCost || 0,
+              //payment: step1Data.stores?.[0]?.desiredCost || 0,
               date: step1Data.info.requestDate || "알 수 없음",
               badges:
                 step1Data.stores?.[0]?.badges?.map((badge) => ({
