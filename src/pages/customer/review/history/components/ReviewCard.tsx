@@ -48,10 +48,14 @@ export default function ReviewCard({
               <Text typo="subtitle100">{puppyName}</Text>
             </div>
             <Text typo="body500" color="gray100">{address}</Text>
-            <Rating score={rating} fontsize="body300" />
+            <RatingContainer>
+          <Rating score={rating} fontsize="body300" />
+        </RatingContainer>
           </div>
   
-          <Text typo="subtitle200" color="gray100">{totalCost.toLocaleString()}원</Text>
+          <div>
+            <Text typo="subtitle200" >{totalCost.toLocaleString()}원</Text>
+          </div>
         </Header>
   
         <Text typo="body400">{reviewText}</Text>
@@ -68,14 +72,15 @@ export default function ReviewCard({
     );
   }
   
-
-
-
-
   
+  const RatingContainer = styled.div`
+  margin-right: 60px;
+`
+
+
 
 const CardContainer = styled.div`
-  //padding: 5px;
+  padding: 0px 25px;
 `;
 
 const Header = styled.div`
