@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AppBar } from "../../../../components";
-import { ProgressWrapper, ProgressBlock } from "./index.styles";
+import { ProgressWrapper, ProgressBlock, SectionWrapper, ContentsWrapper } from "./index.styles";
 import Step1 from "./components/Step/step1";
 import Step2 from "./components/Step/step2";
 import Step3 from "./components/Step/step3";
@@ -102,7 +102,7 @@ export default function PetSignUp() {
   };
 
   return (
-    <>
+    <ContentsWrapper>
       <AppBar prefix="backButton" title="반려견 등록" onclick={handleBack} />
       <ProgressWrapper>
         {Array.from({ length: totalSteps }).map((_, index) => (
@@ -110,6 +110,6 @@ export default function PetSignUp() {
         ))}
       </ProgressWrapper>
       {renderStep()}
-    </>
+    </ContentsWrapper>
   );
 }

@@ -8,5 +8,9 @@ export const RequestSection2 = styled(Requ)`
 export const Divider = styled.div`
   flex: 1;
   border: 1px solid ${colors.gray400};
-  /* margin: 25px 0; */
+`;
+
+export const Icon = styled.div`
+  display: flex;
+  margin-top: 4px;
 `;

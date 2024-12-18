@@ -6,7 +6,7 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 30px 20px calc(${theme.size.gnbHeight} + 30px);
+  padding: calc(${theme.size.appBarHeight} + 20px) 25px 30px;
 `;
 
 export const SectionWrapper = styled.div`
@@ -34,4 +34,9 @@ export const TwoItemsWrapper = styled.div`
 export const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const NoImg = styled.div`
+  display: flex;
+  padding: 10px 0px 20px;
 `;

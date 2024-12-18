@@ -27,6 +27,7 @@ interface CustomInputProps
   unit?: string; // 단위 추가
   extraText?: string; // 추가 텍스트를 위한 prop
   maxLength?: number; // 최대 글자수 prop 추가
+  hasError?: boolean;
 }
 
 export default function CustomInput({
@@ -44,6 +45,7 @@ export default function CustomInput({
   unit,
   extraText, // 추가 텍스트 prop
   maxLength = 200, // 기본값 200
+  hasError = false,
   ...props
 }: CustomInputProps) {
   const [focused, setFocused] = useState(false);
@@ -69,7 +71,6 @@ export default function CustomInput({
       props.onChange?.(e);
       return;
     }
-
     props.onChange?.(e);
   };
 
@@ -91,7 +92,7 @@ export default function CustomInput({
         variant={variant}
         error={showError}
         disabled={disabled}
-        onFocus={() => setFocused(true)} // 포커스 상태 설정
+        onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)} // 포커스 해제 시 상태 변경
         hasExtraText={!!extraText} // 추가 텍스트가 있을 때 스타일 변경
       >
@@ -157,7 +158,7 @@ export default function CustomInput({
                   ? "blue100"
                   : "gray100"
             }
-            typo="body100"
+            typo="body400"
           >
             {inputLength}/{maxLength}
           </Text>

@@ -33,7 +33,7 @@ export default function Card({
   isSelected = false,
   disabled = false, // 기본값 false
 }: CardProps) {
-  const gen = gender === "F" ? "여자" : "남자";
+  const gen = gender === "F" ? "여아" : "남아";
 
   // disabled일 경우 onClick을 비활성화
   const handleClick = (e: React.MouseEvent) => {
