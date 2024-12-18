@@ -6,7 +6,6 @@ import {
   StyledInputWrapper,
   StyledInput,
   StyledTextarea,
-  Message,
   SuffixContainer,
   NoticeContainer,
 } from "./CustomInput.styles";
@@ -71,13 +70,6 @@ export default function CustomInput({
     }
 
     props.onChange?.(e);
-  };
-
-  // 색상 결정 함수
-  const getColor = () => {
-    if (error) return "red100";
-    if (success) return "blue100";
-    return "black100";
   };
 
   return (
