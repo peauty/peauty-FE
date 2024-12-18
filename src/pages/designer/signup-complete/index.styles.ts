@@ -1,9 +1,11 @@
 import { keyframes, styled } from "styled-components";
+import theme from "../../../style/theme";
 
 export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh; // 전체 높이 사용
+  height: calc(100vh - ${theme.size.appBarHeight});
+  width: 100%;
 `;
 
 export const ContentWrapper = styled.div`
@@ -12,15 +14,15 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 24px; // 좌우 패딩
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding-bottom: 275px;
+  gap: 10px;
+  height: 100px;
 `;
 
 const bang = keyframes`
@@ -98,4 +100,11 @@ export const Particle = styled.div`
       ${position} 6.25s linear infinite backwards;
     animation-delay: 1.25s, 1.25s, 1.25s;
   }
+`;
+
+export const ContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: auto;
 `;

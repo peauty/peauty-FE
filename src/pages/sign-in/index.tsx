@@ -65,7 +65,7 @@ export default function SignIn() {
             </Text>
             에 오신 것을 환영해요
           </Text>
-          <Text color={"gray100"} typo={"subtitle300"}>
+          <Text typo={"subtitle300"}>
             퓨티는 반려견에게{" "}
             <Text color={"blue100"} typo={"subtitle300"}>
               딱!

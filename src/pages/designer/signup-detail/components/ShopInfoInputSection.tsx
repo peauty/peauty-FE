@@ -118,7 +118,7 @@ export default function ShopInfoInputSection({
       />
 
       <Style.RadioWrapper>
-        <Text typo="subtitle300" color="gray100">
+        <Text typo="subtitle300">
           결제 방식{" "}
           <Text typo="body400" color="gray100">
             (중복 선택도 가능해요)
