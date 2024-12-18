@@ -7,7 +7,6 @@ import {
   ButtonWrapper,
   MyInfoWrapper,
 } from "./index.styles";
-import { IoIosMale, IoIosFemale } from "react-icons/io";
 import ProfileImg from "../../../../components/profile-img/ProfileImg";
 import OptionButton from "./components/OptionButton";
 import SvgBirthDay from "../../../../assets/svg/BirthDay";
@@ -139,7 +138,7 @@ export default function PetInfoPage() {
 
         {puppyData.disease && puppyData.disease.length > 0 && (
           <InfoWrapper>
-            {puppyData.detail && (
+            {puppyData.detail && puppyData.disease[0] !== "없음" && (
               <Text typo="body100" color="blue100">
                 {puppyData.disease.join(", ")}
                 <Text typo="body100">이 있어요</Text>
