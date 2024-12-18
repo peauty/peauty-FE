@@ -11,34 +11,21 @@ export type ReviewRatingType =
   | "FOUR_POINT_FIVE"
   | "FIVE";
 
-export type ContentGeneralType =
-  | "GOOD_SERVICE"
-  | "COME_AGAIN"
-  | "KIND"
-  | "MYPICK";
-
-export interface GetReviewDetailResponse {
-  reviewId?: number;
-  biddingThreadId?: number;
-  reviewRating?: number;
-  contentDetail?: string;
-  contentGeneral?: string;
-  reviewImages?: string[];
-}
+export type ContentsType = "GOOD_SERVICE" | "COME_AGAIN" | "KIND" | "MYPICK";
 
 export interface UpdateReviewResponse {
   reviewId?: number;
   biddingThreadId?: number;
   reviewRating?: number;
   contentDetail?: string;
-  contentGeneral?: string;
+  contentGenerals?: string[];
   reviewImages?: string[];
 }
 
 export interface UpdateReviewRequest {
   reviewRating?: ReviewRatingType;
   contentDetail?: string;
-  contentGeneral?: ContentGeneralType;
+  contentGenerals?: ContentsType[];
   reviewImageUrls?: string[];
 }
 
@@ -51,14 +38,60 @@ export interface RegisterReviewResponse {
   biddingThreadId?: number;
   reviewRating?: number;
   contentDetail?: string;
-  contentGeneral?: string[];
+  contentGenerals?: string[];
 }
 
 export interface RegisterReviewRequest {
   reviewRating?: ReviewRatingType;
   contentDetail?: string;
-  contentGeneral?: ContentGeneralType;
+  contentGenerals?: ContentsType[];
   reviewImages?: string[];
+}
+
+export interface GetUserReviewsResponse {
+  customerId?: number;
+  reviews?: {
+    reviewId?: number;
+    biddingThreadId?: number;
+    biddingProcessId?: number;
+    puppyId?: number;
+    reviewRating?: number;
+    contentDetail?: string;
+    contentGenerals?: string[];
+    reviewImages?: string[];
+    groomingStyle?: string;
+    puppyName?: string;
+    estimateCost?: number;
+    reviewCreatedAt?: string;
+    designerProfile?: {
+      workspaceName?: string;
+      address?: string;
+    };
+  }[];
+}
+
+export interface GetReviewDetailResponse {
+  reviewId?: number;
+  biddingThreadId?: number;
+  biddingProcessId?: number;
+  puppyId?: number;
+  reviewRating?: number;
+  contentDetail?: string;
+  contentGenerals?: string[];
+  reviewImages?: string[];
+  groomingStyle?: string;
+  puppyName?: string;
+  estimateCost?: number;
+  reviewCreatedAt?: string;
+  designerProfile?: {
+    workspaceName?: string;
+    address?: string;
+  };
+}
+
+export interface DesignerProfile {
+  workspaceName?: string;
+  address?: string;
 }
 
 export interface GetDesignerReviewsResponse {

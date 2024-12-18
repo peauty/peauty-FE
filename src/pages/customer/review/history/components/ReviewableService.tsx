@@ -3,19 +3,23 @@ import { colors } from "../../../../../style/color";
 import CustomerInfo from "../../../status/components/CustomerInfo";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import { getCanReviewThreads } from "../../../../../apis/customer/resources/bidding";
+import { ROUTE } from "../../../../../constants/routes";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil"; // Recoil의 상태를 업데이트할 때 사용
+import { ReviewAtom, ReviewData } from "../../../../../atoms/reviewAtom";
 
-// 상태에 대한 초기값 설정
 interface Badge {
   badgeId?: number;
   badgeName?: string;
   badgeContent?: string;
   badgeImageUrl?: string;
   isRepresentativeBadge?: boolean;
-  badgeColor?: string; // Color가 문자열일 수 있음 (예: "blue")
-  badgeType?: string; // BadgeTypeType도 문자열일 가능성 있음
+  badgeColor?: string;
+  badgeType?: string;
 }
 
 interface Thread {
+  puppyId?: number;
   processId?: number;
   threadId?: number;
   threadStep?: string;
@@ -33,8 +37,9 @@ interface Thread {
 export default function ReviewableService() {
   const [threads, setThreads] = useState<Thread[]>([]);
   const { userId, isLoading } = useUserDetails();
+  const navigate = useNavigate();
+  const setReviewData = useSetRecoilState(ReviewAtom); // Recoil 상태 설정 훅 사용
 
-  // 비동기 API 호출을 위한 함수 정의
   const fetchThreads = async (userId: number) => {
     try {
       const response = await getCanReviewThreads(userId);
@@ -44,16 +49,28 @@ export default function ReviewableService() {
     }
   };
 
-  // 사용자 ID에 맞는 쓰레드 데이터 fetch
   useEffect(() => {
     if (userId) {
       fetchThreads(userId);
     }
   }, [userId, isLoading]);
 
-  // 금액 포맷팅
   const formatCurrency = (amount: number): string => {
-    return new Intl.NumberFormat().format(amount); // 1000 단위로 쉼표 추가
+    return new Intl.NumberFormat().format(amount);
+  };
+
+  const handleButtonClick = (thread: Thread) => {
+    // Recoil 상태에 필요한 데이터를 담아서 업데이트
+    const reviewData: ReviewData = {
+      userId: userId || 0,
+      puppyId: thread.puppyId || 0,
+      processId: thread.processId || 0,
+      threadId: thread.threadId || 0,
+      reviewId: undefined, // 실제 reviewId를 설정해야 할 경우, 적절한 값 설정
+    };
+
+    setReviewData(reviewData); // Recoil 상태에 데이터 저장
+    navigate(ROUTE.customer.mypage.review.write); // 리뷰 작성 페이지로 이동
   };
 
   return (
@@ -83,7 +100,7 @@ export default function ReviewableService() {
             }}
           >
             <CustomerInfo
-              date={new Date().toLocaleDateString()} // 실제 날짜를 넣으려면 적절한 값을 설정
+              date={new Date().toLocaleDateString()}
               location={address || "주소 없음"}
               store={workspaceName || "업체 이름 없음"}
               score={score || 0}
@@ -96,7 +113,7 @@ export default function ReviewableService() {
                   bgColor: colors.blue300,
                   color: colors.blue100,
                   width: "100%",
-                  onClick: () => console.log("리뷰작성클릭"),
+                  onClick: () => handleButtonClick(thread), // handleButtonClick에 thread 데이터를 전달
                 },
               ]}
               status={style || "스타일 정보 없음"}

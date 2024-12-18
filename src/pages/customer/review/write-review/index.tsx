@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil"; // Recoil 상태를 읽어오는 훅
 import {
   AppBar,
   CustomButton,
@@ -20,46 +21,29 @@ import {
 } from "./index.styles";
 import { ROUTE } from "../../../../constants/routes";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
-import { RegisterReviewRequest } from "../../../../types/customer/review";
+import {
+  ContentsType,
+  RegisterReviewRequest,
+} from "../../../../types/customer/review";
 import { registerReview } from "../../../../apis/customer/resources/review";
 import { uploadImages } from "../../../../apis/designer/resources/internal";
 import { AddImage } from "../../../../assets/svg";
 import SvgPen from "../../../../assets/svg/Pen";
 import { ReviewRatingType } from "../../../../types/customer/review";
 import ReviewableService from "./components/ReviewableService";
+import { ReviewAtom } from "../../../../atoms/reviewAtom";
+
 export default function WriteReview() {
-  const location = useLocation();
   const navigate = useNavigate();
-  const {
-    puppyId,
-    processId,
-    threadId,
-    style,
-    workspaceName,
-    availableGroomingDate,
-    estimatedCost,
-    badgeImageUrl,
-  } = location.state || {};
   const { userId } = useUserDetails();
-  console.log("넘어온 데이터 확인:", {
-    puppyId,
-    processId,
-    threadId,
-    style,
-    workspaceName,
-    availableGroomingDate,
-    estimatedCost,
-    badgeImageUrl,
-  });
+
+  // Recoil에서 ReviewAtom 상태 가져오기
+  const reviewData = useRecoilValue(ReviewAtom);
+
   // 상태 관리
   const [score, setScore] = useState<ReviewRatingType>("ZERO");
-
-  const handleStarChange = (newScore: ReviewRatingType) => {
-    setScore(newScore);
-    console.log("선택된 별점: ", newScore);
-  };
   const [reviewText, setReviewText] = useState<string>("");
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]); // 태그 value를 저장
   const [images, setImages] = useState<File[]>([]);
   const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]);
 
@@ -90,18 +74,27 @@ export default function WriteReview() {
   };
 
   // 태그 변경
-  const handleTagChange = (selectedTags: string[]) => setTags(selectedTags);
+  const handleTagChange = (selectedTags: string[]) => setTags(selectedTags); // 부모에서 전달된 value 값 처리
+
   const handleSubmit = async () => {
+    if (!reviewData) {
+      alert("리뷰 데이터를 찾을 수 없습니다.");
+      return;
+    }
+
+    const { puppyId, processId, threadId } = reviewData; // Recoil에서 불러온 값 사용
+
     const data: RegisterReviewRequest = {
       reviewRating: score,
       contentDetail: reviewText,
+      contentGenerals: tags as ContentsType[], // 선택된 태그의 value 값을 전달
       reviewImages: uploadedImageUrls,
     };
 
     try {
       await registerReview(Number(userId), puppyId, processId, threadId, data);
       console.log("리뷰가 성공적으로 등록되었습니다.");
-      navigate(ROUTE.customer.mypage.reviewHistory);
+      navigate(ROUTE.customer.mypage.review.history);
     } catch (error) {
       console.error("리뷰 등록 중 오류 발생: ", error);
       alert("리뷰 등록에 실패했습니다.");
@@ -117,7 +110,7 @@ export default function WriteReview() {
 
         <FirstQuestionBox>
           <Text typo="subtitle300">서비스에 만족하셨나요?</Text>
-          <StarChanger onChange={handleStarChange} />
+          <StarChanger onChange={(newScore) => setScore(newScore)} />
         </FirstQuestionBox>
 
         <SecondQuestionBox>
