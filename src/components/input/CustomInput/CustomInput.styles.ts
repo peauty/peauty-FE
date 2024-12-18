@@ -146,7 +146,7 @@ export const SuffixContainer = styled.div<{
 `;
 
 export const Message = styled.p<{ error?: boolean }>`
-  margin: 0 0 0 5px;
+  margin-bottom: 5px;
   color: ${(props) => (props.error ? colors.red300 : "#6b7280")};
   animation: ${fadeIn} 0.3s ease-in-out;
 `;
@@ -177,5 +177,5 @@ export const NoticeContainer = styled.div<{ hasError: boolean }>`
     hasError ? "space-between" : "flex-end"};
   align-items: center;
   width: 100%;
-  margin-top: 10px;
+  padding: 5px 5px 0;
 `;

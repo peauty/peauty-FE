@@ -66,7 +66,7 @@ export default function LocationButton({
         </DisabledWrapper>
         <CustomButtonWrapper>
           <CustomButton
-            variant="secondary"
+            variant="primary"
             size="small"
             onClick={handleOpenSearchLocationModal}
           >

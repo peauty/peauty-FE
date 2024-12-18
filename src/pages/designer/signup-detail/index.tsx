@@ -157,8 +157,8 @@ export default function DesignerSignUpDetail() {
 
         <Style.SectionWrapper>
           <TitleContentInput
-            title="공지사항"
-            description="매장 운영과 관련된 특이 사항이 있으시면 등록해 주세요"
+            title="매장 소개"
+            description="매장에 대한 설명을 작성해주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
             initialValues={[
               shopDetailInfo.noticeTitle || "",

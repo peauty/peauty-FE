@@ -28,6 +28,7 @@ export default function PetlistItem({
   diseases = [],
   showButton,
 }: PetlistItemProps) {
+  const gen = gender === "암컷" ? "여아" : "남아";
   const navigate = useNavigate();
   const handleWorkspaceClick = () => {
     // 스타일리스트의 workspace 페이지로 이동
@@ -82,7 +83,7 @@ export default function PetlistItem({
             </Text>
             <Text typo="body400" color="gray100">
               <TextWrapper>
-                <span>{gender}</span>
+                <span>{gen}</span>
                 <span>| {weight}kg </span>
                 <span>| {breed} </span>
               </TextWrapper>

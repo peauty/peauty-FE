@@ -22,10 +22,10 @@ export const InfoCard = styled.div`
 
 /// ProfileImage 컴포넌트를 img로 변경할 수 있습니다.
 export const ProfileImage = styled.img`
-width: 80px;
-height: 80px;
-border-radius: 10px;
-background-color: ${colors.gray300};
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  background-color: ${colors.gray300};
 `;
 
 // Profile Text and Info Layout
@@ -82,7 +82,7 @@ export const AgreementContainer = styled.div`
 export const AgreementItem = styled.div`
   display: flex;
   gap: 5px;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export const TextSectionWrapper = styled.div`
