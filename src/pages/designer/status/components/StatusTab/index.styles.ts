@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { colors } from "../../../../../style/color";
+import theme from "../../../../../style/theme";
 
 export const TabWrapper = styled.div`
   position: sticky;
+  top: ${theme.size.appBarHeight};
+  z-index: 10;
+  background: white;
   display: flex;
   align-items: center;
   height: 40px;
