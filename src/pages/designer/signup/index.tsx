@@ -38,7 +38,7 @@ export const stepWords = [
       "자격증 검토 결과는 입력하신 이메일로 발송되니, 정확한 이메일을 입력해주세요",
     label: "이메일",
     placeholder: "이메일을 입력해주세요",
-    regex: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    regex: /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     errorMessage: "올바른 이메일을 입력해주세요",
     key: "email",
   },
@@ -117,13 +117,28 @@ export default function DesignerSignUp() {
   }, [location]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    let value = e.target.value;
+
+    // 전화번호 포맷 처리
+    if (currentStep === 2) {
+      value = value.replace(/[^0-9]/g, "");
+      if (value.length <= 3) {
+        // 앞자리만 남김
+      } else if (value.length <= 7) {
+        value = `${value.slice(0, 3)}-${value.slice(3)}`;
+      } else {
+        value = `${value.slice(0, 3)}-${value.slice(3, 7)}-${value.slice(7, 11)}`;
+      }
+    }
+
     setInputValue(value);
+
     if (regex && regex.test(value)) {
       setError("");
     } else if (regex) {
       setError(errorMessage);
     }
+
     if (currentStep === 3 && isNickNameAvailable && checkedNickname !== value) {
       setisNickNameAvailable(false);
     }

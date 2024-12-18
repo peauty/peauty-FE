@@ -5,9 +5,6 @@ import { colors } from "../../style/color";
 export const Wrapper = styled.div`
   position: relative;
   overflow: hidden;
-  width: 100%;
-  max-width: ${theme.size.maxWidth};
-  min-width: ${theme.size.minWidth};
 `;
 
 export const CarouselImage = styled.div`
@@ -16,9 +13,11 @@ export const CarouselImage = styled.div`
 `;
 
 export const Image = styled.img<{ rounded?: boolean }>`
-  object-fit: scale-down;
+  object-fit: cover;
   border-radius: ${({ rounded }) => (rounded ? "10px" : "0")};
   width: 100%;
+  max-width: ${theme.size.maxWidth};
+  min-width: ${theme.size.minWidth};
 `;
 
 export const DotWrapper = styled.div`

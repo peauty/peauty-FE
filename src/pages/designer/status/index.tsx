@@ -189,7 +189,7 @@ export default function Status() {
             "https://peauty.s3.ap-northeast-2.amazonaws.com/images/dog.png"
           }
           name={thread.puppy?.name || "강아지"}
-          age={thread.puppy?.age || 3}
+          age={thread.puppy?.age || 0}
           gender={thread.puppy?.sex || "수컷"}
           weight={thread.puppy?.weight.toString() || "3.4"}
           breed={thread.puppy?.breed || "품종 미제공"}
