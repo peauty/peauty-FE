@@ -3,6 +3,7 @@ import ReviewCard from "./ReviewCard";
 import { GetUserReviewsResponse } from "../../../../../types/customer/review";
 import { getUserReviews } from "../../../../../apis/customer/resources/review";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
+import NoReview from "./NoReview";
 
 export default function ReviewedService() {
   const [reviews, setReviews] = useState<GetUserReviewsResponse | null>(null);
@@ -47,11 +48,7 @@ export default function ReviewedService() {
   }
 
   if (!reviews?.reviews?.length) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <p>작성한 리뷰가 없습니다.</p>
-      </div>
-    );
+    return <NoReview message="작성한 리뷰가 없어요" />;
   }
 
   return (
