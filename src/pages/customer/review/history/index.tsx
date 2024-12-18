@@ -3,7 +3,6 @@ import { AppBar, GNB } from "../../../../components";
 import ReviewTabs from "./components/ReviewTabs";
 import ReviewableService from "./components/ReviewableService";
 import ReviewedService from "./components/ReviewedService";
-
 type Tab = "new" | "history";
 
 export default function ReviewHistory() {

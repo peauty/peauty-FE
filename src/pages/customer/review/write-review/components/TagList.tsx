@@ -1,6 +1,6 @@
 import { SelectTagWrapper, TagWrapper } from "../index.styles";
 import { Text } from "../../../../../components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SvgHeartTag from "../../../../../assets/svg/HeartTag";
 import SvgQuoteTag from "../../../../../assets/svg/QuoteTag";
 import SvgPinTag from "../../../../../assets/svg/PinTag";
@@ -15,16 +15,30 @@ const dummyTag = [
   { id: 5, icon: <SvgMoneyTag />, text: "가성비 좋아요" },
 ];
 
-export default function TagList() {
+// Props 타입 정의
+interface TagListProps {
+  onTagChange?: (selectedTags: string[]) => void;
+}
+
+export default function TagList({ onTagChange }: TagListProps) {
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
 
   const handleTagClick = (id: number) => {
     setSelectedTagIds((prevSelectedTagIds) => {
-      if (prevSelectedTagIds.includes(id)) {
-        return prevSelectedTagIds.filter((tagId) => tagId !== id);
-      } else {
-        return [...prevSelectedTagIds, id];
+      const updatedTagIds = prevSelectedTagIds.includes(id)
+        ? prevSelectedTagIds.filter((tagId) => tagId !== id) // 태그 해제
+        : [...prevSelectedTagIds, id]; // 태그 추가
+
+      // 부모 컴포넌트로 선택된 태그 전달
+      if (onTagChange) {
+        onTagChange(
+          updatedTagIds.map(
+            (tagId) => dummyTag.find((tag) => tag.id === tagId)?.text || "",
+          ),
+        );
       }
+
+      return updatedTagIds;
     });
   };
 

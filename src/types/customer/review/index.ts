@@ -1,8 +1,21 @@
-export type ReviewRatingType = 'ZERO' | 'ZERO_POINT_FIVE' | 'ONE' | 'ONE_POINT_FIVE' | 'TWO' | 'TWO_POINT_FIVE' | 'THREE' | 'THREE_POINT_FIVE' | 'FOUR' | 'FOUR_POINT_FIVE' | 'FIVE';
+export type ReviewRatingType =
+  | "ZERO"
+  | "ZERO_POINT_FIVE"
+  | "ONE"
+  | "ONE_POINT_FIVE"
+  | "TWO"
+  | "TWO_POINT_FIVE"
+  | "THREE"
+  | "THREE_POINT_FIVE"
+  | "FOUR"
+  | "FOUR_POINT_FIVE"
+  | "FIVE";
 
-export type ContentGeneralType = 'GOOD_SERVICE' | 'COME_AGAIN' | 'KIND' | 'MYPICK';
-
-
+export type ContentGeneralType =
+  | "GOOD_SERVICE"
+  | "COME_AGAIN"
+  | "KIND"
+  | "MYPICK";
 
 export interface GetReviewDetailResponse {
   reviewId?: number;
@@ -38,7 +51,7 @@ export interface RegisterReviewResponse {
   biddingThreadId?: number;
   reviewRating?: number;
   contentDetail?: string;
-  contentGeneral?: string;
+  contentGeneral?: string[];
 }
 
 export interface RegisterReviewRequest {
@@ -51,14 +64,14 @@ export interface RegisterReviewRequest {
 export interface GetDesignerReviewsResponse {
   designerId?: number;
   reviews?: {
-  reviewId?: number;
-  reviewDate?: string;
-  reviewerNickname?: string;
-  groomingStyle?: string;
-  rating?: number;
-  imageUrls?: string[];
-  content?: string;
-}[];
+    reviewId?: number;
+    reviewDate?: string;
+    reviewerNickname?: string;
+    groomingStyle?: string;
+    rating?: number;
+    imageUrls?: string[];
+    content?: string;
+  }[];
 }
 
 export interface ReviewDetails {
