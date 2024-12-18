@@ -17,6 +17,8 @@ import {
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
 import { ChangeEvent } from "react";
 import { breedMap } from "../../../../../../constants/puppy";
+import { uploadImage } from "../../../../../../apis/customer/resources/internal";
+import { UploadImageResponse } from "../../../../../../types/customer/internal";
 
 interface Step1Props {
   onNext: () => void;
@@ -32,11 +34,19 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
     handleChange(key, event.target.value);
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      handleChange("profileImageUrl", imageUrl);
+      try {
+        // 파일 업로드 API 호출
+        const response: UploadImageResponse = await uploadImage(file);
+        // 업로드된 이미지 URL을 상태에 업데이트
+        if (response.uploadedImageUrl) {
+          handleChange("profileImageUrl", response.uploadedImageUrl);
+        }
+      } catch (error) {
+        console.error("이미지 업로드 실패", error);
+      }
     }
   };
 
@@ -161,7 +171,6 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
             value={inputData.birthdate}
             onChange={(event) => handleInputChange(event, "birthdate")}
           />
-          {/* <DateDropBox label="생일" type="birthday" /> */}
         </div>
 
         <ButtonWrapper>
