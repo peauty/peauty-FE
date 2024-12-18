@@ -1,52 +1,75 @@
-import { useState } from "react";
+import { useRecoilState } from "recoil";
 import { AppBar, Text, Divider, CustomButton, GNB } from "../../../components";
 import SvgPayment from "../../../assets/svg/Payment";
-import { StoreWrapper, PaymentDayWrapper, PaymenWrapper, InfoWrapper, ButtonWrapper, ContentWrapper, CenteredSvgWrapper } from "./index.styles";
+import {
+  StoreWrapper,
+  PaymentDayWrapper,
+  PaymenWrapper,
+  InfoWrapper,
+  ButtonWrapper,
+  ContentWrapper,
+  CenteredSvgWrapper,
+} from "./index.styles";
 import SvgCircle from "../../../assets/svg/Circle";
+import { paymentAtom } from "../../../atoms/paymentAtom";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../constants/routes";
 
 export default function Payment() {
-  const [paymentData] = useState({
-    storeName: "몽크의 아틀리에 위례점",
-    paymentDate: "2024.11.29 11:04:32",
-    paidAmount: "15,000원",
-    onSiteAmount: "35,000원",
-  });
+  // Recoil 상태와 결제 데이터 설정
+  const [paymentData, setPaymentData] = useRecoilState(paymentAtom);
+  const navigate = useNavigate();
 
   return (
     <>
       <AppBar prefix="backButton" title="결제완료" />
-      
+
       <ContentWrapper>
-        <Text typo="title200" className="padded-text">예약금 결제가 <br />완료되었습니다.</Text>
+        <Text typo="title200" className="padded-text">
+          예약금 결제가 <br />
+          완료되었습니다.
+        </Text>
         <CenteredSvgWrapper>
           <SvgPayment width={110} />
         </CenteredSvgWrapper>
       </ContentWrapper>
-      
+
       <Divider thickness={1} />
 
       <StoreWrapper>
-        <Text typo="subtitle200" color="gray100">상호명</Text>
-        <Text typo="subtitle200">{paymentData.storeName}</Text>
+        <Text typo="subtitle200" color="gray100">
+          상호명
+        </Text>
+        <Text typo="subtitle200">{paymentData?.storeName}</Text>
       </StoreWrapper>
 
       <PaymentDayWrapper>
-        <Text typo="subtitle200" color="gray100">결제일자</Text>
-        <Text typo="subtitle200">{paymentData.paymentDate}</Text>
+        <Text typo="subtitle200" color="gray100">
+          결제일자
+        </Text>
+        <Text typo="subtitle200">{paymentData?.paymentDate}</Text>
       </PaymentDayWrapper>
 
       <PaymenWrapper>
-        <Text typo="subtitle200" color="gray100">결제금액</Text>
-        <Text typo="subtitle200" color="blue100">{paymentData.paidAmount}</Text>
+        <Text typo="subtitle200" color="gray100">
+          결제금액
+        </Text>
+        <Text typo="subtitle200" color="blue100">
+          {paymentData?.paidAmount}
+        </Text>
       </PaymenWrapper>
 
       <Divider thickness={1} />
-      
+
       <PaymenWrapper>
-        <Text typo="subtitle200" color="gray100">현장 결제 예정 금액</Text>
-        <Text typo="subtitle200" color="blue100">{paymentData.onSiteAmount}</Text>
+        <Text typo="subtitle200" color="gray100">
+          현장 결제 예정 금액
+        </Text>
+        <Text typo="subtitle200" color="blue100">
+          {paymentData?.onSiteAmount}
+        </Text>
       </PaymenWrapper>
-      
+
       <InfoWrapper>
         <SvgCircle width={5} />
         <Text typo="body200" color="gray200">
@@ -69,12 +92,15 @@ export default function Payment() {
       </InfoWrapper>
 
       <ButtonWrapper>
-  <CustomButton 
-    fullwidth 
-    onClick={() => { console.log("버튼 클릭!"); }}>
-    다음
-  </CustomButton>
-</ButtonWrapper>
+        <CustomButton
+          fullwidth
+          onClick={() => {
+            navigate(ROUTE.customer.status);
+          }}
+        >
+          다음
+        </CustomButton>
+      </ButtonWrapper>
     </>
   );
 }

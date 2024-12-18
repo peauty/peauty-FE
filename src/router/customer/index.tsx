@@ -11,6 +11,7 @@ import { noPadding } from "../../style/layoutStyle";
 import { statusPaths } from "./status";
 import QuoteDetail from "../../pages/customer/quote-detail";
 import { paymentPaths } from "./payment";
+import Payment from "../../pages/customer/payment";
 
 export const customerPaths = [
   {
@@ -37,6 +38,10 @@ export const customerPaths = [
       {
         path: "pets",
         children: petsPaths,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
       },
     ],
     element: <AuthLayout userType="customer" />,
@@ -73,10 +78,5 @@ export const customerPaths = [
       },
     ],
     element: <AuthLayout userType="customer" style={noPadding} />,
-  },
-  {
-    path: "",
-    children: paymentPaths,
-    element: <Layout />,
   },
 ];
