@@ -12,12 +12,12 @@ import {
   getAllStep3AboveThreads,
   getOngoingProcessWithStep2Threads,
 } from "../../../apis/customer/resources/bidding";
-import {
-  GetAllStep3AboveThreadsResponse,
-  GetOngoingProcessWithThreadsResponse,
-} from "../../../types/customer/bidding";
 import { useUserDetails } from "../../../hooks/useUserDetails";
 import { useNavigate } from "react-router-dom";
+import {
+  GetAllStep3AboveThreadsResponse,
+  GetOngoingProcessWithStep2ThreadsResponse,
+} from "../../../types/customer/bidding";
 
 interface StatusItemData {
   name: string;
@@ -26,7 +26,7 @@ interface StatusItemData {
   reservation: string;
   score: number;
   review: number;
-  payment: number;
+  payment?: number;
   date: string;
   badges: { name: string; color: string }[];
   thumbnailUrl: string;
@@ -41,7 +41,7 @@ export default function Status() {
     "sent",
   );
   const [step2ThreadsData, setStep2ThreadsData] =
-    useState<GetOngoingProcessWithThreadsResponse | null>(null);
+    useState<GetOngoingProcessWithStep2ThreadsResponse | null>(null);
   const [threadsData, setThreadsData] =
     useState<GetAllStep3AboveThreadsResponse | null>(null);
   const [puppyId, setPuppyId] = useState<number | null>(null);
@@ -57,22 +57,22 @@ export default function Status() {
             userId,
             puppyId,
           );
-          if (step1Data.process) {
-            const process = step1Data.process;
-            const threadInfo = process.threadInfo;
-            const designer = threadInfo?.designer;
-
+          if (step1Data.info) {
             setStatusItemData({
-              name: process.estimateProposal?.style || "알 수 없음",
-              store: designer?.workspaceName || "알 수 없음",
-              location: designer?.address || "알 수 없음",
-              reservation: process.processStatus || "알 수 없음",
-              score: 0, // 새로운 타입에는 reviewRating이 없음
-              review: 0, // 새로운 타입에는 reviewCount가 없음
-              payment: process.estimateProposal?.desiredCost || 0,
-              date: process.estimateProposal?.desiredDateTime || "알 수 없음",
-              badges: [], // 새로운 타입에는 badges가 없음
-              thumbnailUrl: "", // 새로운 타입에는 profileImageUrl이 없음
+              name: step1Data.info.requestText || "알 수 없음",
+              store: step1Data.stores?.[0]?.store || "알 수 없음",
+              location: step1Data.stores?.[0]?.location || "알 수 없음",
+              reservation: step1Data.stores?.[0]?. threadStep || "알 수 없음",
+              score: step1Data.stores?.[0]?.score || 0,
+              review: step1Data.stores?.[0]?.review || 0,
+              //payment: step1Data.stores?.[0]?.desiredCost || 0,
+              date: step1Data.info.requestDate || "알 수 없음",
+              badges:
+                step1Data.stores?.[0]?.badges?.map((badge) => ({
+                  name: badge.badgeName || "알 수 없음",
+                  color: badge.badgeColor || "#000",
+                })) || [],
+              thumbnailUrl: step1Data.stores?.[0]?.thumbnailUrl || "",
             });
           }
 
@@ -85,12 +85,12 @@ export default function Status() {
           const step3Data = await getAllStep3AboveThreads(userId, puppyId);
           setThreadsData(step3Data);
 
-          if (step2Data.process) {
-            setProcessId(step2Data.process.processId || 0);
+          if (step2Data.info) {
+            setProcessId(step2Data.info.processId || 0);
           }
 
-          if (step2Data.threads && step2Data.threads.length > 0) {
-            setThreadId(step2Data.threads[0].threadId || 0);
+          if (step2Data.stores && step2Data.stores.length > 0) {
+            setThreadId(step2Data.stores[0].threadId || 0);
           }
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -175,21 +175,21 @@ export default function Status() {
               processId={0}
             />
             <div style={{ padding: "0 20px" }}>
-              {step2ThreadsData?.threads &&
-              step2ThreadsData.threads.length > 0 ? (
-                step2ThreadsData.threads.map((thread, index) => (
+              {step2ThreadsData?.stores &&
+              step2ThreadsData.stores.length > 0 ? (
+                step2ThreadsData.stores.map((store, index) => (
                   <CustomerInfo
                     key={index}
-                    store={thread.threadId?.toString() || "알 수 없음"} // threadInfo에서 workspaceName 접근
-                    score={0} // 새 타입에는 없음
-                    review={0} // 새 타입에는 없음
-                    location={"알 수 없음"} // threadInfo에서 address 접근
-                    thumbnailUrl={""} // 새 타입에는 없음
+                    store={store.store || "알 수 없음"}
+                    score={store.score || 0}
+                    review={store.review || 0}
+                    location={store.location || "알 수 없음"}
+                    thumbnailUrl={store.thumbnailUrl || ""}
                     buttons={renderCustomerInfoButtons("received")}
-                    status={thread.threadId?.toString() || "알 수 없음"} // threadStep 사용
-                    payment={formatCurrency(0)}
+                    status={store.threadStatus || "알 수 없음"}
+                    payment={formatCurrency(store.desiredCost || 0)}
                     onClick={() =>
-                      console.log(`CustomerInfo clicked for thread ${index}`)
+                      console.log(`CustomerInfo clicked for store ${index}`)
                     }
                   />
                 ))
@@ -207,12 +207,12 @@ export default function Status() {
                 threadsData.threads.map((thread, index) => (
                   <CustomerInfo
                     key={index}
-                    store={thread.designer?.workspaceName || "알 수 없음"}
-                    score={0} // 새 타입에는 없음
-                    review={0} // 새 타입에는 없음
+                    store={thread.workspaceName || "알 수 없음"}
+                    score={thread.score || 0}
+                    review={thread.reviewCount || 0}
                     reservation={thread.threadStep || "알 수 없음"}
-                    location={thread.designer?.address || "알 수 없음"}
-                    thumbnailUrl={""} // 새 타입에는 없음
+                    location={thread.address || "알 수 없음"}
+                    thumbnailUrl={thread.thumbnailUrl || ""}
                     buttons={renderCustomerInfoButtons("confirmed")}
                     status={thread.style || "알 수 없음"}
                     payment={formatCurrency(
