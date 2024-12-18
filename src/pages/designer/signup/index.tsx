@@ -246,7 +246,7 @@ export default function DesignerSignUp() {
                 currentStep === 3 ? (
                   <CustomButton
                     size="small"
-                    variant={error === "" ? "secondary" : "emergency"}
+                    variant={error === "" ? "primary" : "emergency"}
                     onClick={handleNicknameCheck}
                     disabled={inputValue === "" || error !== ""}
                   >
