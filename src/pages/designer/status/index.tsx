@@ -21,6 +21,7 @@ import Modal from "../../../components/modal/Modal/Modal";
 import { useLocation } from "react-router-dom";
 import Toast from "../../../components/toast";
 import Basic from "../../../assets/images/basic.png";
+import Loading from "../../../components/page/sign-up/Loading";
 type Tab = "received" | "sent" | "confirmed";
 
 export default function Status() {
@@ -140,7 +141,7 @@ export default function Status() {
   };
 
   const renderContent = () => {
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <Loading />;
 
     if (activeTab === "received") {
       if (!receivedData) return <div>Error fetching received data.</div>;
