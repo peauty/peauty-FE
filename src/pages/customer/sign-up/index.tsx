@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import SvgWarning from "../../../assets/svg/Warning";
 import {
-  ButtonWrapper,
   ContentWrapper,
   InputSection,
   PageWrapper,

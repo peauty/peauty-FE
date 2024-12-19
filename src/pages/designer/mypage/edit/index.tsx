@@ -44,6 +44,19 @@ export default function DesignerMyPageEdit() {
     field: keyof UpdateDesignerAccountRequest,
     value: string,
   ) => {
+    // 전화번호 포맷 처리
+    if (field === "phoneNumber") {
+      value = value.replace(/[^0-9]/g, ""); // 숫자만 남기기
+
+      if (value.length <= 3) {
+        // 앞자리만 남김
+      } else if (value.length <= 7) {
+        value = `${value.slice(0, 3)}-${value.slice(3)}`; // 000-0000
+      } else {
+        value = `${value.slice(0, 3)}-${value.slice(3, 7)}-${value.slice(7, 11)}`; // 000-0000-0000
+      }
+    }
+
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
