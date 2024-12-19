@@ -9,8 +9,6 @@ import {
   DogName,
 } from "./index.styles";
 import Basic from "../../../../../assets/images/basic.png";
-import { Text } from "../../../../../components";
-import NotFoundPuppy from "../NotFoundPuppy"; // NotFoundPuppy 컴포넌트 추가
 
 interface DogProfileProps {
   src: string;
@@ -19,24 +17,27 @@ interface DogProfileProps {
   onClick: () => void;
   active: boolean;
 }
-
 const DogProfile = ({
   src,
   name,
   borderRadius = "50%",
   onClick,
   active,
-}: DogProfileProps) => (
-  <DogProfileWrapper onClick={onClick}>
-    <RoundImg
-      src={src}
-      alt={name}
-      borderRadius={borderRadius}
-      active={active}
-    />
-    <DogName active={active}>{name}</DogName>
-  </DogProfileWrapper>
-);
+}: DogProfileProps) => {
+  const shortenedName = name.length > 5 ? `${name.slice(0, 4)}..` : name;
+
+  return (
+    <DogProfileWrapper onClick={onClick}>
+      <RoundImg
+        src={src}
+        alt={name}
+        borderRadius={borderRadius}
+        active={active}
+      />
+      <DogName active={active}>{shortenedName}</DogName>
+    </DogProfileWrapper>
+  );
+};
 
 interface DogListProps {
   setPuppyId: (puppyId: number | null) => void;
