@@ -10,14 +10,14 @@ import {
   SectionWrapper,
   InputWrapper,
 } from "../../index.styles";
-
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { breedMap } from "../../../../../../constants/puppy";
 import { GNB } from "../../../../../../components";
 import { DateDropBox } from "../../../../../../components/button/DateDropBox";
 import { uploadImage } from "../../../../../../apis/customer/resources/internal";
 import { UploadImageResponse } from "../../../../../../types/customer/internal";
+import Modal from "../../../../../../components/modal/Modal/Modal";
 
 interface Step1Props {
   onNext: () => void;
@@ -26,6 +26,22 @@ interface Step1Props {
 }
 
 export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
+  const [isModalOpen, setIsModalOpen] = useState(false); // To control modal visibility
+  const [modalMessage, setModalMessage] = useState(""); // Message to display in the modal
+
+  // Check for missing required fields
+  const validateFields = () => {
+    const { name, breed, puppySize, sex, weight, birthdate } = inputData;
+
+    if (!name || !breed || !puppySize || !sex || !weight || !birthdate) {
+      setModalMessage("모든 필드를 입력해주세요.");
+      setIsModalOpen(true); // Open the modal
+      return false;
+    }
+
+    return true;
+  };
+
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     key: string,
@@ -80,6 +96,16 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
       />
     </div>
   );
+
+  const handleNextClick = () => {
+    if (validateFields()) {
+      onNext();
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
+  };
 
   return (
     <div>
@@ -156,8 +182,17 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           />
         </div>
 
-        <GNB buttonText="다음" onLargeButtonClick={onNext} />
+        <GNB buttonText="다음" onLargeButtonClick={handleNextClick} />
       </SectionWrapper>
+
+      {/* Modal to show validation error */}
+      {isModalOpen && (
+        <Modal
+          message={modalMessage}
+          buttons={[{ label: "확인", onClick: closeModal }]}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }

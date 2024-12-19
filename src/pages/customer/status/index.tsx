@@ -19,6 +19,7 @@ import {
   GetOngoingProcessWithStep2ThreadsResponse,
 } from "../../../types/customer/bidding";
 import Basic from "../../../assets/images/basic.png";
+import NotFoundPuppy from "./components/NotFoundPuppy";
 import NoReceived from "./components/NoReceived";
 import Nosend from "./components/Nosent";
 interface StatusItemData {
@@ -144,6 +145,9 @@ export default function Status() {
   };
 
   const renderTabContent = () => {
+    if (puppyId === null) {
+      return <NotFoundPuppy />;
+    }
     switch (activeTab) {
       case "sent":
         return (

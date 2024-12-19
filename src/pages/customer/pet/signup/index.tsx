@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { AppBar } from "../../../../components";
-import { ProgressWrapper, ProgressBlock, SectionWrapper, ContentsWrapper } from "./index.styles";
+import {
+  ProgressWrapper,
+  ProgressBlock,
+  SectionWrapper,
+  ContentsWrapper,
+} from "./index.styles";
 import Step1 from "./components/Step/step1";
 import Step2 from "./components/Step/step2";
 import Step3 from "./components/Step/step3";
@@ -27,6 +32,7 @@ export default function PetSignUp() {
       setCurrentStep(currentStep + 1);
     }
   };
+  
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep((prevStep) => prevStep - 1);
@@ -77,7 +83,6 @@ export default function PetSignUp() {
 
     try {
       const payload = {
-        //puppyId: 0, // 실제로는 생성된 반려견 ID를 사용해야 할 수 있음
         name: inputData.name,
         breed: inputData.breed,
         weight: inputData.weight,
@@ -85,7 +90,7 @@ export default function PetSignUp() {
         age: inputData.age,
         birthdate: inputData.birthdate,
         detail: inputData.detail,
-        disease: inputData.disease ?? [], // TODO
+        disease: inputData.disease ?? [],
         diseaseDescription: inputData.diseaseDescription,
         profileImageUrl: inputData.profileImageUrl || "",
         puppySize: inputData.puppySize,
@@ -93,8 +98,9 @@ export default function PetSignUp() {
 
       // POST 요청
       await registerPuppy(userId, payload);
-      alert("등록 완료");
-      navigate(ROUTE.customer.mypage.home);
+      navigate(ROUTE.customer.mypage.home, {
+        state: { toastMessage: "반려견 등록이 완료되었습니다!" }, // 성공 메시지 전달
+      });
     } catch (error) {
       console.error("반려견 등록 실패:", error);
       alert("반려견 등록에 실패했습니다.");
@@ -102,14 +108,16 @@ export default function PetSignUp() {
   };
 
   return (
-    <ContentsWrapper>
+    <>
       <AppBar prefix="backButton" title="반려견 등록" onclick={handleBack} />
-      <ProgressWrapper>
-        {Array.from({ length: totalSteps }).map((_, index) => (
-          <ProgressBlock key={index} isActive={index < currentStep} />
-        ))}
-      </ProgressWrapper>
-      {renderStep()}
-    </ContentsWrapper>
+      <ContentsWrapper>
+        <ProgressWrapper>
+          {Array.from({ length: totalSteps }).map((_, index) => (
+            <ProgressBlock key={index} isActive={index < currentStep} />
+          ))}
+        </ProgressWrapper>
+        {renderStep()}
+      </ContentsWrapper>
+    </>
   );
 }

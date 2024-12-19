@@ -180,8 +180,9 @@ export default function PetEdit() {
       };
 
       await updatePuppyDetail(userId, Number(puppyId), requestBody);
-      alert("수정 완료");
-      navigate(ROUTE.customer.pets.detail(puppyId)); // 수정 완료 후 이동
+      navigate(ROUTE.customer.pets.detail(puppyId), {
+        state: { toastMessage: "반려견 수정이 완료됐어요" }, // 성공 메시지 전달
+      }); // 수정 완료 후 이동
     } catch (error) {
       console.error("Failed to update puppy detail:", error);
     }
