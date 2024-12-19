@@ -20,6 +20,7 @@ export { default as Maker } from "./Maker";
 export { default as Medal } from "./Medal";
 export { default as MoneyTag } from "./MoneyTag";
 export { default as Mypage } from "./Mypage";
+export { default as NoReceived } from "./NoReceived";
 export { default as NoStatus } from "./NoStatus";
 export { default as NoneComfirm } from "./NoneComfirm";
 export { default as NoneQuote } from "./NoneQuote";
