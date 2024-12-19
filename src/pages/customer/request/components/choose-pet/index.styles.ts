@@ -11,6 +11,7 @@ export const CardWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+  margin-bottom: 15px;
 `;
 
 export const TextWrapper = styled.div`
