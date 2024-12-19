@@ -31,6 +31,7 @@ export const BadgeIcon = styled.div`
   align-items: center;
   justify-content: center;
   align-items: center;
+  padding: 20px;
   aspect-ratio: 1/1;
   border-radius: 15px;
   background-color: ${colors.blue300};

@@ -38,7 +38,7 @@ export interface UploadProfileImageResponse {
 export interface GetDesignerWorkspaceResponse {
   designerId?: number;
   workspaceId?: number;
-  bannerImageUrl?: string;
+  bannerImageUrls?: string[];
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
@@ -57,7 +57,15 @@ export interface GetDesignerWorkspaceResponse {
   directionGuide?: string;
   licenses?: string[];
   paymentOptions?: string[];
-  representativeBadgeNames?: string[];
+  representativeBadges?: {
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    isRepresentativeBadge?: boolean;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
 }
 
 export interface Badge {
@@ -65,28 +73,34 @@ export interface Badge {
   badgeName?: string;
   badgeContent?: string;
   badgeImageUrl?: string;
+  isRepresentativeBadge?: boolean;
   badgeColor?: BadgeColorType;
   badgeType?: BadgeTypeType;
-}
-
-export interface Workspace {
-  workspaceId?: number;
-  workspaceName?: string;
-  address?: string;
-  addressDetail?: string;
-  bannerImageUrl?: string;
-  reviewCount?: number;
-  reviewRating?: number;
-  designerId?: number;
-  designerName?: string;
-  yearOfExperience?: number;
-  representativeBadges?: Badge[]; // Badge 배열
 }
 
 export interface GetAroundWorkspacesResponse {
   customerId?: number;
   customerAddress?: string;
-  workspaces?: Workspace[]; // Workspace 배열
+  workspaces?: {
+    workspaceId?: number;
+    workspaceName?: string;
+    address?: string;
+    addressDetail?: string;
+    bannerImageUrl?: string;
+    reviewCount?: number;
+    reviewRating?: number;
+    designerId?: number;
+    designerName?: string;
+    yearOfExperience?: number;
+    representativeBadges?: {
+      badgeId?: number;
+      badgeName?: string;
+      badgeContent?: string;
+      badgeImageUrl?: string;
+      badgeColor?: BadgeColorType;
+      badgeType?: BadgeTypeType;
+    }[];
+  }[];
 }
 
 export interface GetAroundWorkspaceResponse {
