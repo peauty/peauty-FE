@@ -62,23 +62,21 @@ export default function Status() {
           );
           if (step1Data.info) {
             setStatusItemData({
-              name: step1Data.info.requestText || "알 수 없음",
-              store: step1Data.stores?.[0]?.store || "알 수 없음",
-              location: step1Data.stores?.[0]?.location || "알 수 없음",
-              reservation: step1Data.stores?.[0]?.threadStep || "알 수 없음",
+              name: step1Data.info.requestText || "견적을 요청하세요",
+              store: step1Data.stores?.[0]?.store || "견적을 요청하세요",
+              location: step1Data.stores?.[0]?.location || "견적을 요청하세요",
+              reservation: step1Data.stores?.[0]?.threadStep || "견적을 요청하세요",
               score: step1Data.stores?.[0]?.score || 0,
               review: step1Data.stores?.[0]?.review || 0,
-              //payment: step1Data.stores?.[0]?.desiredCost || 0,
-              date: step1Data.info.requestDate || "알 수 없음",
+              date: step1Data.info.requestDate || "",
               badges:
                 step1Data.stores?.[0]?.badges?.map((badge) => ({
-                  name: badge.badgeName || "알 수 없음",
+                  name: badge.badgeName || "",
                   color: badge.badgeColor || "#000",
                 })) || [],
               thumbnailUrl: step1Data.stores?.[0]?.thumbnailUrl || Basic,
             });
           }
-
           const step2Data = await getOngoingProcessWithStep2Threads(
             userId,
             puppyId,
@@ -150,6 +148,10 @@ export default function Status() {
     }
     switch (activeTab) {
       case "sent":
+        if (!statusItemData) {
+          // step1Data.info가 없을 때 Nosend 컴포넌트만 렌더링
+          return <Nosend />;
+        }
         return (
           <>
             {statusItemData ? (
