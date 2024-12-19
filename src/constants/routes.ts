@@ -14,6 +14,7 @@ export const ROUTE = {
       writeReview: "/customer/mypage/reviews-new",
       review: {
         write: "/customer/mypage/reviews/write",
+        edit: "/customer/mypage/reviews/edit",
         history: "/customer/mypage/reviews",
       },
     },

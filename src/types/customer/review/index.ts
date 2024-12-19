@@ -11,7 +11,12 @@ export type ReviewRatingType =
   | "FOUR_POINT_FIVE"
   | "FIVE";
 
-export type ContentsType = "GOOD_SERVICE" | "COME_AGAIN" | "KIND" | "MYPICK";
+export type ContentsType =
+  | "GOOD_SERVICE"
+  | "COME_AGAIN"
+  | "KIND"
+  | "MYPICK"
+  | "GOOD_COST";
 
 export interface UpdateReviewResponse {
   reviewId?: number;

@@ -4,12 +4,50 @@ import { GetUserReviewsResponse } from "../../../../../types/customer/review";
 import { getUserReviews } from "../../../../../apis/customer/resources/review";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import NoReview from "./NoReview";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../../../constants/routes";
+import { useSetRecoilState } from "recoil";
+import { ReviewAtom, ReviewData } from "../../../../../atoms/reviewAtom";
+
+interface review {
+  reviewId?: number;
+  biddingThreadId?: number;
+  biddingProcessId?: number;
+  puppyId?: number;
+  reviewRating?: number;
+  contentDetail?: string;
+  contentGenerals?: string[];
+  reviewImages?: string[];
+  groomingStyle?: string;
+  puppyName?: string;
+  estimateCost?: number;
+  reviewCreatedAt?: string;
+  designerProfile?: {
+    workspaceName?: string;
+    address?: string;
+  };
+}
 
 export default function ReviewedService() {
   const [reviews, setReviews] = useState<GetUserReviewsResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { userId } = useUserDetails();
+  const navigate = useNavigate();
+  const setReviewData = useSetRecoilState(ReviewAtom);
+
+  const handleEditButton = (review: review) => {
+    const reviewData: ReviewData = {
+      userId: userId || 0,
+      puppyId: review.puppyId || 0,
+      processId: review.biddingProcessId || 0,
+      threadId: review.biddingThreadId || 0,
+      reviewId: review.reviewId,
+    };
+
+    setReviewData(reviewData);
+    navigate(ROUTE.customer.mypage.review.edit);
+  };
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -64,7 +102,7 @@ export default function ReviewedService() {
           rating={review.reviewRating ?? 0}
           reviewText={review.contentDetail ?? ""}
           reviewImages={review.reviewImages ?? []}
-          onEdit={() => alert(`리뷰 ${review.reviewId} 수정 클릭!`)}
+          onEdit={() => handleEditButton(review)}
           onDelete={() => alert(`리뷰 ${review.reviewId} 삭제 클릭!`)}
         />
       ))}

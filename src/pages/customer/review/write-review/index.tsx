@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil"; // Recoil 상태를 읽어오는 훅
+import { useRecoilValue } from "recoil";
 import {
   AppBar,
   CustomButton,
@@ -18,36 +18,112 @@ import {
   WriteReviewBox,
   HintWrapper,
   ImgUploadWrapper,
+  DeleteButton,
+  ImageContainer,
+  AddWrapper,
+  ImageUnit,
 } from "./index.styles";
 import { ROUTE } from "../../../../constants/routes";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
 import {
   ContentsType,
-  RegisterReviewRequest,
+  UpdateReviewRequest,
+  ReviewRatingType,
 } from "../../../../types/customer/review";
-import { registerReview } from "../../../../apis/customer/resources/review";
+import {
+  registerReview,
+  updateReview,
+} from "../../../../apis/customer/resources/review";
 import { uploadImages } from "../../../../apis/designer/resources/internal";
 import { AddImage } from "../../../../assets/svg";
 import SvgPen from "../../../../assets/svg/Pen";
-import { ReviewRatingType } from "../../../../types/customer/review";
 import ReviewableService from "./components/ReviewableService";
 import { ReviewAtom } from "../../../../atoms/reviewAtom";
+import { getReviewDetail } from "../../../../apis/customer/resources/review";
+import Loading from "../../../../components/page/sign-up/Loading";
 
-export default function WriteReview() {
+const tagMapping: { [key: string]: string } = {
+  "서비스가 좋아요": "GOOD_SERVICE",
+  "견적서대로 해줘요": "MYPICK",
+  "다음에 또 오고 싶어요": "COME_AGAIN",
+  친절해요: "KIND",
+  "가성비 좋아요": "GOOD_COST",
+};
+
+export default function WriteReview(props: { isEdit: boolean }) {
   const navigate = useNavigate();
   const { userId } = useUserDetails();
-
-  // Recoil에서 ReviewAtom 상태 가져오기
   const reviewData = useRecoilValue(ReviewAtom);
 
-  // 상태 관리
   const [score, setScore] = useState<ReviewRatingType>("ZERO");
   const [reviewText, setReviewText] = useState<string>("");
-  const [tags, setTags] = useState<string[]>([]); // 태그 value를 저장
-  const [images, setImages] = useState<File[]>([]);
-  const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [images, setImages] = useState<File[]>([]); // 업로드된 이미지 파일 상태
+  const [uploadedImageUrls, setUploadedImageUrls] = useState<string[]>([]); // 업로드된 이미지 URL 상태
+  const [loading, setLoading] = useState<boolean>(true);
 
-  // 이미지 업로드 처리
+  const ratingMap: { [key: number]: ReviewRatingType } = {
+    0: "ZERO",
+    0.5: "ZERO_POINT_FIVE",
+    1: "ONE",
+    1.5: "ONE_POINT_FIVE",
+    2: "TWO",
+    2.5: "TWO_POINT_FIVE",
+    3: "THREE",
+    3.5: "THREE_POINT_FIVE",
+    4: "FOUR",
+    4.5: "FOUR_POINT_FIVE",
+    5: "FIVE",
+  };
+
+  useEffect(() => {
+    if (props.isEdit && reviewData) {
+      const fetchReviewDetails = async () => {
+        if (reviewData.reviewId) {
+          try {
+            const response = await getReviewDetail(
+              Number(userId),
+              reviewData.puppyId,
+              reviewData.processId,
+              reviewData.threadId,
+              reviewData.reviewId,
+            );
+
+            if (response) {
+              setScore(
+                (response.reviewRating && ratingMap[response.reviewRating]) ||
+                  "ZERO",
+              );
+              setReviewText(response.contentDetail ?? "");
+              const initialTags =
+                response.contentGenerals?.map(
+                  (tag) => tagMapping[tag] ?? tag,
+                ) ?? [];
+              setTags(initialTags);
+              setUploadedImageUrls(response.reviewImages ?? []);
+            }
+          } catch (error) {
+            console.error("Error fetching review details", error);
+            alert("리뷰 정보를 불러오는 데 실패했습니다.");
+          } finally {
+            setLoading(false);
+          }
+        }
+      };
+
+      fetchReviewDetails();
+    } else {
+      setLoading(false);
+    }
+  }, [props.isEdit, userId, reviewData]);
+
+  const handleImageDelete = (url: string) => {
+    const updatedImageUrls = uploadedImageUrls.filter(
+      (imageUrl) => imageUrl !== url,
+    );
+    setUploadedImageUrls(updatedImageUrls);
+  };
+
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -57,14 +133,11 @@ export default function WriteReview() {
       setImages((prevImages) => [...prevImages, ...fileArray]);
 
       try {
-        const response = await uploadImages(fileArray); // 이미지 업로드 API 호출
+        const response = await uploadImages(fileArray);
         const imageUrls = response.uploadedImageUrl;
 
         if (imageUrls && imageUrls.length > 0) {
           setUploadedImageUrls((prevUrls) => [...prevUrls, ...imageUrls]);
-          console.log("이미지 업로드 성공: ", imageUrls);
-        } else {
-          console.warn("업로드된 이미지 URL이 없습니다.");
         }
       } catch (error) {
         console.error("이미지 업로드 실패: ", error);
@@ -73,8 +146,7 @@ export default function WriteReview() {
     }
   };
 
-  // 태그 변경
-  const handleTagChange = (selectedTags: string[]) => setTags(selectedTags); // 부모에서 전달된 value 값 처리
+  const handleTagChange = (selectedTags: string[]) => setTags(selectedTags);
 
   const handleSubmit = async () => {
     if (!reviewData) {
@@ -82,24 +154,37 @@ export default function WriteReview() {
       return;
     }
 
-    const { puppyId, processId, threadId } = reviewData; // Recoil에서 불러온 값 사용
+    const { puppyId, processId, threadId } = reviewData;
 
-    const data: RegisterReviewRequest = {
+    const data: UpdateReviewRequest = {
       reviewRating: score,
       contentDetail: reviewText,
-      contentGenerals: tags as ContentsType[], // 선택된 태그의 value 값을 전달
-      reviewImages: uploadedImageUrls,
+      contentGenerals: tags as ContentsType[],
+      reviewImageUrls: uploadedImageUrls,
     };
 
     try {
-      await registerReview(Number(userId), puppyId, processId, threadId, data);
-      console.log("리뷰가 성공적으로 등록되었습니다.");
+      if (props.isEdit && reviewData.reviewId) {
+        await updateReview(Number(userId), Number(reviewData.reviewId), data);
+      } else {
+        await registerReview(
+          Number(userId),
+          puppyId,
+          processId,
+          threadId,
+          data,
+        );
+      }
       navigate(ROUTE.customer.mypage.review.history);
     } catch (error) {
-      console.error("리뷰 등록 중 오류 발생: ", error);
-      alert("리뷰 등록에 실패했습니다.");
+      console.error("리뷰 등록/수정 중 오류 발생: ", error);
+      alert("리뷰 등록/수정에 실패했습니다.");
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -110,12 +195,15 @@ export default function WriteReview() {
 
         <FirstQuestionBox>
           <Text typo="subtitle300">서비스에 만족하셨나요?</Text>
-          <StarChanger onChange={(newScore) => setScore(newScore)} />
+          <StarChanger
+            value={score}
+            onChange={(newScore) => setScore(newScore)}
+          />
         </FirstQuestionBox>
 
         <SecondQuestionBox>
           <Text typo="subtitle300">어떤 점이 좋았나요?</Text>
-          <TagList onTagChange={handleTagChange} />
+          <TagList value={tags} onTagChange={handleTagChange} />
         </SecondQuestionBox>
         <Divider />
 
@@ -124,12 +212,14 @@ export default function WriteReview() {
             <SvgPen width={14} />
             <Text typo="subtitle300">리뷰를 작성해 주세요</Text>
           </HintWrapper>
-          <CustomButton variant="outline">
+
+          {uploadedImageUrls.length === 0 ? (
             <ImgUploadWrapper>
               <input
                 type="file"
                 accept="image/*"
                 multiple
+                value={uploadedImageUrls.length ? undefined : ""}
                 onChange={handleImageUpload}
                 style={{ display: "none" }}
                 id="fileInput"
@@ -141,7 +231,40 @@ export default function WriteReview() {
                 <AddImage width={15} />
               </label>
             </ImgUploadWrapper>
-          </CustomButton>
+          ) : (
+            <ImageContainer>
+              {/* Image upload button - only shown if less than 3 images */}
+              {uploadedImageUrls.length < 3 && (
+                <AddWrapper>
+                  <CustomButton variant="secondary" size="full">
+                    <label htmlFor="fileInput" style={{ cursor: "pointer" }}>
+                      <AddImage width={15} />
+                    </label>
+                    <input
+                      id="fileInput"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      value={uploadedImageUrls.length ? undefined : ""}
+                      onChange={handleImageUpload}
+                      style={{ display: "none" }}
+                    />
+                  </CustomButton>
+                </AddWrapper>
+              )}
+
+              {/* Uploaded images preview */}
+              {uploadedImageUrls.map((imageUrl, index) => (
+                <AddWrapper key={index} style={{ position: "relative" }}>
+                  <ImageUnit src={imageUrl} alt={`uploaded-image-${index}`} />
+                  <DeleteButton onClick={() => handleImageDelete(imageUrl)}>
+                    &minus;
+                  </DeleteButton>
+                </AddWrapper>
+              ))}
+            </ImageContainer>
+          )}
+
           <CustomInput
             placeholder="리뷰 작성"
             inputType="textarea"
