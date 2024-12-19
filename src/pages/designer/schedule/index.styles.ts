@@ -23,7 +23,7 @@ export const ManageContentItem = styled.div`
   background-color: ${colors.blue300};
 `;
 
-export const GrayBox = styled.div`
+export const GrayBox = styled.img`
   width: 80px;
   height: 80px;
   background-color: ${colors.gray300};

@@ -17,6 +17,7 @@ function InfoButton({ message, title }: InfoButtonProps) {
         position: "relative",
         display: "flex",
         alignItems: "center",
+        flex: "2",
       }}
       onMouseEnter={() => setIsTooltipVisible(true)}
       onMouseLeave={() => setIsTooltipVisible(false)}

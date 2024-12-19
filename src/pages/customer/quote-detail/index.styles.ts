@@ -81,6 +81,7 @@ export const AgreementContainer = styled.div`
 
 export const AgreementItem = styled.div`
   display: flex;
+  flex: 1;
   gap: 5px;
   align-items: flex-start;
 `;

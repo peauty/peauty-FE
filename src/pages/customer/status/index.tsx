@@ -155,18 +155,18 @@ export default function Status() {
             {statusItemData ? (
               <>
                 <Info
-                  requestDate={statusItemData.date }
-                  requestText={statusItemData.name }
+                  requestDate={statusItemData.date}
+                  requestText={statusItemData.name}
                   userId={0}
                   puppyId={0}
                   processId={0}
                 />
                 <StatusListItem
-                  location={statusItemData.location }
-                  store={statusItemData.store }
-                  score={statusItemData.score }
-                  review={statusItemData.review }
-                  badges={statusItemData.badges }
+                  location={statusItemData.location}
+                  store={statusItemData.store}
+                  score={statusItemData.score}
+                  review={statusItemData.review}
+                  badges={statusItemData.badges}
                   thumbnailUrl={statusItemData.thumbnailUrl}
                   onClick={() => console.log("StatusListItem clicked")}
                 />
@@ -176,7 +176,7 @@ export default function Status() {
             )}
           </>
         );
-      
+
       case "received":
         return (
           <>
@@ -198,45 +198,41 @@ export default function Status() {
                   thumbnailUrl={store.thumbnailUrl || Basic}
                   buttons={renderCustomerInfoButtons("received")}
                   status={step2ThreadsData.info?.requestText || "알 수 없음"}
-                  payment={formatCurrency(store.desiredCost || 0)}
+                  payment={store.desiredCost || 0}
                   onClick={() =>
                     console.log(`CustomerInfo clicked for store ${index}`)
                   }
                 />
               ))
             ) : (
-              <NoReceived /> 
+              <NoReceived />
             )}
           </>
         );
       case "confirmed":
         return (
           <>
-            <div style={{ padding: "0 20px" }}>
-              {threadsData?.threads?.length ? (
-                threadsData.threads.map((thread, index) => (
-                  <CustomerInfo
-                    key={index}
-                    store={thread.workspaceName || "알 수 없음"}
-                    score={thread.score || 0}
-                    review={thread.reviewCount || 0}
-                    reservation={thread.threadStep || "알 수 없음"}
-                    location={thread.address || "알 수 없음"}
-                    thumbnailUrl={thread.thumbnailUrl || Basic}
-                    buttons={renderCustomerInfoButtons("confirmed")}
-                    status={thread.style || "알 수 없음"}
-                    payment={formatCurrency(
-                      thread.estimatedCost || 0,
-                    )}
-                    onClick={() =>
-                      console.log(`CustomerInfo clicked for thread ${index}`)
-                    }
-                  />
-                ))
-              ) : (
-                <NoReceived /> 
-              )}
-            </div>
+            {threadsData?.threads?.length ? (
+              threadsData.threads.map((thread, index) => (
+                <CustomerInfo
+                  key={index}
+                  store={thread.workspaceName || "알 수 없음"}
+                  score={thread.score || 0}
+                  review={thread.reviewCount || 0}
+                  reservation={thread.threadStep || "알 수 없음"}
+                  location={thread.address || "알 수 없음"}
+                  thumbnailUrl={thread.thumbnailUrl || Basic}
+                  buttons={renderCustomerInfoButtons("confirmed")}
+                  status={thread.style || "알 수 없음"}
+                  payment={thread.estimatedCost || 0}
+                  onClick={() =>
+                    console.log(`CustomerInfo clicked for thread ${index}`)
+                  }
+                />
+              ))
+            ) : (
+              <NoReceived />
+            )}
           </>
         );
       default:

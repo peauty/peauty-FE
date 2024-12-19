@@ -13,7 +13,7 @@ import {
 } from "./index.styles";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
-
+import { formatDate } from "../../../../../utils/dataformat";
 interface ButtonProps {
   width: string;
   title: string;
@@ -30,7 +30,7 @@ interface CustomerInfoProps {
   reservation?: string;
   review: number;
   status?: string;
-  payment: string;
+  payment: number;
   isReviewed?: boolean;
   thumbnailUrl: string;
   buttons: ButtonProps[];
@@ -55,11 +55,6 @@ export default function CustomerInfo({
   const reservationColor = reservation === "예약 완료" ? "blue100" : "gray100";
   return (
     <>
-      {date && (
-        <>
-          <DateWrapper>{date}</DateWrapper>
-        </>
-      )}
       <CardContainer>
         <CardWrapper onClick={onClick}>
           <Thumbnail src={thumbnailUrl} alt={store} />
@@ -92,6 +87,11 @@ export default function CustomerInfo({
                   </Text>
                 )}
               </RatingWrapper>
+            {date && (
+              <>
+                <DateWrapper>{formatDate(date)}</DateWrapper>
+              </>
+            )}
             </ContentsWrapper>
           </InfoWrapper>
         </CardWrapper>

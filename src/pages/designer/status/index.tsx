@@ -11,6 +11,7 @@ import {
   getStep3AboveThreads,
 } from "../../../apis/designer/resources/designer-bidding-api";
 import { GetThreadsByStepResponse } from "../../../types/designer/designer-bidding-api";
+import { GetThreadsByStep23Response } from "../../../types/designer/designer-bidding-api";
 import { formatDate } from "../../../utils/dataformat";
 import { useUserDetails } from "../../../hooks/useUserDetails";
 import NotFound from "./components/not-found";
@@ -45,10 +46,10 @@ export default function Status() {
     GetThreadsByStepResponse["threads"] | null
   >(null);
   const [sentData, setSentData] = useState<
-    GetThreadsByStepResponse["threads"] | null
+    GetThreadsByStep23Response["threads"] | null
   >(null);
   const [confirmedData, setConfirmedData] = useState<
-    GetThreadsByStepResponse["threads"] | null
+    GetThreadsByStep23Response["threads"] | null
   >(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -87,7 +88,7 @@ export default function Status() {
           const data = await getStep2Threads(userId);
           setSentData(data.threads || []);
         } else if (activeTab === "confirmed") {
-          const data = await getStep3AboveThreads(1);
+          const data = await getStep3AboveThreads(userId);
           setConfirmedData(data.threads || []);
         }
       } catch (error) {
@@ -156,8 +157,8 @@ export default function Status() {
           }
           name={thread.puppy?.name || "강아지"}
           age={thread.puppy?.age || 3}
-          gender={thread.puppy?.sex || "수컷"}
-          weight={thread.puppy?.weight.toString() || "3.4"}
+          gender={thread.puppy?.sex || "남아아"}
+          weight={thread.puppy?.weight || 3.4}
           breed={thread.puppy?.breed || "품종 미제공"}
           tags={thread.puppy?.diseases || []}
           buttons={[
@@ -179,7 +180,6 @@ export default function Status() {
     } else if (activeTab === "sent") {
       if (!sentData) return <div>Error fetching sent data.</div>;
       if (sentData.length === 0) return <NotFound type="quote" />;
-
       return sentData.map((thread) => (
         <Info
           processStatus={thread.processStatus}
@@ -192,10 +192,12 @@ export default function Status() {
           name={thread.puppy?.name || "강아지"}
           age={thread.puppy?.age || 0}
           gender={thread.puppy?.sex || "남아"}
-          weight={thread.puppy?.weight.toString() || "3.4"}
+          weight={thread.puppy?.weight || 3.4}
           breed={thread.puppy?.breed || "품종 미제공"}
           tags={thread.puppy?.diseases || []}
-          status={thread.threadStep}
+          status={thread?.threadStep}
+          style={thread.style}
+          price={thread.estimatedCost}
           buttons={[
             {
               title: "견적서 보기",
@@ -215,7 +217,6 @@ export default function Status() {
     } else if (activeTab === "confirmed") {
       if (!confirmedData) return <div>Error fetching confirmed data.</div>;
       if (confirmedData.length === 0) return <NotFound type="comfirm" />;
-
       return confirmedData.map((thread) => (
         <Info
           processStatus={thread.processStatus}
@@ -225,10 +226,12 @@ export default function Status() {
           name={thread.puppy?.name || "강아지"}
           age={thread.puppy?.age || 3}
           gender={thread.puppy?.sex || "수컷"}
-          weight={thread.puppy?.weight.toString() || "3.4"}
+          weight={thread.puppy?.weight || 3.4}
           breed={thread.puppy?.breed || "품종 미제공"}
           status={thread.threadStep}
           tags={thread.puppy?.diseases || []}
+          style={thread.style}
+          price={thread.estimatedCost}
           buttons={[
             {
               title: "견적서 보기",

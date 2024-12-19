@@ -7,13 +7,18 @@ interface DashboardItem {
   value: number;
 }
 
-const items: DashboardItem[] = [
-  { label: "오늘일정", value: 2 },
-  { label: "요청현황", value: 2 },
-  { label: "요청수락", value: 2 },
-];
+interface DashboardProps {
+  total: number;
+  today: number;
+  upcomming: number;
+}
 
-const Dashboard = () => {
+const Dashboard = ({ total, today, upcomming }: DashboardProps) => {
+  const items: DashboardItem[] = [
+    { label: "누적 완료 미용", value: total },
+    { label: "오늘 미용", value: today },
+    { label: "해야될 미용", value: upcomming },
+  ];
   return (
     <Container>
       {items.map((item, index) => (

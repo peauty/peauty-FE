@@ -29,11 +29,13 @@ interface InfoProps {
   name: string;
   age: number;
   gender: string;
-  weight: string;
+  weight: number;
   breed: string;
   status?: string;
   tags?: string[];
-  buttons?: ButtonProps[];
+  style?: string;
+  buttons: ButtonProps[];
+  price?: number;
 }
 
 export default function PetInfo({
@@ -48,6 +50,8 @@ export default function PetInfo({
   tags,
   buttons = [],
   status,
+  style,
+  price,
 }: InfoProps) {
   const getThreadStepLabel = ():
     | { text: string; fontColor: "blue100" | "gray100" }
@@ -118,18 +122,33 @@ export default function PetInfo({
               {status && (
                 <Text typo={"subtitle200"} color={threadStep.fontColor}>
                   {threadStep?.text}
-                  {/* {status} */}
                 </Text>
               )}
             </NameWrapper>
-            <Text typo={"body400"}>
-              {age}살 | {gender} {weight}kg | {breed}
-            </Text>
-            <BadgeWrapper>
-              {tags &&
-                tags[0] !== "없음" &&
-                tags?.map((tag, index) => <Tag key={index} text={tag} />)}
-            </BadgeWrapper>
+            <NameWrapper>
+              <Text typo={"body400"}>
+                {age}살 | {gender} {weight}kg | {breed}
+              </Text>
+              <Text typo="body500" color="gray100">
+                {style}
+              </Text>
+            </NameWrapper>
+            <NameWrapper>
+              <BadgeWrapper>
+                {tags &&
+                  tags[0] !== "없음" &&
+                  tags
+                    .slice(0, 3)
+                    .map((tag, index) => <Tag key={index} text={tag} />)}
+                {tags && tags.length > 3 && <Text typo="body400">...</Text>}
+              </BadgeWrapper>
+
+              {price && (
+                <div style={{ lineHeight: "0.8" }}>
+                  <Text typo="subtitle200">{price.toLocaleString()}원</Text>
+                </div>
+              )}
+            </NameWrapper>
             {date && (
               <>
                 <DateWrapper>{date}</DateWrapper>
@@ -137,6 +156,7 @@ export default function PetInfo({
             )}
           </InfoWrapper>
         </CardWrapper>
+
         {buttons.length > 0 && (
           <ButtonWrapper>
             {buttons.map((button, index) => (
