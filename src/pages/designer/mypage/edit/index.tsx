@@ -69,6 +69,15 @@ export default function DesignerMyPageEdit() {
     }
   };
 
+  const isFormValid = () => {
+    return (
+      formData.nickname &&
+      formData.name &&
+      formData.phoneNumber &&
+      formData.email
+    );
+  };
+
   if (!profile) return <div>Loading...</div>;
 
   return (
@@ -126,7 +135,11 @@ export default function DesignerMyPageEdit() {
           variant="outlined"
         />
       </MyPageEditWrapper>
-      <GNB buttonText="확인" onLargeButtonClick={handleSubmit} />
+      <GNB
+        buttonText="확인"
+        onLargeButtonClick={handleSubmit}
+        disabled={!isFormValid()} // 폼이 유효하지 않으면 버튼 비활성화
+      />
     </>
   );
 }
