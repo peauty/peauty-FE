@@ -10,25 +10,35 @@ import {
   TextWrapper,
   BadgeGridWrapper,
 } from "./index.styles";
-import { getDesignerBadges, updateRepresentativeBadge } from "../../../../apis/designer/resources/designer";
+import {
+  getDesignerBadges,
+  updateRepresentativeBadge,
+} from "../../../../apis/designer/resources/designer";
 import { BadgeResponse } from "../../../../types/designer/designer";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
 import { ShopBadge } from "../../../shop/components/ShopBadge";
-
+interface Badge {
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeColor?: string;
+  badgeType?: string;
+  badgeImageUrl?: string;
+}
 export default function DesignerMyBadgesPage() {
-  const [allBadges, setAllBadges] = useState<BadgeResponse[]>([]);
-  const [representativeBadges, setRepresentativeBadges] = useState<BadgeResponse[]>([]);
-  const [error, setError] = useState<string | null>(null); 
-  const { userId } = useUserDetails(); 
+  const [allBadges, setAllBadges] = useState<Badge[]>([]);
+  const [representativeBadges, setRepresentativeBadges] = useState<Badge[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const { userId } = useUserDetails();
   console.log(userId, "userId");
 
   useEffect(() => {
     // 초기 데이터 로드
     const fetchBadges = async () => {
-      if (!userId) return; 
+      if (!userId) return;
       try {
         const data = await getDesignerBadges(userId);
-        console.log("Fetched badges data:", data); 
+        console.log("Fetched badges data:", data);
         setAllBadges(data.unacquiredBadges || []);
         setRepresentativeBadges(data.unacquiredBadges || []);
       } catch (error) {
@@ -40,21 +50,30 @@ export default function DesignerMyBadgesPage() {
     fetchBadges();
   }, [userId]);
 
-  const handleBadgeClick = async (badge: BadgeResponse) => {
+  const handleBadgeClick = async (badge: Badge) => {
     if (!userId) {
       console.error("User ID is null");
       return;
     }
 
-    if (representativeBadges.length < 3 || representativeBadges.some((b) => b.badgeId === badge.badgeId)) {
+    if (
+      representativeBadges.length < 3 ||
+      representativeBadges.some((b) => b.badgeId === badge.badgeId)
+    ) {
       try {
-        const updatedBadge = await updateRepresentativeBadge(userId, badge.badgeId!, {
-          isRepresentativeBadge: !representativeBadges.some((b) => b.badgeId === badge.badgeId),
-        });
+        const updatedBadge = await updateRepresentativeBadge(
+          userId,
+          badge.badgeId!,
+          {
+            isRepresentativeBadge: !representativeBadges.some(
+              (b) => b.badgeId === badge.badgeId,
+            ),
+          },
+        );
         setRepresentativeBadges((prev) =>
           prev.some((b) => b.badgeId === badge.badgeId)
             ? prev.filter((b) => b.badgeId !== badge.badgeId)
-            : [...prev, badge]
+            : [...prev, badge],
         );
         console.log("Badge updated:", updatedBadge);
       } catch (error) {
@@ -96,7 +115,8 @@ export default function DesignerMyBadgesPage() {
         </Text>
         <ShopBadge
           badges={representativeBadges}
-          onClick={(badge) => handleBadgeClick(badge)}
+          onBadgeClick={(badge) => handleBadgeClick(badge)}
+          style={{ padding: "0" }}
         />
 
         <Divider />
@@ -106,7 +126,7 @@ export default function DesignerMyBadgesPage() {
         </Text>
         <ShopBadge
           badges={allBadges}
-          onClick={(badge) => handleBadgeClick(badge)}
+          onBadgeClick={(badge) => handleBadgeClick(badge)}
         />
       </PageWrapper>
       <GNB type={"designer"} />
