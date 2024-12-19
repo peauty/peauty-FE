@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getPuppyProfilesWithCanStartProcessStatus } from "../../../../../apis/customer/resources/bidding";
 import { GetPuppyProfilesWithCanStartProcessStatusResponse } from "../../../../../types/customer/bidding";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
@@ -25,9 +25,20 @@ const DogProfile = ({
   active,
 }: DogProfileProps) => {
   const shortenedName = name.length > 5 ? `${name.slice(0, 4)}..` : name;
+  // ref를 추가하여 활성화된 프로필의 위치로 스크롤
+  const profileRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    if (active && profileRef.current) {
+      profileRef.current.scrollIntoView({
+        behavior: "smooth",
+        inline: "center", // 수평 스크롤의 중앙으로 위치
+        block: "nearest", // 세로 스크롤이 있을 경우 가장 가까운 위치로 이동
+      });
+    }
+  }, [active]);
   return (
-    <DogProfileWrapper onClick={onClick}>
+    <DogProfileWrapper onClick={onClick} ref={profileRef}>
       <RoundImg
         src={src}
         alt={name}
