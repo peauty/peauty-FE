@@ -95,6 +95,18 @@ export default function PetEdit() {
   };
 
   const [isloading, setIsloading] = useState(false);
+  // 필수 입력값이 모두 채워졌는지 체크하는 함수
+  const isFormValid =
+    puppyName !== "" &&
+    selectedBreed !== "" &&
+    selectedGender !== null &&
+    selectedSize !== null &&
+    puppyWeight > 0 &&
+    selectedYear !== null &&
+    selectedMonth !== null &&
+    selectedDay !== null &&
+    selectedDiseases.length > 0;
+
   // API 호출 후 강아지 정보 로드
   useEffect(() => {
     const fetchPuppyDetail = async () => {
@@ -293,7 +305,11 @@ export default function PetEdit() {
         />
       </Style.EditPageWrapper>
 
-      <GNB buttonText="확인" onLargeButtonClick={handleSubmit} />
+      <GNB
+        buttonText="확인"
+        onLargeButtonClick={handleSubmit}
+        disabled={!isFormValid} // 버튼 비활성화 처리
+      />
     </>
   );
 }
