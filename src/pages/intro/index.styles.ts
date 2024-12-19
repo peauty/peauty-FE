@@ -5,7 +5,7 @@ export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh; //calc(100vh - ${theme.size.gnbHeight});
+  height: 100dvh; //calc(100vh - ${theme.size.gnbHeight});
 `;
 
 export const ContentWrapper = styled.div`
