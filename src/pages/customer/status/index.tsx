@@ -212,29 +212,27 @@ export default function Status() {
       case "confirmed":
         return (
           <>
-            <div style={{ padding: "0 20px" }}>
-              {threadsData?.threads?.length ? (
-                threadsData.threads.map((thread, index) => (
-                  <CustomerInfo
-                    key={index}
-                    store={thread.workspaceName || "알 수 없음"}
-                    score={thread.score || 0}
-                    review={thread.reviewCount || 0}
-                    reservation={thread.threadStep || "알 수 없음"}
-                    location={thread.address || "알 수 없음"}
-                    thumbnailUrl={thread.thumbnailUrl || Basic}
-                    buttons={renderCustomerInfoButtons("confirmed")}
-                    status={thread.style || "알 수 없음"}
-                    payment={thread.estimatedCost || 0}
-                    onClick={() =>
-                      console.log(`CustomerInfo clicked for thread ${index}`)
-                    }
-                  />
-                ))
-              ) : (
-                <NoReceived />
-              )}
-            </div>
+            {threadsData?.threads?.length ? (
+              threadsData.threads.map((thread, index) => (
+                <CustomerInfo
+                  key={index}
+                  store={thread.workspaceName || "알 수 없음"}
+                  score={thread.score || 0}
+                  review={thread.reviewCount || 0}
+                  reservation={thread.threadStep || "알 수 없음"}
+                  location={thread.address || "알 수 없음"}
+                  thumbnailUrl={thread.thumbnailUrl || Basic}
+                  buttons={renderCustomerInfoButtons("confirmed")}
+                  status={thread.style || "알 수 없음"}
+                  payment={thread.estimatedCost || 0}
+                  onClick={() =>
+                    console.log(`CustomerInfo clicked for thread ${index}`)
+                  }
+                />
+              ))
+            ) : (
+              <NoReceived />
+            )}
           </>
         );
       default:
