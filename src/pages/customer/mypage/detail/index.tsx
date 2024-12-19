@@ -7,12 +7,13 @@ import {
   LeftAlignedText,
   EndWrapper,
 } from "./index.styles";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTE } from "../../../../constants/routes";
 import { useEffect, useState } from "react";
 import { getCustomerProfile } from "../../../../apis/customer/resources/customer";
 import { GetCustomerProfileResponse } from "../../../../types/customer/customer";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
+import Toast from "../../../../components/toast";
 
 export default function CustomerMyPageDetail() {
   const navigate = useNavigate();
@@ -20,6 +21,15 @@ export default function CustomerMyPageDetail() {
   const [profileData, setProfileData] = useState<GetCustomerProfileResponse>(
     {},
   );
+
+  const location = useLocation();
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  useEffect(() => {
+    // location.state로부터 toastMessage 가져오기
+    if (location.state?.toastMessage) {
+      setToastMessage(location.state.toastMessage); // 메시지를 상태로 저장
+    }
+  }, [location]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -104,6 +114,7 @@ export default function CustomerMyPageDetail() {
         </EndWrapper>
         <GNB type="designer" />
       </PageWrapper>
+      {toastMessage && <Toast style={{ bottom: "25px" }}>{toastMessage}</Toast>}
     </>
   );
 }

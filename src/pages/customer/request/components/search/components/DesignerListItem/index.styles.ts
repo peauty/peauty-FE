@@ -61,6 +61,8 @@ export const Thumbnail = styled.img`
 export const Details = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  height: 90px;
   line-height: 1.3;
 `;
 
@@ -72,10 +74,10 @@ export const RatingWrapper = styled.div`
 export const BadgeWrapper = styled.div`
   display: flex;
   gap: 5px;
+  height: 20px;
 `;
 
 export const ContentsWrapper = styled.div`
   display: flex;
   gap: 20px;
-  align-items: center;
 `;

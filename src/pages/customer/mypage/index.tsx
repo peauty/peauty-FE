@@ -79,7 +79,10 @@ export default function CustomerMyPage() {
         onclick={() => navigate(ROUTE.customer.home)}
       />
       <PageWrapper>
-        <ProfileWrapper>
+        <ProfileWrapper
+          onClick={() => navigate(ROUTE.customer.mypage.detail)}
+          style={{ cursor: "pointer" }}
+        >
           <ProfileImageWrapper>
             <ProfileImg
               src={profile?.customerImageUrl || ""}
@@ -94,12 +97,7 @@ export default function CustomerMyPage() {
                 {profile?.customerNickname || "사용자"}
                 <Text typo={"subtitle100"}> 님</Text>
               </Text>
-              <Text
-                typo={"body400"}
-                color={"gray100"}
-                onClick={() => navigate(ROUTE.customer.mypage.detail)}
-                style={{ cursor: "pointer" }}
-              >
+              <Text typo={"body400"} color={"gray100"}>
                 내 정보 수정하기
               </Text>
             </MyInfoWrapper>

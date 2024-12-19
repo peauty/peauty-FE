@@ -69,17 +69,38 @@ export default function DateDropBox({
     ),
   ];
 
-  const filteredMonths =
-    type === "birthday" && selectedYear === currentYear.toString()
-      ? ["선택 없음", ...months.slice(1, currentMonth + 1)] // Only past months for current year
-      : months;
+  const filteredMonths = (() => {
+    if (type === "birthday" && selectedYear === currentYear.toString()) {
+      // 생일일 때는 현재 연도면 이전 월까지만 선택 가능
+      return ["선택 없음", ...months.slice(1, currentMonth + 1)];
+    } else if (
+      type === "reservation" &&
+      selectedYear === currentYear.toString()
+    ) {
+      // 예약일 때는 현재 연도에 오늘 이후의 월부터 가능
+      return ["선택 없음", ...months.slice(currentMonth)];
+    }
+    return months;
+  })();
 
-  const filteredDays =
-    type === "birthday" &&
-    selectedYear === currentYear.toString() &&
-    selectedMonth === currentMonth.toString().padStart(2, "0")
-      ? ["선택 없음", ...days.slice(1, currentDay + 1)] // Only past days for current month of current year
-      : days;
+  const filteredDays = (() => {
+    if (
+      type === "birthday" &&
+      selectedYear === currentYear.toString() &&
+      selectedMonth === currentMonth.toString().padStart(2, "0")
+    ) {
+      // 생일일 때는 현재 연도와 월이 현재 월과 같다면, 오늘 이전의 일만 선택 가능
+      return ["선택 없음", ...days.slice(1, currentDay + 1)];
+    } else if (
+      type === "reservation" &&
+      selectedYear === currentYear.toString() &&
+      selectedMonth === currentMonth.toString().padStart(2, "0")
+    ) {
+      // 예약일 때는 현재 연도와 월이 현재 월과 같다면, 오늘의 다음 날부터 선택 가능
+      return ["선택 없음", ...days.slice(currentDay + 1)];
+    }
+    return days;
+  })();
 
   const handleDateChange = () => {
     if (selectedYear && selectedMonth && selectedDay) {

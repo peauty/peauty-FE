@@ -40,13 +40,13 @@ export default function DesignerItem({
   onClick,
 }: DesignerItemProps) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       {isSelecting && (
         <CheckboxWrapper>
           <Checkbox checked={isChecked} onChange={onCheckboxChange} />
         </CheckboxWrapper>
       )}
-      <ContentsWrapper onClick={onClick}>
+      <ContentsWrapper>
         <Thumbnail src={thumbnailUrl} alt={`${name}의 섬네일`} />
         <Details>
           <Text typo="subtitle200">{name}</Text>
