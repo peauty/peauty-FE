@@ -24,7 +24,10 @@ export default function DesignerMyPageEdit() {
   const [nicknameAvailable, setNicknameAvailable] = useState<boolean | null>(
     null,
   ); // 중복 검사 상태
+  const [emailError, setEmailError] = useState<string | null>(null); // 이메일 오류 상태
   const { check } = useCheckNickname();
+
+  const emailRegex = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; // 이메일 정규식
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -54,6 +57,15 @@ export default function DesignerMyPageEdit() {
         value = `${value.slice(0, 3)}-${value.slice(3)}`; // 000-0000
       } else {
         value = `${value.slice(0, 3)}-${value.slice(3, 7)}-${value.slice(7, 11)}`; // 000-0000-0000
+      }
+    }
+
+    if (field === "email") {
+      // 이메일 유효성 검사
+      if (!emailRegex.test(value)) {
+        setEmailError("올바른 이메일을 입력해주세요");
+      } else {
+        setEmailError(null);
       }
     }
 
@@ -87,7 +99,8 @@ export default function DesignerMyPageEdit() {
       formData.nickname &&
       formData.name &&
       formData.phoneNumber &&
-      formData.email
+      formData.email &&
+      !emailError // 이메일 오류가 없을 때만 유효
     );
   };
 
@@ -146,6 +159,7 @@ export default function DesignerMyPageEdit() {
           value={formData.email || ""}
           onChange={(e) => handleInputChange("email", e.target.value)}
           variant="outlined"
+          error={emailError || ""}
         />
       </MyPageEditWrapper>
       <GNB
