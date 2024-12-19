@@ -80,7 +80,7 @@ export default function SignIn() {
             fullwidth={true}
             onClick={handleCustomerSignUp}
           >
-            일반 회원 가입
+            일반 회원으로 시작하기
           </CustomButton>
           <CustomButton
             size="large"
@@ -88,7 +88,7 @@ export default function SignIn() {
             fullwidth={true}
             onClick={handleDesignerSignUp}
           >
-            미용사 회원 가입
+            미용사로 시작하기
           </CustomButton>
         </ButtonWrapper>
         {isModalVisible && (
