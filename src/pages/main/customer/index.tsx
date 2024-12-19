@@ -2,12 +2,14 @@ import { AppBar, GNB, Divider } from "../../../components";
 //import EstimateStauts from "./components/EstimateStatus";
 import Carousel from "../../../components/carousel/Carousel";
 import ProposalItem from "../components/ProposalItem";
-import Temp from "../../../assets/images/배너.png";
+import Banner1 from "../../../assets/images/banner.png";
+import Banner2 from "../../../assets/images/banner2.png";
+import Banner3 from "../../../assets/images/banner3.png";
 import PopularStore from "../components/PopularStore";
 import NewStore from "../components/NewStore";
 import { HomeWrapper } from "./index.styles";
 import { useUserDetails } from "../../../hooks/useUserDetails";
-const images = [Temp, Temp, Temp];
+const images = [Banner1, Banner2, Banner3];
 export default function CustomerHome() {
   const user = useUserDetails();
   console.log(user.userId);

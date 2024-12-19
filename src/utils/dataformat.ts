@@ -24,5 +24,5 @@ export const formatDate = (isoDate?: string): string => {
   ); // 12시간 형식
   const minutes = String(date.getMinutes()).padStart(2, "0"); // 두 자리 분
 
-  return `${year}년 ${month}월 ${day}일 ${period} ${formattedHours}:${minutes}`;
+  return `${year} . ${month} . ${day} . ${period} ${formattedHours}:${minutes}`;
 };
