@@ -12,7 +12,11 @@ export const ROUTE = {
       detail: "/customer/mypage/detail",
       edit: "/customer/mypage/edit",
       writeReview: "/customer/mypage/reviews-new",
-      reviewHistory: "/customer/mypage/reviews-history",
+      review: {
+        write: "/customer/mypage/reviews/write",
+        edit: "/customer/mypage/reviews/edit",
+        history: "/customer/mypage/reviews",
+      },
     },
     signup: "/customer/signup", // 회원가입
     signupComplete: "/customer/signup-complete", // 회원가입 완료

@@ -96,3 +96,49 @@ export const TotalPriceBox = styled.div`
   margin: 20px 0;
   background-color: ${colors.gray400};
 `;
+
+export const ImageWrapper = styled.div`
+  display: flex;
+  margin-top: 15px;
+  gap: 5px;
+`;
+
+export const ImageItem = styled.div`
+  width: 85px;
+  height: 80px;
+`;
+
+export const DeleteButton = styled.button`
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
+export const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
+
+export const AddWrapper = styled.div`
+  width: 80px;
+  margin-top: 10px;
+`;
+
+export const ImageUnit = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+`;

@@ -198,7 +198,7 @@ export default function Status() {
                   thumbnailUrl={store.thumbnailUrl || Basic}
                   buttons={renderCustomerInfoButtons("received")}
                   status={step2ThreadsData.info?.requestText || "알 수 없음"}
-                  payment={store.desiredCost || 0}
+                  payment={formatCurrency(store.desiredCost || 0)}
                   onClick={() =>
                     console.log(`CustomerInfo clicked for store ${index}`)
                   }
@@ -224,7 +224,7 @@ export default function Status() {
                   thumbnailUrl={thread.thumbnailUrl || Basic}
                   buttons={renderCustomerInfoButtons("confirmed")}
                   status={thread.style || "알 수 없음"}
-                  payment={thread.estimatedCost || 0}
+                  payment={formatCurrency(thread.estimatedCost || 0)}
                   onClick={() =>
                     console.log(`CustomerInfo clicked for thread ${index}`)
                   }

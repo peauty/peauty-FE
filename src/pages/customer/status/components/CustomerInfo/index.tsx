@@ -30,7 +30,7 @@ interface CustomerInfoProps {
   reservation?: string;
   review: number;
   status?: string;
-  payment: number;
+  payment: string;
   isReviewed?: boolean;
   thumbnailUrl: string;
   buttons: ButtonProps[];
@@ -87,11 +87,11 @@ export default function CustomerInfo({
                   </Text>
                 )}
               </RatingWrapper>
-            {date && (
-              <>
-                <DateWrapper>{formatDate(date)}</DateWrapper>
-              </>
-            )}
+              {date && (
+                <>
+                  <DateWrapper>{formatDate(date)}</DateWrapper>
+                </>
+              )}
             </ContentsWrapper>
           </InfoWrapper>
         </CardWrapper>

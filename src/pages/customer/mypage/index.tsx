@@ -150,7 +150,7 @@ export default function CustomerMyPage() {
             <Text typo="subtitle200">리뷰</Text>
             <SubMenuButton
               text="리뷰 내역"
-              to="/customer/mypage/reviews-history"
+              to={ROUTE.customer.mypage.review.history}
             />
           </ContentsWrapper>
           <Divider />
