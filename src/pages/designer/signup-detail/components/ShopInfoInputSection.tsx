@@ -1,53 +1,72 @@
-import { useState, useEffect } from "react";
+import { useMemo, useCallback } from "react";
 import { CustomInput, MultiSelectButton, Text } from "../../../../components";
 import { LocationButton } from "../../../../components/button/LocationButton";
 import { MultiSelectButtonProps } from "../../../../components/button/MultiSelectButton/MultiSelectButton";
-import { CreateDesignerWorkspaceRequest } from "../../../../types/designer/designer";
+import {
+  CreateDesignerWorkspaceRequest,
+  PaymentOptionType,
+} from "../../../../types/designer/designer";
 import { Style } from "../index.styles";
+import { Payment } from "../../../../components/button/MultiSelectButton/MultiSelectButton.stories";
 
 interface ShopInfoInputSectionProps {
-  onChange: (field: keyof CreateDesignerWorkspaceRequest, value: any) => void;
   initialValues: {
     address: string;
     addressDetail: string;
     openHours: string;
-    closeHours: string;
-    openDays: string;
-    directionGuide: string;
     phoneNumber: string;
     workspaceName: string;
-    paymentOptions: string[];
-  }; // initialValues를 받는 prop 추가
+    paymentOptions: PaymentOptionType[];
+  };
+  onChange: (field: keyof CreateDesignerWorkspaceRequest, value: any) => void;
 }
 
-export const Payment: MultiSelectButtonProps = {
-  row: 1,
-  col: 3,
-  buttonNames: ["카드 결제", "현금 결제", "계좌 이체"],
-  selectedIndexes: [],
-  onSelect: (indexes: number[]) => console.log("선택된 버튼 인덱스:", indexes),
-};
+// 1️⃣ as const로 고정된 타입을 명시 (타입 안정성 확보)
+const paymentOptionMap = {
+  1: "CARD",
+  2: "CASH",
+  3: "ACCOUNT",
+} as const;
 
 export default function ShopInfoInputSection({
   onChange,
   initialValues, // initialValues prop 추가
 }: ShopInfoInputSectionProps) {
-  const [formValues, setFormValues] = useState(initialValues);
+  // 2️⃣ 초기값 디스트럭처링
+  const {
+    address = "",
+    addressDetail = "",
+    openHours = "",
+    phoneNumber = "",
+    workspaceName = "",
+    paymentOptions = [],
+  } = initialValues;
 
-  // 초기값이 변경될 때마다 상태를 업데이트하도록 useEffect 추가
-  useEffect(() => {
-    setFormValues(initialValues);
-  }, [initialValues]);
+  // 3️⃣ paymentOptionMap을 useMemo로 캐싱하여 불필요한 연산 제거
+  const paymentEntries = useMemo(() => Object.entries(paymentOptionMap), []);
 
-  const handleHowToPaySelect = (selectedPayIndexs: number[]) => {
-    const paymentOptions = selectedPayIndexs.map((index) =>
-      index === 0 ? "CARD" : index === 1 ? "CASH" : "ACCOUNT",
-    );
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      paymentOptions,
-    }));
-    onChange("paymentOptions", paymentOptions); // 부모에게 값 전달
+  // 4️⃣ 헬퍼 함수 생성 (onChange 중복 제거)
+  const updateShopInfoField = useCallback(
+    (field: keyof CreateDesignerWorkspaceRequest, value: any) => {
+      onChange(field, value);
+    },
+    [onChange],
+  );
+
+  // 5️⃣ getSelectedIndexes의 불필요한 반복 제거
+  const getSelectedIndexes = useMemo(() => {
+    const indexes = paymentEntries
+      .filter(([_, option]) => paymentOptions.includes(option))
+      .map(([index]) => Number(index));
+    return indexes;
+  }, [paymentOptions, paymentEntries]);
+
+  // 6️⃣ 선택한 결제 방식을 PaymentOptionType 배열로 변환
+  const mapSelectedIndexesToPaymentOptions = (selectedPayIndexes: number[]) => {
+    const mappedPaymentOptions = selectedPayIndexes
+      .map((index) => paymentOptionMap[index as keyof typeof paymentOptionMap]) // `index`를 명시적으로 타입 캐스팅
+      .filter(Boolean);
+    updateShopInfoField("paymentOptions", mappedPaymentOptions);
   };
 
   return (
@@ -62,74 +81,44 @@ export default function ShopInfoInputSection({
       <CustomInput
         label="이름"
         placeholder="매장 이름을 입력해주세요"
-        value={formValues.workspaceName} // 초기값 설정
-        onChange={(e) => {
-          const value = e.target.value;
-          setFormValues((prevValues) => ({
-            ...prevValues,
-            workspaceName: value,
-          }));
-          onChange("workspaceName", value); // 부모에게 값 전달
-        }}
+        value={workspaceName}
+        onChange={(e) => updateShopInfoField("workspaceName", e.target.value)}
       />
 
       <LocationButton
-        initialValues={{
-          address: formValues.address,
-          addressDetail: formValues.addressDetail,
-        }} // 초기값 설정
+        initialValues={{ address, addressDetail }}
         onChange={(address, addressDetail) => {
-          setFormValues((prevValues) => ({
-            ...prevValues,
-            address,
-            addressDetail,
-          }));
-          onChange("address", address);
-          onChange("addressDetail", addressDetail);
+          updateShopInfoField("address", address);
+          updateShopInfoField("addressDetail", addressDetail);
         }}
       />
 
       <CustomInput
         label="영업 시간"
         placeholder="영업 시간을 입력해주세요"
-        value={formValues.openHours} // 초기값 설정
-        onChange={(e) => {
-          const value = e.target.value;
-          setFormValues((prevValues) => ({
-            ...prevValues,
-            openHours: value,
-          }));
-          onChange("openHours", value); // 부모에게 값 전달
-        }}
+        value={openHours}
+        onChange={(e) => updateShopInfoField("openHours", e.target.value)}
       />
 
       <CustomInput
         label="대표 전화번호"
         placeholder="대표 전화번호를 입력해주세요"
-        value={formValues.phoneNumber} // 초기값 설정
-        onChange={(e) => {
-          const value = e.target.value;
-          setFormValues((prevValues) => ({
-            ...prevValues,
-            phoneNumber: value,
-          }));
-          onChange("phoneNumber", value); // 부모에게 값 전달
-        }}
+        value={phoneNumber}
+        onChange={(e) => updateShopInfoField("phoneNumber", e.target.value)}
       />
 
       <Style.RadioWrapper>
         <Text typo="subtitle300">
-          결제 방식{" "}
+          결제 방식
           <Text typo="body400" color="gray100">
+            {" "}
             (중복 선택도 가능해요)
           </Text>
         </Text>
         <MultiSelectButton
-          {...(Payment as MultiSelectButtonProps)}
-          selectedIndexes={formValues.paymentOptions.map((option) =>
-            option === "CARD" ? 0 : option === "CASH" ? 1 : 2,
-          )}
-          onSelect={handleHowToPaySelect}
+          {...(Payment.args as MultiSelectButtonProps)}
+          selectedIndexes={getSelectedIndexes}
+          onSelect={mapSelectedIndexesToPaymentOptions}
         />
       </Style.RadioWrapper>
     </Style.SectionWrapper>

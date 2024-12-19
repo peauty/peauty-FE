@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { colors } from "../../../../../style/color";
-import theme from "../../../../../style/theme";
 
 export const ContentWrapper = styled.div`
   display: flex;
@@ -14,7 +13,7 @@ export const ContentWrapper = styled.div`
 export const SectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const SelectedHair = styled.div`
@@ -33,20 +32,26 @@ export const TwoItemsWrapper = styled.div`
   gap: 5px;
 `;
 
+export const AddLabel = styled.label`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const AddWrapper = styled.div`
-  width: 80px;
-  margin-top: 10px;
-`;
-
 export const ImageContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 10px;
+  gap: 20px;
+`;
+
+export const AddWrapper = styled.div`
+  width: 80px;
 `;
 
 export const ImageUnit = styled.img`

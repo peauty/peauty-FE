@@ -1,4 +1,5 @@
 import { IoIosFemale, IoIosMale } from "react-icons/io";
+import { FemaleIcon, MaleIcon } from "../../../../../assets/svg";
 
 interface GenderProps {
   gender: string;
@@ -6,8 +7,8 @@ interface GenderProps {
 
 export default function Gender({ gender }: GenderProps) {
   if (gender == "M") {
-    return <IoIosMale width={15} color="blue" />;
+    return <MaleIcon width={15} fill="#6D82FF" />;
   } else {
-    return <IoIosFemale width={15} color="red" />;
+    return <FemaleIcon width={15} fill="#F56570" />;
   }
 }
