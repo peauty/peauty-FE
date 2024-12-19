@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import ReviewCard from "./ReviewCard";
 import { GetUserReviewsResponse } from "../../../../../types/customer/review";
-import { getUserReviews } from "../../../../../apis/customer/resources/review";
+import {
+  deleteReview,
+  getUserReviews,
+} from "../../../../../apis/customer/resources/review";
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import NoReview from "./NoReview";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../../../../constants/routes";
 import { useSetRecoilState } from "recoil";
 import { ReviewAtom, ReviewData } from "../../../../../atoms/reviewAtom";
+import DeleteReviewModal from "./DeleteReviewModal";
 
 interface review {
   reviewId?: number;
@@ -35,6 +39,43 @@ export default function ReviewedService() {
   const { userId } = useUserDetails();
   const navigate = useNavigate();
   const setReviewData = useSetRecoilState(ReviewAtom);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null);
+
+  const handleDeleteButton = (review: review) => {
+    setSelectedReviewId(review.reviewId || null);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!userId || !selectedReviewId) return;
+
+    try {
+      await deleteReview(userId, selectedReviewId);
+      // Update local state to remove the deleted review
+      if (reviews) {
+        setReviews({
+          ...reviews,
+          reviews: reviews.reviews?.filter(
+            (review) => review.reviewId !== selectedReviewId,
+          ),
+        });
+      }
+      alert("리뷰가 삭제되었습니다.");
+    } catch (error) {
+      console.error("Failed to delete review:", error);
+      alert("삭제 중 문제가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsDeleteModalOpen(false);
+      setSelectedReviewId(null);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setIsDeleteModalOpen(false);
+    setSelectedReviewId(null);
+  };
 
   const handleEditButton = (review: review) => {
     const reviewData: ReviewData = {
@@ -103,9 +144,14 @@ export default function ReviewedService() {
           reviewText={review.contentDetail ?? ""}
           reviewImages={review.reviewImages ?? []}
           onEdit={() => handleEditButton(review)}
-          onDelete={() => alert(`리뷰 ${review.reviewId} 삭제 클릭!`)}
+          onDelete={() => handleDeleteButton(review)}
         />
       ))}
+      <DeleteReviewModal
+        isOpen={isDeleteModalOpen}
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
     </div>
   );
 }
