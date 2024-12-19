@@ -2,7 +2,7 @@ export type ScissorsType = "NONE" | "GOLD" | "SILVER" | "BRONZE";
 
 export type BadgeColorType = "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
 
-export type BadgeTypeType = "GENERAL" | "SCISSORS";
+export type BadgeType = "GENERAL" | "SCISSORS";
 
 export interface GetCustomerProfileResponse {
   customerId?: number;
@@ -64,7 +64,7 @@ export interface GetDesignerWorkspaceResponse {
     badgeImageUrl?: string;
     isRepresentativeBadge?: boolean;
     badgeColor?: BadgeColorType;
-    badgeType?: BadgeTypeType;
+    badgeType?: BadgeType;
   }[];
 }
 
@@ -75,7 +75,7 @@ export interface Badge {
   badgeImageUrl?: string;
   isRepresentativeBadge?: boolean;
   badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
+  badgeType?: BadgeType;
 }
 
 export interface GetAroundWorkspacesResponse {
@@ -98,7 +98,7 @@ export interface GetAroundWorkspacesResponse {
       badgeContent?: string;
       badgeImageUrl?: string;
       badgeColor?: BadgeColorType;
-      badgeType?: BadgeTypeType;
+      badgeType?: BadgeType;
     }[];
   }[];
 }
@@ -120,7 +120,7 @@ export interface GetAroundWorkspaceResponse {
     badgeContent?: string;
     badgeImageUrl?: string;
     badgeColor?: BadgeColorType;
-    badgeType?: BadgeTypeType;
+    badgeType?: BadgeType;
   }[];
 }
 
@@ -130,7 +130,7 @@ export interface BadgeResponse {
   badgeContent?: string;
   badgeImageUrl?: string;
   badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
+  badgeType?: BadgeType;
 }
 
 export interface CheckCustomerNicknameDuplicatedResponse {
@@ -144,7 +144,20 @@ export interface GetDesignerBadgesForCustomerResponse {
     badgeContent?: string;
     badgeImageUrl?: string;
     badgeColor?: BadgeColorType;
-    badgeType?: BadgeTypeType;
+    badgeType?: BadgeType;
   }[];
   representativeBadges?: BadgeResponse[];
+}
+export interface Workspace {
+  workspaceId?: number;
+  workspaceName?: string;
+  address?: string;
+  addressDetail?: string;
+  bannerImageUrl?: string;
+  reviewCount?: number;
+  reviewRating?: number;
+  designerId?: number;
+  designerName?: string;
+  yearOfExperience?: number;
+  representativeBadges?: Badge[]; // Badge 배열
 }
