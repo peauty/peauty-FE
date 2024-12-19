@@ -14,11 +14,13 @@ export const Tab = styled.div<{ isActive: boolean }>`
   color: ${({ isActive }) => (isActive ? "#000" : "#aaa")};
   border-bottom: ${({ isActive }) =>
     isActive ? "2px solid #000" : "none"}; /* 더 두껍게 */
-  position: relative; 
+  position: relative;
   top: 2px;
   cursor: pointer;
 `;
 
 export const ContentWrapper = styled.div`
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 `;

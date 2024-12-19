@@ -3,6 +3,7 @@ import { NavigationWrapper, Tab, ContentWrapper } from "./index.styles";
 import { useState } from "react";
 import StylistItem from "../../../../components/stylist-Item/StylistItem";
 import PetlistItem from "../../../../components/petlist-item/PetlistItem";
+import { colors } from "../../../../style/color";
 
 interface HomeProps {
   title: string;
@@ -44,7 +45,7 @@ export default function ProposalStautsNav({
         </Tab>
       </NavigationWrapper>
       <ContentWrapper>
-        {activeTab === "waiting" ? (
+        {/* {activeTab === "waiting" ? (
           <div>
             {title === "견적" ? (
               <StylistItem
@@ -108,7 +109,33 @@ export default function ProposalStautsNav({
               />
             )}
           </div>
-        )}
+        )} */}
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <Text typo="body100">견적을 요청해 보세요</Text>
+          <div
+            style={{
+              backgroundColor: `${colors.blue300}`,
+              padding: "4px 10px",
+              width: "120px",
+              textAlign: "center",
+              color: `${colors.blue100}`,
+              borderRadius: "5px",
+              fontSize: "12px",
+              marginTop: "5px",
+              fontWeight: "500",
+            }}
+          >
+            견적 요청하기
+          </div>
+        </div>
       </ContentWrapper>
     </div>
   );
