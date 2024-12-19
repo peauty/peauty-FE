@@ -26,6 +26,7 @@ import {
   TextSectionWrapper,
 } from "../../../customer/quote-detail/index.styles";
 import InfoButton from "../../../../components/button/InfoButton";
+import Loading from "../../../../components/page/sign-up/Loading";
 
 export default function QuoteDetail() {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ export default function QuoteDetail() {
     }
   }, [userId, processId, threadId]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (!proposalData) return <div>Error fetching proposal details</div>;
 
   const imageUrl =

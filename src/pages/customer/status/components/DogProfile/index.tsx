@@ -9,6 +9,7 @@ import {
   DogName,
 } from "./index.styles";
 import Basic from "../../../../../assets/images/basic.png";
+import Loading from "../../../../../components/page/sign-up/Loading";
 
 interface DogProfileProps {
   src: string;
@@ -80,7 +81,7 @@ export default function DogList({ setPuppyId }: DogListProps) {
   }, [userId, isLoading, setPuppyId]);
 
   if (isLoading) {
-    return <div>Loading...</div>; // 로딩 중일 때 표시
+    return <Loading />;
   }
 
   const dogs = puppyData?.puppies || [];

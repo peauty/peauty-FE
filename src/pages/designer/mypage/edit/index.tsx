@@ -13,6 +13,7 @@ import {
 } from "../../../../types/designer/designer";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
 import { useCheckNickname } from "../../../../apis/designer/hooks/useUser";
+import Loading from "../../../../components/page/sign-up/Loading";
 
 export default function DesignerMyPageEdit() {
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ export default function DesignerMyPageEdit() {
     );
   };
 
-  if (!profile) return <div>Loading...</div>;
+  if (!profile) return <Loading />;
 
   return (
     <>

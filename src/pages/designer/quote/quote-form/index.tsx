@@ -32,6 +32,7 @@ import {
 } from "../../../../types/designer/designer-bidding-api";
 import Modal from "../../../../components/modal/Modal/Modal";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../../components/page/sign-up/Loading";
 export default function QuoteForm() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -137,7 +138,7 @@ export default function QuoteForm() {
     setAttachments((prev) => prev.filter((_, i) => i !== index));
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (!proposalData) return <div>Error fetching proposal details</div>;
 
   const imageUrl =

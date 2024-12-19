@@ -25,6 +25,7 @@ import PetInfo from "../../../components/petInfo/Info";
 import { formatDate } from "../../../utils/dataformat";
 import Modal from "../../../components/modal/Modal/Modal";
 import { DesignerAPI } from "../../../apis/designer/api";
+import Loading from "../../../components/page/sign-up/Loading";
 
 export const completeGrooming = async (
   userId: number,
@@ -114,7 +115,7 @@ export default function Schedule() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (error) return <div>{error}</div>;
 
   const workspace = scheduleData?.workspace;
