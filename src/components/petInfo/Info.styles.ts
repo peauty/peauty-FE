@@ -6,8 +6,8 @@ export const CardContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: auto;
-  padding: 25px 25px 20px;
   border-top: 2px solid ${colors.background};
+  padding: 25px 25px 20px;
   cursor: pointer;
 `;
 
@@ -61,8 +61,9 @@ export const StoreReservationWrapper = styled.div`
 export const DateWrapper = styled.div`
   display: flex;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   justify-content: flex-end;
+  color: ${colors.gray100};
 `;
 
 export const ButtonWrapper = styled.div`
@@ -94,5 +95,8 @@ export const ContentsWrapper = styled.div`
 `;
 export const BadgeWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap; /* 태그들이 줄 바꿈 가능 */
   gap: 5px;
+  max-height: calc(30px * 3 + 10px); /* 태그 높이 3줄 제한 (30px은 태그 높이) */
+  overflow-y: auto;
 `;

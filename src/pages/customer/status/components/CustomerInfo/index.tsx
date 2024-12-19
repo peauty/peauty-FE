@@ -55,11 +55,6 @@ export default function CustomerInfo({
   const reservationColor = reservation === "예약 완료" ? "blue100" : "gray100";
   return (
     <>
-      {date && (
-        <>
-          <DateWrapper>{date}</DateWrapper>
-        </>
-      )}
       <CardContainer>
         <CardWrapper onClick={onClick}>
           <Thumbnail src={thumbnailUrl} alt={store} />
@@ -93,6 +88,11 @@ export default function CustomerInfo({
                 )}
               </RatingWrapper>
             </ContentsWrapper>
+            {date && (
+              <>
+                <DateWrapper>{date}</DateWrapper>
+              </>
+            )}
           </InfoWrapper>
         </CardWrapper>
         {buttons.length > 0 && (

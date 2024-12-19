@@ -1,3 +1,9 @@
+export type ScissorsType = "NONE" | "GOLD" | "SILVER" | "BRONZE";
+
+export type BadgeColorType = "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
+
+export type BadgeTypeType = "GENERAL" | "SCISSORS";
+
 export interface SendEstimateResponse {
   estimateId?: number;
   biddingThreadId?: number;
@@ -74,7 +80,37 @@ export interface GetThreadsByStepResponse {
     threadCreatedAt?: string;
     threadStepModifiedAt?: string;
     puppy?: {
-      puppyId: number;
+      puppyId?: number;
+      customerId: number;
+      diseases?: string[];
+      name: string;
+      breed: string;
+      weight: number;
+      sex: string;
+      age: number;
+      birthdate: string;
+      profileImageUrl: string;
+      puppySize: string;
+    };
+  }[];
+}
+export interface GetThreadsByStep23Response {
+  threads?: {
+    processId?: number;
+    processStatus?: string;
+    processCreatedAt?: string;
+    processStatusModifiedAt?: string;
+    threadId?: number;
+    threadStep?: string;
+    threadStatus?: string;
+    threadCreatedAt?: string;
+    threadStepModifiedAt?: string;
+    style?: string;
+    desiredCost?: number;
+    estimatedCost: number;
+    depositPrice: number;
+    puppy?: {
+      puppyId?: number;
       customerId: number;
       diseases?: string[];
       name: string;
@@ -128,4 +164,76 @@ export interface GetEstimateAndProposalDetailsResponse {
     depositPrice?: number;
     imageUrls?: [string];
   };
+}
+
+export interface GetDesignerScheduleResponse {
+  workspace?: {
+    designerId?: number;
+    designerProfileImageUrl?: string;
+    workspaceName?: string;
+    reviewCount?: number;
+    reviewRating?: number;
+    badges?: {
+      badgeId?: number;
+      badgeName?: string;
+      badgeContent?: string;
+      badgeImageUrl?: string;
+      isRepresentativeBadge?: boolean;
+      badgeColor?: BadgeColorType;
+      badgeType?: BadgeTypeType;
+    }[];
+    address?: string;
+    scissors?: ScissorsType;
+  };
+  groomingSummary?: {
+    endGroomingCount?: number;
+    todayGroomingCount?: number;
+    nextGroomingCount?: number;
+  };
+  threads?: {
+    processId?: number;
+    processStatus?: string;
+    processCreatedAt?: string;
+    processStatusModifiedAt?: string;
+    threadId?: number;
+    threadStep?: string;
+    threadStatus?: string;
+    threadCreatedAt?: string;
+    threadStepModifiedAt?: string;
+    depositPrice?: number;
+    desiredGroomingDateTime?: string;
+    puppy?: {
+      puppyId?: number;
+      customerId?: number;
+      name?: string;
+      breed?: string;
+      weight?: number;
+      sex?: string;
+      age?: number;
+      birthdate?: string;
+      profileImageUrl?: string;
+      puppySize?: string;
+      diseases?: string[];
+      hasOngoingProcess?: boolean;
+    };
+  }[];
+}
+
+export interface GetDesignerScheduleResponseWorkspace {
+  designerId?: number;
+  designerProfileImageUrl?: string;
+  workspaceName?: string;
+  reviewCount?: number;
+  reviewRating?: number;
+  badges?: {
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    isRepresentativeBadge?: boolean;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeTypeType;
+  }[];
+  address?: string;
+  scissors?: ScissorsType;
 }

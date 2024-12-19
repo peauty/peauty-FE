@@ -203,31 +203,27 @@ export default function Status() {
       case "confirmed":
         return (
           <>
-            <div style={{ padding: "0 20px" }}>
-              {threadsData?.threads?.length ? (
-                threadsData.threads.map((thread, index) => (
-                  <CustomerInfo
-                    key={index}
-                    store={thread.workspaceName || "알 수 없음"}
-                    score={thread.score || 0}
-                    review={thread.reviewCount || 0}
-                    reservation={thread.threadStep || "알 수 없음"}
-                    location={thread.address || "알 수 없음"}
-                    thumbnailUrl={thread.thumbnailUrl || Basic}
-                    buttons={renderCustomerInfoButtons("confirmed")}
-                    status={thread.style || "알 수 없음"}
-                    payment={formatCurrency(
-                      thread.estimate?.estimatedCost || 0,
-                    )}
-                    onClick={() =>
-                      console.log(`CustomerInfo clicked for thread ${index}`)
-                    }
-                  />
-                ))
-              ) : (
-                <p>확인된 데이터가 없습니다.</p>
-              )}
-            </div>
+            {threadsData?.threads?.length ? (
+              threadsData.threads.map((thread, index) => (
+                <CustomerInfo
+                  key={index}
+                  store={thread.workspaceName || "알 수 없음"}
+                  score={thread.score || 0}
+                  review={thread.reviewCount || 0}
+                  reservation={thread.threadStep || "알 수 없음"}
+                  location={thread.address || "알 수 없음"}
+                  thumbnailUrl={thread.thumbnailUrl || Basic}
+                  buttons={renderCustomerInfoButtons("confirmed")}
+                  status={thread.style || "알 수 없음"}
+                  payment={formatCurrency(thread.estimate?.estimatedCost || 0)}
+                  onClick={() =>
+                    console.log(`CustomerInfo clicked for thread ${index}`)
+                  }
+                />
+              ))
+            ) : (
+              <p>확인된 데이터가 없습니다.</p>
+            )}
           </>
         );
       default:
