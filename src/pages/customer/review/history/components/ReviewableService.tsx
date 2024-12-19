@@ -53,7 +53,7 @@ export default function ReviewableService() {
             },
           ]}
           status="가윗컷 + 곰돌이컷"
-          payment={formatCurrency(statusItemData.payment)}
+          payment={statusItemData.payment}
           onClick={statusItemData.onClick}
         />
       </div>
