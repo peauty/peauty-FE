@@ -248,7 +248,7 @@ export default function PetEdit() {
             label="몸무게"
             placeholder="예) 22"
             extraText="kg"
-            value={puppyWeight}
+            value={String(puppyWeight)}
             onChange={handleWeightChange}
           />
         </Style.Wrapper>
