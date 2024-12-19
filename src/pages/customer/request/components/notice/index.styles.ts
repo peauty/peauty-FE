@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../../../../../style/color";
+import theme from "../../../../../style/theme";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -7,7 +8,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  height: 80vh;
+  height: calc(100vh - ${theme.size.appBarHeight});
 `;
 
 export const IconBox = styled.div`

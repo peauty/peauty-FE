@@ -181,11 +181,7 @@ export default function CustomerMyPageEdit() {
   };
   return (
     <>
-      {(locationLoading || uploadLoading || updateLoading) && (
-        <Loading
-          imageUrl={"https://avatars.githubusercontent.com/u/70759627?v=4"}
-        />
-      )}
+      {(locationLoading || uploadLoading || updateLoading) && <Loading />}
       <MyPageEditWrapper>
         <AppBar
           prefix="backButton"
@@ -225,7 +221,7 @@ export default function CustomerMyPageEdit() {
                 (error !== "" && error !== "이미 사용중인 닉네임입니다.")
               }
             >
-              중복검사
+              중복 검사
             </CustomButton>
           }
         />

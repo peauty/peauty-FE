@@ -1,10 +1,10 @@
 import styled from "styled-components";
+import theme from "../../../../../style/theme";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  justify-content: space-between;
+  height: calc(100vh - ${theme.size.gnbHeight} - ${theme.size.appBarHeight});
 `;
 
 export const CardWrapper = styled.div`

@@ -70,3 +70,5 @@ export { default as Pin } from "./Pin";
 export { default as Search } from "./Search";
 export { default as Smile } from "./Smile";
 export { default as Warning } from "./Warning";
+export{ default as NoStatus} from "./NoStatus";
+export{ default as NoReceived} from "./NoReceived";
