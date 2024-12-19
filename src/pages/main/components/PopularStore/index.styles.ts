@@ -12,11 +12,12 @@ export const PopularStoreItem = styled.div`
   align-items: center;
 `;
 
-export const PopularStoreImg = styled.div`
+export const PopularStoreImg = styled.img`
   background-color: ${colors.gray400};
   border-radius: 50%;
   width: 90px;
   height: 90px;
+  object-fit: cover;
 `;
 
 export const PopularStoreText = styled(NewStoreTextWrap)`

@@ -1,5 +1,4 @@
 import { AppBar, GNB, Divider } from "../../../components";
-//import EstimateStauts from "./components/EstimateStatus";
 import Carousel from "../../../components/carousel/Carousel";
 import ProposalItem from "../components/ProposalItem";
 import Banner1 from "../../../assets/images/banner.png";

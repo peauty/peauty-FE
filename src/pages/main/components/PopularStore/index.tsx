@@ -9,6 +9,8 @@ import {
   PopularStoreText,
 } from "./index.styles";
 import { NewStoreBadgeWrap } from "../NewStore/index.styles";
+import Alo from "../../../../assets/images/alo.png";
+import MyBE from "../../../../assets/images/mybeauty.png";
 export default function PopularStore() {
   return (
     <HomeContentsWrapper>
@@ -17,12 +19,10 @@ export default function PopularStore() {
       </Text>
       <PopularStoreWrap>
         <PopularStoreItem>
-          <PopularStoreImg />
+          <PopularStoreImg src={Alo} />
           <PopularStoreText>
-            <Text typo="subtitle300">몽뜨의 아뜰리네</Text>
-            <Text typo="body400" color="gray100">
-              몽뜨의 아뜰리네
-            </Text>
+            <Text typo="subtitle300">알로하</Text>
+            <Text typo="body400">서울 강남구 논현동</Text>
             <NewStoreBadgeWrap>
               <Badge type="general" text="말티즈 전문가" />
               <Badge type="general" text="반려견 구조 자격증" />
@@ -30,12 +30,10 @@ export default function PopularStore() {
           </PopularStoreText>
         </PopularStoreItem>
         <PopularStoreItem>
-          <PopularStoreImg />
+          <PopularStoreImg src={MyBE} />
           <PopularStoreText>
-            <Text typo="subtitle300">몽뜨의 아뜰리네</Text>
-            <Text typo="body400" color="gray100">
-              몽뜨의 아뜰리네
-            </Text>
+            <Text typo="subtitle300">마이뷰티독 강남정</Text>
+            <Text typo="body400">서울 강남구 역삼동동</Text>
             <NewStoreBadgeWrap>
               <Badge type="general" text="말티즈 전문가" />
               <Badge type="general" text="반려견 구조 자격증" />

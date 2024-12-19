@@ -19,7 +19,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding-bottom: 30px;
   height: calc(100vh - ${theme.size.appBarHeight});
 `;
 
