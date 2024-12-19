@@ -53,8 +53,8 @@ export default function Card({
         <ProfileImg
           src={imageSrc}
           alt={`${name}'s image`}
-          width="80px"
-          height="80px"
+          width="65px"
+          height="65px"
         />
       </div>
       <InfoWrapper>
