@@ -158,7 +158,7 @@ export default function Status() {
           name={thread.puppy?.name || "강아지"}
           age={thread.puppy?.age || 3}
           gender={thread.puppy?.sex || "남아아"}
-          weight={thread.puppy?.weight.toString() || "3.4"}
+          weight={thread.puppy?.weight || 3.4}
           breed={thread.puppy?.breed || "품종 미제공"}
           tags={thread.puppy?.diseases || []}
           buttons={[
@@ -192,7 +192,7 @@ export default function Status() {
           name={thread.puppy?.name || "강아지"}
           age={thread.puppy?.age || 0}
           gender={thread.puppy?.sex || "남아"}
-          weight={thread.puppy?.weight.toString() || "3.4"}
+          weight={thread.puppy?.weight || 3.4}
           breed={thread.puppy?.breed || "품종 미제공"}
           tags={thread.puppy?.diseases || []}
           status={thread?.threadStep}
@@ -226,7 +226,7 @@ export default function Status() {
           name={thread.puppy?.name || "강아지"}
           age={thread.puppy?.age || 3}
           gender={thread.puppy?.sex || "수컷"}
-          weight={thread.puppy?.weight.toString() || "3.4"}
+          weight={thread.puppy?.weight || 3.4}
           breed={thread.puppy?.breed || "품종 미제공"}
           status={thread.threadStep}
           tags={thread.puppy?.diseases || []}

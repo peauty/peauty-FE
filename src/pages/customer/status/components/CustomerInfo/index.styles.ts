@@ -20,8 +20,8 @@ export const CardWrapper = styled.div`
 
 export const Thumbnail = styled.img`
   background-color: ${colors.gray400};
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 5px;
 `;
 
@@ -59,10 +59,11 @@ export const StoreReservationWrapper = styled.div`
   justify-content: space-between;
 `;
 export const DateWrapper = styled.div`
+  display: flex;
   font-size: 12px;
-  font-weight: 500;
-  padding: 10px 25px 0px;
-  border-top: 2px solid ${colors.background};
+  font-weight: 400;
+  justify-content: flex-end;
+  color: ${colors.gray100};
 `;
 
 export const ButtonWrapper = styled.div`

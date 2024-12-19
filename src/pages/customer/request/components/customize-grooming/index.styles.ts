@@ -40,6 +40,7 @@ export const ItemWrapper = styled.div`
 
 export const AddWrapper = styled.div`
   width: 80px;
+  height: 80px;
   margin-top: 10px;
 `;
 
@@ -52,6 +53,7 @@ export const ImageContainer = styled.div`
 export const ImageUnit = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: cover;
   border-radius: 10px;
 `;
 

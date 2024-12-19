@@ -29,7 +29,7 @@ interface InfoProps {
   name: string;
   age: number;
   gender: string;
-  weight: string;
+  weight: number;
   breed: string;
   status?: string;
   tags?: string[];

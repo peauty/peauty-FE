@@ -16,7 +16,7 @@ interface DashboardProps {
 const Dashboard = ({ total, today, upcomming }: DashboardProps) => {
   const items: DashboardItem[] = [
     { label: "누적 완료 미용", value: total },
-    { label: "오늘 남은 미용", value: today },
+    { label: "오늘 미용", value: today },
     { label: "해야될 미용", value: upcomming },
   ];
   return (

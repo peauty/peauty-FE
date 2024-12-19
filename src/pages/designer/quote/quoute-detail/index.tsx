@@ -25,6 +25,7 @@ import {
   QuoteDetailsCard,
   TextSectionWrapper,
 } from "../../../customer/quote-detail/index.styles";
+import InfoButton from "../../../../components/button/InfoButton";
 
 export default function QuoteDetail() {
   const navigate = useNavigate();
@@ -37,9 +38,11 @@ export default function QuoteDetail() {
   const [isDetailOpen, setIsDetailOpen] = useState<boolean>(false);
 
   const handleBack = () => {
-    navigate("/designer/status", {
-      state: { activeTab }, // 돌아갈 때 탭 상태 전달
-    });
+    if (location.state?.fromStatusPage) {
+      navigate("/designer/status", { state: { activeTab } });
+    } else {
+      navigate(-1);
+    }
   };
   useEffect(() => {
     const fetchProposalDetails = async () => {
@@ -209,7 +212,7 @@ export default function QuoteDetail() {
           >
             <DetailRow>
               <DetailLabel>
-                <Text typo="body300">예약 날짜</Text>
+                <Text typo="body400">예약 날짜</Text>
               </DetailLabel>
               <Text typo="body300">
                 {formatDate(proposalData.estimateProposal?.desiredDateTime)}
@@ -217,7 +220,7 @@ export default function QuoteDetail() {
             </DetailRow>
             <DetailRow>
               <DetailLabel>
-                <Text typo="body300">미용 종류</Text>
+                <Text typo="body400">미용 종류</Text>
               </DetailLabel>
               <Text typo="body300">
                 {proposalData.estimateProposal?.totalGroomingFaceType} +{" "}
@@ -226,7 +229,7 @@ export default function QuoteDetail() {
             </DetailRow>
             <DetailRow>
               <DetailLabel>
-                <Text typo="body300">예상 소요 시간</Text>
+                <Text typo="body400">예상 소요 시간</Text>
               </DetailLabel>
               <Text typo="body300">
                 {proposalData.estimate?.estimatedDuration}
@@ -234,7 +237,7 @@ export default function QuoteDetail() {
             </DetailRow>
             <DetailRow>
               <DetailLabel>
-                <Text typo="body300">첨부사진</Text>
+                <Text typo="body400">첨부사진</Text>
               </DetailLabel>
               <div style={{ display: "flex", gap: "5px", overflowX: "auto" }}>
                 {Array.isArray(proposalData.estimate?.imageUrls) &&
@@ -253,7 +256,7 @@ export default function QuoteDetail() {
                     />
                   ))
                 ) : (
-                  <Text typo="body100" color="gray100">
+                  <Text typo="body300" color="gray100">
                     첨부된 이미지가 없습니다
                   </Text>
                 )}
@@ -261,7 +264,7 @@ export default function QuoteDetail() {
             </DetailRow>
             <DetailRow>
               <DetailLabel>
-                <Text typo="body300">상세 설명</Text>
+                <Text typo="body400">상세 설명</Text>
               </DetailLabel>
               <DetailText>
                 <Text typo="body300">{proposalData.estimate?.content}</Text>
@@ -270,18 +273,47 @@ export default function QuoteDetail() {
           </div>
 
           <DashedDivider />
-
-          <DetailRow>
-            <DetailLabel>
-              <Text typo="subtitle200" color="blue100">
-                총 결제 비용
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "5px" }}
+            >
+              <DetailRow>
+                <DetailLabel>
+                  <Text typo="body400" color="gray100">
+                    전체 비용
+                  </Text>
+                </DetailLabel>
+                <Text typo="body300" color="gray100">
+                  {proposalData.estimate?.estimatedCost?.toLocaleString()}원
+                </Text>
+              </DetailRow>
+              <DetailRow>
+                <DetailLabel>
+                  <AgreementItem>
+                    <InfoButton
+                      title="예약금"
+                      message={`예약금은 고객님의 예약을 확정하기 위해 미리 결제하는 금액으로, 총 결제 금액의 50%에 해당합니다.\n이 금액은 예약 보증과 원활한 서비스 준비를 위해 사용되며, 잔액은 서비스 완료 시 결제하실 수 있습니다.`}
+                    />
+                  </AgreementItem>
+                </DetailLabel>
+                <Text typo="body300" color="gray100">
+                  {proposalData.estimate?.depositPrice?.toLocaleString()}원
+                </Text>
+              </DetailRow>
+            </div>
+            <DetailRow>
+              <DetailLabel>
+                <Text typo="subtitle200" color="blue100">
+                  총 결제 비용
+                </Text>
+              </DetailLabel>
+              <Text typo="subtitle200">
+                {proposalData.estimate?.depositPrice?.toLocaleString()}원
               </Text>
-            </DetailLabel>
-            <Text typo="subtitle200">
-              {proposalData.estimate?.depositPrice?.toLocaleString()}원
-            </Text>
-          </DetailRow>
-
+            </DetailRow>
+          </div>
           <DashedDivider />
 
           <AgreementContainer>

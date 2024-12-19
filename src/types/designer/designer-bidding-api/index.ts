@@ -191,6 +191,7 @@ export interface GetDesignerScheduleResponse {
     nextGroomingCount?: number;
   };
   threads?: {
+    style?: string;
     processId?: number;
     processStatus?: string;
     processCreatedAt?: string;
@@ -225,6 +226,7 @@ export interface GetDesignerScheduleResponseWorkspace {
   workspaceName?: string;
   reviewCount?: number;
   reviewRating?: number;
+  style?: string;
   badges?: {
     badgeId?: number;
     badgeName?: string;

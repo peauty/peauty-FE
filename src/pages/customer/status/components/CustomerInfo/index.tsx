@@ -13,7 +13,7 @@ import {
 } from "./index.styles";
 import { Text } from "../../../../../components";
 import Rating from "../../../../../components/rating";
-
+import { formatDate } from "../../../../../utils/dataformat";
 interface ButtonProps {
   width: string;
   title: string;
@@ -30,7 +30,7 @@ interface CustomerInfoProps {
   reservation?: string;
   review: number;
   status?: string;
-  payment: string;
+  payment: number;
   isReviewed?: boolean;
   thumbnailUrl: string;
   buttons: ButtonProps[];
@@ -87,12 +87,12 @@ export default function CustomerInfo({
                   </Text>
                 )}
               </RatingWrapper>
-            </ContentsWrapper>
             {date && (
               <>
-                <DateWrapper>{date}</DateWrapper>
+                <DateWrapper>{formatDate(date)}</DateWrapper>
               </>
             )}
+            </ContentsWrapper>
           </InfoWrapper>
         </CardWrapper>
         {buttons.length > 0 && (

@@ -33,6 +33,7 @@ import { useRecoilState } from "recoil";
 import { PaymentData, paymentAtom } from "../../../atoms/paymentAtom";
 import { ROUTE } from "../../../constants/routes";
 import { Icon } from "../../designer/quote/quoute-detail/index.styles";
+import InfoButton from "../../../components/button/InfoButton";
 function formatDateToKorean(dateStr: string): string {
   const date = new Date(dateStr);
   const year = date.getFullYear();
@@ -274,18 +275,44 @@ export default function QuoteDetail() {
 
           <DashedDivider />
 
-          <DetailRow>
-            <DetailLabel>
-              <Text typo="subtitle200" color="blue100">
-                총 결제 비용
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "5px" }}
+            >
+              <DetailRow>
+                <DetailLabel>
+                  <Text typo="body400" color="gray100">
+                    전체 비용
+                  </Text>
+                </DetailLabel>
+                <Text typo="body300" color="gray100">
+                  {estimate?.estimatedCost?.toLocaleString()}원
+                </Text>
+              </DetailRow>
+              <DetailRow>
+                <DetailLabel>
+                  <Text typo="body400" color="gray100">
+                    예약금
+                  </Text>
+                </DetailLabel>
+                <Text typo="body300" color="gray100">
+                  {estimate?.depositPrice?.toLocaleString()}원
+                </Text>
+              </DetailRow>
+            </div>
+            <DetailRow>
+              <DetailLabel>
+                <Text typo="subtitle200" color="blue100">
+                  총 결제 비용
+                </Text>
+              </DetailLabel>
+              <Text typo="subtitle200">
+                {estimate?.depositPrice?.toLocaleString()}원
               </Text>
-            </DetailLabel>
-            <Text typo="subtitle200">
-              {estimate?.depositPrice
-                ? `${estimate.depositPrice.toLocaleString()}원`
-                : "0원"}
-            </Text>
-          </DetailRow>
+            </DetailRow>
+          </div>
 
           <DashedDivider />
 
