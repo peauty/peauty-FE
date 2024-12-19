@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { AppBar, Divider, GNB, Text } from "../../../../components";
 import SvgFirework from "../../../../assets/svg/Firework";
 import SvgMedal from "../../../../assets/svg/Medal";
-import { Badges } from "./components/Badges/Badges";
 import {
   PageWrapper,
   BannerWrapper,
@@ -14,12 +13,14 @@ import {
 import { getDesignerBadges, updateRepresentativeBadge } from "../../../../apis/designer/resources/designer";
 import { BadgeResponse } from "../../../../types/designer/designer";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
+import { ShopBadge } from "../../../shop/components/ShopBadge";
 
 export default function DesignerMyBadgesPage() {
   const [allBadges, setAllBadges] = useState<BadgeResponse[]>([]);
   const [representativeBadges, setRepresentativeBadges] = useState<BadgeResponse[]>([]);
   const [error, setError] = useState<string | null>(null); 
   const { userId } = useUserDetails(); 
+  console.log(userId, "userId");
 
   useEffect(() => {
     // 초기 데이터 로드
@@ -28,25 +29,23 @@ export default function DesignerMyBadgesPage() {
       try {
         const data = await getDesignerBadges(userId);
         console.log("Fetched badges data:", data); 
-        setAllBadges(data.acquiredBadges || []);
-        setRepresentativeBadges(data.representativeBadges || []);
+        setAllBadges(data.unacquiredBadges || []);
+        setRepresentativeBadges(data.unacquiredBadges || []);
       } catch (error) {
         console.error("Error fetching badges:", error);
         setError("배지 데이터를 불러오는 중 오류가 발생했습니다.");
       }
     };
 
-
     fetchBadges();
   }, [userId]);
+
   const handleBadgeClick = async (badge: BadgeResponse) => {
-    // userId가 null이 아닌지 확인
-    if (userId === null) {
+    if (!userId) {
       console.error("User ID is null");
-      return; // userId가 없으면 함수 종료
+      return;
     }
-  
-    // 대표 배지 추가/업데이트
+
     if (representativeBadges.length < 3 || representativeBadges.some((b) => b.badgeId === badge.badgeId)) {
       try {
         const updatedBadge = await updateRepresentativeBadge(userId, badge.badgeId!, {
@@ -63,7 +62,6 @@ export default function DesignerMyBadgesPage() {
       }
     }
   };
-  
 
   return (
     <>
@@ -96,31 +94,20 @@ export default function DesignerMyBadgesPage() {
         <Text typo="subtitle200" color="black">
           나의 대표 배지
         </Text>
-        <BadgeGridWrapper>
-          {representativeBadges.map((badge) => (
-            <Badges
-              key={badge.badgeId}
-              src={badge.badgeImageUrl || ""}  // 기본값 처리
-              title={badge.badgeName || "기본 배지 이름"}  // 기본값 처리
-            />
-          ))}
-        </BadgeGridWrapper>
+        <ShopBadge
+          badges={representativeBadges}
+          onClick={(badge) => handleBadgeClick(badge)}
+        />
 
         <Divider />
 
         <Text typo="subtitle200" color="black">
           모든 배지
         </Text>
-        <BadgeGridWrapper>
-          {allBadges.map((badge) => (
-            <Badges
-              key={badge.badgeId}
-              src={badge.badgeImageUrl || ""}  // 기본값 처리
-              title={badge.badgeName || "기본 배지 이름"}  // 기본값 처리
-              onClick={() => handleBadgeClick(badge)}
-            />
-          ))}
-        </BadgeGridWrapper>
+        <ShopBadge
+          badges={allBadges}
+          onClick={(badge) => handleBadgeClick(badge)}
+        />
       </PageWrapper>
       <GNB type={"designer"} />
     </>
