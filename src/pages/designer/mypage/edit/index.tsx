@@ -94,7 +94,7 @@ export default function DesignerMyPageEdit() {
               variant="primary"
               onClick={checkNicknameAvailability}
             >
-              중복검사
+              중복 검사
             </CustomButton>
           }
         />
