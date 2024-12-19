@@ -14,7 +14,7 @@ export const StyleProfileImg = {
     display: flex;
     justify-content: center;
     position: relative;
-    margin: 20px 0;
+    /* margin: 20px 0; */
   `,
   RoundImg: styled.img<StyleImg>`
     width: ${(props) => (props.width ? props.width : "100%")};
