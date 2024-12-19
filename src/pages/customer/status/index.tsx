@@ -114,7 +114,7 @@ export default function Status() {
     } else if (reservationStatus === "미용 확정") {
       return "리뷰 작성";
     }
-    return "결제 취소";
+    return "리뷰 작성";
   };
 
   const renderCustomerInfoButtons = (reservationStatus: string) => [
@@ -226,7 +226,7 @@ export default function Status() {
                     buttons={renderCustomerInfoButtons("confirmed")}
                     status={thread.style || "알 수 없음"}
                     payment={formatCurrency(
-                      thread.estimate?.estimatedCost || 0,
+                      thread.estimatedCost || 0,
                     )}
                     onClick={() =>
                       console.log(`CustomerInfo clicked for thread ${index}`)
