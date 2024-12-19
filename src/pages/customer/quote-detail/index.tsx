@@ -1,5 +1,6 @@
 import { CareerIcon, CheckIcon2, Maker } from "../../../assets/svg";
 import { AppBar, GNB, Text } from "../../../components";
+import InfoButton from"../../../components/button/InfoButton";
 import Rating from "../../../components/rating";
 import { colors } from "../../../style/color";
 import {
@@ -17,6 +18,7 @@ import {
   TextSectionWrapper,
   ProfileRow,
   DashedDivider,
+  Reservation
 } from "./index.styles";
 import { useEffect, useState } from "react";
 import { getEstimateAndProposalDetails } from "../../../apis/customer/resources/bidding";
@@ -33,6 +35,8 @@ import { useRecoilState } from "recoil";
 import { PaymentData, paymentAtom } from "../../../atoms/paymentAtom";
 import { ROUTE } from "../../../constants/routes";
 import { Icon } from "../../designer/quote/quoute-detail/index.styles";
+import { formatDate } from "../../../utils/dataformat";
+
 function formatDateToKorean(dateStr: string): string {
   const date = new Date(dateStr);
   const year = date.getFullYear();
@@ -159,13 +163,15 @@ export default function QuoteDetail() {
     }
   };
 
+  console.log(designer?.profileImageUrl, "designer?.profileImageUrl");
+
   return (
     <PageContainer>
       <AppBar prefix="backButton" title="견적서 보기" />
       <InfoContainer>
         <InfoCard>
           <ProfileImage
-            src="" // 새 타입에는 profileImageUrl이 없음
+            src={`${designer?.profileImageUrl}`} // 새 타입에는 profileImageUrl이 없음
             width="100px"
             height="100px"
           />
@@ -173,9 +179,10 @@ export default function QuoteDetail() {
             <Text typo="subtitle200">{designer?.workspaceName}</Text>
             <ProfileTextContainer>
               <ProfileRow>
-                <Rating score={0} /> {/* 새 타입에는 reviewRating이 없음 */}
+              <Rating score={designer?.reviewCount ?? 0} />
+
                 <Text typo="body300" color="gray100">
-                  &nbsp;(0)
+                  &nbsp;(6)
                 </Text>
               </ProfileRow>
               <ProfileRow>
@@ -213,7 +220,7 @@ export default function QuoteDetail() {
               </DetailLabel>
               <Text typo="body300">
                 {estimateProposal?.desiredDateTime
-                  ? new Date(estimateProposal.desiredDateTime).toLocaleString()
+                  ? formatDate(estimateProposal.desiredDateTime)
                   : "날짜 정보 없음"}
               </Text>
             </DetailRow>
@@ -273,6 +280,31 @@ export default function QuoteDetail() {
           </div>
 
           <DashedDivider />
+          <DetailRow>
+            <DetailLabel>
+              <Text typo="body100">전체비용</Text>
+            </DetailLabel>
+            <Text typo="body100">
+              {estimate?.estimatedCost
+                ? `${estimate.estimatedCost.toLocaleString()}원`
+                : "0원"}
+            </Text>
+          </DetailRow>
+
+          <DetailRow>
+            <DetailLabel>
+              <Reservation>
+              <Text typo="body100">예약금 </Text>
+              <InfoButton  message="예약금은 전체 결제비용의 50%로 계산된 비용이예요"/>
+              </Reservation>
+            
+            </DetailLabel>
+            <Text typo="body100">
+              {estimate?.depositPrice
+                ? `${estimate.depositPrice.toLocaleString()}원`
+                : "0원"}
+            </Text>
+          </DetailRow>
 
           <DetailRow>
             <DetailLabel>
