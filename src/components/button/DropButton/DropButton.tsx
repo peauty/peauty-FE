@@ -21,7 +21,6 @@ export interface DropButtonProps {
   isActive?: boolean;
   disabled?: boolean; // disabled 속성 추가
 }
-
 export default function DropButton({
   label,
   placeholder,
@@ -32,7 +31,9 @@ export default function DropButton({
 }: DropButtonProps) {
   const [isActive, setIsActive] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [selectedValue, setSelectedValue] = useState(selected);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(
+    selected,
+  );
 
   useEffect(() => {
     setSelectedValue(selected);
@@ -83,15 +84,19 @@ export default function DropButton({
           )}
         </DropdownIcon>
       </DropdownContainer>
-      {isActive && !disabled && ( // disabled일 경우 드롭다운 목록도 보이지 않음
-        <DropdownList>
-          {options.map((option, index) => (
-            <DropdownListItem key={index} onClick={() => handleSelect(option)}>
-              {option}
-            </DropdownListItem>
-          ))}
-        </DropdownList>
-      )}
+      {isActive &&
+        !disabled && ( // disabled일 경우 드롭다운 목록도 보이지 않음
+          <DropdownList>
+            {options.map((option, index) => (
+              <DropdownListItem
+                key={index}
+                onClick={() => handleSelect(option)}
+              >
+                {option}
+              </DropdownListItem>
+            ))}
+          </DropdownList>
+        )}
     </Wrapper>
   );
 }
