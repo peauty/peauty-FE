@@ -1,6 +1,6 @@
 import { CareerIcon, CheckIcon2, Maker } from "../../../assets/svg";
 import { AppBar, GNB, Text } from "../../../components";
-import InfoButton from"../../../components/button/InfoButton";
+import InfoButton from "../../../components/button/InfoButton";
 import Rating from "../../../components/rating";
 import { colors } from "../../../style/color";
 import {
@@ -18,7 +18,7 @@ import {
   TextSectionWrapper,
   ProfileRow,
   DashedDivider,
-  Reservation
+  Reservation,
 } from "./index.styles";
 import { useEffect, useState } from "react";
 import { getEstimateAndProposalDetails } from "../../../apis/customer/resources/bidding";
@@ -157,7 +157,7 @@ export default function QuoteDetail() {
       };
 
       setPaymentData(paymentResponse);
-      navigate(ROUTE.customer.payment);
+      navigate(ROUTE.customer.request.payment);
     } catch (error) {
       console.error("Payment process failed:", error);
     }
@@ -179,7 +179,7 @@ export default function QuoteDetail() {
             <Text typo="subtitle200">{designer?.workspaceName}</Text>
             <ProfileTextContainer>
               <ProfileRow>
-              <Rating score={designer?.reviewCount ?? 0} />
+                <Rating score={designer?.reviewCount ?? 0} />
 
                 <Text typo="body300" color="gray100">
                   &nbsp;(6)
@@ -294,10 +294,9 @@ export default function QuoteDetail() {
           <DetailRow>
             <DetailLabel>
               <Reservation>
-              <Text typo="body100">예약금 </Text>
-              <InfoButton  message="예약금은 전체 결제비용의 50%로 계산된 비용이예요"/>
+                <Text typo="body100">예약금 </Text>
+                <InfoButton message="예약금은 전체 결제비용의 50%로 계산된 비용이예요" />
               </Reservation>
-            
             </DetailLabel>
             <Text typo="body100">
               {estimate?.depositPrice

@@ -27,11 +27,11 @@ export const ROUTE = {
     },
     request: {
       home: "/customer/request",
+      payment: "/customer/request/payment",
       shop: (shopId: number) => `/customer/request/shops/${shopId}`,
       gallery: (shopId: number) => `/customer/request/shops/${shopId}/gallery`,
     },
     status: "/customer/status",
-    payment: "/customer/payment",
   },
   designer: {
     home: "/designer/home", // 디자이너 기본 경로

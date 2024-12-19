@@ -6,12 +6,9 @@ import { requestPaths } from "./request";
 import { myPagePaths } from "./mypage";
 import { Layout } from "../../components/layout/Layout";
 import { AuthLayout } from "../../components/layout/AuthLayout";
-import Shop from "../../pages/shop";
 import { noPadding } from "../../style/layoutStyle";
 import { statusPaths } from "./status";
 import QuoteDetail from "../../pages/customer/quote-detail";
-import { paymentPaths } from "./payment";
-import Payment from "../../pages/customer/payment";
 
 export const customerPaths = [
   // Layout 적용 경로
@@ -21,7 +18,6 @@ export const customerPaths = [
     children: [
       { path: "signup", element: <CustomerSignUp /> },
       { path: "signup-complete", element: <CustomerSignUpComplete /> },
-      ...paymentPaths, // 결제 관련 경로
     ],
   },
 

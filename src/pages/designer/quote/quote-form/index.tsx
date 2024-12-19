@@ -213,7 +213,7 @@ export default function QuoteForm() {
 
           <RequestSection>
             <Text typo="body400" color="gray100">
-              희망 예약 시간간
+              희망 예약 시간
             </Text>
             <Text typo="body100">
               {formatDate(proposalData.estimateProposal?.desiredDateTime) ||
