@@ -162,6 +162,10 @@ export interface GetEstimateAndProposalDetailsResponse {
     imageUrls?: string[];
   };
   designer?: {
+    badges?:string[];
+    reviewRating: number;
+    reviewCount?: number;
+    profileImageUrl?: string;
     workspaceName?: string;
     address?: string;
   };

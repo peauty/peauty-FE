@@ -20,6 +20,8 @@ import {
 } from "../../../types/customer/bidding";
 import Basic from "../../../assets/images/basic.png";
 import NotFoundPuppy from "./components/NotFoundPuppy";
+import NoReceived from "./components/NoReceived";
+import Nosend from "./components/Nosent";
 interface StatusItemData {
   name: string;
   store: string;
@@ -112,7 +114,7 @@ export default function Status() {
     } else if (reservationStatus === "미용 확정") {
       return "리뷰 작성";
     }
-    return "결제 취소";
+    return "리뷰 작성";
   };
 
   const renderCustomerInfoButtons = (reservationStatus: string) => [
@@ -150,24 +152,31 @@ export default function Status() {
       case "sent":
         return (
           <>
-            <Info
-              requestDate={statusItemData?.date || "알 수 없음"}
-              requestText={statusItemData?.name || "요청 내용 없음"}
-              userId={0}
-              puppyId={0}
-              processId={0}
-            />
-            <StatusListItem
-              location={statusItemData?.location || "알 수 없음"}
-              store={statusItemData?.store || "알 수 없음"}
-              score={statusItemData?.score || 0}
-              review={statusItemData?.review || 0}
-              badges={statusItemData?.badges || []}
-              thumbnailUrl={statusItemData?.thumbnailUrl || Basic}
-              onClick={() => console.log("StatusListItem clicked")}
-            />
+            {statusItemData ? (
+              <>
+                <Info
+                  requestDate={statusItemData.date }
+                  requestText={statusItemData.name }
+                  userId={0}
+                  puppyId={0}
+                  processId={0}
+                />
+                <StatusListItem
+                  location={statusItemData.location }
+                  store={statusItemData.store }
+                  score={statusItemData.score }
+                  review={statusItemData.review }
+                  badges={statusItemData.badges }
+                  thumbnailUrl={statusItemData.thumbnailUrl}
+                  onClick={() => console.log("StatusListItem clicked")}
+                />
+              </>
+            ) : (
+              <Nosend />
+            )}
           </>
         );
+      
       case "received":
         return (
           <>
@@ -196,7 +205,7 @@ export default function Status() {
                 />
               ))
             ) : (
-              <p>확인된 데이터가 없습니다.</p>
+              <NoReceived /> 
             )}
           </>
         );
@@ -217,7 +226,7 @@ export default function Status() {
                     buttons={renderCustomerInfoButtons("confirmed")}
                     status={thread.style || "알 수 없음"}
                     payment={formatCurrency(
-                      thread.estimate?.estimatedCost || 0,
+                      thread.estimatedCost || 0,
                     )}
                     onClick={() =>
                       console.log(`CustomerInfo clicked for thread ${index}`)
@@ -225,7 +234,7 @@ export default function Status() {
                   />
                 ))
               ) : (
-                <p>확인된 데이터가 없습니다.</p>
+                <NoReceived /> 
               )}
             </div>
           </>

@@ -90,3 +90,9 @@ export const TextSectionWrapper = styled.div`
   flex-direction: column;
   gap: 5px;
 `;
+
+export const Reservation = styled.div`
+  display: flex;
+
+  gap: 5px;
+`;
