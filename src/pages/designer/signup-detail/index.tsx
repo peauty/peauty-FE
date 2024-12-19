@@ -161,11 +161,11 @@ export default function DesignerSignUpDetail() {
             description="매장에 대한 설명을 작성해주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
             initialValues={[
-              shopDetailInfo.noticeTitle || "",
-              shopDetailInfo.notice || "",
+              shopDetailInfo.introduceTitle || "",
+              shopDetailInfo.introduce || "",
             ]}
             onChange={(index, value) => {
-              const fieldName = index === 0 ? "noticeTitle" : "notice";
+              const fieldName = index === 0 ? "introduceTitle" : "introduce";
               handleInputChange(fieldName, value);
             }}
           />
@@ -174,11 +174,11 @@ export default function DesignerSignUpDetail() {
             description="현재 진행 중인 이벤트가 있다면 등록해 주세요"
             inputPlaceholders={["제목을 입력해주세요", "내용을 입력해주세요"]}
             initialValues={[
-              shopDetailInfo.introduceTitle || "",
-              shopDetailInfo.introduce || "",
+              shopDetailInfo.noticeTitle || "",
+              shopDetailInfo.notice || "",
             ]}
             onChange={(index, value) => {
-              const fieldName = index === 0 ? "introduceTitle" : "introduce";
+              const fieldName = index === 0 ? "noticeTitle" : "notice";
               handleInputChange(fieldName, value);
             }}
           />
