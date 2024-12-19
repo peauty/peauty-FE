@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { AppBar, GNB, Text } from "../../../../../components";
 import Card from "../../../../../components/cards/Card";
 import { CardWrapper, TextWrapper, Wrapper } from "./index.styles";
-
 import { useUserDetails } from "../../../../../hooks/useUserDetails";
 import Loading from "../../../../../components/page/sign-up/Loading";
 import { GetPuppyProfileResponse } from "../../../../../types/customer/puppy";
 import { getPuppyProfiles } from "../../../../../apis/customer/resources/puppy";
 import { getPuppyProfilesWithCanStartProcessStatus } from "../../../../../apis/customer/resources/bidding";
+import NotFoundPuppy from "../../../status/components/NotFoundPuppy";
 
 interface ChoosePetProps {
   onNext: () => void;
@@ -120,9 +120,7 @@ export default function ChoosePetForGrooming({
             );
           })
         ) : (
-          <Text typo="body100" color="gray100">
-            등록된 반려견이 없습니다.
-          </Text>
+          <NotFoundPuppy />
         )}
       </Wrapper>
       <GNB

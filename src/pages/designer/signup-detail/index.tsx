@@ -207,7 +207,7 @@ export default function DesignerSignUpDetail() {
           <CustomInput
             placeholder="예) 22"
             extraText="년"
-            value={shopDetailInfo.yearOfExperience}
+            value={String(shopDetailInfo.yearOfExperience)}
             onChange={(e) =>
               handleInputChange("yearOfExperience", Number(e.target.value))
             }
