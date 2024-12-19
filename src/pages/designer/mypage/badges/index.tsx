@@ -116,7 +116,7 @@ export default function DesignerMyBadgesPage() {
         <ShopBadge
           badges={representativeBadges}
           onBadgeClick={(badge) => handleBadgeClick(badge)}
-          style={{ padding: "0" }}
+          style={{ padding: "0", height: "100%" }}
         />
 
         <Divider />
@@ -127,6 +127,7 @@ export default function DesignerMyBadgesPage() {
         <ShopBadge
           badges={allBadges}
           onBadgeClick={(badge) => handleBadgeClick(badge)}
+          style={{ padding: "0" }}
         />
       </PageWrapper>
       <GNB type={"designer"} />
