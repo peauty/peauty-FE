@@ -10,7 +10,7 @@ export const CardWrapper = styled.div<{
       ? `1px solid ${colors.blue200}`
       : `1px solid ${colors.background}`};
   border-radius: 15px;
-  padding-left: 20px;
+  padding: 0 20px;
   background-color: ${({ isSelected, disabled }) =>
     disabled ? colors.gray300 : isSelected ? colors.blue300 : colors.white};
   display: flex;

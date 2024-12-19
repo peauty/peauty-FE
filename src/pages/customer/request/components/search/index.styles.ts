@@ -4,6 +4,7 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-bottom: 90px;
 `;
 
 export const InfoBox = styled.div`

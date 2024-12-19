@@ -2,6 +2,7 @@ import React from "react";
 import { AppBar, GNB } from "../../../../../components";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
+import theme from "../../../../../style/theme";
 
 export default function TotalImages() {
   const location = useLocation();
@@ -44,6 +45,7 @@ const ImageGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   padding: 16px;
+  margin-top: ${theme.size.appBarHeight};
 `;
 
 const ImageWrapper = styled.div`

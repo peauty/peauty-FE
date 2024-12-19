@@ -11,9 +11,15 @@ export default function License({ licenses = [] }: LicenseProps) {
     <ContentsWrapper>
       <Text typo="subtitle300">자격증 및 기타 서류</Text>
       {licenses.length > 0 ? (
-        <ImageWrapper>
+        <ImageWrapper style={{ display: "flex", flexWrap: "wrap" }}>
           {licenses.map((licenseUrl, index) => (
-            <ImageItem key={index}>
+            <ImageItem
+              key={index}
+              style={{
+                width: licenses.length > 3 ? "30%" : "calc(33.33% - 10px)", // 3개 이상일 경우 30%로 설정
+                marginBottom: "10px", // 이미지 간 간격
+              }}
+            >
               <img
                 src={licenseUrl}
                 alt={`license-${index}`}
@@ -24,8 +30,6 @@ export default function License({ licenses = [] }: LicenseProps) {
                 }}
               />
             </ImageItem>
-
-            // </ImageItem>
           ))}
         </ImageWrapper>
       ) : (

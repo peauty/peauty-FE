@@ -106,36 +106,42 @@ export default function CustomerMyPage() {
         </ProfileWrapper>
         <Divider thickness={2} />
         <ContentWrapper>
-          <ContentsWrapper style={{ paddingBottom: "10px" }}>
-            <Text typo="subtitle200">내 반려견 목록</Text>
-            <div>
+          <ContentsWrapper>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text typo="subtitle200">내 반려견 목록</Text>
               <SubMenuButton
-                text="우리집 퓨티들"
+                text=""
                 iconType="plus"
                 to={ROUTE.customer.pets.signup}
               />
-              {puppies.length === 0 ? (
-                <NoPuppyPlaceholder>
-                  아직 등록된 반려견이 없어요!
-                </NoPuppyPlaceholder>
-              ) : (
-                <CardWrapper>
-                  {puppies.map((puppy) => (
-                    <Card
-                      key={puppy.puppyId}
-                      imageSrc={puppy.puppyProfileImageUrl || ""}
-                      name={puppy.name || ""}
-                      age={puppy.age || 0}
-                      gender={puppy.sex || ""}
-                      weight={puppy.weight || 0}
-                      breed={puppy.breed || ""}
-                      tags={puppy.disease || []}
-                      onClick={() => handleCard(puppy.puppyId)}
-                    />
-                  ))}
-                </CardWrapper>
-              )}
             </div>
+            {puppies.length === 0 ? (
+              <NoPuppyPlaceholder>
+                아직 등록된 반려견이 없어요!
+              </NoPuppyPlaceholder>
+            ) : (
+              <CardWrapper>
+                {puppies.map((puppy) => (
+                  <Card
+                    key={puppy.puppyId}
+                    imageSrc={puppy.puppyProfileImageUrl || ""}
+                    name={puppy.name || ""}
+                    age={puppy.age || 0}
+                    gender={puppy.sex || ""}
+                    weight={puppy.weight || 0}
+                    breed={puppy.breed || ""}
+                    tags={puppy.disease || []}
+                    onClick={() => handleCard(puppy.puppyId)}
+                  />
+                ))}
+              </CardWrapper>
+            )}
           </ContentsWrapper>
           <Divider />
           <ContentsWrapper>

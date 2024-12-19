@@ -11,7 +11,7 @@ import {
   InputWrapper,
 } from "../../index.styles";
 import { RegisterPuppyRequest } from "../../../../../../types/customer/puppy";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { breedMap } from "../../../../../../constants/puppy";
 import { GNB } from "../../../../../../components";
 import { DateDropBox } from "../../../../../../components/button/DateDropBox";
@@ -28,18 +28,13 @@ interface Step1Props {
 export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
   const [isModalOpen, setIsModalOpen] = useState(false); // To control modal visibility
   const [modalMessage, setModalMessage] = useState(""); // Message to display in the modal
+  const [isNextDisabled, setIsNextDisabled] = useState(true); // Track the "Next" button's disabled state
 
   // Check for missing required fields
   const validateFields = () => {
     const { name, breed, puppySize, sex, weight, birthdate } = inputData;
 
-    if (!name || !breed || !puppySize || !sex || !weight || !birthdate) {
-      setModalMessage("모든 필드를 입력해주세요.");
-      setIsModalOpen(true); // Open the modal
-      return false;
-    }
-
-    return true;
+    return name && breed && puppySize && sex && weight && birthdate;
   };
 
   const handleInputChange = (
@@ -100,12 +95,18 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
   const handleNextClick = () => {
     if (validateFields()) {
       onNext();
+    } else {
+      setModalMessage("모든 필드를 입력해주세요.");
+      setIsModalOpen(true);
     }
   };
 
   const closeModal = () => {
     setIsModalOpen(false); // Close the modal
   };
+  useEffect(() => {
+    setIsNextDisabled(!validateFields());
+  }, [inputData]);
 
   return (
     <div>
@@ -141,6 +142,9 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
             label="견종"
             placeholder="견종을 선택해주세요"
             options={Object.keys(breedMap)}
+            selected={Object.keys(breedMap).find(
+              (key) => breedMap[key] === inputData.breed,
+            )}
             onSelect={(value) => handleChange("breed", breedMap[value] || "")}
           />
 
@@ -182,7 +186,11 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           />
         </div>
 
-        <GNB buttonText="다음" onLargeButtonClick={handleNextClick} />
+        <GNB
+          buttonText="다음"
+          onLargeButtonClick={handleNextClick}
+          disabled={isNextDisabled}
+        />
       </SectionWrapper>
 
       {/* Modal to show validation error */}
