@@ -50,7 +50,7 @@ export const InfoWrapper = styled.div`
 export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 `;
 
 export const NoPuppyPlaceholder = styled.div`

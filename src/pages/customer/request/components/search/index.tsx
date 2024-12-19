@@ -8,7 +8,6 @@ import {
   ContentWrapper,
   DesignerList,
   FilterWrapper,
-  InfoBox,
   LocationInfo,
   LocationWrapper,
   SelectButton,
@@ -44,6 +43,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   const user = useUserDetails();
   const [isFetched, setIsFetched] = useState(false);
   const navigate = useNavigate();
+  const [sortOption, setSortOption] = useState<string>("최신순");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,6 +98,15 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
     handleArrayChange("designerIds", selectedDesignerIds);
   };
 
+  useEffect(() => {
+    let sortedWorkspaces = [...workspaces];
+    if (sortOption === "최신순") {
+      sortedWorkspaces.sort((a, b) => b.designerId! - a.designerId!); // 디자이너 ID 높은 순
+    } else if (sortOption === "평점 높은순") {
+      sortedWorkspaces.sort((a, b) => b.reviewRating! - a.reviewRating!); // 평점 높은 순
+    }
+    setWorkspaces(sortedWorkspaces);
+  }, [sortOption]); // 정렬 옵션 변경 시 재정렬
   const handleDesignerClick = (
     index: number,
     workspaceId?: number,
@@ -126,7 +135,6 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
     <>
       <AppBar prefix="backButton" title="요청하기" />
       <ContentWrapper>
-        <InfoBox>에디</InfoBox>
         <LocationWrapper>
           <LocationInfo>
             <Maker height={15} />
@@ -142,10 +150,19 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
         <FilterWrapper>
           <BottomSheet
             options={[
-              { label: "최신순", onClick: () => console.log("최신순 선택") },
+              {
+                label: "최신순",
+                onClick: () => {
+                  setSortOption("최신순");
+                  console.log("최신순 선택");
+                },
+              },
               {
                 label: "평점 높은순",
-                onClick: () => console.log("평점 높은순 선택"),
+                onClick: () => {
+                  setSortOption("평점 높은순");
+                  console.log("평점 높은순 선택");
+                },
               },
             ]}
           />

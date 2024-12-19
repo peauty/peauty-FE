@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MultiSelectButton } from "../../../../../../components/button/MultiSelectButton";
 import { CustomInput } from "../../../../../../components/input/CustomInput";
 import { ColumnWrapper, SectionWrapper } from "../../index.styles";
@@ -26,6 +26,7 @@ export default function Step2({
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
   const [modalMessage, setModalMessage] = useState(""); // Modal message state
   const diseases = Object.keys(diseaseMap);
+  const [isNextDisabled, setIsNextDisabled] = useState(true); // Track if "Next" button is disabled
 
   const handleDiseaseSelect = (indexes: number[]) => {
     setSelectedIndexes(indexes); // Save the selected indexes to the state
@@ -54,6 +55,9 @@ export default function Step2({
   const closeModal = () => {
     setIsModalOpen(false); // Close the modal
   };
+  useEffect(() => {
+    setIsNextDisabled(selectedIndexes.length === 0);
+  }, [selectedIndexes]);
 
   return (
     <SectionWrapper>
@@ -86,7 +90,11 @@ export default function Step2({
         />
       </ContentsWrapper>
 
-      <GNB buttonText="다음" onLargeButtonClick={handleNextClick} />
+      <GNB
+        buttonText="다음"
+        onLargeButtonClick={handleNextClick}
+        disabled={isNextDisabled}
+      />
 
       {/* Modal for validation warning */}
       {isModalOpen && (

@@ -81,6 +81,7 @@ export const AgreementContainer = styled.div`
 
 export const AgreementItem = styled.div`
   display: flex;
+  flex: 1;
   gap: 5px;
   align-items: flex-start;
 `;
@@ -88,5 +89,11 @@ export const AgreementItem = styled.div`
 export const TextSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 5px;
+`;
+
+export const Reservation = styled.div`
+  display: flex;
+
   gap: 5px;
 `;

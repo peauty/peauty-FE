@@ -11,21 +11,21 @@ import { Text } from "../../components";
 import { ROUTE } from "../../constants/routes";
 import { useUserDetails } from "../../hooks/useUserDetails";
 import { useEffect } from "react";
-
+import { PeautyLogo } from "../../assets/svg";
 const Intro = () => {
   const navigate = useNavigate();
-  const {role, isLoading } = useUserDetails();
+  const { role, isLoading } = useUserDetails();
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!isLoading) {
       if (role === "ROLE_CUSTOMER") {
-        navigate(ROUTE.customer.home)
+        navigate(ROUTE.customer.home);
       } else if (role === "ROLE_DESIGNER") {
-        console.log() 
+        console.log();
         // navigate(ROUTE.designer.home) // TODO
       }
     }
-  }, [isLoading]) 
+  }, [isLoading]);
 
   const handleStartClick = () => {
     navigate(ROUTE.signIn);
@@ -45,7 +45,9 @@ const Intro = () => {
         <Text color={"blue100"} typo={"subtitle200"}>
           아름답도록
         </Text>
-        <Logo src={symbol} alt="Logo" />
+        <Logo>
+          <PeautyLogo width={90} />
+        </Logo>
       </ContentWrapper>
       <ButtonWrapper>
         <CustomButton onClick={handleStartClick}>시작하기</CustomButton>

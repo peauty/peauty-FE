@@ -4,7 +4,8 @@ import { SendEstimateRequest } from "../../../../types/designer/designer-bidding
 import { CompleteGroomingResponse } from "../../../../types/designer/designer-bidding-api";
 import { GetEstimateAndProposalDetailsResponse } from "../../../../types/designer/designer-bidding-api";
 import { GetThreadsByStepResponse } from "../../../../types/designer/designer-bidding-api";
-
+import { GetDesignerScheduleResponse } from "../../../../types/designer/designer-bidding-api";
+import { GetThreadsByStep23Response } from "../../../../types/designer/designer-bidding-api";
 export const sendEstimate = async (
   userId: number,
   processId: number,
@@ -42,8 +43,8 @@ export const getEstimateAndProposalDetails = async (
 
 export const getStep2Threads = async (
   userId: number,
-): Promise<GetThreadsByStepResponse> => {
-  const res = await DesignerAPI.get<GetThreadsByStepResponse>(
+): Promise<GetThreadsByStep23Response> => {
+  const res = await DesignerAPI.get<GetThreadsByStep23Response>(
     `/v1/users/${userId}/bidding/processes/threads/step2`,
   );
   return res.data;
@@ -60,9 +61,18 @@ export const getStep1Threads = async (
 
 export const getStep3AboveThreads = async (
   userId: number,
-): Promise<GetThreadsByStepResponse> => {
-  const res = await DesignerAPI.get<GetThreadsByStepResponse>(
+): Promise<GetThreadsByStep23Response> => {
+  const res = await DesignerAPI.get<GetThreadsByStep23Response>(
     `/v1/users/${userId}/bidding/processes/threads/above-step3`,
+  );
+  return res.data;
+};
+
+export const getDesignerSchedule = async (
+  userId: number,
+): Promise<GetDesignerScheduleResponse> => {
+  const res = await DesignerAPI.get<GetDesignerScheduleResponse>(
+    `/v1/users/${userId}/bidding/processes/threads/schedule`,
   );
   return res.data;
 };

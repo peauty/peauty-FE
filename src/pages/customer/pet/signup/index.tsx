@@ -3,7 +3,6 @@ import { AppBar } from "../../../../components";
 import {
   ProgressWrapper,
   ProgressBlock,
-  SectionWrapper,
   ContentsWrapper,
 } from "./index.styles";
 import Step1 from "./components/Step/step1";

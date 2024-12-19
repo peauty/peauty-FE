@@ -2,7 +2,7 @@ export type ScissorsType = "NONE" | "GOLD" | "SILVER" | "BRONZE";
 
 export type BadgeColorType = "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
 
-export type BadgeTypeType = "GENERAL" | "SCISSORS";
+export type BadgeType = "GENERAL" | "SCISSORS";
 
 export interface GetCustomerProfileResponse {
   customerId?: number;
@@ -38,7 +38,7 @@ export interface UploadProfileImageResponse {
 export interface GetDesignerWorkspaceResponse {
   designerId?: number;
   workspaceId?: number;
-  bannerImageUrl?: string;
+  bannerImageUrls?: string[];
   workspaceName?: string;
   reviewRating?: number;
   reviewsCount?: number;
@@ -57,7 +57,15 @@ export interface GetDesignerWorkspaceResponse {
   directionGuide?: string;
   licenses?: string[];
   paymentOptions?: string[];
-  representativeBadgeNames?: string[];
+  representativeBadges?: {
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeImageUrl?: string;
+    isRepresentativeBadge?: boolean;
+    badgeColor?: BadgeColorType;
+    badgeType?: BadgeType;
+  }[];
 }
 
 export interface Badge {
@@ -65,28 +73,34 @@ export interface Badge {
   badgeName?: string;
   badgeContent?: string;
   badgeImageUrl?: string;
+  isRepresentativeBadge?: boolean;
   badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
-}
-
-export interface Workspace {
-  workspaceId?: number;
-  workspaceName?: string;
-  address?: string;
-  addressDetail?: string;
-  bannerImageUrl?: string;
-  reviewCount?: number;
-  reviewRating?: number;
-  designerId?: number;
-  designerName?: string;
-  yearOfExperience?: number;
-  representativeBadges?: Badge[]; // Badge 배열
+  badgeType?: BadgeType;
 }
 
 export interface GetAroundWorkspacesResponse {
   customerId?: number;
   customerAddress?: string;
-  workspaces?: Workspace[]; // Workspace 배열
+  workspaces?: {
+    workspaceId?: number;
+    workspaceName?: string;
+    address?: string;
+    addressDetail?: string;
+    bannerImageUrl?: string;
+    reviewCount?: number;
+    reviewRating?: number;
+    designerId?: number;
+    designerName?: string;
+    yearOfExperience?: number;
+    representativeBadges?: {
+      badgeId?: number;
+      badgeName?: string;
+      badgeContent?: string;
+      badgeImageUrl?: string;
+      badgeColor?: BadgeColorType;
+      badgeType?: BadgeType;
+    }[];
+  }[];
 }
 
 export interface GetAroundWorkspaceResponse {
@@ -106,7 +120,7 @@ export interface GetAroundWorkspaceResponse {
     badgeContent?: string;
     badgeImageUrl?: string;
     badgeColor?: BadgeColorType;
-    badgeType?: BadgeTypeType;
+    badgeType?: BadgeType;
   }[];
 }
 
@@ -116,7 +130,7 @@ export interface BadgeResponse {
   badgeContent?: string;
   badgeImageUrl?: string;
   badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
+  badgeType?: BadgeType;
 }
 
 export interface CheckCustomerNicknameDuplicatedResponse {
@@ -130,7 +144,20 @@ export interface GetDesignerBadgesForCustomerResponse {
     badgeContent?: string;
     badgeImageUrl?: string;
     badgeColor?: BadgeColorType;
-    badgeType?: BadgeTypeType;
+    badgeType?: BadgeType;
   }[];
   representativeBadges?: BadgeResponse[];
+}
+export interface Workspace {
+  workspaceId?: number;
+  workspaceName?: string;
+  address?: string;
+  addressDetail?: string;
+  bannerImageUrl?: string;
+  reviewCount?: number;
+  reviewRating?: number;
+  designerId?: number;
+  designerName?: string;
+  yearOfExperience?: number;
+  representativeBadges?: Badge[]; // Badge 배열
 }

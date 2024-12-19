@@ -32,6 +32,7 @@ import {
 } from "../../../../types/designer/designer-bidding-api";
 import Modal from "../../../../components/modal/Modal/Modal";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../../components/page/sign-up/Loading";
 export default function QuoteForm() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -63,28 +64,21 @@ export default function QuoteForm() {
   };
 
   const handleSendEstimate = async () => {
-    if (proposalData?.processStatus !== "예약 전") {
-      setIsModalOpen(true);
-      setModalButtons([
-        { label: "닫기", onClick: () => setIsModalOpen(false) },
-      ]);
-      return;
-    }
     try {
       const requestData: SendEstimateRequest = {
         content,
         estimatedDuration,
         estimatedCost,
-        imageUrls: attachments,
+        imageUrls: attachments, // 첨부 이미지를 포함
       };
 
+      console.log("보내는 데이터:", requestData); // 디버깅: 데이터 확인
       const response: SendEstimateResponse = await sendEstimate(
         userId,
         processId,
         threadId,
         requestData,
       );
-
 
       navigate("/designer/status", {
         state: {
@@ -127,11 +121,12 @@ export default function QuoteForm() {
 
     try {
       const fileArray = Array.from(files); // FileList를 File[]로 변환
-      const response = await uploadImages(fileArray); // 배열 전달
+      const response = await uploadImages(fileArray); // 업로드 API 호출
       const uploadedUrls = response.uploadedImageUrl;
 
       if (uploadedUrls && uploadedUrls.length > 0) {
         setAttachments((prev) => [...prev, ...uploadedUrls]);
+        console.log("업로드된 이미지:", uploadedUrls); // 디버깅: 업로드된 이미지 확인
       }
     } catch (error) {
       console.error("이미지 업로드 실패:", error);
@@ -143,7 +138,7 @@ export default function QuoteForm() {
     setAttachments((prev) => prev.filter((_, i) => i !== index));
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   if (!proposalData) return <div>Error fetching proposal details</div>;
 
   const imageUrl =
@@ -219,7 +214,7 @@ export default function QuoteForm() {
 
           <RequestSection>
             <Text typo="body400" color="gray100">
-              희망 예약 시간간
+              희망 예약 시간
             </Text>
             <Text typo="body100">
               {formatDate(proposalData.estimateProposal?.desiredDateTime) ||
@@ -287,7 +282,7 @@ export default function QuoteForm() {
                     type="file"
                     accept="image/*"
                     style={{ display: "none" }}
-                    onChange={handleImageUpload}
+                    onChange={handleImageUpload} // 첨부 이미지를 처리하는 함수
                   />
                 </label>
               </PhotoAttachmentContainer>
@@ -311,7 +306,7 @@ export default function QuoteForm() {
                     }}
                   />
                   <button
-                    onClick={() => handleImageRemove(index)}
+                    onClick={() => handleImageRemove(index)} // 첨부 이미지 제거
                     style={{
                       position: "absolute",
                       top: "3px",

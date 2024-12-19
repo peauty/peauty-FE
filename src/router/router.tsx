@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Layout />,
+        element: <Layout style={{ padding: "0 25px" }} />,
         children: rootPaths,
       },
       {

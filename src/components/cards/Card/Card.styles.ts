@@ -10,9 +10,9 @@ export const CardWrapper = styled.div<{
       ? `1px solid ${colors.blue200}`
       : `1px solid ${colors.background}`};
   border-radius: 15px;
-  padding: 16px 22px;
+  padding: 0 20px;
   background-color: ${({ isSelected, disabled }) =>
-    disabled ? colors.gray200 : isSelected ? colors.blue300 : colors.white};
+    disabled ? colors.gray300 : isSelected ? colors.blue300 : colors.white};
   display: flex;
   align-items: center;
   text-align: center;
@@ -21,7 +21,7 @@ export const CardWrapper = styled.div<{
       ? "not-allowed"
       : "pointer"}; // disabled일 때 pointer를 not-allowed로 설정
   opacity: ${({ disabled }) =>
-    disabled ? 0.6 : 1}; // disabled일 때 opacity를 낮춤
+    disabled ? 0.3 : 1}; // disabled일 때 opacity를 낮춤
 `;
 
 export const TagsWrapper = styled.div`

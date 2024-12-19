@@ -7,20 +7,24 @@ import ShopDetail from "./components/ShopDetail";
 import ShopReview from "./components/ShopReview";
 import { ShopBadge } from "./components/ShopBadge";
 import { StickyContainer } from "./index.styles";
-import { getDesignerWorkspace } from "../../apis/designer/resources/designer";
+import { getDesignerWorkspace } from "../../apis/customer/resources/customer";
 import { getDesignerReviews } from "../../apis/customer/resources/review";
+import { getDesignerBadgesForCustomer } from "../../apis/customer/resources/customer";
 import { useParams } from "react-router-dom";
 import theme from "../../style/theme";
+import { GetDesignerBadgesForCustomerResponse } from "../../types/customer/customer";
 
 type Section = "detail" | "review" | "badge";
 
 export default function Shop() {
   const { userId } = useParams<{ userId: string }>();
-  const [workspace, setWorkspace] = useState<any>(null); // API 데이터를 저장
-  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [workspace, setWorkspace] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState<any[]>([]);
-  const [reviewsLoading, setReviewsLoading] = useState(true); // Reviews loading state
+  const [reviewsLoading, setReviewsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState<Section>("detail");
+  const [badges, setBadges] =
+    useState<GetDesignerBadgesForCustomerResponse | null>(null);
 
   const detailRef = useRef<HTMLDivElement | null>(null);
   const reviewRef = useRef<HTMLDivElement | null>(null);
@@ -57,36 +61,42 @@ export default function Shop() {
     const fetchWorkspaceData = async () => {
       try {
         const response = await getDesignerWorkspace(Number(userId));
-        console.log("API 호출 성공:", response);
         setWorkspace(response);
         setLoading(false);
       } catch (error) {
-        console.error("API 호출 실패:", error);
         setLoading(false);
       }
     };
 
     const fetchReviewsData = async () => {
       try {
-        setReviewsLoading(true); // Start loading reviews
-        const response = await getDesignerReviews(Number(32));
-        console.log("Reviews API 호출 성공:", response);
+        setReviewsLoading(true);
+        const response = await getDesignerReviews(Number(userId));
 
         if (response && Array.isArray(response.reviews)) {
-          setReviews(response.reviews); // Set reviews data
+          setReviews(response.reviews);
         } else {
           console.error("Invalid reviews structure:", response);
         }
 
-        setReviewsLoading(false); // End loading
+        setReviewsLoading(false);
       } catch (error) {
         console.error("Reviews API 호출 실패:", error);
-        setReviewsLoading(false); // End loading on error
+        setReviewsLoading(false);
       }
+    };
+
+    const fetchBadgesData = async () => {
+      try {
+        const response = await getDesignerBadgesForCustomer(Number(userId));
+
+        setBadges(response);
+      } catch (error) {}
     };
 
     fetchWorkspaceData();
     fetchReviewsData();
+    fetchBadgesData();
   }, [userId]);
 
   useEffect(() => {
@@ -139,7 +149,7 @@ export default function Shop() {
     noticeTitle: workspace.noticeTitle,
     notice: workspace.notice,
     address: workspace.address,
-    representativeBadges: workspace.representativeBadges,
+    representativeBadges: badges?.representativeBadges || [],
   };
 
   const detailData = {
@@ -183,7 +193,7 @@ export default function Shop() {
       <ShopBadge
         ref={badgeRef}
         id="badge"
-        badges={workspace.representativeBadges || []}
+        badges={badges?.acquiredBadges || []}
       />
       <GNB type="customer" />
     </div>

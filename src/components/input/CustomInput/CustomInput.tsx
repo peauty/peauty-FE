@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useState, ReactNode } from "react";
+import { InputHTMLAttributes, useState, useEffect, ReactNode } from "react";
 import {
   Container,
   Label,
@@ -6,7 +6,6 @@ import {
   StyledInputWrapper,
   StyledInput,
   StyledTextarea,
-  Message,
   SuffixContainer,
   NoticeContainer,
 } from "./CustomInput.styles";
@@ -28,6 +27,7 @@ interface CustomInputProps
   extraText?: string; // 추가 텍스트를 위한 prop
   maxLength?: number; // 최대 글자수 prop 추가
   hasError?: boolean;
+  value?: string | readonly string[]; // value 타입 추가
 }
 
 export default function CustomInput({
@@ -48,12 +48,21 @@ export default function CustomInput({
   hasError = false,
   ...props
 }: CustomInputProps) {
+  // ⭐ 초기값을 props.value의 길이로 설정
+  const [inputLength, setInputLength] = useState(
+    props.value ? props.value.length : 0,
+  );
   const [focused, setFocused] = useState(false);
-  const [inputLength, setInputLength] = useState(0);
 
-  // 조건 변수 추출
-  const isTextOverLimit = inputLength > maxLength; // 글자 수 초과 조건
-  const showError = !!error || isTextOverLimit; // 에러 메시지 표시 조건
+  // ⭐ props.value가 변경될 때 inputLength 업데이트
+  useEffect(() => {
+    if (props.value) {
+      setInputLength(props.value.length);
+    }
+  }, [props.value]);
+
+  const isTextOverLimit = inputLength > maxLength;
+  const showError = !!error || isTextOverLimit;
   const charCountColor = isTextOverLimit
     ? "red100"
     : focused
@@ -72,13 +81,6 @@ export default function CustomInput({
       return;
     }
     props.onChange?.(e);
-  };
-
-  // 색상 결정 함수
-  const getColor = () => {
-    if (error) return "red100";
-    if (success) return "blue100";
-    return "black100";
   };
 
   return (
@@ -129,11 +131,7 @@ export default function CustomInput({
         )}
       </InputWrapper>
 
-      <NoticeContainer
-        hasError={
-          !!error || (inputType === "textarea" && inputLength > maxLength)
-        }
-      >
+      <NoticeContainer hasError={showError}>
         <Text
           color={
             error || (inputType === "textarea" && inputLength > maxLength)
@@ -150,16 +148,7 @@ export default function CustomInput({
         </Text>
 
         {inputType === "textarea" && (
-          <Text
-            color={
-              inputLength > maxLength
-                ? "red100"
-                : focused
-                  ? "blue100"
-                  : "gray100"
-            }
-            typo="body400"
-          >
+          <Text color={charCountColor} typo="body400">
             {inputLength}/{maxLength}
           </Text>
         )}

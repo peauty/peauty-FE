@@ -162,6 +162,10 @@ export interface GetEstimateAndProposalDetailsResponse {
     imageUrls?: string[];
   };
   designer?: {
+    badges?:string[];
+    reviewRating: number;
+    reviewCount?: number;
+    profileImageUrl?: string;
     workspaceName?: string;
     address?: string;
   };
@@ -366,5 +370,30 @@ export interface GetPuppyProfilesWithCanStartProcessStatusResponse {
     puppySize?: string;
     diseases?: string[];
     hasOngoingProcess?: boolean;
+  }[];
+}
+
+export interface GetCanReviewThreadsResponse {
+  threads?: {
+    processId?: number;
+    threadId?: number;
+    threadStep?: string;
+    threadStatus?: string;
+    thumbnailUrl?: string;
+    workspaceName?: string;
+    score?: number;
+    reviewCount?: number;
+    address?: string;
+    style?: string;
+    estimatedCost?: number;
+    badges?: {
+      badgeId?: number;
+      badgeName?: string;
+      badgeContent?: string;
+      badgeImageUrl?: string;
+      isRepresentativeBadge?: boolean;
+      badgeColor?: BadgeColorType;
+      badgeType?: BadgeTypeType;
+    }[];
   }[];
 }

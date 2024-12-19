@@ -6,13 +6,14 @@ import {
   getDesignerAccount,
   updateDesignerAccount,
 } from "../../../../apis/designer/resources/designer";
-import { MyPageEditWrapper, NicknameAvailabilityMessage } from "./index.styles"; // styled-components 임포트
+import { MyPageEditWrapper } from "./index.styles";
 import {
   GetDesignerAccountResponse,
   UpdateDesignerAccountRequest,
 } from "../../../../types/designer/designer";
 import { useUserDetails } from "../../../../hooks/useUserDetails";
 import { useCheckNickname } from "../../../../apis/designer/hooks/useUser";
+import Loading from "../../../../components/page/sign-up/Loading";
 
 export default function DesignerMyPageEdit() {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ export default function DesignerMyPageEdit() {
   const [nicknameAvailable, setNicknameAvailable] = useState<boolean | null>(
     null,
   ); // 중복 검사 상태
+  const [emailError, setEmailError] = useState<string | null>(null); // 이메일 오류 상태
   const { check } = useCheckNickname();
+
+  const emailRegex = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/; // 이메일 정규식
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -44,6 +48,28 @@ export default function DesignerMyPageEdit() {
     field: keyof UpdateDesignerAccountRequest,
     value: string,
   ) => {
+    // 전화번호 포맷 처리
+    if (field === "phoneNumber") {
+      value = value.replace(/[^0-9]/g, ""); // 숫자만 남기기
+
+      if (value.length <= 3) {
+        // 앞자리만 남김
+      } else if (value.length <= 7) {
+        value = `${value.slice(0, 3)}-${value.slice(3)}`; // 000-0000
+      } else {
+        value = `${value.slice(0, 3)}-${value.slice(3, 7)}-${value.slice(7, 11)}`; // 000-0000-0000
+      }
+    }
+
+    if (field === "email") {
+      // 이메일 유효성 검사
+      if (!emailRegex.test(value)) {
+        setEmailError("올바른 이메일을 입력해주세요");
+      } else {
+        setEmailError(null);
+      }
+    }
+
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -69,7 +95,17 @@ export default function DesignerMyPageEdit() {
     }
   };
 
-  if (!profile) return <div>Loading...</div>;
+  const isFormValid = () => {
+    return (
+      formData.nickname &&
+      formData.name &&
+      formData.phoneNumber &&
+      formData.email &&
+      !emailError // 이메일 오류가 없을 때만 유효
+    );
+  };
+
+  if (!profile) return <Loading />;
 
   return (
     <>
@@ -88,24 +124,22 @@ export default function DesignerMyPageEdit() {
           value={formData.nickname || ""}
           onChange={(e) => handleInputChange("nickname", e.target.value)}
           variant="outlined"
+          error={
+            nicknameAvailable === false ? "이미 존재하는 닉네임입니다." : ""
+          }
+          success={
+            nicknameAvailable === true ? "사용 가능한 닉네임입니다." : ""
+          }
           suffix={
             <CustomButton
               size="small"
               variant="primary"
               onClick={checkNicknameAvailability}
             >
-              중복검사
+              중복 검사
             </CustomButton>
           }
         />
-        {/* Styled component로 중복 메시지 출력 */}
-        {nicknameAvailable !== null && (
-          <NicknameAvailabilityMessage isAvailable={nicknameAvailable}>
-            {nicknameAvailable
-              ? "사용 가능한 닉네임입니다."
-              : "이미 존재하는 닉네임입니다."}
-          </NicknameAvailabilityMessage>
-        )}
         <CustomInput
           label="이름"
           placeholder="이름을 입력해주세요"
@@ -126,9 +160,14 @@ export default function DesignerMyPageEdit() {
           value={formData.email || ""}
           onChange={(e) => handleInputChange("email", e.target.value)}
           variant="outlined"
+          error={emailError || ""}
         />
       </MyPageEditWrapper>
-      <GNB buttonText="확인" onLargeButtonClick={handleSubmit} />
+      <GNB
+        buttonText="확인"
+        onLargeButtonClick={handleSubmit}
+        disabled={!isFormValid()} // 폼이 유효하지 않으면 버튼 비활성화
+      />
     </>
   );
 }

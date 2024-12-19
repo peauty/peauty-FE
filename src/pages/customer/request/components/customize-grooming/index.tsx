@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   AppBar,
   DropButton,
@@ -13,6 +13,7 @@ import {
   GroomingType,
 } from "../../../../../components/button/RadioSelectButton/RadioSelectButton.stories";
 import {
+  AddLabel,
   AddWrapper,
   ContentWrapper,
   DeleteButton,
@@ -287,9 +288,12 @@ export default function CustomizeGrooming({
             {imageUrls.length < 3 && (
               <AddWrapper>
                 <CustomButton variant="secondary" size="full">
-                  <label htmlFor="image-upload" style={{ cursor: "pointer" }}>
+                  <AddLabel
+                    htmlFor="image-upload"
+                    style={{ cursor: "pointer" }}
+                  >
                     <AddImage width={15} />
-                  </label>
+                  </AddLabel>
                   <input
                     id="image-upload"
                     type="file"

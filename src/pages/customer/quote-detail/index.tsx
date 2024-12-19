@@ -1,5 +1,6 @@
 import { CareerIcon, CheckIcon2, Maker } from "../../../assets/svg";
 import { AppBar, GNB, Text } from "../../../components";
+import InfoButton from "../../../components/button/InfoButton";
 import Rating from "../../../components/rating";
 import { colors } from "../../../style/color";
 import {
@@ -17,6 +18,7 @@ import {
   TextSectionWrapper,
   ProfileRow,
   DashedDivider,
+  Reservation,
 } from "./index.styles";
 import { useEffect, useState } from "react";
 import { getEstimateAndProposalDetails } from "../../../apis/customer/resources/bidding";
@@ -33,6 +35,8 @@ import { useRecoilState } from "recoil";
 import { PaymentData, paymentAtom } from "../../../atoms/paymentAtom";
 import { ROUTE } from "../../../constants/routes";
 import { Icon } from "../../designer/quote/quoute-detail/index.styles";
+import { formatDate } from "../../../utils/dataformat";
+
 function formatDateToKorean(dateStr: string): string {
   const date = new Date(dateStr);
   const year = date.getFullYear();
@@ -153,11 +157,13 @@ export default function QuoteDetail() {
       };
 
       setPaymentData(paymentResponse);
-      navigate(ROUTE.customer.payment);
+      navigate(ROUTE.customer.request.payment);
     } catch (error) {
       console.error("Payment process failed:", error);
     }
   };
+
+  console.log(designer?.profileImageUrl, "designer?.profileImageUrl");
 
   return (
     <PageContainer>
@@ -165,7 +171,7 @@ export default function QuoteDetail() {
       <InfoContainer>
         <InfoCard>
           <ProfileImage
-            src="" // 새 타입에는 profileImageUrl이 없음
+            src={`${designer?.profileImageUrl}`} // 새 타입에는 profileImageUrl이 없음
             width="100px"
             height="100px"
           />
@@ -173,9 +179,10 @@ export default function QuoteDetail() {
             <Text typo="subtitle200">{designer?.workspaceName}</Text>
             <ProfileTextContainer>
               <ProfileRow>
-                <Rating score={0} /> {/* 새 타입에는 reviewRating이 없음 */}
+                <Rating score={designer?.reviewCount ?? 0} />
+
                 <Text typo="body300" color="gray100">
-                  &nbsp;(0)
+                  &nbsp;(6)
                 </Text>
               </ProfileRow>
               <ProfileRow>
@@ -213,7 +220,7 @@ export default function QuoteDetail() {
               </DetailLabel>
               <Text typo="body300">
                 {estimateProposal?.desiredDateTime
-                  ? new Date(estimateProposal.desiredDateTime).toLocaleString()
+                  ? formatDate(estimateProposal.desiredDateTime)
                   : "날짜 정보 없음"}
               </Text>
             </DetailRow>
@@ -273,19 +280,69 @@ export default function QuoteDetail() {
           </div>
 
           <DashedDivider />
+          <DetailRow>
+            <DetailLabel>
+              <Text typo="body100">전체비용</Text>
+            </DetailLabel>
+            <Text typo="body100">
+              {estimate?.estimatedCost
+                ? `${estimate.estimatedCost.toLocaleString()}원`
+                : "0원"}
+            </Text>
+          </DetailRow>
 
           <DetailRow>
             <DetailLabel>
-              <Text typo="subtitle200" color="blue100">
-                총 결제 비용
-              </Text>
+              <Reservation>
+                <Text typo="body100">예약금 </Text>
+                <InfoButton message="예약금은 전체 결제비용의 50%로 계산된 비용이예요" />
+              </Reservation>
             </DetailLabel>
-            <Text typo="subtitle200">
+            <Text typo="body100">
               {estimate?.depositPrice
                 ? `${estimate.depositPrice.toLocaleString()}원`
                 : "0원"}
             </Text>
           </DetailRow>
+
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "5px" }}
+            >
+              <DetailRow>
+                <DetailLabel>
+                  <Text typo="body400" color="gray100">
+                    전체 비용
+                  </Text>
+                </DetailLabel>
+                <Text typo="body300" color="gray100">
+                  {estimate?.estimatedCost?.toLocaleString()}원
+                </Text>
+              </DetailRow>
+              <DetailRow>
+                <DetailLabel>
+                  <Text typo="body400" color="gray100">
+                    예약금
+                  </Text>
+                </DetailLabel>
+                <Text typo="body300" color="gray100">
+                  {estimate?.depositPrice?.toLocaleString()}원
+                </Text>
+              </DetailRow>
+            </div>
+            <DetailRow>
+              <DetailLabel>
+                <Text typo="subtitle200" color="blue100">
+                  총 결제 비용
+                </Text>
+              </DetailLabel>
+              <Text typo="subtitle200">
+                {estimate?.depositPrice?.toLocaleString()}원
+              </Text>
+            </DetailRow>
+          </div>
 
           <DashedDivider />
 

@@ -84,7 +84,6 @@ export default function DesignerSignUp() {
   const { check } = useCheckNickname();
   const { signup } = useSignup();
   const navigate = useNavigate();
-  const LOADINGIMAGE = "https://avatars.githubusercontent.com/u/70759627?v=4"; // TODO: Change to your loading image
 
   const [formData, setFormData] = useState<Record<string, string>>({});
   const totalSteps = stepWords.length;
@@ -207,7 +206,7 @@ export default function DesignerSignUp() {
 
   return (
     <>
-      {locationLoading && <Loading imageUrl={LOADINGIMAGE} />}
+      {locationLoading && <Loading />}
       <AppBar
         prefix={"backButton"}
         onclick={handleBack}

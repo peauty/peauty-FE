@@ -5,7 +5,7 @@ export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - ${theme.size.appBarHeight} - ${theme.size.gnbHeight});
+  height: 100vh;
 `;
 
 export const ContentWrapper = styled.div`
@@ -25,8 +25,8 @@ export const TitleWrapper = styled.div`
   margin-bottom: 16px;
 `;
 
-export const Logo = styled.img`
-  width: 90px;
+export const Logo = styled.div`
+  /* width: 90px; */
   height: auto;
   margin: 20px 0;
 `;

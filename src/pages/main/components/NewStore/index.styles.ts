@@ -7,12 +7,14 @@ export const NewStoreWrapper = styled.div`
 `;
 export const NewStoreItem = styled.div`
   flex: 1;
-  gap: 20px;
+  border-radius: 10px;
 `;
 
-export const NewStoreImage = styled.div`
+export const NewStoreImage = styled.img`
   height: 100px;
   border-radius: 10px;
+  width: 100%;
+  object-fit: cover;
   background-color: ${colors.gray400};
 `;
 

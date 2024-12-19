@@ -4,7 +4,7 @@ import RequestLook from "../../../pages/customer/request/request-look";
 import Shop from "../../../pages/shop";
 import { noPadding } from "../../../style/layoutStyle";
 import TotalImages from "../../../pages/shop/components/ShopReview/TotalImage";
-import theme from "../../../style/theme";
+import Payment from "../../../pages/customer/payment";
 export const requestPaths = [
   {
     path: "",
@@ -12,6 +12,10 @@ export const requestPaths = [
       {
         path: "",
         element: <Request />,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
       },
     ],
     element: <AuthLayout userType="customer" />,

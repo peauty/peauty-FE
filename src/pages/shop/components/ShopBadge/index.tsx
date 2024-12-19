@@ -9,25 +9,25 @@ import {
 import { Text } from "../../../../components";
 import BadgeModal from "./badge-modal";
 
+interface Badge {
+  badgeId?: number;
+  badgeName?: string;
+  badgeContent?: string;
+  badgeColor?: string;
+  badgeType?: string;
+  badgeImageUrl?: string;
+}
+
 interface ShopBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  badges: {
-    badgeId: number;
-    badgeName: string;
-    badgeContent: string;
-    badgeColor: string;
-    badgeType: string;
-    badgeImageUrl: string;
-  }[];
+  badges?: Badge[]; // 전달받는 badge 데이터 타입
 }
 
 export const ShopBadge = forwardRef<HTMLDivElement, ShopBadgeProps>(
   ({ badges = [], ...props }, ref) => {
-    const [selectedBadge, setSelectedBadge] = useState<
-      ShopBadgeProps["badges"][0] | null
-    >(null);
+    const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null); // Badge 타입으로 변경
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleBadgeClick = (badge: ShopBadgeProps["badges"][0]) => {
+    const handleBadgeClick = (badge: Badge) => {
       setSelectedBadge(badge);
       setIsModalOpen(true);
     };

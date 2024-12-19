@@ -20,6 +20,8 @@ import {
 } from "../../../types/customer/bidding";
 import Basic from "../../../assets/images/basic.png";
 import NotFoundPuppy from "./components/NotFoundPuppy";
+import NoReceived from "./components/NoReceived";
+import Nosend from "./components/Nosent";
 interface StatusItemData {
   name: string;
   store: string;
@@ -60,23 +62,21 @@ export default function Status() {
           );
           if (step1Data.info) {
             setStatusItemData({
-              name: step1Data.info.requestText || "알 수 없음",
-              store: step1Data.stores?.[0]?.store || "알 수 없음",
-              location: step1Data.stores?.[0]?.location || "알 수 없음",
-              reservation: step1Data.stores?.[0]?.threadStep || "알 수 없음",
+              name: step1Data.info.requestText || "견적을 요청하세요",
+              store: step1Data.stores?.[0]?.store || "견적을 요청하세요",
+              location: step1Data.stores?.[0]?.location || "견적을 요청하세요",
+              reservation: step1Data.stores?.[0]?.threadStep || "견적을 요청하세요",
               score: step1Data.stores?.[0]?.score || 0,
               review: step1Data.stores?.[0]?.review || 0,
-              //payment: step1Data.stores?.[0]?.desiredCost || 0,
-              date: step1Data.info.requestDate || "알 수 없음",
+              date: step1Data.info.requestDate || "",
               badges:
                 step1Data.stores?.[0]?.badges?.map((badge) => ({
-                  name: badge.badgeName || "알 수 없음",
+                  name: badge.badgeName || "",
                   color: badge.badgeColor || "#000",
                 })) || [],
               thumbnailUrl: step1Data.stores?.[0]?.thumbnailUrl || Basic,
             });
           }
-
           const step2Data = await getOngoingProcessWithStep2Threads(
             userId,
             puppyId,
@@ -112,7 +112,7 @@ export default function Status() {
     } else if (reservationStatus === "미용 확정") {
       return "리뷰 작성";
     }
-    return "결제 취소";
+    return "리뷰 작성";
   };
 
   const renderCustomerInfoButtons = (reservationStatus: string) => [
@@ -148,26 +148,37 @@ export default function Status() {
     }
     switch (activeTab) {
       case "sent":
+        if (!statusItemData) {
+          // step1Data.info가 없을 때 Nosend 컴포넌트만 렌더링
+          return <Nosend />;
+        }
         return (
           <>
-            <Info
-              requestDate={statusItemData?.date || "알 수 없음"}
-              requestText={statusItemData?.name || "요청 내용 없음"}
-              userId={0}
-              puppyId={0}
-              processId={0}
-            />
-            <StatusListItem
-              location={statusItemData?.location || "알 수 없음"}
-              store={statusItemData?.store || "알 수 없음"}
-              score={statusItemData?.score || 0}
-              review={statusItemData?.review || 0}
-              badges={statusItemData?.badges || []}
-              thumbnailUrl={statusItemData?.thumbnailUrl || Basic}
-              onClick={() => console.log("StatusListItem clicked")}
-            />
+            {statusItemData ? (
+              <>
+                <Info
+                  requestDate={statusItemData.date}
+                  requestText={statusItemData.name}
+                  userId={0}
+                  puppyId={0}
+                  processId={0}
+                />
+                <StatusListItem
+                  location={statusItemData.location}
+                  store={statusItemData.store}
+                  score={statusItemData.score}
+                  review={statusItemData.review}
+                  badges={statusItemData.badges}
+                  thumbnailUrl={statusItemData.thumbnailUrl}
+                  onClick={() => console.log("StatusListItem clicked")}
+                />
+              </>
+            ) : (
+              <Nosend />
+            )}
           </>
         );
+
       case "received":
         return (
           <>
@@ -196,38 +207,34 @@ export default function Status() {
                 />
               ))
             ) : (
-              <p>확인된 데이터가 없습니다.</p>
+              <NoReceived />
             )}
           </>
         );
       case "confirmed":
         return (
           <>
-            <div style={{ padding: "0 20px" }}>
-              {threadsData?.threads?.length ? (
-                threadsData.threads.map((thread, index) => (
-                  <CustomerInfo
-                    key={index}
-                    store={thread.workspaceName || "알 수 없음"}
-                    score={thread.score || 0}
-                    review={thread.reviewCount || 0}
-                    reservation={thread.threadStep || "알 수 없음"}
-                    location={thread.address || "알 수 없음"}
-                    thumbnailUrl={thread.thumbnailUrl || Basic}
-                    buttons={renderCustomerInfoButtons("confirmed")}
-                    status={thread.style || "알 수 없음"}
-                    payment={formatCurrency(
-                      thread.estimate?.estimatedCost || 0,
-                    )}
-                    onClick={() =>
-                      console.log(`CustomerInfo clicked for thread ${index}`)
-                    }
-                  />
-                ))
-              ) : (
-                <p>확인된 데이터가 없습니다.</p>
-              )}
-            </div>
+            {threadsData?.threads?.length ? (
+              threadsData.threads.map((thread, index) => (
+                <CustomerInfo
+                  key={index}
+                  store={thread.workspaceName || "알 수 없음"}
+                  score={thread.score || 0}
+                  review={thread.reviewCount || 0}
+                  reservation={thread.threadStep || "알 수 없음"}
+                  location={thread.address || "알 수 없음"}
+                  thumbnailUrl={thread.thumbnailUrl || Basic}
+                  buttons={renderCustomerInfoButtons("confirmed")}
+                  status={thread.style || "알 수 없음"}
+                  payment={formatCurrency(thread.estimatedCost || 0)}
+                  onClick={() =>
+                    console.log(`CustomerInfo clicked for thread ${index}`)
+                  }
+                />
+              ))
+            ) : (
+              <NoReceived />
+            )}
           </>
         );
       default:

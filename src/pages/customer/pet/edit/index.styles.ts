@@ -7,6 +7,7 @@ export const Style = {
     flex-direction: column;
     padding-bottom: calc(${theme.size.gnbHeight} + 30px);
     gap: 20px;
+    margin-bottom: 90px;
   `,
   SelectWrapper: styled.div`
     display: flex;

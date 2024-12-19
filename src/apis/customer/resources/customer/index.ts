@@ -4,8 +4,10 @@ import { UpdateCustomerProfileResponse } from "../../../../types/customer/custom
 import { UpdateCustomerProfileRequest } from "../../../../types/customer/customer";
 import { UploadProfileImageResponse } from "../../../../types/customer/customer";
 import FormData from "form-data";
+import { GetDesignerWorkspaceResponse } from "../../../../types/customer/customer";
 import { GetAroundWorkspacesResponse } from "../../../../types/customer/customer";
 import { CheckCustomerNicknameDuplicatedResponse } from "../../../../types/customer/customer";
+import { GetDesignerBadgesForCustomerResponse } from "../../../../types/customer/customer";
 
 export const getCustomerProfile = async (
   userId: number,
@@ -45,6 +47,15 @@ export const uploadProfileImage = async (
   return res.data;
 };
 
+export const getDesignerWorkspace = async (
+  userId: number,
+): Promise<GetDesignerWorkspaceResponse> => {
+  const res = await CustomerAPI.get<GetDesignerWorkspaceResponse>(
+    `/v1/${userId}/shop`,
+  );
+  return res.data;
+};
+
 export const getAroundWorkspaces = async (
   userId: number,
 ): Promise<GetAroundWorkspacesResponse> => {
@@ -60,6 +71,15 @@ export const checkCustomerNicknameDuplicated = async (query: {
   const res = await CustomerAPI.get<CheckCustomerNicknameDuplicatedResponse>(
     `/v1/users/check`,
     { params: query },
+  );
+  return res.data;
+};
+
+export const getDesignerBadgesForCustomer = async (
+  designerId: number,
+): Promise<GetDesignerBadgesForCustomerResponse> => {
+  const res = await CustomerAPI.get<GetDesignerBadgesForCustomerResponse>(
+    `/v1/designers/${designerId}/badges`,
   );
   return res.data;
 };
