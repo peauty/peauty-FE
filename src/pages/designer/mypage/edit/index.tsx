@@ -6,7 +6,7 @@ import {
   getDesignerAccount,
   updateDesignerAccount,
 } from "../../../../apis/designer/resources/designer";
-import { MyPageEditWrapper, NicknameAvailabilityMessage } from "./index.styles"; // styled-components 임포트
+import { MyPageEditWrapper } from "./index.styles";
 import {
   GetDesignerAccountResponse,
   UpdateDesignerAccountRequest,
@@ -88,6 +88,12 @@ export default function DesignerMyPageEdit() {
           value={formData.nickname || ""}
           onChange={(e) => handleInputChange("nickname", e.target.value)}
           variant="outlined"
+          error={
+            nicknameAvailable === false ? "이미 존재하는 닉네임입니다." : ""
+          }
+          success={
+            nicknameAvailable === true ? "사용 가능한 닉네임입니다." : ""
+          }
           suffix={
             <CustomButton
               size="small"
@@ -98,14 +104,6 @@ export default function DesignerMyPageEdit() {
             </CustomButton>
           }
         />
-        {/* Styled component로 중복 메시지 출력 */}
-        {nicknameAvailable !== null && (
-          <NicknameAvailabilityMessage isAvailable={nicknameAvailable}>
-            {nicknameAvailable
-              ? "사용 가능한 닉네임입니다."
-              : "이미 존재하는 닉네임입니다."}
-          </NicknameAvailabilityMessage>
-        )}
         <CustomInput
           label="이름"
           placeholder="이름을 입력해주세요"
