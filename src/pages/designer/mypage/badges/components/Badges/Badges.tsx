@@ -3,7 +3,7 @@ import { BadgeWrapper, BadgeImage, BadgeTitle } from "./Badges.styles";
 export interface BadgesProps {
   src: string;
   title: string;
-  onClick?: () => void; 
+  onClick?: () => void;
 }
 
 export function Badges({ src, title, onClick }: BadgesProps) {

@@ -15,7 +15,7 @@ export const BadgeGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 4개의 열로 구성 */
   grid-gap: 20px; /* 배지 간의 간격 */
-  justify-items: center; /* 배지 중앙 정렬 */
+  //justify-items: center; /* 배지 중앙 정렬 */
   align-items: start; /* 배지 텍스트가 상단 정렬되도록 */
 `;
 

@@ -17,8 +17,9 @@ interface ShopBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     badgeColor: string;
     badgeType: string;
     badgeImageUrl: string;
-  }[]; // 전달받는 badge 데이터 타입
+  }[];
 }
+
 export const ShopBadge = forwardRef<HTMLDivElement, ShopBadgeProps>(
   ({ badges = [], ...props }, ref) => {
     const [selectedBadge, setSelectedBadge] = useState<
@@ -42,7 +43,7 @@ export const ShopBadge = forwardRef<HTMLDivElement, ShopBadgeProps>(
           {badges?.map((badge) => (
             <BadgeItem
               key={badge.badgeId}
-              onClick={() => handleBadgeClick(badge)}
+              onClick={() => handleBadgeClick(badge)} // badge 객체만 전달
             >
               <BadgeIcon>
                 <img
@@ -70,5 +71,5 @@ export const ShopBadge = forwardRef<HTMLDivElement, ShopBadgeProps>(
         )}
       </BadgeContainer>
     );
-  },
+  }
 );
