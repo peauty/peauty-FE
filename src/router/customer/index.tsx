@@ -28,7 +28,6 @@ export const customerPaths = [
     children: [{ path: "pets", children: petsPaths }],
   },
 
-  // AuthLayout 적용 경로 (noPadding 스타일)
   {
     path: "",
     element: <AuthLayout userType="customer" style={noPadding} />,
@@ -39,7 +38,6 @@ export const customerPaths = [
     ],
   },
 
-  // 요청 관련 경로
   {
     path: "",
     children: [

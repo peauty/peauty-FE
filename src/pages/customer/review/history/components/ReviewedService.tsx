@@ -131,7 +131,7 @@ export default function ReviewedService() {
   }
 
   return (
-    <div className="space-y-4">
+    <div>
       {reviews.reviews.map((review) => (
         <ReviewCard
           key={review.reviewId}

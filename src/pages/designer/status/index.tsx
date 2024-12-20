@@ -118,8 +118,15 @@ export default function Status() {
       return;
     }
 
+    console.log("handleCompleteGrooming 호출됨:", {
+      userId,
+      processId,
+      threadId,
+    });
+
     try {
       const response = await completeGrooming(userId, processId, threadId);
+      console.log("미용 완료 성공:", response);
       setIsConfirmDialogOpen(false);
       window.location.reload();
     } catch (error) {
@@ -132,8 +139,9 @@ export default function Status() {
     threadId: number,
     threadStep: string,
   ) => {
+    console.log("handleModalOpen 호출됨:", { processId, threadId, threadStep });
     if (threadStep === "미용완료") {
-      setIsAlreadyCompleteDialogOpen(true); // 이미 완료된 미용 모달 열기
+      setIsAlreadyCompleteDialogOpen(true);
     } else {
       setCurrentThread({ processId, threadId });
       setIsConfirmDialogOpen(true);

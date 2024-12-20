@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - ${theme.size.gnbHeight} - ${theme.size.appBarHeight});
+  overflow-y: scroll;
 `;
 
 export const CardWrapper = styled.div`

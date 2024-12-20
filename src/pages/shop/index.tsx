@@ -4,7 +4,7 @@ import Carousel from "../../components/carousel/Carousel";
 import ShopOverview from "./components/ShopOverview";
 import ShopNav from "./components/ShopNav";
 import ShopDetail from "./components/ShopDetail";
-import ShopReview from "./components/ShopReview";
+import { ShopReview } from "./components/ShopReview";
 import { ShopBadge } from "./components/ShopBadge";
 import { StickyContainer } from "./index.styles";
 import { getDesignerWorkspace } from "../../apis/customer/resources/customer";
@@ -68,10 +68,23 @@ export default function Shop() {
       }
     };
 
+    const fetchBadgesData = async () => {
+      try {
+        const response = await getDesignerBadgesForCustomer(Number(userId));
+        setBadges(response);
+      } catch (error) {}
+    };
+
+    fetchWorkspaceData();
+    fetchBadgesData();
+  }, [userId]);
+
+  useEffect(() => {
     const fetchReviewsData = async () => {
       try {
         setReviewsLoading(true);
         const response = await getDesignerReviews(Number(userId));
+        console.log(response);
 
         if (response && Array.isArray(response.reviews)) {
           setReviews(response.reviews);
@@ -86,17 +99,7 @@ export default function Shop() {
       }
     };
 
-    const fetchBadgesData = async () => {
-      try {
-        const response = await getDesignerBadgesForCustomer(Number(userId));
-
-        setBadges(response);
-      } catch (error) {}
-    };
-
-    fetchWorkspaceData();
     fetchReviewsData();
-    fetchBadgesData();
   }, [userId]);
 
   useEffect(() => {
