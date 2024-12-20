@@ -10,18 +10,26 @@
     "preview": "vite preview",
     "svgr": "npx @svgr/cli -d src/assets/svg --ignore-existing --typescript --no-dimensions public/svg",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_bbf18d311f19e2d"
   },
   "dependencies": {
     "@eslint/plugin-kit": "^0.2.3",
+    "@portone/browser-sdk": "^0.0.11",
+    "@tanstack/react-query": "^5.61.3",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.34",
+    "axios": "^1.7.7",
+    "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
+    "react-daum-postcode": "^3.1.3",
     "react-dom": "^18.3.1",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.28.0",
     "recoil": "^0.7.7",
     "styled-components": "^6.1.13",
-    "styled-normalize": "^8.1.1"
+    "styled-normalize": "^8.1.1",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
@@ -37,8 +45,10 @@
     "@storybook/test": "^8.4.4",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/react-modal": "^3",
     "@types/styled-components": "^5.1.34",
     "@vitejs/plugin-react": "^4.3.3",
+    "chromatic": "^11.20.0",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
@@ -49,6 +59,7 @@
     "eslint-plugin-react-refresh": "^0.4.14",
     "eslint-plugin-storybook": "^0.11.0",
     "globals": "^15.11.0",
+    "iamport-typings": "https://github.com/myoungjinGo-FE/iamport-typings#main",
     "prettier": "^3.3.3",
     "react-icons": "^5.3.0",
     "recoil": "^0.7.7",

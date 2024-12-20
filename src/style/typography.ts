@@ -1,48 +1,60 @@
-import { css } from 'styled-components';
+import { css } from "styled-components";
 
 export const typography = {
-  title1: css`
+  title100: css`
     font-weight: 600;
     font-size: 24px;
   `,
-  title2: css`
-    font-weight: 600;
+  title200: css`
+    font-weight: 500;
+    font-size: 24px;
+  `,
+  title300: css`
+    font-weight: 500;
     font-size: 20px;
   `,
-  subtitle1: css`
+  subtitle100: css`
+    font-weight: 500;
+    font-size: 20px;
+  `,
+  subtitle200: css`
     font-weight: 600;
     font-size: 16px;
   `,
-  subtitle2: css`
+  subtitle300: css`
     font-weight: 600;
     font-size: 14px;
   `,
-  subtitle3: css`
-    font-weight: 500;
+  subtitle400: css`
+    font-weight: 400;
     font-size: 16px;
   `,
-  body1: css`
-    font-weight: 600;
-    font-size: 12px;
-  `,
-  body2: css`
-    font-weight: 500;
-    font-size: 12px;
-  `,
-  body3: css`
-    font-weight: 500;
-    font-size: 10px;
-  `,
-  body4: css`
+  body100: css`
     font-weight: 400;
     font-size: 14px;
   `,
-  body5: css`
+  body200: css`
+    font-weight: 600;
+    font-size: 12px;
+  `,
+  body300: css`
+    font-weight: 500;
+    font-size: 12px;
+  `,
+  body400: css`
     font-weight: 400;
     font-size: 12px;
   `,
-  body6: css`
+  body500: css`
+    font-weight: 600;
+    font-size: 10px;
+  `,
+  body600: css`
     font-weight: 400;
     font-size: 10px;
+  `,
+  body700: css`
+    font-weight: 400;
+    font-size: 11px;
   `,
 } as const;

@@ -2,8 +2,7 @@
 
 ## Peauty 서비스 소개
 
-> 당신의 반려견의 모든 날들이 아름답도록 **Peauty**<br>
-> `Pet + Beauty = Peauty`<br>
+> 당신의 반려견의 모든 날들이 아름답도록 **Peauty**<br> > `Pet + Beauty = Peauty`<br>
 > 강아지를 아름답게 하는 **동네 기반 반려견 미용 중계 서비스**
 
 📌 배포링크: https://peauty.click/
@@ -34,6 +33,7 @@ Typescript, React, Vite, Recoil, yarn, storybook
 ```
 yarn install
 yarn dev
+yarn storybook
 yarn storybook
 ```
 
@@ -165,7 +165,7 @@ src/style
 
 **[강아지 등록]**
 
-- 반려견 수정 등록 삭제 
+- 반려견 수정 등록 삭제
 
 **[견적서 부분]**
 

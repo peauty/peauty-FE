@@ -1,11 +1,12 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
-import GlobalStyle from "../src/style/global-style";
+import { router } from "./router/router";
+import { RouterProvider } from "react-router-dom";
+import GlobalStyle from "./style/global-style";
+import { RecoilRoot } from "recoil";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  <RecoilRoot>
     <GlobalStyle />
-    <App />
-  </StrictMode>,
+    <RouterProvider router={router} />
+  </RecoilRoot>,
 );
