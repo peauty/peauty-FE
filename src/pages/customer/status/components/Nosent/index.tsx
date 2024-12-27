@@ -16,7 +16,7 @@ import {
 export default function Nosend() {
   const navigate = useNavigate();
   const handleStatus = () => {
-    navigate(ROUTE.customer.status);
+    navigate(ROUTE.customer.request.home);
   };
   return (
     <Wrapper>

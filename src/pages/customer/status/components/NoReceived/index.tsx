@@ -21,7 +21,7 @@ interface NoReceivedProps {
 export default function NoReceived({ hasStatus, type }: NoReceivedProps) {
   const navigate = useNavigate();
   const handleStatus = () => {
-    navigate(ROUTE.customer.status);
+    navigate(ROUTE.customer.request.home);
   };
   return (
     <Wrapper hasStatus={hasStatus}>
