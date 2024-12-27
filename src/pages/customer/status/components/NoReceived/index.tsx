@@ -20,17 +20,18 @@ export default function NoReceived() {
   };
   return (
     <Wrapper>
-        <ContentsWrapper>
-    <IconTextWrapper>
-      <IconWrapper>
-        <NoStatus width={101} />
-      </IconWrapper>
-      <Text typo="subtitle200">받은 견적이 없어요</Text>
-      <Text typo="body100">아직 견적을 요청하지 않으셨다면 요청해보세요</Text>
-    </IconTextWrapper>
-    <Button onClick={handleStatus}>견적 요청하기</Button>
-    </ContentsWrapper>
-  </Wrapper>
-  
+      <ContentsWrapper>
+        <IconTextWrapper>
+          <IconWrapper>
+            <NoStatus width={90} />
+          </IconWrapper>
+          <Text typo="subtitle300">받은 견적이 없어요</Text>
+          <Text typo="body400">
+            아직 견적을 요청하지 않으셨다면 요청해보세요
+          </Text>
+        </IconTextWrapper>
+        <Button onClick={handleStatus}>견적 요청하기</Button>
+      </ContentsWrapper>
+    </Wrapper>
   );
 }

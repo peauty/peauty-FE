@@ -26,3 +26,9 @@ export const formatDate = (isoDate?: string): string => {
 
   return `${year} . ${month} . ${day} . ${period} ${formattedHours}:${minutes}`;
 };
+
+export const formatDashDate = (isoDate?: string): string => {
+  if (!isoDate) return "";
+  const transDat = isoDate.replace(/-/g, ".");
+  return transDat;
+};

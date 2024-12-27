@@ -4,7 +4,7 @@ import { colors } from "../../../../../style/color";
 import { Divider } from "../../../../../components";
 import Rating from "../../../../../components/rating/Rating";
 import theme from "../../../../../style/theme";
-
+import { formatDashDate } from "../../../../../utils/dataformat";
 interface ReviewProps {
   reviewDate: string;
   groomingStyle: string;
@@ -34,8 +34,20 @@ export default function ReviewCard({
     <div style={{ border: `2px solid  ${theme.colors.background}` }}>
       <CardContainer>
         <Date>
+          <span
+            style={{
+              backgroundColor: `${colors.background}`,
+              padding: "1px 3px",
+              borderRadius: "3px",
+              fontSize: "11px",
+              fontWeight: "500",
+              color: `${colors.gray100}`,
+            }}
+          >
+            작성일
+          </span>
           <Text typo="body400" color="gray100">
-            작성일 {reviewDate}
+            {formatDashDate(reviewDate)}
           </Text>
         </Date>
         <div
@@ -130,6 +142,7 @@ const ImageContainer = styled.div`
 const Date = styled.div`
   width: 100%;
   display: flex;
+  gap: 5px;
 `;
 
 const Info = styled.div`
