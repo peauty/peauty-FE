@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Text } from "../../../../../components/texts/Text";
 import { colors } from "../../../../../style/color";
-import { Divider } from "../../../../../components";
 import Rating from "../../../../../components/rating/Rating";
 import theme from "../../../../../style/theme";
 import { formatDashDate } from "../../../../../utils/dataformat";

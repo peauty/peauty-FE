@@ -29,6 +29,6 @@ export const formatDate = (isoDate?: string): string => {
 
 export const formatDashDate = (isoDate?: string): string => {
   if (!isoDate) return "";
-  const transDat = isoDate.replace(/-/g, ".");
-  return transDat;
+  const transDot = isoDate.replace(/-/g, ".");
+  return transDot;
 };

@@ -47,5 +47,6 @@ export const DogName = styled.p<{ active: boolean }>`
   font-weight: ${({ active }) => (active ? "600" : "400")};
   color: ${({ active }) => (active ? "#000000" : "#A0A0A0")};
   text-align: center;
-  width: 50px;
+  /* width: 50px; */
+  white-space: pre-wrap;
 `;
