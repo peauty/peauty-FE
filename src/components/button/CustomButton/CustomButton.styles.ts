@@ -168,7 +168,7 @@ export const Button = styled.button<{
             background-color: ${colors.blue200};
             transform: translateY(-1px);
             transform: scale(
-              1.05
+              1.005
             ); /* Scale up without affecting surrounding elements */
             z-index: 2; /* Ensure it's on top */
           }

@@ -25,6 +25,7 @@ import {
 import { ROUTE } from "../../../../../constants/routes";
 import Loading from "../../../../../components/page/sign-up/Loading";
 import { SendEstimateProposalRequest } from "../../../../../types/customer/bidding";
+import Toast from "../../../../../components/toast";
 
 interface SearchStepProps {
   onNext: () => void;
@@ -44,7 +45,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   const [isFetched, setIsFetched] = useState(false);
   const navigate = useNavigate();
   const [sortOption, setSortOption] = useState<string>("최신순");
-
+  const [showToast, setShowToast] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       if (!user || !user.userId || isFetched) {
@@ -221,6 +222,8 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
       ) : (
         <GNB type="customer" />
       )}
+
+      {showToast && <Toast>견적 요청이 성공적으로 완료되었습니다!</Toast>}
     </>
   );
 }

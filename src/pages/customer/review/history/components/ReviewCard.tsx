@@ -130,8 +130,6 @@ const ImageContainer = styled.div`
 const Date = styled.div`
   width: 100%;
   display: flex;
-  /* justify-content: flex-end; */
-  /* margin-left: 330px; */
 `;
 
 const Info = styled.div`
