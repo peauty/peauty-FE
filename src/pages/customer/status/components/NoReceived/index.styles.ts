@@ -16,11 +16,13 @@ export const Button = styled.button`
   }
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ hasStatus: boolean }>`
   display: flex;
-  height: calc(
-    100vh - ${theme.size.appBarHeight} - ${theme.size.gnbHeight} - 284px
-  );
+  height: ${({ hasStatus }) =>
+    hasStatus
+      ? `calc(100vh - ${theme.size.appBarHeight} - ${theme.size.gnbHeight} - 284px)`
+      : `calc(100vh - 304px)`};
+  margin: auto;
   justify-content: center;
   align-items: center;
 `;

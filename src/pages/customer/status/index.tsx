@@ -56,6 +56,12 @@ export default function Status() {
     const fetchData = async () => {
       if (userId && puppyId !== null) {
         try {
+          // 상태 초기화
+          setStatusItemData(null);
+          setStep2ThreadsData(null);
+          setThreadsData(null);
+
+          // Step 1 데이터 가져오기
           const step1Data = await getOngoingProcessWithStep1Threads(
             userId,
             puppyId,
@@ -78,6 +84,8 @@ export default function Status() {
               thumbnailUrl: step1Data.stores?.[0]?.thumbnailUrl || Basic,
             });
           }
+
+          // Step 2 데이터 가져오기
           const step2Data = await getOngoingProcessWithStep2Threads(
             userId,
             puppyId,
@@ -91,16 +99,23 @@ export default function Status() {
           if (step2Data.stores && step2Data.stores.length > 0) {
             setThreadId(step2Data.stores[0].threadId || 0);
           }
+
+          // Step 3 데이터 가져오기
           const step3Data = await getAllStep3AboveThreads(userId, puppyId);
           setThreadsData(step3Data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
+      } else {
+        // puppyId가 없으면 상태 초기화
+        setStatusItemData(null);
+        setStep2ThreadsData(null);
+        setThreadsData(null);
       }
     };
 
     fetchData();
-  }, [userId, puppyId]);
+  }, [userId, puppyId]); // puppyId가 변경될 때마다 실행
 
   const handleTabClick = (tab: "sent" | "received" | "confirmed") => {
     setActiveTab(tab);
@@ -115,30 +130,28 @@ export default function Status() {
     return "리뷰 작성";
   };
 
-  const renderCustomerInfoButtons = (reservationStatus: string) => {
-    return [
-      {
-        title: "견적서 보기",
-        bgColor: colors.blue300,
-        color: colors.blue100,
-        width: "100%",
-        onClick: () =>
-          navigate(
-            `/customer/quote-detail?userId=${userId}&puppyId=${puppyId}&threadId=${threadId}&processId=${processId}`,
-          ),
-      },
-      {
-        title:
-          reservationStatus === "received"
-            ? "더이상 보지 않기"
-            : getButtonTitle(statusItemData?.reservation || ""),
-        bgColor: colors.gray400,
-        color: colors.gray100,
-        width: "100%",
-        onClick: () => console.log("버튼 클릭"),
-      },
-    ];
-  };
+  const renderCustomerInfoButtons = (reservationStatus: string) => [
+    {
+      title: "견적서 보기",
+      bgColor: colors.blue300,
+      color: colors.blue100,
+      width: "100%",
+      onClick: () =>
+        navigate(
+          `/customer/quote-detail?userId=${userId}&puppyId=${puppyId}&threadId=${threadId}&processId=${processId}`,
+        ),
+    },
+    {
+      title:
+        reservationStatus === "received"
+          ? "더이상 보지 않기"
+          : getButtonTitle(statusItemData?.reservation || ""),
+      bgColor: colors.gray400,
+      color: colors.gray100,
+      width: "100%",
+      onClick: () => console.log("버튼 클릭"),
+    },
+  ];
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat().format(amount);
@@ -151,37 +164,35 @@ export default function Status() {
     switch (activeTab) {
       case "sent":
         if (!statusItemData) {
-          // step1Data.info가 없을 때 Nosend 컴포넌트만 렌더링
           return <Nosend />;
         }
         return (
           <>
-            {statusItemData ? (
-              <>
-                <Info
-                  requestDate={statusItemData.date}
-                  requestText={statusItemData.name}
-                  userId={0}
-                  puppyId={0}
-                  processId={0}
-                />
-                <StatusListItem
-                  location={statusItemData.location}
-                  store={statusItemData.store}
-                  score={statusItemData.score}
-                  review={statusItemData.review}
-                  badges={statusItemData.badges}
-                  thumbnailUrl={statusItemData.thumbnailUrl}
-                  onClick={() => console.log("StatusListItem clicked")}
-                />
-              </>
-            ) : (
-              <Nosend />
-            )}
+            <>
+              <Info
+                requestDate={statusItemData.date}
+                requestText={statusItemData.name}
+                userId={0}
+                puppyId={0}
+                processId={0}
+              />
+              <StatusListItem
+                location={statusItemData.location}
+                store={statusItemData.store}
+                score={statusItemData.score}
+                review={statusItemData.review}
+                badges={statusItemData.badges}
+                thumbnailUrl={statusItemData.thumbnailUrl}
+                onClick={() => console.log("StatusListItem clicked")}
+              />
+            </>
           </>
         );
 
       case "received":
+        if (!statusItemData) {
+          return <NoReceived hasStatus={!!statusItemData} type="받은" />;
+        }
         return (
           <>
             <Info
@@ -209,7 +220,7 @@ export default function Status() {
                 />
               ))
             ) : (
-              <NoReceived />
+              <NoReceived hasStatus={true} type="받은" />
             )}
           </>
         );
@@ -235,7 +246,7 @@ export default function Status() {
                 />
               ))
             ) : (
-              <NoReceived />
+              <NoReceived hasStatus={false} type="확정된" />
             )}
           </>
         );

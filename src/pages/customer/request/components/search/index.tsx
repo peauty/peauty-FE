@@ -57,7 +57,6 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
         const response: GetAroundWorkspacesResponse = await getAroundWorkspaces(
           user.userId,
         );
-        console.log(response);
         setCustomerAddress(response.customerAddress || "알 수 없음");
         setWorkspaces(response.workspaces || []);
         setCheckedItems(Array(response.workspaces?.length || 0).fill(false));
@@ -155,14 +154,12 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
                 label: "최신순",
                 onClick: () => {
                   setSortOption("최신순");
-                  console.log("최신순 선택");
                 },
               },
               {
                 label: "평점 높은순",
                 onClick: () => {
                   setSortOption("평점 높은순");
-                  console.log("평점 높은순 선택");
                 },
               },
             ]}
