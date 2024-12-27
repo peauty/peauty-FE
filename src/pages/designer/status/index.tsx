@@ -91,6 +91,8 @@ export default function Status() {
         } else if (activeTab === "confirmed") {
           const data = await getStep3AboveThreads(userId);
           setConfirmedData(data.threads || []);
+          console.log(data.threads);
+          console.log("확정" + JSON.stringify(confirmedData, null, 2));
         }
       } catch (error) {
         console.error("Error fetching data:", error);

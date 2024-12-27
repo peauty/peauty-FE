@@ -6,6 +6,7 @@ export interface PaymentData {
   paymentDate: string;
   paidAmount: string;
   onSiteAmount: string;
+  total: string;
 }
 
 // 결제 관련 데이터를 관리하는 atom

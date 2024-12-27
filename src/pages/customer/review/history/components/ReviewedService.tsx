@@ -62,7 +62,6 @@ export default function ReviewedService() {
           ),
         });
       }
-      alert("리뷰가 삭제되었습니다.");
     } catch (error) {
       console.error("Failed to delete review:", error);
       alert("삭제 중 문제가 발생했습니다. 다시 시도해주세요.");
@@ -98,6 +97,7 @@ export default function ReviewedService() {
         setIsLoading(true);
         const data = await getUserReviews(userId);
         setReviews(data);
+        console.log(data);
         setError(null);
       } catch (err) {
         setError("리뷰를 불러오는데 실패했습니다.");

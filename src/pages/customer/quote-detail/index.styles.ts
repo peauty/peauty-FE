@@ -68,10 +68,9 @@ export const DetailLabel = styled.div`
 
 // Text Layout for Description, Attachments
 export const DetailText = styled.div`
-  flex: 2;
   white-space: pre-line;
   line-height: 1.1;
-  text-align: end;
+  max-width: 200px;
 `;
 
 // Section for Agreement Items (checkboxes for terms)

@@ -96,7 +96,7 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
     if (validateFields()) {
       onNext();
     } else {
-      setModalMessage("모든 필드를 입력해주세요.");
+      setModalMessage("모든 값을을 입력해주세요.");
       setIsModalOpen(true);
     }
   };
@@ -151,9 +151,7 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
           {renderRadioButtonGroup(
             "분류",
             ["소형견", "중형견", "대형견"],
-            ["SMALL", "MEDIUM", "LARGE"].indexOf(
-              inputData.puppySize || "",
-            ),
+            ["SMALL", "MEDIUM", "LARGE"].indexOf(inputData.puppySize || ""),
             (index) =>
               handleChange("puppySize", ["SMALL", "MEDIUM", "LARGE"][index]),
           )}

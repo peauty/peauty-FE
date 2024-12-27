@@ -46,7 +46,7 @@ export default function ChoosePetForGrooming({
         const statusResponse = await getPuppyProfilesWithCanStartProcessStatus(
           user.userId,
         );
-        console.log("상태" + statusResponse);
+        // console.log("상태" + JSON.stringify(statusResponse, null, 2));
         if (statusResponse.puppies) {
           const statusMap: { [key: number]: boolean } = {};
           statusResponse.puppies.forEach((puppy) => {

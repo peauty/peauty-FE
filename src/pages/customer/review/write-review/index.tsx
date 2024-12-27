@@ -49,7 +49,6 @@ const tagMapping: { [key: string]: string } = {
   친절해요: "KIND",
   "가성비 좋아요": "GOOD_COST",
 };
-
 export default function WriteReview(props: { isEdit: boolean }) {
   const navigate = useNavigate();
   const { userId } = useUserDetails();
@@ -124,13 +123,18 @@ export default function WriteReview(props: { isEdit: boolean }) {
     setUploadedImageUrls(updatedImageUrls);
   };
 
+  useEffect(() => {
+    if (!props.isEdit) {
+      setUploadedImageUrls([]); // 업로드된 이미지 URL 초기화
+    }
+  }, [props.isEdit]);
+
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const files = event.target.files;
     if (files) {
       const fileArray = Array.from(files);
-      setImages((prevImages) => [...prevImages, ...fileArray]);
 
       try {
         const response = await uploadImages(fileArray);
@@ -138,6 +142,8 @@ export default function WriteReview(props: { isEdit: boolean }) {
 
         if (imageUrls && imageUrls.length > 0) {
           setUploadedImageUrls((prevUrls) => [...prevUrls, ...imageUrls]);
+        } else {
+          console.warn("No image URLs returned from uploadImages API");
         }
       } catch (error) {
         console.error("이미지 업로드 실패: ", error);
@@ -214,7 +220,21 @@ export default function WriteReview(props: { isEdit: boolean }) {
           </HintWrapper>
 
           {uploadedImageUrls.length === 0 ? (
-            <ImgUploadWrapper>
+            <ImgUploadWrapper
+              onClick={() => document.getElementById("fileInput")?.click()}
+              style={{ cursor: "pointer" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  textAlign: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text color="gray100" typo="body600">
+                  사진은 최대 3장까지 가능해요
+                </Text>
+              </div>
               <input
                 type="file"
                 accept="image/*"
@@ -225,9 +245,6 @@ export default function WriteReview(props: { isEdit: boolean }) {
                 id="fileInput"
               />
               <label htmlFor="fileInput" style={{ cursor: "pointer" }}>
-                <Text color="gray200" typo="body500">
-                  사진은 최대 3장까지 가능해요
-                </Text>
                 <AddImage width={15} />
               </label>
             </ImgUploadWrapper>
@@ -266,7 +283,7 @@ export default function WriteReview(props: { isEdit: boolean }) {
           )}
 
           <CustomInput
-            placeholder="리뷰 작성"
+            placeholder="리뷰를 작성해주세요."
             inputType="textarea"
             maxLength={400}
             value={reviewText}

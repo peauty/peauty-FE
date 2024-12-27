@@ -4,7 +4,7 @@ import { colors } from "../../../../style/color";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 25px 0;
+  padding: 0 25px 10px;
   gap: 20px;
 `;
 
@@ -13,6 +13,14 @@ export const ImgUploadWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  border: 1px solid ${colors.gray300};
+  height: 80px;
+  border-radius: 10px;
+  justify-content: center;
+  &:hover {
+    border: 1px solid ${colors.blue100};
+    background-color: ${colors.blue300};
+  }
 `;
 
 export const FirstQuestionBox = styled.div`
@@ -34,8 +42,8 @@ export const WriteReviewBox = styled.div`
 
 export const HintWrapper = styled.div`
   display: flex;
-  align-items: center;
-  gap: 6px;
+  /* align-items: center; */
+  gap: 5px;
 `;
 
 export const ReviewableServiceWrapper = styled.div`
@@ -65,7 +73,7 @@ export const TagWrapper = styled.div<{ selected?: boolean }>`
   align-items: center;
   gap: 10px;
   border: 1px solid
-    ${(props) => (props.selected ? colors.blue100 : colors.gray200)};
+    ${(props) => (props.selected ? colors.blue100 : colors.gray300)};
   background-color: ${(props) =>
     props.selected ? colors.blue300 : "transparent"};
   border-radius: 10px;
@@ -133,7 +141,7 @@ export const ImageContainer = styled.div`
 
 export const AddWrapper = styled.div`
   width: 80px;
-  margin-top: 10px;
+  height: 80px;
 `;
 
 export const ImageUnit = styled.img`

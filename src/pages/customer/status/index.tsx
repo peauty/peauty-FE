@@ -65,7 +65,8 @@ export default function Status() {
               name: step1Data.info.requestText || "견적을 요청하세요",
               store: step1Data.stores?.[0]?.store || "견적을 요청하세요",
               location: step1Data.stores?.[0]?.location || "견적을 요청하세요",
-              reservation: step1Data.stores?.[0]?.threadStep || "견적을 요청하세요",
+              reservation:
+                step1Data.stores?.[0]?.threadStep || "견적을 요청하세요",
               score: step1Data.stores?.[0]?.score || 0,
               review: step1Data.stores?.[0]?.review || 0,
               date: step1Data.info.requestDate || "",
@@ -83,9 +84,6 @@ export default function Status() {
           );
           setStep2ThreadsData(step2Data);
 
-          const step3Data = await getAllStep3AboveThreads(userId, puppyId);
-          setThreadsData(step3Data);
-
           if (step2Data.info) {
             setProcessId(step2Data.info.processId || 0);
           }
@@ -93,6 +91,8 @@ export default function Status() {
           if (step2Data.stores && step2Data.stores.length > 0) {
             setThreadId(step2Data.stores[0].threadId || 0);
           }
+          const step3Data = await getAllStep3AboveThreads(userId, puppyId);
+          setThreadsData(step3Data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -115,28 +115,30 @@ export default function Status() {
     return "리뷰 작성";
   };
 
-  const renderCustomerInfoButtons = (reservationStatus: string) => [
-    {
-      title: "견적서 보기",
-      bgColor: colors.blue300,
-      color: colors.blue100,
-      width: "100%",
-      onClick: () =>
-        navigate(
-          `/customer/quote-detail?userId=${userId}&puppyId=${puppyId}&threadId=${threadId}&processId=${processId}`,
-        ),
-    },
-    {
-      title:
-        reservationStatus === "received"
-          ? "더이상 보지 않기"
-          : getButtonTitle(statusItemData?.reservation || ""),
-      bgColor: colors.gray400,
-      color: colors.gray100,
-      width: "100%",
-      onClick: () => console.log("버튼 클릭"),
-    },
-  ];
+  const renderCustomerInfoButtons = (reservationStatus: string) => {
+    return [
+      {
+        title: "견적서 보기",
+        bgColor: colors.blue300,
+        color: colors.blue100,
+        width: "100%",
+        onClick: () =>
+          navigate(
+            `/customer/quote-detail?userId=${userId}&puppyId=${puppyId}&threadId=${threadId}&processId=${processId}`,
+          ),
+      },
+      {
+        title:
+          reservationStatus === "received"
+            ? "더이상 보지 않기"
+            : getButtonTitle(statusItemData?.reservation || ""),
+        bgColor: colors.gray400,
+        color: colors.gray100,
+        width: "100%",
+        onClick: () => console.log("버튼 클릭"),
+      },
+    ];
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat().format(amount);
