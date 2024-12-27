@@ -21,7 +21,7 @@ export default function ChoosePetForGrooming({
   const [puppies, setPuppies] = useState<GetPuppyProfileResponse[]>([]);
   const [puppyProcessStatus, setPuppyProcessStatus] = useState<{
     [key: number]: boolean;
-  }>({}); // {puppyId: hasOngoingProcess}
+  }>({});
   const [selectedPetId, setSelectedPetId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [customerNickname, setCustomerNickname] = useState<string>("");
@@ -46,7 +46,7 @@ export default function ChoosePetForGrooming({
         const statusResponse = await getPuppyProfilesWithCanStartProcessStatus(
           user.userId,
         );
-
+        console.log("상태" + statusResponse);
         if (statusResponse.puppies) {
           const statusMap: { [key: number]: boolean } = {};
           statusResponse.puppies.forEach((puppy) => {

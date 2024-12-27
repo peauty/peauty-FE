@@ -152,7 +152,7 @@ export default function Step1({ onNext, inputData, handleChange }: Step1Props) {
             "분류",
             ["소형견", "중형견", "대형견"],
             ["SMALL", "MEDIUM", "LARGE"].indexOf(
-              inputData.puppySize || "중형견",
+              inputData.puppySize || "",
             ),
             (index) =>
               handleChange("puppySize", ["SMALL", "MEDIUM", "LARGE"][index]),

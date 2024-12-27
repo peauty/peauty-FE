@@ -77,7 +77,7 @@ interface LastStepProps {
     key: keyof SendEstimateProposalRequest,
     value: any[],
   ) => void;
-  setShowToast: (value: boolean) => void;
+  setShowToast?: (value: boolean) => void;
 }
 
 export default function CustomizeGrooming({

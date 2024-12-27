@@ -1,9 +1,8 @@
 import { Divider, Text } from "../../../../../components";
 import { Shop } from "../../../../../assets/svg";
 import { Badge } from "../../../../../components/category/Badge";
-import ShopEvent from "../ShopEvent";
 import { Maker } from "../../../../../assets/svg";
-import { InfoWrapper, TextWrapper } from "./index.styles";
+import { InfoWrapper, TextWrapper, IntroduceContents } from "./index.styles";
 import { IconContain } from "../../ShopDetail/ShopInfo/index.styles";
 import { ShopOverviewinfoProps } from "../../../../../types/customer/request";
 import Rating from "../../../../../components/rating";
@@ -40,7 +39,9 @@ export default function OverviewInfo({
             <Shop height={10} style={{ marginRight: "5px" }} />
             <Text typo="body300">{introduceTitle}</Text>
           </IconContain>
-          <Text typo="body400">{introduce}</Text>
+          <IntroduceContents>
+            <Text typo="body400">{introduce}</Text>
+          </IntroduceContents>
         </div>
         <IconContain>
           {representativeBadges.map((badge, index) => (
