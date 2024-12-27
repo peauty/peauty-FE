@@ -13,7 +13,7 @@ export const StyleProfileImg = {
     width: 100%;
     display: flex;
     justify-content: center;
-    /* position: relative; */
+    position: relative;
     /* margin: 20px 0; */
   `,
   RoundImg: styled.img<StyleImg>`
@@ -27,8 +27,8 @@ export const StyleProfileImg = {
   `,
   EditButton: styled.button`
     position: absolute;
-    bottom: 51%;
-    right: 33%;
+    bottom: -10px;
+    right: 140px;
     padding: 5px;
     cursor: pointer;
   `,

@@ -34,7 +34,7 @@ export default function ProfileImg({
         }}
         onClick={onClick}
       />
-      {onClick && (
+      {onClick && ( 
         <StyleProfileImg.EditButton onClick={onClick}>
           <Camera width={35} height={35} />
         </StyleProfileImg.EditButton>
