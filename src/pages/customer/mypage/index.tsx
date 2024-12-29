@@ -35,11 +35,13 @@ export default function CustomerMyPage() {
   const [toastMessage, setToastMessage] = useState<string | null>(null); // 토스트 메시지 상태 추가
 
   useEffect(() => {
-    // location.state로부터 toastMessage 가져오기
     if (location.state?.toastMessage) {
-      setToastMessage(location.state.toastMessage); // 메시지를 상태로 저장
+      setToastMessage(location.state.toastMessage);
+
+      // 메시지를 표시한 뒤 location.state 초기화
+      navigate(location.pathname, { replace: true });
     }
-  }, [location]); // location이 변경될 때마다 토스트 메시지를 업데이트
+  }, [location, navigate]);
 
   useEffect(() => {
     const fetchPuppyProfiles = async () => {

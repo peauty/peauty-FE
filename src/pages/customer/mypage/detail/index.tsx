@@ -25,11 +25,13 @@ export default function CustomerMyPageDetail() {
   const location = useLocation();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   useEffect(() => {
-    // location.state로부터 toastMessage 가져오기
     if (location.state?.toastMessage) {
-      setToastMessage(location.state.toastMessage); // 메시지를 상태로 저장
+      setToastMessage(location.state.toastMessage);
+
+      // 메시지를 표시한 뒤 location.state 초기화
+      navigate(location.pathname, { replace: true });
     }
-  }, [location]);
+  }, [location, navigate]);
 
   useEffect(() => {
     const fetchProfile = async () => {

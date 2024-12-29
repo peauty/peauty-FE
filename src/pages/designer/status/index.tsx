@@ -66,16 +66,18 @@ export default function Status() {
     // location.state로부터 toastMessage 가져오기
     if (location.state?.toastMessage) {
       setToastMessage(location.state.toastMessage);
+      // 메시지를 표시한 후 location.state 초기화
+      navigate(location.pathname, { replace: true });
     }
-  }, [location.state]);
+  }, [location.state, navigate]);
 
-  // 일정 시간 후 토스트 메시지 숨기기
-  useEffect(() => {
-    if (toastMessage) {
-      const timer = setTimeout(() => setToastMessage(null), 2500); // 3초 후 사라짐
-      return () => clearTimeout(timer);
-    }
-  }, [toastMessage]);
+  // // 일정 시간 후 토스트 메시지 숨기기
+  // useEffect(() => {
+  //   if (toastMessage) {
+  //     const timer = setTimeout(() => setToastMessage(null), 2500); // 3초 후 사라짐
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [toastMessage]);
 
   useEffect(() => {
     const fetchData = async () => {
