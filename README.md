@@ -127,4 +127,7 @@ src/style
     •	router.tsx: 라우터 설정 파일로 각 페이지를 연결.
 
 ---
+### 디자인 시스템
+<img width="2474" alt="디자인 시스템1" src="https://github.com/user-attachments/assets/6a0b4fb2-02d9-4beb-b74e-d96e76744b5d" />
+
 
