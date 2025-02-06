@@ -114,8 +114,8 @@ export default function DesignerMyPageEdit() {
         <ProfileImg
           src={profile.profileImageUrl || "default-profile.png"}
           alt="profileImage"
-          width="176px"
-          height="176px"
+          width="198px"
+          height="198px"
           onClick={() => console.log("click")}
         />
         <CustomInput

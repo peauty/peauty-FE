@@ -37,10 +37,8 @@ export default function Request() {
         return;
       }
 
-      // API 호출
       await initProcessWithSendEstimateProposal(userId, puppyId, formData);
 
-      // 성공 시 이동
       alert("요청이 성공적으로 완료되었습니다.");
       navigate(ROUTE.customer.mypage.home);
     } catch (error) {
@@ -67,6 +65,7 @@ export default function Request() {
           inputData={formData}
           handleChange={handleChange}
           handleArrayChange={handleArrayChange}
+          // setShowToast={(value: boolean) => setState(value)}
         />
       );
   }

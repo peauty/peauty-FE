@@ -2,7 +2,7 @@ export type ScissorsType = "NONE" | "GOLD" | "SILVER" | "BRONZE";
 
 export type BadgeColorType = "BLUE" | "GREEN" | "BRONZE" | "SILVER" | "GOLD";
 
-export type BadgeTypeType = "GENERAL" | "SCISSORS";
+export type BadgeType = "GENERAL" | "SCISSORS";
 
 export type PaymentOptionType = "CARD" | "CASH" | "ACCOUNT";
 
@@ -175,7 +175,7 @@ export interface GetDesignerBadgesResponse {
     badgeContent?: string;
     badgeImageUrl?: string;
     badgeColor?: BadgeColorType;
-    badgeType?: BadgeTypeType;
+    badgeType?: BadgeType;
   }[];
   unacquiredBadges?: BadgeResponse[];
   representativeBadges?: BadgeResponse[];
@@ -187,7 +187,7 @@ export interface BadgeResponse {
   badgeContent?: string;
   badgeImageUrl?: string;
   badgeColor?: BadgeColorType;
-  badgeType?: BadgeTypeType;
+  badgeType?: BadgeType;
 }
 
 export interface CheckDesignerNicknameDuplicatedResponse {

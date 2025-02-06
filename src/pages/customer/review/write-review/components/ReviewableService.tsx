@@ -10,26 +10,8 @@ import {
   TotalPriceBox,
 } from "../index.styles";
 import { ReviewAtom } from "../../../../../atoms/reviewAtom";
-
-// 날짜를 한글로 표현하는 함수
-const formatDateToKorean = (dateString: string): string => {
-  // 시간 부분이 한 자리가 되지 않도록 수정
-  const formattedDateString = dateString.replace(/T(\d{1}):/g, "T0$1:");
-
-  const date = new Date(formattedDateString);
-
-  if (isNaN(date.getTime())) {
-    return "날짜 정보 없음";
-  }
-
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줌
-  const day = date.getDate();
-  const hours = date.getHours();
-
-  // 한글로 표현
-  return `${year}년 ${month}월 ${day}일 ${hours}시`;
-};
+import { colors } from "../../../../../style/color";
+import { formatDate } from "../../../../../utils/dataformat";
 
 export default function ReviewableService() {
   // Recoil에서 ReviewAtom 값 불러오기
@@ -73,7 +55,7 @@ export default function ReviewableService() {
   const { estimateProposal, estimate, designer } = serviceDetails;
 
   const date = estimateProposal?.desiredDateTime
-    ? formatDateToKorean(estimateProposal.desiredDateTime)
+    ? formatDate(estimateProposal.desiredDateTime)
     : "날짜 정보 없음";
 
   const designerName = designer?.workspaceName || "디자이너 정보 없음";
@@ -90,15 +72,33 @@ export default function ReviewableService() {
         <ServiceBox>
           <BackgroundImg src={backgroundImg} alt="배경이미지" />
           <ServiceInfoWrapper>
-            <Text typo="body400" color="blue100">
-              {date}
-            </Text>
+            <div
+              style={{
+                display: "flex",
+                gap: "5px",
+              }}
+            >
+              <span
+                style={{
+                  backgroundColor: `${colors.background}`,
+                  padding: "1px 3px",
+                  fontSize: "11px",
+                  borderRadius: "2px",
+                  fontWeight: "500",
+                }}
+              >
+                미용날짜
+              </span>
+              <Text typo="body400" color="gray100">
+                {date}
+              </Text>
+            </div>
             <Text typo="subtitle200">{designerName}</Text>
             <Text typo="body300">
               <Text typo="body300" color="gray100">
                 진행한 미용{" "}
               </Text>
-              {serviceType}
+              <span style={{ color: `${colors.blue100}` }}>{serviceType}</span>
             </Text>
           </ServiceInfoWrapper>
         </ServiceBox>
@@ -106,7 +106,7 @@ export default function ReviewableService() {
         <TotalPriceBox>
           <Text typo="body100">총 금액</Text>
           <Text typo="subtitle300" color="blue100">
-            {totalPrice} 원
+            {new Intl.NumberFormat().format(totalPrice)} 원
           </Text>
         </TotalPriceBox>
       </ReviewableServiceWrapper>

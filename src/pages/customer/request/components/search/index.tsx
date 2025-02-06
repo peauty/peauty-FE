@@ -25,6 +25,7 @@ import {
 import { ROUTE } from "../../../../../constants/routes";
 import Loading from "../../../../../components/page/sign-up/Loading";
 import { SendEstimateProposalRequest } from "../../../../../types/customer/bidding";
+import Toast from "../../../../../components/toast";
 
 interface SearchStepProps {
   onNext: () => void;
@@ -44,7 +45,7 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
   const [isFetched, setIsFetched] = useState(false);
   const navigate = useNavigate();
   const [sortOption, setSortOption] = useState<string>("최신순");
-
+  const [showToast, setShowToast] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       if (!user || !user.userId || isFetched) {
@@ -56,7 +57,6 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
         const response: GetAroundWorkspacesResponse = await getAroundWorkspaces(
           user.userId,
         );
-        console.log(response);
         setCustomerAddress(response.customerAddress || "알 수 없음");
         setWorkspaces(response.workspaces || []);
         setCheckedItems(Array(response.workspaces?.length || 0).fill(false));
@@ -154,14 +154,12 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
                 label: "최신순",
                 onClick: () => {
                   setSortOption("최신순");
-                  console.log("최신순 선택");
                 },
               },
               {
                 label: "평점 높은순",
                 onClick: () => {
                   setSortOption("평점 높은순");
-                  console.log("평점 높은순 선택");
                 },
               },
             ]}
@@ -221,6 +219,8 @@ export default function Search({ onNext, handleArrayChange }: SearchStepProps) {
       ) : (
         <GNB type="customer" />
       )}
+
+      {showToast && <Toast>견적 요청이 성공적으로 완료되었습니다!</Toast>}
     </>
   );
 }

@@ -162,12 +162,13 @@ export interface GetEstimateAndProposalDetailsResponse {
     imageUrls?: string[];
   };
   designer?: {
-    badges?:string[];
+    badges?: string[];
     reviewRating: number;
     reviewCount?: number;
     profileImageUrl?: string;
     workspaceName?: string;
     address?: string;
+    yearsOfExperience?: number;
   };
 }
 
@@ -309,7 +310,7 @@ export interface GetOngoingProcessWithStep1ThreadsResponseItem {
 
 export interface GetAllStep3AboveThreadsResponse {
   threads?: {
-    estimate: any;//타입에러
+    estimate: any; //타입에러
     processId?: number;
     threadId?: number;
     threadStep?: string;

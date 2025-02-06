@@ -119,11 +119,12 @@ export default function QuoteDetail() {
                     요청 스타일
                   </Text>
                   <Text typo="body100">
-                    {proposalData.estimateProposal?.totalGroomingFaceType ||
-                      "없음"}{" "}
-                    +{" "}
-                    {proposalData.estimateProposal?.totalGroomingBodyType ||
-                      "없음"}
+                    {proposalData.estimateProposal?.style !== "위생미용"
+                      ? `${proposalData.estimateProposal?.totalGroomingFaceType || "없음"} + ${
+                          proposalData.estimateProposal
+                            ?.totalGroomingBodyType || "없음"
+                        }`
+                      : proposalData.estimateProposal?.style}
                   </Text>
                 </RequestSection>
                 <RequestSection>
@@ -226,8 +227,12 @@ export default function QuoteDetail() {
                 <Text typo="body400">미용 종류</Text>
               </DetailLabel>
               <Text typo="body300">
-                {proposalData.estimateProposal?.totalGroomingFaceType} +{" "}
-                {proposalData.estimateProposal?.totalGroomingBodyType}
+                {proposalData.estimateProposal?.style !== "위생미용"
+                  ? `${proposalData.estimateProposal?.totalGroomingFaceType || "없음"} + ${
+                      proposalData.estimateProposal?.totalGroomingBodyType ||
+                      "없음"
+                    }`
+                  : proposalData.estimateProposal?.style}
               </Text>
             </DetailRow>
             <DetailRow>

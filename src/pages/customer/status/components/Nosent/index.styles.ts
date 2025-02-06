@@ -18,9 +18,8 @@ export const Button = styled.button`
 
 export const Wrapper = styled.div`
   display: flex;
-  padding: 0 25px;
-  margin-top: 80px;
- // height: calc(100vh - ${theme.size.appBarHeight} - ${theme.size.gnbHeight} - 50px);
+  height: calc(100vh - 304px);
+  margin: auto;
   justify-content: center;
   align-items: center;
 `;
@@ -28,20 +27,18 @@ export const Wrapper = styled.div`
 export const ContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   text-align: center;
-  gap: 20px;
-  margin-bottom: 50px;
+  gap: 10px;
 `;
 
 export const IconTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 `;
-
 
 export const IconWrapper = styled.div`
   display: flex;
-  padding: 30px 0;
+  margin-bottom: 20px;
 `;

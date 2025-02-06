@@ -52,7 +52,15 @@ export default function CustomerInfo({
   reservation,
 }: CustomerInfoProps) {
   const pay = payment.toLocaleString();
-  const reservationColor = reservation === "예약 완료" ? "blue100" : "gray100";
+  function statusText(reservation?: string) {
+    if (reservation === "예약완료") return "예약 완료";
+    if (reservation === "미용완료") return "미용 완료";
+    return "알 수 없음";
+  }
+
+  // 상태 색상 결정
+  const reservationColor = reservation === "예약완료" ? "blue100" : "gray100";
+
   return (
     <>
       <CardContainer>
@@ -62,7 +70,7 @@ export default function CustomerInfo({
             <NameWrapper>
               <Text typo="subtitle200">{store}</Text>
               <Text typo="subtitle200" color={reservationColor}>
-                {reservation}
+                {statusText(reservation)}
               </Text>
             </NameWrapper>
             <ContentsWrapper>

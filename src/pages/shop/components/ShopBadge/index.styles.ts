@@ -14,13 +14,13 @@ export const BadgeGrid = styled.div`
   padding: 15px;
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4개의 열로 구성 */
-  grid-gap: 20px; /* 배지 간의 간격 */
-  justify-items: center; /* 배지 중앙 정렬 */
+  grid-gap: 15px;
   align-items: start; /* 배지 텍스트가 상단 정렬되도록 */
 `;
 
 export const BadgeItem = styled.div`
-  display: flex;
+  /* display: flex; */
+  /* width: 90px; */
   flex-direction: column; /* 활성화된 배지의 배경색 변경 */
   cursor: pointer;
   justify-content: center;

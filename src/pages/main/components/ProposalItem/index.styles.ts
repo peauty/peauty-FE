@@ -8,7 +8,7 @@ export const LocationWrapper = styled.div`
 `;
 
 export const EstimatePreviewWrap = styled.div`
-  padding: 20px 25px;
+  padding: 25px 30px;
   border-radius: 20px;
   background-color: ${colors.gray400};
 `;

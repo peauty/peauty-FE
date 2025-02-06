@@ -1,5 +1,6 @@
 import { Letter, Pin } from "../../../../../assets/svg";
 import { AppBar, GNB, Text } from "../../../../../components";
+import { colors } from "../../../../../style/color";
 import {
   IconBox,
   NoticeBox,
@@ -18,39 +19,29 @@ type Notice = {
 const notices: Notice[] = [
   {
     id: 1,
-    icon: <Pin width={30} />,
-    title: "하루에 3번",
-    description: [
-      "견적서 요청은 하루에 최대 3번까지 가능해요.",
-      "최대한 신중하게 작성해주세요!",
-    ],
+    icon: <Pin width={22} />,
+    title: "반려견당 한번",
+    description: ["반려견당 한 번만 가능해요! \n최대한 신중하게 작성해주세요!"],
   },
   {
     id: 2,
-    icon: <Pin width={30} />,
+    icon: <Pin width={22} />,
     title: "수락은 1번",
     description: [
-      "한 견적서에 대한 수락은 다수로 불가능해요!",
-      "미용사들이 보낸 견적서를 꼼꼼히 읽고 선택하세요.",
+      "한 견적서에 대한 수락은 다수로 불가능해요! \n 미용사들이 보낸 견적서를 꼼꼼히 읽고 선택하세요.",
     ],
   },
   {
     id: 3,
-    icon: <Pin width={30} />,
+    icon: <Pin width={22} />,
     title: "수정은 불가능해요",
-    description: [
-      "요청이 완료된 견적서는 수정이 어려워요.",
-      "새로운 요청을 원한다면 다시 견적서를 작성해주세요.",
-    ],
+    description: ["요청이 완료된 견적서는 수정이 어려워요."],
   },
   {
     id: 4,
-    icon: <Pin width={30} />,
+    icon: <Pin width={22} />,
     title: "견적서 검토 시간",
-    description: [
-      "견적서 검토는 약 24시간이 소요될 예정이에요.",
-      "빠르게 검토를 완료할게요!",
-    ],
+    description: ["견적서 검토는 디자이너별로 달라요."],
   },
 ];
 
@@ -63,17 +54,28 @@ export default function CustomerRequestNotice({ onNext }: NoticeStepProps) {
     <>
       <AppBar prefix="backButton" />
       <Wrapper>
-        <Letter width={90} />
-
-        <Text typo="subtitle200">요청 전에 확인해주세요</Text>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
+          <Letter width={90} />
+          <Text typo="subtitle200" color="blue100">
+            요청 전에 확인해주세요
+          </Text>
+        </div>
 
         <NoticeBox>
           {notices.map((notice) => (
             <NoticeContentBox key={notice.id}>
               <IconBox>{notice.icon}</IconBox>
               <NoticeContent>
-                <Text typo="subtitle200">{notice.title}</Text>
-                <Text typo="body100" color="gray200">
+                <Text typo="subtitle300">{notice.title}</Text>
+                <Text typo="body100" color="gray100">
                   {notice.description.map((line, index) => (
                     <div key={index}>
                       {line}

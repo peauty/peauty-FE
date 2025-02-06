@@ -66,16 +66,18 @@ export default function Status() {
     // location.state로부터 toastMessage 가져오기
     if (location.state?.toastMessage) {
       setToastMessage(location.state.toastMessage);
+      // 메시지를 표시한 후 location.state 초기화
+      navigate(location.pathname, { replace: true });
     }
-  }, [location.state]);
+  }, [location.state, navigate]);
 
-  // 일정 시간 후 토스트 메시지 숨기기
-  useEffect(() => {
-    if (toastMessage) {
-      const timer = setTimeout(() => setToastMessage(null), 2500); // 3초 후 사라짐
-      return () => clearTimeout(timer);
-    }
-  }, [toastMessage]);
+  // // 일정 시간 후 토스트 메시지 숨기기
+  // useEffect(() => {
+  //   if (toastMessage) {
+  //     const timer = setTimeout(() => setToastMessage(null), 2500); // 3초 후 사라짐
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [toastMessage]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,6 +93,8 @@ export default function Status() {
         } else if (activeTab === "confirmed") {
           const data = await getStep3AboveThreads(userId);
           setConfirmedData(data.threads || []);
+          console.log(data.threads);
+          console.log("확정" + JSON.stringify(confirmedData, null, 2));
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -118,8 +122,15 @@ export default function Status() {
       return;
     }
 
+    console.log("handleCompleteGrooming 호출됨:", {
+      userId,
+      processId,
+      threadId,
+    });
+
     try {
       const response = await completeGrooming(userId, processId, threadId);
+      console.log("미용 완료 성공:", response);
       setIsConfirmDialogOpen(false);
       window.location.reload();
     } catch (error) {
@@ -132,8 +143,9 @@ export default function Status() {
     threadId: number,
     threadStep: string,
   ) => {
+    console.log("handleModalOpen 호출됨:", { processId, threadId, threadStep });
     if (threadStep === "미용완료") {
-      setIsAlreadyCompleteDialogOpen(true); // 이미 완료된 미용 모달 열기
+      setIsAlreadyCompleteDialogOpen(true);
     } else {
       setCurrentThread({ processId, threadId });
       setIsConfirmDialogOpen(true);

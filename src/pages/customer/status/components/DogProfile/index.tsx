@@ -18,6 +18,7 @@ interface DogProfileProps {
   onClick: () => void;
   active: boolean;
 }
+
 const DogProfile = ({
   src,
   name,
@@ -26,18 +27,18 @@ const DogProfile = ({
   active,
 }: DogProfileProps) => {
   const shortenedName = name.length > 5 ? `${name.slice(0, 4)}..` : name;
-  // ref를 추가하여 활성화된 프로필의 위치로 스크롤
   const profileRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (active && profileRef.current) {
       profileRef.current.scrollIntoView({
         behavior: "smooth",
-        inline: "center", // 수평 스크롤의 중앙으로 위치
-        block: "nearest", // 세로 스크롤이 있을 경우 가장 가까운 위치로 이동
+        inline: "center",
+        block: "nearest",
       });
     }
   }, [active]);
+
   return (
     <DogProfileWrapper onClick={onClick} ref={profileRef}>
       <RoundImg
@@ -61,6 +62,8 @@ export default function DogList({ setPuppyId }: DogListProps) {
     useState<GetPuppyProfilesWithCanStartProcessStatusResponse | null>(null);
   const [selectedDog, setSelectedDog] = useState<string>("");
 
+  const listRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (userId && !isLoading) {
       getPuppyProfilesWithCanStartProcessStatus(userId)
@@ -68,30 +71,24 @@ export default function DogList({ setPuppyId }: DogListProps) {
           const puppies = data?.puppies;
           if (Array.isArray(puppies) && puppies.length > 0) {
             setPuppyData(data);
-            setSelectedDog(puppies[0].name || ""); // 기본적으로 첫 번째 강아지 선택
-            setPuppyId(puppies[0].puppyId || 0); // 첫 번째 강아지의 puppyId를 부모로 전달
+            setSelectedDog(puppies[0].name || ""); // 첫 번째 강아지 선택
+            setPuppyId(puppies[0].puppyId || 0); // 첫 번째 강아지 ID 전달
           } else {
-            setPuppyData(null); // 강아지 데이터가 없으면 null로 설정
+            setPuppyData(null); // 강아지 데이터 없으면 null 설정
           }
         })
-        .catch((error) => {
-          console.error("API 호출 오류:", error);
-        });
+        .catch((error) => console.error("API 호출 오류:", error));
     }
   }, [userId, isLoading, setPuppyId]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   const dogs = puppyData?.puppies || [];
 
-  if (dogs.length === 0) {
-    return ""; // 강아지 데이터가 없으면 NotFoundPuppy 렌더링
-  }
+  if (dogs.length === 0) return null;
 
   return (
-    <DogListWrapper>
+    <DogListWrapper ref={listRef}>
       {dogs.map((dog, index) => (
         <DogProfile
           key={index}
@@ -101,6 +98,15 @@ export default function DogList({ setPuppyId }: DogListProps) {
           onClick={() => {
             setSelectedDog(dog.name || "");
             setPuppyId(dog.puppyId || 0);
+            const dogProfileElement = listRef.current?.children[
+              index
+            ] as HTMLElement;
+            if (dogProfileElement) {
+              dogProfileElement.scrollIntoView({
+                behavior: "smooth",
+                inline: "center",
+              });
+            }
           }}
         />
       ))}

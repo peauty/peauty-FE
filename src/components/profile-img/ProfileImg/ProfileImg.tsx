@@ -32,8 +32,9 @@ export default function ProfileImg({
           filter: isDarkened ? "brightness(0.5)" : "none", // 어둡게 처리
           transition: "filter 0.3s ease", // 부드럽게 전환
         }}
+        onClick={onClick}
       />
-      {onClick && (
+      {onClick && ( 
         <StyleProfileImg.EditButton onClick={onClick}>
           <Camera width={35} height={35} />
         </StyleProfileImg.EditButton>

@@ -28,7 +28,7 @@ export const StyleProfileImg = {
   EditButton: styled.button`
     position: absolute;
     bottom: -10px;
-    right: 140px;
+    right: 30%;
     padding: 5px;
     cursor: pointer;
   `,

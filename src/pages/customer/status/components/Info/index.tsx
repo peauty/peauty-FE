@@ -7,13 +7,13 @@ import {
 } from "./index.styles";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../../../../../components";
-
+import { formatDashDate } from "../../../../../utils/dataformat";
 interface InfoProps {
   requestDate: string;
   requestText: string;
-  userId: number;  // userId 타입 추가
-  puppyId: number;  // puppyId 타입 추가
-  processId: number;  // processId 타입 추가
+  userId: number; // userId 타입 추가
+  puppyId: number; // puppyId 타입 추가
+  processId: number; // processId 타입 추가
 }
 
 export default function Info({
@@ -29,14 +29,13 @@ export default function Info({
     console.log("Navigating to URL:", url); // URL을 콘솔에 출력
     navigate(url);
   };
-  
 
   return (
     <Container>
       <InnerBox>
-        <Text typo="body300" color="gray100">
+        <Text typo="body400" color="gray100">
           <RequestDate>요청일</RequestDate>
-          {requestDate}
+          {formatDashDate(requestDate)}
         </Text>
         <CutTextWrapper>
           <Text typo="subtitle300" color="blue100">

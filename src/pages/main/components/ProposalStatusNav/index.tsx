@@ -3,7 +3,10 @@ import { NavigationWrapper, Tab, ContentWrapper } from "./index.styles";
 import { useState } from "react";
 import StylistItem from "../../../../components/stylist-Item/StylistItem";
 import PetlistItem from "../../../../components/petlist-item/PetlistItem";
-
+import { colors } from "../../../../style/color";
+import { Button } from "./index.styles";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../../constants/routes";
 interface HomeProps {
   title: string;
   firstNav: string;
@@ -16,7 +19,10 @@ export default function ProposalStautsNav({
   secendNav,
 }: HomeProps) {
   const [activeTab, setActiveTab] = useState<"received" | "waiting">("waiting");
-
+  const navigate = useNavigate();
+  const handleStatus = () => {
+    navigate(ROUTE.customer.request.home);
+  };
   return (
     <div>
       <NavigationWrapper>
@@ -44,7 +50,7 @@ export default function ProposalStautsNav({
         </Tab>
       </NavigationWrapper>
       <ContentWrapper>
-        {activeTab === "waiting" ? (
+        {/* {activeTab === "waiting" ? (
           <div>
             {title === "견적" ? (
               <StylistItem
@@ -108,7 +114,20 @@ export default function ProposalStautsNav({
               />
             )}
           </div>
-        )}
+        )} */}
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignContent: "center",
+            textAlign: "center",
+          }}
+        >
+          <Text typo="body300">견적을 요청해 보세요</Text>
+          <Button onClick={handleStatus}>견적 요청하기</Button>
+        </div>
       </ContentWrapper>
     </div>
   );

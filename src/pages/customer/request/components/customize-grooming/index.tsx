@@ -77,6 +77,7 @@ interface LastStepProps {
     key: keyof SendEstimateProposalRequest,
     value: any[],
   ) => void;
+  setShowToast?: (value: boolean) => void;
 }
 
 export default function CustomizeGrooming({
@@ -84,6 +85,7 @@ export default function CustomizeGrooming({
   inputData,
   handleChange,
   handleArrayChange,
+  setShowToast,
 }: LastStepProps) {
   const [desiredCostError, setDesiredCostError] = useState("");
   const [selectedBodyIndex, setSelectedBodyIndex] = useState<number | null>(

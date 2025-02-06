@@ -83,7 +83,7 @@ export default function ReviewableService() {
       {threads.map((thread, index) => {
         const {
           threadId,
-          threadStatus,
+          threadStep,
           thumbnailUrl,
           workspaceName,
           score,
@@ -110,7 +110,7 @@ export default function ReviewableService() {
               store={workspaceName || "업체 이름 없음"}
               score={score || 0}
               review={reviewCount || 0}
-              reservation={threadStatus || "예약 상태 없음"}
+              reservation={threadStep || "예약 상태 없음"}
               thumbnailUrl={thumbnailUrl || ""}
               buttons={[
                 {

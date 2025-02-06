@@ -13,12 +13,12 @@ import {
 
 interface BadgeModalProps {
   badge: {
-    badgeId: number;
-    badgeName: string;
-    badgeContent: string;
-    badgeColor: string;
-    badgeType: string;
-    badgeImageUrl: string; // React.ReactElement 대신 string으로 수정
+    badgeId?: number;
+    badgeName?: string;
+    badgeContent?: string;
+    badgeColor?: string;
+    badgeType?: string;
+    badgeImageUrl?: string; // React.ReactElement 대신 string으로 수정
   };
   onClose: () => void; // 모달 닫기 함수
   iconSize?: number; // 아이콘 크기

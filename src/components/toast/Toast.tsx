@@ -15,7 +15,7 @@ export default function Toast({ children, style }: ToastProps) {
     // 2초 후에 토스트를 숨깁니다.
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 2000);
+    }, 2500);
 
     // 컴포넌트가 언마운트될 때 타이머를 정리합니다.
     return () => clearTimeout(timer);
@@ -25,7 +25,9 @@ export default function Toast({ children, style }: ToastProps) {
   if (!isVisible) return null;
 
   return (
-    <ToastWrapper style={style}> {/* style props을 ToastWrapper에 전달 */}
+    <ToastWrapper style={style}>
+      {" "}
+      {/* style props을 ToastWrapper에 전달 */}
       <CheckIcon>
         <Check width="20px" height="20px" />
       </CheckIcon>

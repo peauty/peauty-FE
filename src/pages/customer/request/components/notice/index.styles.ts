@@ -7,8 +7,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* overflow-y: scroll; */
+  height: calc(100vh - ${theme.size.gnbHeight});
+  padding: 0 10px 100px;
   gap: 20px;
-  height: calc(100vh - ${theme.size.appBarHeight});
 `;
 
 export const IconBox = styled.div`
@@ -20,10 +22,10 @@ export const NoticeBox = styled.div`
   display: flex;
   flex-direction: column;
   border: 2px solid ${colors.gray400};
+  width: 100%;
   border-radius: 10px;
-  padding: 37px;
-  gap: 50px;
-  margin-top: 30px;
+  padding: 40px 30px;
+  gap: 40px;
 `;
 
 export const NoticeContentBox = styled.div`
@@ -33,5 +35,7 @@ export const NoticeContentBox = styled.div`
 export const NoticeContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
+  white-space: pre-line;
+  line-height: 1.3;
 `;

@@ -56,6 +56,12 @@ export default function Status() {
     const fetchData = async () => {
       if (userId && puppyId !== null) {
         try {
+          // 상태 초기화
+          setStatusItemData(null);
+          setStep2ThreadsData(null);
+          setThreadsData(null);
+
+          // Step 1 데이터 가져오기
           const step1Data = await getOngoingProcessWithStep1Threads(
             userId,
             puppyId,
@@ -65,7 +71,8 @@ export default function Status() {
               name: step1Data.info.requestText || "견적을 요청하세요",
               store: step1Data.stores?.[0]?.store || "견적을 요청하세요",
               location: step1Data.stores?.[0]?.location || "견적을 요청하세요",
-              reservation: step1Data.stores?.[0]?.threadStep || "견적을 요청하세요",
+              reservation:
+                step1Data.stores?.[0]?.threadStep || "견적을 요청하세요",
               score: step1Data.stores?.[0]?.score || 0,
               review: step1Data.stores?.[0]?.review || 0,
               date: step1Data.info.requestDate || "",
@@ -77,14 +84,13 @@ export default function Status() {
               thumbnailUrl: step1Data.stores?.[0]?.thumbnailUrl || Basic,
             });
           }
+
+          // Step 2 데이터 가져오기
           const step2Data = await getOngoingProcessWithStep2Threads(
             userId,
             puppyId,
           );
           setStep2ThreadsData(step2Data);
-
-          const step3Data = await getAllStep3AboveThreads(userId, puppyId);
-          setThreadsData(step3Data);
 
           if (step2Data.info) {
             setProcessId(step2Data.info.processId || 0);
@@ -93,14 +99,23 @@ export default function Status() {
           if (step2Data.stores && step2Data.stores.length > 0) {
             setThreadId(step2Data.stores[0].threadId || 0);
           }
+
+          // Step 3 데이터 가져오기
+          const step3Data = await getAllStep3AboveThreads(userId, puppyId);
+          setThreadsData(step3Data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
+      } else {
+        // puppyId가 없으면 상태 초기화
+        setStatusItemData(null);
+        setStep2ThreadsData(null);
+        setThreadsData(null);
       }
     };
 
     fetchData();
-  }, [userId, puppyId]);
+  }, [userId, puppyId]); // puppyId가 변경될 때마다 실행
 
   const handleTabClick = (tab: "sent" | "received" | "confirmed") => {
     setActiveTab(tab);
@@ -149,37 +164,35 @@ export default function Status() {
     switch (activeTab) {
       case "sent":
         if (!statusItemData) {
-          // step1Data.info가 없을 때 Nosend 컴포넌트만 렌더링
           return <Nosend />;
         }
         return (
           <>
-            {statusItemData ? (
-              <>
-                <Info
-                  requestDate={statusItemData.date}
-                  requestText={statusItemData.name}
-                  userId={0}
-                  puppyId={0}
-                  processId={0}
-                />
-                <StatusListItem
-                  location={statusItemData.location}
-                  store={statusItemData.store}
-                  score={statusItemData.score}
-                  review={statusItemData.review}
-                  badges={statusItemData.badges}
-                  thumbnailUrl={statusItemData.thumbnailUrl}
-                  onClick={() => console.log("StatusListItem clicked")}
-                />
-              </>
-            ) : (
-              <Nosend />
-            )}
+            <>
+              <Info
+                requestDate={statusItemData.date}
+                requestText={statusItemData.name}
+                userId={0}
+                puppyId={0}
+                processId={0}
+              />
+              <StatusListItem
+                location={statusItemData.location}
+                store={statusItemData.store}
+                score={statusItemData.score}
+                review={statusItemData.review}
+                badges={statusItemData.badges}
+                thumbnailUrl={statusItemData.thumbnailUrl}
+                onClick={() => console.log("StatusListItem clicked")}
+              />
+            </>
           </>
         );
 
       case "received":
+        if (!statusItemData) {
+          return <NoReceived hasStatus={!!statusItemData} type="받은" />;
+        }
         return (
           <>
             <Info
@@ -207,7 +220,7 @@ export default function Status() {
                 />
               ))
             ) : (
-              <NoReceived />
+              <NoReceived hasStatus={true} type="받은" />
             )}
           </>
         );
@@ -233,7 +246,7 @@ export default function Status() {
                 />
               ))
             ) : (
-              <NoReceived />
+              <NoReceived hasStatus={false} type="확정된" />
             )}
           </>
         );

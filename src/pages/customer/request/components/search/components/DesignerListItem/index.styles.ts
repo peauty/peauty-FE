@@ -56,6 +56,7 @@ export const Thumbnail = styled.img`
   width: 90px;
   height: 90px;
   border-radius: 5px;
+  object-fit: cover;
 `;
 
 export const Details = styled.div`

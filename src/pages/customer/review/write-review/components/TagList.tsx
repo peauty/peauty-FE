@@ -78,7 +78,7 @@ export default function TagList({ onTagChange, value = [] }: TagListProps) {
         >
           {item.icon}
           <Text
-            typo="body500"
+            typo="body600"
             color={selectedTagIds.includes(item.id) ? "blue100" : "gray200"}
           >
             {item.text}
